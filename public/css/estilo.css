@@ -1,0 +1,132 @@
+*{ 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    max-width: 380px;
+}
+
+.texto {
+    position: relative;
+    top: -10px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px; /* Ajusta este valor según sea necesario */
+}
+
+.texto h1 {
+    color: #fff;
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif ;
+    background: linear-gradient(
+        180deg,
+        rgb(0, 0, 0) 0%,
+        rgb(38, 38, 39) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+form{
+    justify-content: center;
+    background-image:url(bg.png);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    padding: 10px;
+    width: 380px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0, 0.2);
+
+}
+form img{
+    width: 50px;
+    margin-bottom:10px;
+
+}
+.input-container{
+    position: relative;
+}
+.input-container > i {
+    padding: 14px;
+    border-radius: 50%;
+    background-color: #000000;
+    color: #fcfef7;
+    position: absolute;
+    font-size: 20px;
+    top: 7px;
+    right: 8px;
+
+}
+
+.input-container > input {
+
+    padding: 20px 40px 20px 15px;
+    width: 100%;
+    margin-bottom: 25px;
+    border-radius: 35px;
+    background-color: transparent;
+    border: 2px solid #000000;
+    font-size: 16px;
+    outline: none;
+    color: #fcfef7;
+}
+::placeholder{
+
+    color :#ffefff;
+    font-size: 16px;
+    
+}
+form a{
+    display: block;
+    color:#fcfef7;
+    font-size: 15px;
+    text-decoration: none;
+    margin-bottom: 25px;
+
+}
+.btn{
+    background-color: #000000;
+    padding: 14px 45px;
+    border:0;
+    box-shadow:0 0 20px rgba(0,0,0, 0.2);
+    border-radius: 25px;
+    color: #fcfef7;
+    cursor: pointer;
+    font-size: 15px;
+}
+.success{
+    margin-bottom: 580px;
+    position: absolute;
+    color: #fcfef7;
+    font-size: 20px;
+
+}
+.error{
+    margin-bottom: 580px;
+    position:absolute;
+    color: #e02d00;
+    font-size: 20px;
+    
+}
+@media(max-width: 991px){
+
+    body{
+        padding: 30px;
+    
+    }
+    form {
+        width: 100%;
+
+    };
+}

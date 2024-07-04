@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+body {
+    background-color: #454444d5;
+    font-family: "Poppins", sans-serif;
+  }
+  .carrito-img {
+    width: 220px; /* Ajusta el tamaño según tus necesidades */
+    height: auto; /* Mantiene la proporción de la imagen */
+    
+}
+.carrito-img:hover{
+    cursor: pointer; /* Cambiar el cursor al pasar por encima */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones para efectos */
+    background-color: #0c0c0c25; /* Color de fondo al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de levantar el botón al pasar el mouse */
+  
+}
+
+  .contenedor{
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .header{
+    display: flex;
+    align-items: center;
+    min-height: 80hv;
+    background-color: #272626;
+    padding: 40px 0;
+  }
+  .menu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo{
+    margin-top: 40px;
+    font-size: 25px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+
+
+.container {
+ 
+    margin-left: 150px;
+}
+  .container h2{
+    margin-right: 100px;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 28px;
+    color: #000000;
+  }
+
+  #tabla-carrito th{
+   text-transform: uppercase;
+   align-items: center;
+   padding: 10px;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    color: #ffffff;
+  }
+
+  #btn-finalizar-compra {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #000000; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 15px 30px; /* Relleno del botón */
+    font-size: 16px; /* Tamaño de la fuente */
+    font-weight: bold; /* Peso de la fuente */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar el cursor al pasar por encima */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones para efectos */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.219); /* Sombra para el botón */
+}
+
+#btn-finalizar-compra:hover {
+    background-color: #0c0c0cbf; /* Color de fondo al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de levantar el botón al pasar el mouse */
+}
+
+#btn-finalizar-compra:active {
+    background-color: #00000097; /* Color de fondo al hacer clic */
+    transform: translateY(0); /* Volver el botón a su posición original al hacer clic */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reducir la sombra al hacer clic */
+}
+#contenido-carrito{
+    
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+#total{
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.submenu {
+    
+    position: relative;
+    float: left;
+    margin-left: 90%;
+}
+
+.submenu #img-perfil {
+    margin-top: 5px;
+    width: 60px;
+    cursor: pointer;
+    
+}
+
+.submenu #perfil {
+     color: #ffffff;
+     padding: 5px;
+    display: none;
+}
+.submenu:hover #perfil {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    backdrop-filter: blur(10px);
+    z-index: 1;
+    background-color: #131313c3;
+    padding: 20px;
+    min-width: 400px;
+    cursor: pointer;
+    background-color: #0c0c0cbf;
+    transform: translateY(-2px);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#lista-perfil {
+    padding: 5px;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #ffffff;
+    border: none;
+}
+
+#salir-vendedor {
+    background-color: white; /* Fondo blanco */
+    color: black; /* Texto negro */
+    text-decoration: none; /* Sin subrayado */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
+    font-weight: bold; /* Peso de la fuente */
+    display: inline-block; /* Mostrar como un botón */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones para efectos */
+}
+
+#salir-vendedor:hover {
+    background-color: #f0f0f0; /* Fondo ligeramente gris al pasar el mouse */
+    color: black; /* Texto negro */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .menu {
+        flex-direction: column;
+    }
+
+    .submenu {
+        margin-left: auto;
+        margin-right: 10px;
+    }
+
+    .container h2 {
+        font-size: 24px;
+    }
+
+    #tabla-carrito th, #tabla-carrito td {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    #btn-finalizar-compra {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container h2 {
+        font-size: 20px;
+    }
+
+    #tabla-carrito th, #tabla-carrito td {
+        font-size: 10px;
+    }
+
+    #btn-finalizar-compra {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
