@@ -99,8 +99,7 @@
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Configuracion 
-                  de usuarios
+                  Config de usuarios
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -212,7 +211,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="?pagina=tipos_pagos" class="nav-link active">
+                  <a href="?pagina=tipo_pago" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tipos de pagos</p>
                   </a>
