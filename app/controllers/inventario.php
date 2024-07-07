@@ -9,7 +9,7 @@ $categoria = new Categoria();
 $data_categorias = $categoria->Listar();
 
 //Para listar los productos
-$data_products = $producto->Listar();
+$data_products = is_array($producto->Listar()) ? $producto->Listar() : [];
 session_start();
 
 //Para consultar el registro
