@@ -65,7 +65,7 @@
                                 </thead>
                                 <tbody></tbody>
                             </table>
-                            <a href="index.php" id="salir-vendedor" class="btn-2">Salir</a>
+                            <a href="?pagina=index.php" id="salir-vendedor" class="btn-2">Salir</a>
                         </div>
                     </li>
                 </ul>
