@@ -23,7 +23,7 @@
         <div class="col-md-6">
           <div class="card card-outline card-primary">
             <div class="card-header ">
-              <h3 class="card-title mb-0">Pagos Rgistrados</h3>
+              <h3 class="card-title mb-0">Tipos de Pagos Registrados</h3>
               <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-caja">Añadir Nuevo Tipo de Pago</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
