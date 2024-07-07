@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1 class="m-0">Listado de usuario</h1>
+            <h1 class="m-0">Lista de Pagos por verificar</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -24,12 +24,7 @@
             <div class="card card-outline card-primary">
               <div class="card-header d-flex align-items-center">
                 <div class="d-flex align-items-center">
-                  <h3 class="card-title mb-0">Usuarios registrados</h3>
-
-                  <a href="?pagina=usuario_create">
-                  <button type="submit" class="btn btn-primary ml-3">Añadir Usuario</button>
-                  </a>
-
+                  <h3 class="card-title mb-0">Pagos registrados</h3>
                 </div>
                 <div class="ml-auto">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -41,33 +36,13 @@
               <div class="card-body">
                 <table class="table table-bordered table-hover">
                   <tr>
-                    <th>Nro</th>
-                    <th>Nombre</th>
+                    <th>Nombre Usuario</th>
+                    <th>Tipo de pago</th>
                     <th>Email</th>
-                    <th>Rol</th>
+                    <th>Monto en Bolivares</th>
+                    <th>estatus del pago</th>
                   </tr>
-                    <tbody>
-                      <?php
-                        foreach ($data_users as $data_user) { ?>
-                          <tr>
-                            <td><?php echo $data_user['id_users']?></td>
-                            <td><?php echo $data_user['names']?></td>
-                            <td><?php echo $data_user['email']?></td>
-                            <td><?php echo $data_user['id_rol']?></td>
-            
-                            <td>
-                              <a href="editar_usuario.php?id=<?php echo $data_user['id_users']; ?>" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i>
-                              </a>
-                              <a href="eliminar_usuario.php?id=<?php echo $data_user['id_users']; ?>" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                              </a>
-                            </td>
-                          </tr>
-                      <?php
-                        }
-                      ?>
-                    </tbody>
+                
                 </table>
               </div>
 
