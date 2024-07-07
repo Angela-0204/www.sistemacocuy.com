@@ -49,25 +49,26 @@
                     </th>
                     <th>
                       <center>Accion</center>
+                      
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
                   $contador = 0;
-                  foreach ($data_pagos as $data_pago) {
-                    $id_tipo_caja = $data_pago['id_tipo_pago']; ?>
+                  foreach ($data_tipos as $data_tipo) {
+                    $id_tipo_pago = $data_tipo['id_tipo_pago']; ?>
 
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
-                      <td><?php echo $data_pago['nombre']; ?></td>
-                      <td><?php echo $data_pago['descripcion']; ?></td>
-                      <td><?php echo $data_pago['datos']; ?></td>
+                      <td><?php echo $data_tipo['nombre']; ?></td>
+                      <td><?php echo $data_tipo['descripcion']; ?></td>
+                      <td><?php echo $data_tipo['datos']; ?></td>
                       <td>
-                        <button onclick="editar(<?=$data_pago['id_tipo_pago'];?>)" class="btn btn-warning btn-sm">
+                        <button onclick="editar(<?=$data_tipo['id_tipo_pago'];?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="eliminar(<?=$data_pago['id_tipo_pago'];?>)" class="btn btn-danger btn-sm">
+                        <button onclick="eliminar(<?=$data_tipo['id_tipo_pago'];?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
                       </td>
