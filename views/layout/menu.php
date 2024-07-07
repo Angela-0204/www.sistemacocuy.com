@@ -186,23 +186,6 @@
 
             <li class="nav-item">
               <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-credit-card"></i>
-                <p>
-                 Gestion de pagos
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=usuario" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Listado de pagos</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-box"></i>
                 <p>
                  Gestion de cajas
@@ -219,6 +202,23 @@
               </ul>
             </li>
 
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-credit-card"></i>
+                <p>
+                 Gestion de pagos
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=tipos_pagos" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tipos de pagos</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
             <li class="nav-item">
               <a href="?pagina=login" class="nav-link" style="background-color: #C82333">
                 <i class="nav-icon fas fa-door-closed"></i>
