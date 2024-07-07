@@ -182,6 +182,28 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-landmark"></i>
+                <p>
+                 Reportar Pago
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=reportar_pago" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Hacer reporte</p>
+                  </a>
+                  <a href="?pagina=estatus" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Estatus de Pago</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
 
             <li class="nav-item">
               <a href="#" class="nav-link active">
@@ -214,6 +236,14 @@
                   <a href="?pagina=tipo_pago" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tipos de pagos</p>
+                  </a>
+                </li>
+              </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=tipo_pago" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Verificacion de Pagos</p>
                   </a>
                 </li>
               </ul>
