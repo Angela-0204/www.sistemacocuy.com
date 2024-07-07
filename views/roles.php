@@ -1,6 +1,6 @@
 <?php
 require_once('app/connectDB.php');
-require_once('app/models/Rol.php');
+require_once('app/models/rol.php');
 
 $rol = new Rol();
 $rol_datos = $rol->Listar();

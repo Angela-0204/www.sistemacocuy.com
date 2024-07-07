@@ -241,13 +241,34 @@
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="?pagina=tipo_pago" class="nav-link active">
+                  <a href="?pagina=verificacion" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Verificacion de Pagos</p>
                   </a>
                 </li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-folder-open"></i>
+                <p>
+                 Movimiento de Usuario
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=movimientos" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>tabla de Movimientos</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+
+
             <li class="nav-item">
               <a href="?pagina=login" class="nav-link" style="background-color: #C82333">
                 <i class="nav-icon fas fa-door-closed"></i>
