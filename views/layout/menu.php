@@ -99,7 +99,8 @@
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Usuarios
+                  Configuracion 
+                  de usuarios
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -107,19 +108,11 @@
                 <li class="nav-item">
                   <a href="?pagina=usuario" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Lista de usuarios</p>
+                    <p>Listar de usuarios</p>
                   </a>
                 </li>
+                
               </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-key"></i>
-                <p>
-                  Roles
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="?pagina=roles" class="nav-link active">
@@ -129,7 +122,7 @@
                 </li>
               </ul>
             </li>
-
+           
             <li class="nav-item">
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-cart-plus"></i>
