@@ -1,7 +1,7 @@
 <?php
 
 include('app/config.php'); 
-$pagina = "homepage";
+$pagina = "login";
 
 if (!empty($_GET['pagina'])){ 
  $pagina = $_GET['pagina']; 
