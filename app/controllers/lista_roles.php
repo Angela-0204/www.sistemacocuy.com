@@ -1,6 +1,6 @@
 <?php 
 include('app/connectDB.php');
-
+session_start();
 $db = new connectDB();
 $pdo = $db->getConnection();
 
