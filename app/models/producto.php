@@ -16,15 +16,14 @@ class Producto extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($id_producto, $codigo, $nombre, $descripcion, $id_categoria, $stock, $stock_minimo, $stock_maximo, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_caja, $litraje)
+    public function Crear($codigo, $nombre, $descripcion, $id_categoria, $stock, $stock_minimo, $stock_maximo, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_caja, $litraje)
     {
-        $sql = "INSERT TO inventario (id_producto, codigo, nombre, descripcion, id_categoria, stock, stock_minimo, stock_maximo, precio_venta, imagen, fyh_creacion, fyh_actualizacion, id_caja, litraje) 
-                VALUES (:id_producto, :codigo, :nombre, :descripcion, :id_categoria, :stock, :stock_minimo, :stock_maximo, :precio_venta, :imagen, :fyh_creacion, :fyh_actualizacion :id_caja, :litraje)";
+        $sql = "INSERT INTO inventario (codigo, nombre, descripcion, id_categoria, stock, stock_minimo, stock_maximo, precio_venta, imagen, fyh_creacion, fyh_actualizacion, id_caja, litraje) 
+                VALUES (:codigo, :nombre, :descripcion, :id_categoria, :stock, :stock_minimo, :stock_maximo, :precio_venta, :imagen, :fyh_creacion, :fyh_actualizacion, :id_caja, :litraje)";
         $resultado = $this->conex->prepare($sql);
         
         try {
             $resultado->execute([
-                'id_producto' => $id_producto,
                 'codigo' => $codigo,
                 'nombre' => $nombre,
                 'descripcion' => $descripcion,
@@ -39,6 +38,8 @@ class Producto extends connectDB
                 'id_caja' => $id_caja,
                 'litraje' => $litraje
             ]);
+            print_r($resultado);
+        exit();
         } catch (Exception $e) {
             echo "Error al crear el producto: " . $e->getMessage();
             return false;

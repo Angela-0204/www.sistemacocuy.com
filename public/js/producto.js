@@ -11,6 +11,8 @@ $("#registrar").click(function (e) {
     datos.append("stock_maximo", $("input[name='stock_maximo']").val());
     datos.append("precio", $("input[name='precio']").val());
     datos.append("fecha", $("input[name='fecha']").val());
+    datos.append("caja", $("select[name='caja']").val());
+    datos.append("litraje", $("input[name='litraje']").val());
     datos.append("imagen", $("input[name='imagen']")[0].files[0]);
     AjaxRegistrar(datos);
 });

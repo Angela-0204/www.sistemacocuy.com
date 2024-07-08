@@ -2,9 +2,14 @@
 include('app/config.php');
 include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
+include($MODELS . 'caja.php');
 $producto = new Producto();
 $categoria = new Categoria();
+$caja = new Caja();
+
+//Para listar categorias en los selects
 $data_categorias = $categoria->Listar();
+$data_cajas = $caja->Listar();
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registrar'])) {
@@ -17,6 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registrar'])) {
     $stock_maximo = $_POST['stock_maximo'];
     $precio_venta = $_POST['precio'];
     $fecha_ingreso = $_POST['fecha'];
+    $id_caja = $_POST['caja'];
+    $litraje = $_POST['litraje'];
 
     // Manejar la subida de la imagen
     $imagen = '';
@@ -32,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registrar'])) {
     $fyh_creacion = date('Y-m-d H:i:s');
     $fyh_actualizacion = date('Y-m-d H:i:s');
 
-    $result = $producto->Crear(null, $codigo, $nombre, $descripcion, $id_categoria, $stock, $stock_minimo, $stock_maximo, $precio_venta, $fecha_ingreso, $imagen, $fyh_creacion, $fyh_actualizacion);
+    $result = $producto->Crear($codigo, $nombre, $descripcion, $id_categoria, $stock, $stock_minimo, $stock_maximo, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_caja, $litraje);
     
     $response = array();
     if ($result) {
