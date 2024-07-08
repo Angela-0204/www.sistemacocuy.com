@@ -1,11 +1,3 @@
-<?php
-require_once('app/connectDB.php');
-require_once('app/models/rol.php');
-
-$rol = new Rol();
-$rol_datos = $rol->Listar();
-?>
-
 <?php include('views/layout/menu.php'); ?>
 
 <div class="content-wrapper">
@@ -50,12 +42,12 @@ $rol_datos = $rol->Listar();
                                                 <td><?php echo $data_user['id_rol']; ?></td>
                                                 <td><?php echo $data_user['nombre_rol']; ?></td>
                                                 <td>
-                                                    <a href="editar_rol.php?id=<?php echo $data_user['id_rol']; ?>" class="btn btn-warning btn-sm">
+                                                    <button onclick="editar(<?php echo $data_user['id_rol']; ?>)" class="btn btn-warning btn-sm">
                                                         <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a href="eliminar_rol.php?id=<?php echo $data_user['id_rol']; ?>" class="btn btn-danger btn-sm">
+                                                    </button>
+                                                    <button onclick="eliminar(<?php echo $data_user['id_rol']; ?>)" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i>
-                                                    </a>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         <?php }
@@ -82,7 +74,7 @@ $rol_datos = $rol->Listar();
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="app/controllers/roles/create.php" method="post">
+                        <form action="" method="post">
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="nombre_rol">Nombre del Rol</label>
@@ -91,14 +83,41 @@ $rol_datos = $rol->Listar();
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button id="registrar" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
+            <!-- Modal Editar Rol -->
+            <div class="modal fade" id="modal-edit-rol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Añadir Nuevo Rol</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="" method="post">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="hidden" id="id" name="id">
+                                    <label for="nombre_editar">Nombre del Rol</label>
+                                    <input type="text" id="nombre_editar" name="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre del nuevo rol" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button id="modificar" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <?php include('views/layout/footer.php'); ?>
+<script src="public/js/rol.js"></script>
