@@ -38,8 +38,6 @@ class Producto extends connectDB
                 'id_caja' => $id_caja,
                 'litraje' => $litraje
             ]);
-            print_r($resultado);
-        exit();
         } catch (Exception $e) {
             echo "Error al crear el producto: " . $e->getMessage();
             return false;
