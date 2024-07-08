@@ -1,7 +1,7 @@
 <?php
 include('app/config.php');
 include($MODELS . 'usuario.php');
-session_start();
+
 $usuario = new Usuario();
 if(isset($_POST['accion'])){
     $users = $usuario->ValidarIngreso($_POST['email'], $_POST['password_user']);
