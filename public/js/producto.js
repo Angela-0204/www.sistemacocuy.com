@@ -20,6 +20,7 @@ $("#registrar").click(function (e) {
 $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
+    //Parametros(variable, valor)
     datos.append("modificar", "true");
     datos.append("id", $("input[name='id']").val());
     datos.append("nombre", $("input[name='nombre']").val());
