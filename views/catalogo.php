@@ -42,7 +42,7 @@
                                 </thead>
                                 <tbody></tbody>
                             </table>
-                            <a href="?pagina=compra" id="comprar" class="btn-2">Comprar</a>
+                            <a href="?pagina=hacer_compra" id="comprar" class="btn-2">Comprar</a>
                             <a href="#" id="vaciar-carrito" class="btn-2">Vaciar Carrito</a>
 
                         </div>
