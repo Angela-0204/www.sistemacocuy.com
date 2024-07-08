@@ -93,77 +93,6 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-                 with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-users"></i>
-                <p>
-                  Config de usuarios
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=usuario" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Listar de usuarios</p>
-                  </a>
-                </li>
-                
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=roles" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Lista de roles</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-           
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-cart-plus"></i>
-                <p>
-                  Gestionar Producto
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=agregar_producto" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Agregar productos</p>
-                  </a>
-                  <a href="?pagina=inventario" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Consultar inventario</p>
-                  </a>
-                  <a href="?pagina=inventario" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Recepción de productos</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-tags"></i>
-                <p>
-                 Categorias
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=categoria" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Listar categorias</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
 
             <li class="nav-item">
               <a href="#" class="nav-link active">
@@ -177,7 +106,7 @@
                 <li class="nav-item">
                   <a href="?pagina=catalogo" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Realizar Pedido</p>
+                    <p>Ver Catalogo</p>
                   </a>
                 </li>
               </ul>
@@ -203,71 +132,7 @@
                 </li>
               </ul>
             </li>
-
-
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-box"></i>
-                <p>
-                 Gestion de cajas
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=caja" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Listado de cajas</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-credit-card"></i>
-                <p>
-                 Gestion de pagos
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=tipo_pago" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Tipos de pagos</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=verificacion" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Verificacion de Pagos</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-folder-open"></i>
-                <p>
-                 Movimiento de Usuario
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=movimientos" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>tabla de Movimientos</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-
-
+              
 
             <li class="nav-item">
               <a href="?pagina=login" class="nav-link" style="background-color: #C82333">
@@ -287,3 +152,4 @@
 </body>
 <?php include('views/layout/footer.php'); ?>
 </html>
+
