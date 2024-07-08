@@ -39,10 +39,10 @@
                       <center>ID</center>
                     </th>
                     <th>
-                      <center>Nombre de tipo de pago</center>
+                      <center>Tipo de pago</center>
                     </th>
                     <th>
-                      <center>Descripción</center>
+                      <center>Identificación</center>
                     </th>
                     <th>
                       <center>Datos</center>
@@ -62,7 +62,7 @@
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
                       <td><?php echo $data_tipo['nombre']; ?></td>
-                      <td><?php echo $data_tipo['descripcion']; ?></td>
+                      <td><?php echo $data_tipo['identificacion']; ?></td>
                       <td><?php echo $data_tipo['datos']; ?></td>
                       <td>
                         <button onclick="editar(<?=$data_tipo['id_tipo_pago'];?>)" class="btn btn-warning btn-sm">
@@ -160,4 +160,4 @@
   </div>
 </div>
 <?php include('views/layout/footer.php'); ?>
-<script src="public/js/caja.js"></script>
+<script src="public/js/tipo_pago.js"></script>

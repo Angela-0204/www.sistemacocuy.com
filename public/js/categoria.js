@@ -66,6 +66,9 @@ function AjaxRegistrar(datos) {
                     title: "Categoria",
                     text: res.mensaje
                 });
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000);
             } else {
                 Swal.fire({
                     icon: "error",

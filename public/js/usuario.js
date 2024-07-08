@@ -1,28 +1,33 @@
-//Para registrar nueva caja
+//Para registrar nuevo usuario
 $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("cantidad", $("input[name='cantidad']").val());
-    datos.append("descripcion", $("input[name='descripcion']").val());
+    datos.append("names", $("input[name='names']").val());
+    datos.append("email", $("input[name='email']").val());
+    datos.append("password_user", $("input[name='password_user']").val());
+    datos.append("password_repeat", $("input[name='password_repeat']").val());
+    datos.append("id_rol", $("select[name='id_rol']").val());
     AjaxRegistrar(datos);
 });
 
-//Para modificar caja
+//Para modificar usuario
 $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "modificar");
-    datos.append("id_caja", $("input[name='id']").val());
-    datos.append("cantidad", $("input[name='cantidad_editar']").val());
-    datos.append("descripcion", $("input[name='descripcion_editar']").val());
+    datos.append("id", $("input[name='id']").val());
+    datos.append("names", $("input[name='names']").val());
+    datos.append("email", $("input[name='email']").val());
+    datos.append("password_user", $("input[name='password_user']").val());
+    datos.append("id_rol", $("select[name='id_rol']").val());
     funcionAjax(datos);
 });
 
 function editar(id){
     var datos = new FormData();
     datos.append("accion", "consultar");
-    datos.append("id_caja", id);
+    datos.append("id_usuario", id);
     AjaxEditar(datos);
 }
 
@@ -65,7 +70,7 @@ function AjaxRegistrar(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Usuario",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -75,7 +80,7 @@ function AjaxRegistrar(datos) {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Hubo un problema al registrar la caja."
+                    text: res.mensaje
                 });
             }
         },
@@ -103,7 +108,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Usuario",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -139,10 +144,9 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-            $("#id").val(res.id_caja);
-            $("#cantidad_editar").val(res.cantidad);
-            $("#descripcion_editar").val(res.descripcion);
-            $("#modal-edit-caja").modal("show");   
+            $("#id").val(res.id_usuario);
+            $("#nombre_editar").val(res.nombre_rol);
+            $("#modal-edit-rol").modal("show");   
         },
         error: function (err) {
             Swal.fire({
