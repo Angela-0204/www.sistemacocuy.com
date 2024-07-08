@@ -6,14 +6,15 @@ include($MODELS . 'caja.php');
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
+//Para listar los productos
+$data_products = $producto->Listar();
+session_start();
 
 //Para listar categorias en los selects
 $data_categorias = $categoria->Listar();
 $data_cajas = $caja->Listar();
 
-//Para listar los productos
-$data_products = is_array($producto->Listar()) ? $producto->Listar() : [];
-session_start();
+
 
 //Para consultar el registro
 if(isset($_GET['id']) && !empty($_GET['id']) && !isset($_POST['modificar'])){
@@ -39,7 +40,7 @@ if(isset($_POST['eliminar']) && !empty($_POST['eliminar'])){
 
 
 //Para modificar un registro
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modificar'])) {
+if(isset($_POST['modificar']) && !empty($_POST['modificar'])){
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $codigo = $_POST['codigo'];

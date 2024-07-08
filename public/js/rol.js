@@ -1,38 +1,29 @@
+//Para registrar nuevo rol
 $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
-    datos.append("registrar", "true");
-    datos.append("nombre", $("input[name='nombre']").val());
-    datos.append("codigo", $("input[name='codigo']").val());
-    datos.append("descripcion", $("input[name='descripcion']").val());
-    datos.append("categoria", $("select[name='categoria']").val());
-    datos.append("stock", $("input[name='stock']").val());
-    datos.append("stock_minimo", $("input[name='stock_minimo']").val());
-    datos.append("stock_maximo", $("input[name='stock_maximo']").val());
-    datos.append("precio", $("input[name='precio']").val());
-    datos.append("fecha", $("input[name='fecha']").val());
-    datos.append("caja", $("select[name='caja']").val());
-    datos.append("litraje", $("input[name='litraje']").val());
-    datos.append("imagen", $("input[name='imagen']")[0].files[0]);
+    datos.append("accion", "registrar");
+    datos.append("nombre_rol", $("input[name='nombre_rol']").val());
     AjaxRegistrar(datos);
 });
 
+//Para modificar rol
 $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
-    //Parametros(variable, valor)
-    datos.append("modificar", "true");
-    datos.append("id", $("input[name='id']").val());
-    datos.append("nombre", $("input[name='nombre']").val());
-    datos.append("codigo", $("input[name='codigo']").val());
-    datos.append("descripcion", $("input[name='descripcion']").val());
-    datos.append("categoria", $("select[name='categoria']").val());
-    datos.append("stock_minimo", $("input[name='stock_minimo']").val());
-    datos.append("stock_maximo", $("input[name='stock_maximo']").val());
-    datos.append("precio", $("input[name='precio']").val());
-    datos.append("imagen", $("input[name='imagen']")[0].files[0]);
+    datos.append("accion", "modificar");
+    datos.append("id_rol", $("input[name='id']").val());
+    datos.append("nombre_rol", $("input[name='nombre_editar']").val());
     funcionAjax(datos);
 });
+
+function editar(id){
+    var datos = new FormData();
+    datos.append("accion", "consultar");
+    datos.append("id_rol", id);
+    AjaxEditar(datos);
+}
+
 
 //Para eliminar un registro
 function eliminar(id) {
@@ -50,7 +41,7 @@ function eliminar(id) {
         if (result.isConfirmed) {
             setTimeout(function () {
                 var datos = new FormData();
-                datos.append("eliminar", "true");
+                datos.append("accion", "eliminar");
                 datos.append("id", id);
                 funcionAjax(datos);
             }, 10);
@@ -72,14 +63,17 @@ function AjaxRegistrar(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Producto",
+                    title: "Rol",
                     text: res.mensaje
                 });
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000);
             } else {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Hubo un problema al registrar el producto."
+                    text: "Hubo un problema al registrar el rol."
                 });
             }
         },
@@ -107,7 +101,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Producto",
+                    title: "Rol",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -121,6 +115,31 @@ function funcionAjax(datos) {
                     text: res.mensaje
                 });
             }
+        },
+        error: function (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error en la solicitud."
+            });
+        },
+    });
+}
+
+
+function AjaxEditar(datos) {
+    $.ajax({
+        url: "",
+        type: "POST",
+        contentType: false,
+        data: datos,
+        processData: false,
+        cache: false,
+        success: function (response) {  
+            var res = JSON.parse(response);   
+            $("#id").val(res.id_rol);
+            $("#nombre_editar").val(res.nombre_rol);
+            $("#modal-edit-rol").modal("show");   
         },
         error: function (err) {
             Swal.fire({
