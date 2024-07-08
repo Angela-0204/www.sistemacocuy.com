@@ -285,5 +285,5 @@
     </aside>
   </div>
 </body>
-<?php include('views/layout/footer.php'); ?>
+
 </html>

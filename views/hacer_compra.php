@@ -1,4 +1,4 @@
-<?php include('views/layout/menu.php'); ?>
+<?php include('views/layout/menu_usuario.php'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
