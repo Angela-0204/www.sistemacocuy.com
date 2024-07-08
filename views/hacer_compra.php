@@ -18,100 +18,108 @@
   <!-- Main content -->
   <div class="content">
     <div class="container-fluid">
+      <h1>Punto de Venta</h1>
+      <div>
+        <div class="col-md-10 form-group">
+          <label for="">Producto</label>
+          <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nombre del producto">
+        </div>
+      </div>
 
-      <div class="row">
-        <div class="col-md-12">
+      <div class="content">
+    <div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-6">
           <div class="card card-outline card-primary">
-            <div class="card-header d-flex align-items-center">
-              <div class="d-flex align-items-center">
-                <h3 class="card-title mb-0">Registrar productos en inventario</h3>
-
-              </div>
-              <div class="ml-auto">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
+            <div class="card-header ">
+              <h3 class="card-title mb-0">Total Venta: S./ ---- </h3>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Concretar Venta</button>
+              <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#modal-add-categoria">Vaciar Lista</button>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
               </div>
+
+            </div>
+            <div class="card-body">
+              <table id="examplel" class="table table-bordered table-atriped">
+                <thead>
+                  <tr>
+                    <th>
+                      <center>Nro</center>
+                    </th>
+                    <th>
+                      <center>Nombre de la categoria</center>
+                    </th>
+                    <th>
+                      <center>Accion</center>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
             </div>
 
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <form action="" method="post" enctype="multipart/form-data">
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Nombre del producto</label>
-                        <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nombre del producto">
-                      </div>
-                      <div class="col-md-6 form-group">
-                        <label for="">Codigo de producto</label>
-                        <input type="text" name="codigo" class="form-control" placeholder="Escriba aquí el codigo del producto">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Descripcion del producto</label>
-                        <input type="text" name="descripcion" class="form-control" placeholder="Escriba aqui una breve descripcion del producto">
-                      </div>
-                      <div class="col-md-6 form-group">
-                        <label for="">Categoria del producto</label>
-                        <select name="categoria" id="categoria" class="form-control">
-                          <?php foreach ($data_categorias as $categorias) { ?>
-                            <option value="<?= $categorias['id_categoria'];?>"><?php echo $categorias['nombre_categoria']; ?></option>
-                          <?php } ?>
+          </div>
+        </div>
 
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Cantidad de productos</label>
-                        <input type="number" name="stock" class="form-control" placeholder="Escriba aquí la cantidad en cajas del producto">
-                      </div>
-                      <div class="col-md-6 form-group">
-                        <label for="">Cantidad minima permitida en inventario</label>
-                        <input type="number" name="stock_minimo" class="form-control" placeholder="Escriba aquí la cantidad minima de este producto en el inventario">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Cantidad maxima permitida en inventario</label>
-                        <input type="number" name="stock_maximo" class="form-control" placeholder="Escriba aquí la cantidad maxima de este producto en el inventario">
-                      </div>
-                      <div class="col-md-6 form-group">
-                        <label for="">Precio por caja del producto</label>
-                        <input type="text" name="precio" class="form-control" placeholder="Escriba aquí el precio del producto por caja">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Fecha de expedicion del producto</label>
-                        <input type="date" name="fecha" class="form-control">
-                      </div>
-                      <div class=" col-md-6 form-group mb-3">
-
-                        <label for="">Agregar imagen del producto</label>
-                        <input class="form-control" name="imagen" id="formFileSm" type="file">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <a href="" class="btn btn-secondary">Cancelar</a>
-                      <button class="btn btn-primary" id="registrar">Guardar</button>
-                    </div>
-                    <hr>
-                  </form>
+        <!-- New Column for Invoice Details -->
+        <div class="col-md-5">
+              <div class="card card-outline card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title mb-0">Detalles de Factura</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="invoice-number">Número de Factura:</label>
+                    <input type="text" id="invoice-number" class="form-control" readonly value="000001">
+                  </div>
+                  <div class="form-group">
+                    <label for="date">Fecha:</label>
+                    <input type="text" id="date" class="form-control" readonly value="<?php echo date('d-m-Y'); ?>">
+                  </div>
+                  <div class="form-group">
+                    <label for="subtotal">Subtotal:</label>
+                    <input type="text" id="subtotal" class="form-control" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="iva">IVA (18%):</label>
+                    <input type="text" id="iva" class="form-control" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="total">Total:</label>
+                    <input type="text" id="total" class="form-control" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="payment-method">Método de Pago:</label>
+                    <select id="payment-method" class="form-control">
+                      <option value="cash">Efectivo</option>
+                      <option value="card">Tarjeta de Crédito/Débito</option>
+                      <option value="bank">Transferencia Bancaria</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button type="button" class="btn btn-success">Imprimir Factura</button>
                 </div>
               </div>
             </div>
 
-          </div>
-
-        </div>
       </div>
-    </div>
 
-    <!-- /.row -->
-  </div><!-- /.container-fluid -->
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+
+
 </div>
 <!-- /.content -->
 </div>
