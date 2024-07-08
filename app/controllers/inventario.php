@@ -2,11 +2,14 @@
 include('app/config.php');
 include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
+include($MODELS . 'caja.php');
 $producto = new Producto();
 $categoria = new Categoria();
+$caja = new Caja();
 
 //Para listar categorias en los selects
 $data_categorias = $categoria->Listar();
+$data_cajas = $caja->Listar();
 
 //Para listar los productos
 $data_products = is_array($producto->Listar()) ? $producto->Listar() : [];

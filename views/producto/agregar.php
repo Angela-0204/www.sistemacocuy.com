@@ -50,16 +50,29 @@
                     </div>
                     <div class="row">
                       <div class="col-md-6 form-group">
-                        <label for="">Descripcion del producto</label>
-                        <input type="text" name="descripcion" class="form-control" placeholder="Escriba aqui una breve descripcion del producto">
+                        <label for="">Descripción del producto</label>
+                        <input type="text" name="descripcion" class="form-control" placeholder="Escriba aqui una breve descripción del producto">
                       </div>
+                      <div class="col-md-6 form-group">
+                        <label for="">Litraje del producto</label>
+                        <input type="number" name="litraje" class="form-control" placeholder="Escriba el litraje del producto en mililitros">
+                      </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-6 form-group">
                         <label for="">Categoria del producto</label>
                         <select name="categoria" id="categoria" class="form-control">
                           <?php foreach ($data_categorias as $categorias) { ?>
-                            <option value="<?= $categorias['id_categoria'];?>"><?php echo $categorias['nombre_categoria']; ?></option>
+                            <option value="<?= $categorias['id_categoria']; ?>"><?php echo $categorias['nombre_categoria']; ?></option>
                           <?php } ?>
-
+                        </select>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label for="">Unidades de la caja</label>
+                        <select name="caja" id="caja" class="form-control">
+                          <?php foreach ($data_cajas as $cajas) { ?>
+                            <option value="<?= $cajas['id_caja']; ?>"><?php echo $cajas['cantidad']; ?></option>
+                          <?php } ?>
                         </select>
                       </div>
                     </div>
