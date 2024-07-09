@@ -31,7 +31,7 @@
               </div>
 
             </div>
-            <div class="card-body">
+            <div class="card-body-md-6">
               <table id="examplel" class="table table-bordered table-atriped">
                 <thead>
                   <tr>
