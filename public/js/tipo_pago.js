@@ -1,4 +1,4 @@
-//Para registrar nueva caja
+
 $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
@@ -9,7 +9,7 @@ $("#registrar").click(function (e) {
     AjaxRegistrar(datos);
 });
 
-//Para modificar caja
+
 $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
@@ -63,7 +63,7 @@ function AjaxRegistrar(datos) {
         processData: false,
         cache: false,
         success: function (response) {
-            alert(response);
+           
             var res = JSON.parse(response);
             if (res.estatus == 1) {
                 Swal.fire({

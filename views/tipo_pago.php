@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="m-0">Listado de tipos de pagos aprobados</h1>
+          <h1 class="m-0">Listado de tipos de pagos</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -20,7 +20,7 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="card card-outline card-primary">
             <div class="card-header ">
               <h3 class="card-title mb-0">Tipos de Pagos Registrados</h3>
