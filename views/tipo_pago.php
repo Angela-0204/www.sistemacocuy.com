@@ -24,7 +24,7 @@
           <div class="card card-outline card-primary">
             <div class="card-header ">
               <h3 class="card-title mb-0">Tipos de Pagos Registrados</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-caja">Añadir Nuevo Tipo de Pago</button>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-tipo-pago">Añadir Nuevo Tipo de Pago</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -91,7 +91,7 @@
 <!-- /.content-wrapper -->
 
 <!-- Modal agregar pago -->
-<div class="modal fade" id="modal-add-caja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-add-tipo-pago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -107,11 +107,11 @@
             <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nuevo tipo de pago" required>
           </div>
           <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <input type="text" name="descripcion" class="form-control" placeholder="Escriba aquí una descripción" required>
+            <label for="identificacion">Identificación</label>
+            <input type="text" name="identificacion" class="form-control" placeholder="Escriba aquí una descripción" required>
           </div>
           <div class="form-group">
-            <label for="descripcion">Datos</label>
+            <label for="datos">Datos</label>
             <input type="text" name="datos" class="form-control" placeholder="Escriba aquí los datos sobre el pago" required>
           </div>
         </div>
@@ -125,7 +125,7 @@
 </div>
 
 <!-- Modal editar pago -->
-<div class="modal fade" id="modal-edit-caja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-edit-tipo-pago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

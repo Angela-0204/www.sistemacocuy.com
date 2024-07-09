@@ -3,8 +3,9 @@ $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("cantidad", $("input[name='cantidad']").val());
-    datos.append("descripcion", $("input[name='descripcion']").val());
+    datos.append("nombre", $("input[name='nombre']").val());
+    datos.append("identificacion", $("input[name='identificacion']").val());
+    datos.append("datos", $("input[name='datos']").val());
     AjaxRegistrar(datos);
 });
 
@@ -14,8 +15,9 @@ $("#modificar").click(function (e) {
     var datos = new FormData();
     datos.append("accion", "modificar");
     datos.append("id_caja", $("input[name='id']").val());
-    datos.append("cantidad", $("input[name='cantidad_editar']").val());
-    datos.append("descripcion", $("input[name='descripcion_editar']").val());
+    datos.append("nombre", $("input[name='nombre_edit']").val());
+    datos.append("identificacion", $("input[name='identificacion_edit']").val());
+    datos.append("datos", $("input[name='datos_edit']").val());
     funcionAjax(datos);
 });
 
@@ -61,6 +63,7 @@ function AjaxRegistrar(datos) {
         processData: false,
         cache: false,
         success: function (response) {
+            alert(response);
             var res = JSON.parse(response);
             if (res.estatus == 1) {
                 Swal.fire({
@@ -75,7 +78,7 @@ function AjaxRegistrar(datos) {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Hubo un problema al registrar la caja."
+                    text: "Hubo un problema al registrar el tipo de pago."
                 });
             }
         },
@@ -142,7 +145,7 @@ function AjaxEditar(datos) {
             $("#id").val(res.id_caja);
             $("#cantidad_editar").val(res.cantidad);
             $("#descripcion_editar").val(res.descripcion);
-            $("#modal-edit-caja").modal("show");   
+            $("#modal-edit-tipo-pago").modal("show");   
         },
         error: function (err) {
             Swal.fire({
