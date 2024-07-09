@@ -14,17 +14,17 @@ $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "modificar");
-    datos.append("id_caja", $("input[name='id']").val());
-    datos.append("nombre", $("input[name='nombre_edit']").val());
-    datos.append("identificacion", $("input[name='identificacion_edit']").val());
-    datos.append("datos", $("input[name='datos_edit']").val());
+    datos.append("id_tipo_pago", $("input[name='id']").val());
+    datos.append("nombre", $("input[name='nombre_editar']").val());
+    datos.append("identificacion", $("input[name='identificacion_editar']").val());
+    datos.append("datos", $("input[name='datos_editar']").val());
     funcionAjax(datos);
 });
 
 function editar(id){
     var datos = new FormData();
     datos.append("accion", "consultar");
-    datos.append("id_caja", id);
+    datos.append("id_tipo_pago", id);
     AjaxEditar(datos);
 }
 
@@ -68,7 +68,7 @@ function AjaxRegistrar(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Tipo de Pago",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -106,7 +106,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Tipo de Pago",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -142,9 +142,10 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-            $("#id").val(res.id_caja);
-            $("#cantidad_editar").val(res.cantidad);
-            $("#descripcion_editar").val(res.descripcion);
+            $("#id").val(res.id_tipo_pago);
+            $("#nombre_editar").val(res.nombre);
+            $("#identificacion_editar").val(res.identificacion);
+            $("#datos_editar").val(res.datos);
             $("#modal-edit-tipo-pago").modal("show");   
         },
         error: function (err) {

@@ -108,7 +108,7 @@
           </div>
           <div class="form-group">
             <label for="identificacion">Identificación</label>
-            <input type="text" name="identificacion" class="form-control" placeholder="Escriba aquí una descripción" required>
+            <input type="text" name="identificacion" class="form-control" placeholder="Escriba aquí la identificación" required>
           </div>
           <div class="form-group">
             <label for="datos">Datos</label>
@@ -138,16 +138,16 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="cantidad_editar">Nombre tipo de pago</label>
-            <input type="text" name="editar_pago" id="editar_pago" class="form-control" placeholder="Escriba aquí el nombre de tipo de pagos" required>
+            <label for="nombre_editar">Nombre tipo de pago</label>
+            <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de tipo de pagos" required>
           </div>
           <div class="form-group">
-            <label for="descripcion_editar">Descripción de pago</label>
-            <input type="text" name="descripcion_editar" id="descripcion_editar" class="form-control" placeholder="Escriba aquí la descripción de la caja" required>
+            <label for="identificacion_editar">Identificación</label>
+            <input type="text" name="identificacion_editar" id="identificacion_editar" class="form-control" placeholder="Escriba aquí la descripción de la caja" required>
           </div>
           <div class="form-group">
-            <label for="descripcion_editar">Datos de pagos</label>
-            <input type="text" name="editar_datos" id="editar_datos" class="form-control" placeholder="Escriba aquí los datos del tipo del pago" required>
+            <label for="datos_editar">Datos de pagos</label>
+            <input type="text" name="datos_editar" id="datos_editar" class="form-control" placeholder="Escriba aquí los datos del tipo del pago" required>
           </div>
 
         </div>
