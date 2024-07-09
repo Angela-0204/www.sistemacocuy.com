@@ -49,7 +49,7 @@ class Usuario extends connectDB
 
     public function Buscar($id)
     {
-        $resultado = $this->conex->prepare("SELECT * FROM tb_usuarios WHERE id_rol = '$id'");
+        $resultado = $this->conex->prepare("SELECT * FROM tb_usuarios WHERE id_users = '$id'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();

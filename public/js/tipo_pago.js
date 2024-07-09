@@ -3,8 +3,9 @@ $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("cantidad", $("input[name='cantidad']").val());
-    datos.append("descripcion", $("input[name='descripcion']").val());
+    datos.append("nombre", $("input[name='nombre']").val());
+    datos.append("identificacion", $("input[name='identificacion']").val());
+    datos.append("datos", $("input[name='datos']").val());
     AjaxRegistrar(datos);
 });
 
@@ -13,16 +14,17 @@ $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "modificar");
-    datos.append("id_caja", $("input[name='id']").val());
-    datos.append("cantidad", $("input[name='cantidad_editar']").val());
-    datos.append("descripcion", $("input[name='descripcion_editar']").val());
+    datos.append("id_tipo_pago", $("input[name='id']").val());
+    datos.append("nombre", $("input[name='nombre_editar']").val());
+    datos.append("identificacion", $("input[name='identificacion_editar']").val());
+    datos.append("datos", $("input[name='datos_editar']").val());
     funcionAjax(datos);
 });
 
 function editar(id){
     var datos = new FormData();
     datos.append("accion", "consultar");
-    datos.append("id_caja", id);
+    datos.append("id_tipo_pago", id);
     AjaxEditar(datos);
 }
 
@@ -61,11 +63,12 @@ function AjaxRegistrar(datos) {
         processData: false,
         cache: false,
         success: function (response) {
+            alert(response);
             var res = JSON.parse(response);
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Tipo de Pago",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -75,7 +78,7 @@ function AjaxRegistrar(datos) {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Hubo un problema al registrar la caja."
+                    text: "Hubo un problema al registrar el tipo de pago."
                 });
             }
         },
@@ -103,7 +106,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Tipo de Pago",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -139,10 +142,11 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-            $("#id").val(res.id_caja);
-            $("#cantidad_editar").val(res.cantidad);
-            $("#descripcion_editar").val(res.descripcion);
-            $("#modal-edit-caja").modal("show");   
+            $("#id").val(res.id_tipo_pago);
+            $("#nombre_editar").val(res.nombre);
+            $("#identificacion_editar").val(res.identificacion);
+            $("#datos_editar").val(res.datos);
+            $("#modal-edit-tipo-pago").modal("show");   
         },
         error: function (err) {
             Swal.fire({

@@ -5,7 +5,7 @@ class Tipo extends connectDB
 {
     private $id_tipo_caja;
     private $nombre;
-    private $descripcion;
+    private $identificacion;
     private $datos;
 
 
@@ -22,16 +22,16 @@ class Tipo extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($nombre, $descripcion, $datos)
+    public function Crear($nombre, $identificacion, $datos)
     {
-        $sql = "INSERT INTO tipo_pago (nombre, descripcion, datos) 
-                VALUES (:cantidad, :descripcion, :datos)";
+        $sql = "INSERT INTO tipo_pago (nombre, identificacion, datos) 
+                VALUES (:nombre, :identificacion, :datos)";
         $resultado = $this->conex->prepare($sql);
         
         try {
             $resultado->execute([
                 'nombre' => $nombre,
-                'descripcion' => $descripcion,
+                'identificacion' => $identificacion,
                 'datos' => $datos
             ]);
         } catch (Exception $e) {
@@ -55,16 +55,16 @@ class Tipo extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_tipo_pago, $nombre, $descripcion, $datos)
+    public function Modificar($id_tipo_pago, $nombre, $identificacion, $datos)
     {
-        $sql = "UPDATE tipo_pago SET nombre = :nombre, descripcion = :descripcion, datos = :datos
+        $sql = "UPDATE tipo_pago SET nombre = :nombre, identificacion = :identificacion, datos = :datos
                 WHERE id_tipo_pago = :id_tipo_pago";
             
         $resultado = $this->conex->prepare($sql);
         try {
             $resultado->execute([
                 'nombre' => $nombre,
-                'descripcion' => $descripcion,
+                'identificacion' => $identificacion,
                 'datos' => $datos,
                 'id_tipo_pago' => $id_tipo_pago
             ]);
