@@ -50,8 +50,10 @@ if(isset($_POST['accion'])){
             $data = $usuario->Buscar($_POST['id_usuario']);
             foreach ($data as $valor) {
                 echo json_encode([
-                    'id_usuario' => $valor['id_usuario'],
-                    'nombre_usuario' => $valor['nombre_usuario']
+                    'id' => $valor['id_users'],
+                    'names' => $valor['names'],
+                    'email' => $valor['email'],
+                    'password_user' => $valor['password_user']
                 ]);
             }
             return 0;
@@ -73,15 +75,14 @@ if(isset($_POST['accion'])){
         break;
 
         //Para modificar los datos
-        /*case 'modificar':
-            $id = $_POST['id_usuario'];
+        case 'modificar':
+            $id = $_POST['id'];
             $names = $_POST['names'];
             $password_user = $_POST['password_user'];
             $email = $_POST['email'];
-            $fecha = date("Y-m-d H:i:s"); 
             $id_rol = $_POST['id_rol'];
         
-            $result = $usuario->Modificar($id, $nombre, $fecha);
+            $result = $usuario->Modificar($id, $names, $email, $password_user, $id_rol);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
@@ -92,7 +93,7 @@ if(isset($_POST['accion'])){
             }
             echo json_encode($respuesta);
             return 0;
-        break;    */        
+        break;        
 
     }
 }

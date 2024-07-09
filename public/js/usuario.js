@@ -17,9 +17,9 @@ $("#modificar").click(function (e) {
     var datos = new FormData();
     datos.append("accion", "modificar");
     datos.append("id", $("input[name='id']").val());
-    datos.append("names", $("input[name='names']").val());
-    datos.append("email", $("input[name='email']").val());
-    datos.append("password_user", $("input[name='password_user']").val());
+    datos.append("names", $("input[name='names_edit']").val());
+    datos.append("email", $("input[name='email_edit']").val());
+    datos.append("password_user", $("input[name='password_user_edit']").val());
     datos.append("id_rol", $("select[name='id_rol']").val());
     funcionAjax(datos);
 });
@@ -144,9 +144,11 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-            $("#id").val(res.id_usuario);
-            $("#nombre_editar").val(res.nombre_rol);
-            $("#modal-edit-rol").modal("show");   
+            $("#id").val(res.id);
+            $("#names_edit").val(res.names);
+            $("#email_edit").val(res.email);
+            $("#password_user_edit").val(res.password_user);
+            $("#modal-edit-users").modal("show");   
         },
         error: function (err) {
             Swal.fire({

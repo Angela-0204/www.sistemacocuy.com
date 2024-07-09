@@ -105,12 +105,12 @@
 
                 <div class="form-group">
                   <label for="">Contraseña</label>
-                  <input type="text" name="password_user" class="form-control">
+                  <input type="password" name="password_user" class="form-control">
                 </div>
 
                 <div class="form-group">
                   <label for="">Repita Contraseña</label>
-                  <input type="text" name="password_repeat" class="form-control">
+                  <input type="password" name="password_repeat" class="form-control">
                 </div>
                 <hr>
                 <div class="form-group">
@@ -126,7 +126,7 @@
       </div>
 
       <!-- Modal Editar Rol -->
-      <div class="modal fade" id="modal-edit-rol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="modal-edit-users" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -137,16 +137,37 @@
             </div>
             <form action="" method="post">
               <div class="modal-body">
+                <input type="hidden" id="id" name="id">
                 <div class="form-group">
-                  <input type="hidden" id="id" name="id">
-                  <label for="nombre_editar">Nombre del Rol</label>
-                  <input type="text" id="nombre_editar" name="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre del nuevo rol" required>
+                  <label for="">Nombres</label>
+                  <input type="text" name="names_edit" id="names_edit" class="form-control" placeholder="Escriba aquí el nombre del Nuevo Usuario">
+                </div>
+                <div class="form-group">
+                  <label for="">Rol</label>
+                  <select name="id_rol" id="id_rol" class="form-control">
+                    <?php foreach ($data_roles as $roles) { ?>
+                      <option value="<?= $roles['id_rol']; ?>"><?php echo $roles['nombre_rol']; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="">Email</label>
+                  <input type="email" name="email_edit" id="email_edit" class="form-control" placeholder="Escriba aquí el Email del Nuevo Usuario">
+                </div>
+
+                <div class="form-group">
+                  <label for="">Contraseña</label>
+                  <input type="password" name="password_user_edit" id="password_user_edit" class="form-control">
+                </div>
+                <hr>
+                <div class="form-group">
+                  <a href="" class="btn btn-secondary">Cancelar</a>
+                  <button id="modificar" class="btn btn-primary">Guardar</button>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button id="modificar" class="btn btn-primary">Guardar</button>
-              </div>
+
+
             </form>
           </div>
         </div>
