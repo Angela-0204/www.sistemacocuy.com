@@ -1,64 +1,41 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php include('views/layout/menu.php'); ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="<?php echo $URL; ?>/public/css/catalogo.css">
-</head>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-12">
+          <h1 class="m-0">Hacer Pedido</h1>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
 
-<body>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card card-outline card-primary">
+            <div class="card-header d-flex align-items-center">
+              <div class="d-flex align-items-center">
+                <h3 class="card-title mb-0">Realizar Pedido</h3>
 
-    <header class="header">
-        <div class="menu container">
-            <a href="#" class="logo">Cocuy Leal</a>
-            <input type="checkbox" id="menu" />
-            <label for="menu">
-                <img src="<?php echo $URL; ?>/public/images/menu.png" class="menu-icono" alt="menu">
-            </label>
-            <nav class="navbar">
-                <ul>
-                    <?php foreach ($categorias as $categoria) { ?>
-                        <li><a href="#<?=$categoria['id_categoria']?>"><?php echo $categoria['nombre_categoria']?></a></li>  
-                    <?php } ?>
-
-                </ul>
-            </nav>
-            <div>
-                <ul>
-                    <li class="submenu">
-                        <img src="<?php echo $URL; ?>/public/images/carrito-removebg-preview.png" id="img-carrito" alt="carrito">
-                        <div id="carrito">
-                            <table id="lista-carrito">
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                            <a href="?pagina=hacer_compra" id="comprar" class="btn-2">Comprar</a>
-                            <a href="#" id="vaciar-carrito" class="btn-2">Vaciar Carrito</a>
-
-                        </div>
-
-                    </li>
-                </ul>
+                <a href="?pagina=inventario">
+                  <button type="submit" class="btn btn-primary ml-3"> Consultar Inventario</button>
+                </a>
+              </div>
+              <div class="ml-auto">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
             </div>
-            <div>
-                <ul>
-                    <li class="submenu">
-                        <img src="<?php echo $URL; ?>/public/images/perfil.png" id="img-carrito" alt="carrito">
-                        <div id="perfil">
-                            <table id="lista-perfil">
-                                <thead>
-                                    <tr>
 
+<<<<<<< HEAD
                                         <th>Cerrar Sesion</th>
                                         <th></th>
                                     </tr>
@@ -79,71 +56,68 @@
                 <h1>Realiza tus pedidos con nosotros</h1>
                 <p>Disfruta de nuestros licores a base de cocuy</p>
                
+=======
+            <div class="card-body">
+              <table class="table table-bordered table-hover">
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                  <th>Sub-Total</th>
+                </tr>
+                <tbody id="order-items">
+                  <!-- Order items will be dynamically added here -->
+                </tbody>
+              </table>
+              <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#productModal">
+                Agregar Producto
+              </button>
+>>>>>>> e6429ed557ca7a8530f34840ae187a6f6d36e284
             </div>
+          </div>
         </div>
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
-    </header>
-    
-    <?php foreach ($categorias as $categoria) { ?>
-    <main class="products container" id="lista-<?=$categoria['id_categoria']?>">
-        <div id="<?=$categoria['id_categoria']?>">
-            <h2><?php echo $categoria['nombre_categoria']?></h2>
-        </div>
-        <div class="product-content">
-            <?php $productos = $producto->BuscarPorCategoria($categoria['id_categoria']);
-            foreach ($productos as $data_producto) { ?>
-                <div class="product">
-                <img src="<?php echo $data_producto['imagen']; ?>" alt="">
-                <div class="product-txt">
-                    <h3><?php echo $data_producto['nombre']; ?></h3>
-                    <p><?php echo $data_producto['descripcion']; ?></p>
-                    <p class="precio"><?php echo $data_producto['precio_venta']; ?>$</p>
-                    <a href="#" class="agregar-carrito btn-2" data-id="<?=$data_producto['id_producto']; ?>">Agregar al carrito</a>
-                </div>
-            </div>
-            <?php }
-            $productos = [];
-            ?>
+<!-- Product Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalLabel">Seleccionar Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="productForm">
+          <div class="form-group">
+            <label for="productSelect">Producto</label>
+            <select class="form-control" id="productSelect">
+              <option value="Cocuy" data-price="4.50">Cocuy - $4.50</option>
+              <option value="Macondo" data-price="5.50">Macondo - $5.50</option>
+              <option value="Anis" data-price="8.30">Anis - $8.30</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="quantity">Cantidad</label>
+            <input type="number" class="form-control" id="quantity" value="1" min="1">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="addProductButton">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-        </div>
-    </main>
-    <?php } ?>
+<?php include('views/layout/footer.php'); ?>
 
-
-
-
-
-
-
-
-
-
-
-    <section class="icons container">
-
-        <div class="icon-1">
-            <div class="icon-img">
-                <img src="<?php echo $URL; ?>/public/images/botella logo.jpg" alt="">
-            </div>
-            <div class="icon-txt">
-                <h3>Lorem ipsum dolor sit, amet consectetur.</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur</p>
-            </div>
-        </div>
-        <div class="icon-1">
-            <div class="icon-img">
-                <img src="<?php echo $URL; ?>/public/images/coctel logo.jpg" alt="">
-            </div>
-            <div class="icon-txt">
-                <h3>Lorem ipsum dolor sit, amet consectetur.</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur</p>
-            </div>
-        </div>
-
-    </section>
-
-
-    <script src="<?php echo $URL; ?>/public/js/carrito.js"></script>
-</body>
-
-</html>
+<script src="public/js/catalogo.js"></script>
