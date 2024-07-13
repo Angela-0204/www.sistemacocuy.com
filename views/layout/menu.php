@@ -235,15 +235,15 @@
                 <li class="nav-item">
                   <a href="?pagina=tipo_pago" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tipos de pagos</p>
+                    <p>Metodos de pago</p>
                   </a>
                 </li>
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="?pagina=verificacion" class="nav-link active">
+                  <a href="?pagina=tipo_pago" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Verificacion de Pagos</p>
+                    <p>Bancos</p>
                   </a>
                 </li>
               </ul>
