@@ -241,7 +241,7 @@
               </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="?pagina=tipo_p" class="nav-link active">
+                  <a href="?pagina=tipo_pago" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Bancos</p>
                   </a>
