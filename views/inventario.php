@@ -1,4 +1,4 @@
-<?php include('views/layout/menu.php'); ?>
+<?php include('views/layout/menu.php');?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" > <!-- Ajusta el valor de margin-top según tus necesidades -->
     <!-- Content Header (Page header) -->
