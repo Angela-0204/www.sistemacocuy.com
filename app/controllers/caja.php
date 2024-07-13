@@ -15,9 +15,9 @@ if(isset($_POST['accion'])){
         //Para registrar
         case 'registrar':
             $cantidad = $_POST['cantidad'];
-            $descripcion = $_POST['desc$descripcion'];
+            $descripcion = $_POST['descripcion'];
         
-            $result = $caja->Crear($descripcion, $fecha, $fecha);
+            $result = $caja->Crear($cantidad, $descripcion);
             
             $response = array();
             if ($result) {

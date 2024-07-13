@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // Guardar el carrito en localStorage y redirigir a compra.php
             localStorage.setItem('carrito', JSON.stringify(carrito));
-            window.location.href = 'compra.php';
+            window.location.href = '?pagina=hacer_compra';
         }
     });
 

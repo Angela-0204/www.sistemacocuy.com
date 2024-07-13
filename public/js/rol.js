@@ -1,28 +1,26 @@
-//Para registrar nueva caja
+//Para registrar nuevo rol
 $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("cantidad", $("input[name='cantidad']").val());
-    datos.append("descripcion", $("input[name='descripcion']").val());
+    datos.append("nombre_rol", $("input[name='nombre_rol']").val());
     AjaxRegistrar(datos);
 });
 
-//Para modificar caja
+//Para modificar rol
 $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "modificar");
-    datos.append("id_caja", $("input[name='id']").val());
-    datos.append("cantidad", $("input[name='cantidad_editar']").val());
-    datos.append("descripcion", $("input[name='descripcion_editar']").val());
+    datos.append("id_rol", $("input[name='id']").val());
+    datos.append("nombre_rol", $("input[name='nombre_editar']").val());
     funcionAjax(datos);
 });
 
 function editar(id){
     var datos = new FormData();
     datos.append("accion", "consultar");
-    datos.append("id_caja", id);
+    datos.append("id_rol", id);
     AjaxEditar(datos);
 }
 
@@ -65,7 +63,7 @@ function AjaxRegistrar(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Rol",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -75,7 +73,7 @@ function AjaxRegistrar(datos) {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Hubo un problema al registrar la caja."
+                    text: "Hubo un problema al registrar el rol."
                 });
             }
         },
@@ -103,7 +101,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Rol",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -139,10 +137,9 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-            $("#id").val(res.id_caja);
-            $("#cantidad_editar").val(res.cantidad);
-            $("#descripcion_editar").val(res.descripcion);
-            $("#modal-edit-caja").modal("show");   
+            $("#id").val(res.id_rol);
+            $("#nombre_editar").val(res.nombre_rol);
+            $("#modal-edit-rol").modal("show");   
         },
         error: function (err) {
             Swal.fire({
