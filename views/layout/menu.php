@@ -235,7 +235,7 @@
                 <li class="nav-item">
                   <a href="?pagina=tipo_pago" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tipos de pagos</p>
+                    <p>Metodos de pago</p>
                   </a>
                 </li>
               </ul>

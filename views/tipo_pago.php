@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="m-0">Listado de tipos de pagos aprobados</h1>
+          <h1 class="m-0">Listado de tipos de pagos</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -20,11 +20,11 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="card card-outline card-primary">
             <div class="card-header ">
-              <h3 class="card-title mb-0">Tipos de Pagos Registrados</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-tipo-pago">Añadir Nuevo Tipo de Pago</button>
+              <h3 class="card-title mb-0">Metodos de pagos registrados</h3>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-tipo-pago">Añadir Nuevo Metodo de pago</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -39,14 +39,8 @@
                       <center>ID</center>
                     </th>
                     <th>
-                      <center>Tipo de pago</center>
-                    </th>
-                    <th>
-                      <center>Identificación</center>
-                    </th>
-                    <th>
-                      <center>Datos</center>
-                    </th>
+                      <center>Metodo de pago</center>
+                 
                     <th>
                       <center>Accion</center>
                       
@@ -103,18 +97,10 @@
       <form action="" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="cantidad">Nombre del Tipo de Pago</label>
-            <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nuevo tipo de pago" required>
+            <label for="cantidad">Nombre Del Metodo de Pago</label>
+            <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nuevo metodo de pago ejemplo (Transferencia, zelle, etc)" required>
           </div>
-          <div class="form-group">
-            <label for="identificacion">Identificación</label>
-            <input type="text" name="identificacion" class="form-control" placeholder="Escriba aquí la identificación" required>
-          </div>
-          <div class="form-group">
-            <label for="datos">Datos</label>
-            <input type="text" name="datos" class="form-control" placeholder="Escriba aquí los datos sobre el pago" required>
-          </div>
-        </div>
+          
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary" id="registrar">Guardar</button>
@@ -159,5 +145,6 @@
     </div>
   </div>
 </div>
+                </div>
 <?php include('views/layout/footer.php'); ?>
 <script src="public/js/tipo_pago.js"></script>

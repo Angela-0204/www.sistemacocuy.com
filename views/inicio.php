@@ -15,9 +15,9 @@
 
 
     <!-- Main content -->
-    <div class="col-lg-3 col-6">
+    <div class="col-4 col-3">
 
-<div class="small-box bg-warning">
+<div class="small-box bg-warning-col-md-8">
 <div class="inner">
 <h3>2</h3>
 <p>Usuarios Registrados</p>
