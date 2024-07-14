@@ -7,61 +7,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="m-0">Agregar Producto</h1>
+          <h1 class="m-0">Despacho de pedidos</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
   <!-- /.content-header -->
-
-
-  <!-- Main content -->
-  <div class="content">
-    <div class="container-fluid">
-      <h1>Punto de Venta</h1>
-      <div>
-        <div class="col-md-10 form-group">
-          <label for="">Producto</label>
-          <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nombre del producto">
-        </div>
-      </div>
-
-      <div class="content">
-    <div class="container-fluid">
-
-    <div class="row">
-        <div class="col-md-6">
-          <div class="card card-outline card-primary">
-            <div class="card-header ">
-              <h3 class="card-title mb-0">Total Venta: S./ ---- </h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Concretar Venta</button>
-              <button type="button" class="btn btn-danger ml-3" data-toggle="modal" data-target="#modal-add-categoria">Vaciar Lista</button>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-              </div>
-
-            </div>
-            <div class="card-body">
-              <table id="examplel" class="table table-bordered table-atriped">
-                <thead>
-                  <tr>
-                    <th>
-                      <center>Nro</center>
-                    </th>
-                    <th>
-                      <center>Nombre de la categoria</center>
-                    </th>
-                    <th>
-                      <center>Accion</center>
-                    </th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-
-          </div>
-        </div>
 
         <!-- New Column for Invoice Details -->
         <div class="col-md-5">
@@ -110,19 +61,8 @@
 
       </div>
 
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-
-
-
 
 </div>
-<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+
 <?php include('views/layout/footer.php'); ?>
 <script src="public/js/producto.js"></script>

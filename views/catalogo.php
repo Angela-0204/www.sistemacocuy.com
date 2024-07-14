@@ -23,10 +23,6 @@
             <div class="card-header d-flex align-items-center">
               <div class="d-flex align-items-center">
                 <h3 class="card-title mb-0">Realizar Pedido</h3>
-
-                <a href="?pagina=inventario">
-                  <button type="submit" class="btn btn-primary ml-3"> Consultar Inventario</button>
-                </a>
               </div>
               <div class="ml-auto">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -49,6 +45,9 @@
               </table>
               <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#productModal">
                 Agregar Producto
+              </button>
+               <button type="button" class="btn btn-success mt-3" >
+               <a href="?pagina=hacer_compra"  style="color:white"> Comprar</a>
               </button>
             </div>
           </div>
