@@ -97,7 +97,7 @@
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
               <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-users"></i>
+                <i class="nav-icon fas fa-solid fa-users"></i>
                 <p>
                   Config de usuarios
                   <i class="right fas fa-angle-left"></i>
@@ -140,10 +140,7 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Consultar inventario</p>
                   </a>
-                  <a href="?pagina=inventario" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Recepción de productos</p>
-                  </a>
+                 
                 </li>
               </ul>
             </li>
@@ -164,47 +161,6 @@
                 </li>
               </ul>
             </li>
-
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-truck"></i>
-                <p>
-                  Realizar Pedido
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=catalogo" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Realizar Pedido</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-landmark"></i>
-                <p>
-                 Reportar Pago
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=reportar_pago" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Hacer reporte</p>
-                  </a>
-                  <a href="?pagina=estatus" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Estatus de Pago</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-
             <li class="nav-item">
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-box"></i>
@@ -222,7 +178,23 @@
                 </li>
               </ul>
             </li>
-
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-wine-bottle"></i>
+                <p>
+                 Gestionar presentacion
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=presentacion" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Listado de presentaciones</p> 
+                  </a>
+                </li>
+              </ul>
+            </li>
             <li class="nav-item">
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-credit-card"></i>
@@ -250,25 +222,40 @@
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-folder-open"></i>
+                <i class="nav-icon fas fa-clipboard"></i>
                 <p>
-                 Movimiento de Usuario
+                  Almacen
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="?pagina=movimientos" class="nav-link active">
+                  <a href="?pagina=almacen" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>tabla de Movimientos</p>
+                    <p>Listado de almacen</p>
                   </a>
                 </li>
               </ul>
             </li>
 
-
-
-
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-truck"></i>
+                <p>
+                  Realizar Pedido
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=catalogo" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Realizar Pedido</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
             <li class="nav-item">
               <a href="?pagina=login" class="nav-link" style="background-color: #C82333">
                 <i class="nav-icon fas fa-door-closed"></i>
