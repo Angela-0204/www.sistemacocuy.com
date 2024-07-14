@@ -35,28 +35,6 @@
               </div>
             </div>
 
-<<<<<<< HEAD
-                                        <th>Cerrar Sesion</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                            <a href="?pagina=login" id="salir-vendedor" class="btn-2">Salir</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="header-content container">
-            <div class="header-img">
-                <img src="<?php echo $URL; ?>/public/images/fondoinfo-removebg-preview.png" alt="">
-            </div>
-            <div class="header-txt">
-                <h1>Realiza tus pedidos con nosotros</h1>
-                <p>Disfruta de nuestros licores a base de cocuy</p>
-               
-=======
             <div class="card-body">
               <table class="table table-bordered table-hover">
                 <tr>
@@ -72,7 +50,6 @@
               <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#productModal">
                 Agregar Producto
               </button>
->>>>>>> e6429ed557ca7a8530f34840ae187a6f6d36e284
             </div>
           </div>
         </div>
