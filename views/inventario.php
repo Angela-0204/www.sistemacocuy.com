@@ -38,6 +38,7 @@
                                 <th>Categoria</th>
                                 <th>Disponibilidad en almacen</th>
                                 <th>Precio</th>
+                                <th>Presentacion</th>
                                 <th>Ultima actualizacion</th>
                             </tr>
                         </thead>
@@ -51,6 +52,8 @@
                                 <td><?php echo $data['nombre_categoria']?></td>
                                 <td><?php echo $data['stock']?></td>
                                 <td><?php echo $data['precio_venta']?></td>
+                                <td><?php echo $data['litraje']?></td>
+
                                 <td><?php echo date('d/m/Y H:i', strtotime($data['fyh_actualizacion']));?></td>
                 
                                 <td>

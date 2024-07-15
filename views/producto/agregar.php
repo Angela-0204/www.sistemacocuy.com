@@ -55,9 +55,9 @@
                       </div>
                       <div class="col-md-6 form-group">
                         <label for="">Presentacion de embotellado</label>
-                        <select name="presentacio" id="presentacion" class="form-control">
+                        <select name="presentacion" id="presentacion" class="form-control">
                           <?php foreach ($data_presentacion as $presentacion) { ?>
-                            <option value="<?= $presentacion['id_categoria']; ?>"><?php echo $presentacion['litraje']; ?></option>
+                            <option value="<?= $presentacion['id_presentacion']; ?>"><?php echo $presentacion['litraje']; ?></option>
                           <?php } ?>
                         </select>
                       </div>
@@ -72,16 +72,6 @@
                         </select>
                       </div>
                     </div>
-                      <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Almacen del Producto</label>
-                        <select name="almacen" id="almacen" class="form-control">
-                          <?php foreach ($data_almacen as $dato_almacen) { ?>
-                            <option value="<?= $almacen['id_almacen']; ?>"><?php echo $almacen['nombre_almacen']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                          </div>
                        <div class="row">
                       <div class="col-md-6 form-group">
                         
@@ -93,8 +83,6 @@
                         </select>  
                       </div>
                     </div>
-
-                      
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label for="">Cantidad de productos</label>
@@ -128,7 +116,8 @@
                     </div>
                     <div class="form-group">
                       <a href="" class="btn btn-secondary">Cancelar</a>
-                      <button class="btn btn-primary" id="registrar">Guardar</button>
+                      <button class="btn btn-primary" id="registrar" name="registrar">Guardar</button>
+
                     </div>
                     <hr>
                   </form>

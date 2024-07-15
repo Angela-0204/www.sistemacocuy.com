@@ -3,13 +3,15 @@ include('app/config.php');
 include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
 include($MODELS . 'caja.php');
+include ($MODELS . 'presentacion.php');
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
-
+$presentacion = new Presentacion();
 //Para listar categorias en los selects
 $data_categorias = $categoria->Listar();
 $data_cajas = $caja->Listar();
+$data_presentacion = $presentacion->Listar();
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registrar'])) {
@@ -23,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registrar'])) {
     $precio_venta = $_POST['precio'];
     $fecha_ingreso = $_POST['fecha'];
     $id_caja = $_POST['caja'];
-    $litraje = $_POST['litraje'];
+    $presentacion = $_POST['litraje']; 
 
     // Manejar la subida de la imagen
     $imagen = '';

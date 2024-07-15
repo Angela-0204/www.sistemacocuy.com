@@ -1,14 +1,14 @@
 <?php
 require_once(__DIR__ . '/../connectDB.php');
 
-class Almacen extends connectDB
+class Presentacion extends connectDB
 {
-    private $id_almacen;
-    private $nombre_almacen;
+    private $id_presentacion;
+    private $litraje;
    
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT *FROM almacen;");
+        $resultado = $this->conex->prepare("SELECT *FROM presentacion;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -19,17 +19,18 @@ class Almacen extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($id_almacen, $nombre_almacen)
+
+    public function Crear($id_presentacion, $litraje)
     {
-        $sql = "INSERT INTO almacen (id_almacen, nombre_almacen) 
-                VALUES (:id_almacen, :nombre_almacen)";
+        $sql = "INSERT INTO presentacion (id_presentacion, litraje) 
+                VALUES (:id_presentacion, :litraje)";
         $resultado = $this->conex->prepare($sql);
         
         try {
             $resultado->execute([
-                'id_almacen' => $id_almacen,
-                'nombre_almacen' => $nombre_almacen
-            
+                'id_presentacion' => $id_presentacion,
+                'litraje' => $litraje
+               
             ]);
         } catch (Exception $e) {
             echo "Error al crear el producto: " . $e->getMessage();
@@ -39,5 +40,13 @@ class Almacen extends connectDB
         return true;
     }
 
+
+
+
+
+
 }
+
+
+
 ?>

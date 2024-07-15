@@ -24,7 +24,7 @@
           <div class="card card-outline card-primary">
             <div class="card-header ">
               <h3 class="card-title mb-0">Presentaciones registradas</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Añadir Nuevo Almacen</button>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Añadir Nueva presentacion</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -49,17 +49,17 @@
                 <tbody>
                   <?php
                   $contador = 0;
-                  foreach ($data_almacen as $dato_almacen) {
-                    $id_almacen = $dato_almacen['id_almacen']; ?>
+                  foreach ($data_presentacion as $dato_presentacion) {
+                    $id_presentacion = $dato_presentacion['id_presentacion']; ?>
 
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
-                      <td><?php echo $dato_almacen['nombre_almacen']; ?></td>
+                      <td><?php echo $dato_presentacion['litraje']; ?></td>
                       <td>
-                        <button onclick="editar(<?=$dato_almacen['id_almacen'];?>)" class="btn btn-warning btn-sm">
+                        <button onclick="editar(<?=$dato_presentacion['id_presentacion'];?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="eliminar(<?=$dato_almacen['id_almacen'];?>)" class="btn btn-danger btn-sm">
+                        <button onclick="eliminar(<?=$dato_presentacion['id_presentacion'];?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
                       </td>
@@ -94,8 +94,8 @@
       <form action="" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="nombre_categoria">Nombre del almacen</label>
-            <input type="text" name="nombre_categoria" class="form-control" placeholder="Escriba aquí el nombre del almacen" required>
+            <label for="litraje">Litraje</label>
+            <input type="text" name="litraje" class="form-control" placeholder="Escriba aquí el litraje de la presentacion" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -112,7 +112,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Almacen</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Editar presentacion</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -121,7 +121,7 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="nombre_editar">Nombre del almacen</label>
+            <label for="nombre_editar">litraje</label>
             <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre del almacen" required>
           </div>
         </div>
@@ -134,4 +134,4 @@
   </div>
 </div>
 <?php include('views/layout/footer.php'); ?>
-<script src="public/js/almacen.js"></script>
+<script src="public/js/presentacion.js"></script>
