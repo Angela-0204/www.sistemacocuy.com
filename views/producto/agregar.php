@@ -54,8 +54,12 @@
                         <input type="text" name="descripcion" class="form-control" placeholder="Escriba aqui una breve descripción del producto">
                       </div>
                       <div class="col-md-6 form-group">
-                        <label for="">Litraje del producto</label>
-                        <input type="number" name="litraje" class="form-control" placeholder="Escriba el litraje del producto en mililitros">
+                        <label for="">Presentacion de embotellado</label>
+                        <select name="presentacio" id="presentacion" class="form-control">
+                          <?php foreach ($data_presentacion as $presentacion) { ?>
+                            <option value="<?= $presentacion['id_categoria']; ?>"><?php echo $presentacion['litraje']; ?></option>
+                          <?php } ?>
+                        </select>
                       </div>
                     </div>
                     <div class="row">
@@ -67,15 +71,30 @@
                           <?php } ?>
                         </select>
                       </div>
+                    </div>
+                      <div class="row">
                       <div class="col-md-6 form-group">
+                        <label for="">Almacen del Producto</label>
+                        <select name="almacen" id="almacen" class="form-control">
+                          <?php foreach ($data_almacen as $dato_almacen) { ?>
+                            <option value="<?= $almacen['id_almacen']; ?>"><?php echo $almacen['nombre_almacen']; ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                          </div>
+                       <div class="row">
+                      <div class="col-md-6 form-group">
+                        
                         <label for="">Unidades de la caja</label>
                         <select name="caja" id="caja" class="form-control">
                           <?php foreach ($data_cajas as $cajas) { ?>
                             <option value="<?= $cajas['id_caja']; ?>"><?php echo $cajas['cantidad']; ?></option>
                           <?php } ?>
-                        </select>
+                        </select>  
                       </div>
                     </div>
+
+                      
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label for="">Cantidad de productos</label>

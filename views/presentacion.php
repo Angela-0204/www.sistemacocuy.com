@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="m-0">Listado de almacenes</h1>
+          <h1 class="m-0">Listado de Presentaciones de Embotellado</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -23,7 +23,7 @@
         <div class="col-md-6">
           <div class="card card-outline card-primary">
             <div class="card-header ">
-              <h3 class="card-title mb-0">Almacenes Registrados</h3>
+              <h3 class="card-title mb-0">Presentaciones registradas</h3>
               <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Añadir Nuevo Almacen</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -39,7 +39,7 @@
                       <center>Nro</center>
                     </th>
                     <th>
-                      <center>Nombre del almacen</center>
+                      <center>Litraje del embotellado</center>
                     </th>
                     <th>
                       <center>Accion</center>

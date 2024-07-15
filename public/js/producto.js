@@ -6,6 +6,7 @@ $("#registrar").click(function (e) {
     datos.append("codigo", $("input[name='codigo']").val());
     datos.append("descripcion", $("input[name='descripcion']").val());
     datos.append("categoria", $("select[name='categoria']").val());
+    datos.append("almacen", $("select[name='nombre_almacen']").val());
     datos.append("stock", $("input[name='stock']").val());
     datos.append("stock_minimo", $("input[name='stock_minimo']").val());
     datos.append("stock_maximo", $("input[name='stock_maximo']").val());
@@ -14,6 +15,7 @@ $("#registrar").click(function (e) {
     datos.append("caja", $("select[name='caja']").val());
     datos.append("litraje", $("input[name='litraje']").val());
     datos.append("imagen", $("input[name='imagen']")[0].files[0]);
+
     AjaxRegistrar(datos);
 });
 
@@ -27,6 +29,7 @@ $("#modificar").click(function (e) {
     datos.append("codigo", $("input[name='codigo']").val());
     datos.append("descripcion", $("input[name='descripcion']").val());
     datos.append("categoria", $("select[name='categoria']").val());
+    datos.append("almacen", $("select[name='nombre_almacen']").val());
     datos.append("stock_minimo", $("input[name='stock_minimo']").val());
     datos.append("stock_maximo", $("input[name='stock_maximo']").val());
     datos.append("precio", $("input[name='precio']").val());
