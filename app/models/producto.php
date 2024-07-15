@@ -5,7 +5,7 @@ class Producto extends connectDB
 {
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT a.id_producto, a.codigo, a.nombre, a.descripcion, a.id_categoria, a.stock, a.stock_minimo, a.stock_maximo, a.precio_venta, a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria FROM inventario a INNER JOIN tb_categorias c ON a.id_categoria=c.id_categoria;");
+        $resultado = $this->conex->prepare("SELECT p.litraje, a.id_producto, a.codigo, a.nombre, a.descripcion, a.id_categoria, a.stock, a.stock_minimo, a.stock_maximo, a.precio_venta, a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria FROM inventario a INNER JOIN tb_categorias c ON a.id_categoria=c.id_categoria INNER JOIN presentacion p ON p.id_presentacion=a.id_presentacion;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -18,7 +18,7 @@ class Producto extends connectDB
 
     public function Crear($codigo, $nombre, $descripcion, $id_categoria, $stock, $stock_minimo, $stock_maximo, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_caja, $litraje)
     {
-        $sql = "INSERT INTO inventario (codigo, nombre, descripcion, id_categoria, stock, stock_minimo, stock_maximo, precio_venta, imagen, fyh_creacion, fyh_actualizacion, id_caja, litraje) 
+        $sql = "INSERT INTO inventario (codigo, nombre, descripcion, id_categoria, stock, stock_minimo, stock_maximo, precio_venta, imagen, fyh_creacion, fyh_actualizacion, id_caja, id_presentacion) 
                 VALUES (:codigo, :nombre, :descripcion, :id_categoria, :stock, :stock_minimo, :stock_maximo, :precio_venta, :imagen, :fyh_creacion, :fyh_actualizacion, :id_caja, :litraje)";
         $resultado = $this->conex->prepare($sql);
         

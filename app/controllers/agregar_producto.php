@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registrar'])) {
     $precio_venta = $_POST['precio'];
     $fecha_ingreso = $_POST['fecha'];
     $id_caja = $_POST['caja'];
-    $presentacion = $_POST['litraje']; 
+    $presentacion = $_POST['presentacion']; 
 
     // Manejar la subida de la imagen
     $imagen = '';
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registrar'])) {
     $fyh_creacion = date('Y-m-d H:i:s');
     $fyh_actualizacion = date('Y-m-d H:i:s');
 
-    $result = $producto->Crear($codigo, $nombre, $descripcion, $id_categoria, $stock, $stock_minimo, $stock_maximo, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_caja, $litraje);
+    $result = $producto->Crear($codigo, $nombre, $descripcion, $id_categoria, $stock, $stock_minimo, $stock_maximo, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_caja, $presentacion);
     
     $response = array();
     if ($result) {
