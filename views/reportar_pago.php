@@ -13,8 +13,6 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
-
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
@@ -38,39 +36,31 @@
               <div class="row">
                   <div class="col-md-12">
                     <form action="../app/controllers/usuarios/create.php" method="post">
-
-                      <div class="form-group">
-                        <label for="">Codigo de Pedido</label>
-                        <input type="text" name="codigo" class="form-control" placeholder="Escriba aquí el codigo de su producto">
-                      </div>
-
                       <div class="form-group">
                         <label for="">Seleccione tipo de Pago</label>
-                        <input type="text" name="tipo_pago" class="form-control" placeholder="Escriba aquí el tipo de pago que ha realizado">
+                        <select class="form-control" > </select>
                       </div>
 
                       <div class="form-group">
-                        <label for="">Cedula</label>
-                        <input type="text" name="cedula" class="form-control" placeholder="Escriba aqui una breve descripcion del producto">
+                        <label for="">Seleccione El Banco </label>
+                        <select class="form-control" > </select>
+                        
                       </div>
 
                       <div class="form-group">
                         <label for="">Numero de Referencia</label>
-                        <input type="text" name="referencia" class="form-control" placeholder="Escriba aquí la categoria del producto">
+                        <input type="text" name="referencia" class="form-control" placeholder="Escriba aquí el numero dereferencia del deposito">
                       </div>
-                      <div class="form-group">
-                        <label for="">Correo Electronico</label>
-                        <input type="email" name="email" class="form-control" placeholder="Escriba aquí la cantidad en cajas del producto">
-                      </div>
+                     
                      
                       <div class="form-group">
                         <label for="">Monto depositado en Bolivares</label>
-                        <input type="text" name="monto" class="form-control" placeholder="Escriba aquí la cantidad maxima de este producto en el inventario">
+                        <input type="text" name="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en bolivares">
                       </div>
                     
                       <div class="form-group">
                         <label for="">Fecha de realizacion del pago</label>
-                        <input type="date" name="fecha" class="form-control" placeholder="Escriba aquí la fecha de expedicion del producto (dd/mm/aa/">
+                        <input type="date" name="fecha" class="form-control" placeholder="Escriba aquí la fecha de realizacion del pago(dd/mm/aa/">
                       </div>
                       <div class=" form-group mb-3">
   
