@@ -36,6 +36,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <form action="" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="accion" value="modificar">
                                         <?php foreach ($data as $value) { ?>
                                             <input type="hidden" name="id" value="<?php echo $value['id_producto']; ?>">
                                             <div class="form-group">
@@ -79,12 +80,12 @@
                                                 <label for="">Agregar imagen del producto</label>
                                                 <input class="form-control " name="imagen" id="formFileSm" type="file">
                                             </div>
-                                            <div class="form-group">
-                                                <a href="" class="btn btn-secondary">Cancelar</a>
-                                                <button id="modificar" class="btn btn-primary">Guardar</button>
-                                            </div>
                                         <?php } ?>
 
+                                        <div class="form-group">
+                                            <a href="" class="btn btn-secondary">Cancelar</a>
+                                            <button id="modificar" class="btn btn-primary">Guardar</button>
+                                        </div>
                                         <hr>
                                     </form>
                                 </div>
@@ -103,5 +104,8 @@
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<?php
+if (isset($script)) {
+    echo $script;
+} ?>
 <?php include('views/layout/footer.php'); ?>
-<script src="public/js/producto.js"></script>
