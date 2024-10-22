@@ -4,7 +4,7 @@
     <div class="float-right d-none d-sm-inline">
       UPTAEB 2113
     </div>
-    Daniel Lucena | Angela Rojas | Jonniel Yepez | Xavier Montilla | Andres Melo
+    Daniel Lucena | Angela Rojas | Andres Melo
   </footer>
 </div>
 <!-- ./wrapper -->
