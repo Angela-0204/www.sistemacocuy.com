@@ -1,15 +1,45 @@
 //Para registrar nuevo usuario
+
 $("#registrar").click(function (e) {
     e.preventDefault(); 
+    var nombres = $("input[name='names']").val();
+    var email = $("input[name='email']").val();
+    var password_user = $("input[name='password_user']").val();
+    var password_repeat = $("input[name='password_repeat']").val();
+    var id_rol = $("select[name='id_rol']").val();
+
+    // Verificar si algún campo requerido está vacío
+    if (nombres === "" || email === "" || password_user === "" || password_repeat === "" || id_rol === "") {
+        Swal.fire({
+            icon: "warning",
+            title: "Campos incompletos",
+            text: "Por favor, complete todos los campos requeridos."
+        });
+        return; // Detener el proceso si algún campo está vacío
+    }
+
+    // Verificar que las contraseñas coincidan
+    if (password_user !== password_repeat) {
+        Swal.fire({
+            icon: "error",
+            title: "Error de contraseña",
+            text: "Las contraseñas no coinciden. Intente de nuevo."
+        });
+        return; // Detener el proceso si las contraseñas no coinciden
+    }
+
+    // Si todos los campos están llenos, continuar con el registro
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("names", $("input[name='names']").val());
-    datos.append("email", $("input[name='email']").val());
-    datos.append("password_user", $("input[name='password_user']").val());
-    datos.append("password_repeat", $("input[name='password_repeat']").val());
-    datos.append("id_rol", $("select[name='id_rol']").val());
-    AjaxRegistrar(datos);
+    datos.append("names", nombres);
+    datos.append("email", email);
+    datos.append("password_user", password_user);
+    datos.append("password_repeat", password_repeat);
+    datos.append("id_rol", id_rol);
+
+    AjaxRegistrar(datos); // Llamar a la función que ejecuta la solicitud AJAX
 });
+
 
 //Para modificar usuario
 $("#modificar").click(function (e) {
