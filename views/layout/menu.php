@@ -251,6 +251,25 @@
 
             <li class="nav-item">
               <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-truck"></i>
+                <p>
+                  Clientes
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=cliente" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Agregar Clientes</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-folder-open"></i>
                 <p>
                   Reportes

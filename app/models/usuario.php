@@ -53,8 +53,15 @@ class Usuario extends connectDB
             return false;
         }
         return true;
+        
     }
     
+
+
+
+
+
+
 
     public function Buscar($id)
     {
