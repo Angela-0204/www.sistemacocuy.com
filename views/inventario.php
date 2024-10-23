@@ -1,6 +1,6 @@
-<?php include('views/layout/menu.php');?>
+<?php include('views/layout/menu.php'); ?>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper" > <!-- Ajusta el valor de margin-top según tus necesidades -->
+<div class="content-wrapper"> <!-- Ajusta el valor de margin-top según tus necesidades -->
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -11,7 +11,7 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-    <div class="row" style="margin-right: 20px;" >
+    <div class="row" style="margin-right: 20px;">
         <div class="col-12">
             <div class="card ml-15 " style="margin-left: 20px;">
                 <div class="card-header">
@@ -43,31 +43,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
+                            <?php
                             foreach ($data_products as $data) { ?>
-                            <tr>
-                                <td><?php echo $data['codigo']?></td>
-                                <td><?php echo $data['nombre']?></td>
-                                <td><?php echo $data['descripcion']?></td>
-                                <td><?php echo $data['nombre_categoria']?></td>
-                                <td><?php echo $data['stock']?></td>
-                                <td><?php echo $data['precio_venta']?></td>
-                                <td><?php echo $data['litraje']?></td>
+                                <tr>
+                                    <td><?php echo $data['codigo'] ?></td>
+                                    <td><?php echo $data['nombre'] ?></td>
+                                    <td><?php echo $data['descripcion'] ?></td>
+                                    <td><?php echo $data['nombre_categoria'] ?></td>
+                                    <td><?php echo $data['stock'] ?></td>
+                                    <td><?php echo $data['precio_venta'] ?></td>
+                                    <td><?php echo $data['litraje'] ?></td>
 
-                                <td><?php echo date('d/m/Y H:i', strtotime($data['fyh_actualizacion']));?></td>
-                
-                                <td>
-                                <a href="?pagina=inventario&id=<?php echo $data['id_producto']; ?>" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <button onclick="eliminar(<?=$data['id_producto']; ?>)" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                                </td>
-                            </tr>
-                        <?php
+                                    <td><?php echo date('d/m/Y H:i', strtotime($data['fyh_actualizacion'])); ?></td>
+
+                                    <td>
+                                        <a href="?pagina=inventario&accion=consultar&id=<?= $data['id_producto']; ?>" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                        </a>  
+                                        <a href="?pagina=inventario&accion=eliminar&id=<?= $data['id_producto']; ?>" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php
                             }
-                        ?>
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -75,6 +75,8 @@
         </div>
     </div>
 </div>
-
+<?php
+if (isset($script)) {
+    echo $script;
+} ?>
 <?php include('views/layout/footer.php'); ?>
-<script src="public/js/producto.js"></script>
