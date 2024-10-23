@@ -7,7 +7,7 @@ $("#registrar").click(function (e) {
     datos.append("email", $("input[name='email']").val());
     datos.append("password_user", $("input[name='password_user']").val());
     datos.append("password_repeat", $("input[name='password_repeat']").val());
-    datos.append("id_rol", $("select[name='id_rol']").val());
+    
     AjaxRegistrar(datos);
 });
 
@@ -186,6 +186,7 @@ document.getElementById('registrar').addEventListener('click', function (e) {
     // Si todo está bien, enviar el formulario
     document.querySelector("form").submit();
 });
+//correo validacion
 
 document.getElementById('registrar').addEventListener('click', function (e) {
     e.preventDefault();
