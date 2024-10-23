@@ -43,7 +43,7 @@
                   <th>Nro</th>
                   <th>Nombre</th>
                   <th>Email</th>
-                  <th>Rol</th>
+                 
                 </tr>
                 <tbody>
                   <?php
@@ -52,8 +52,7 @@
                       <td><?php echo $data_user['id_users'] ?></td>
                       <td><?php echo $data_user['names'] ?></td>
                       <td><?php echo $data_user['email'] ?></td>
-                      <td><?php echo $data_user['nombre_rol'] ?></td>
-
+                  
                       <td>
                         <button onclick="editar(<?php echo $data_user['id_users']; ?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
@@ -73,34 +72,25 @@
           </div>
         </div>
       </div>
-      <!-- Modal Añadir Rol -->
+   
       <div class="modal fade" id="modal-add-usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Añadir Nuevo Rol</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+              
             </div>
             <form action="" method="post">
               <div class="modal-body">
                 <div class="form-group">
-                  <label for="">Nombres</label>
+                  <label for="">Nombre </label>
                   <input type="text" name="names" class="form-control" placeholder="Escriba aquí el nombre del Nuevo Usuario">
                 </div>
-                <div class="form-group">
-                  <label for="">Rol</label>
-                  <select name="id_rol" id="id_rol" class="form-control">
-                    <?php foreach ($data_roles as $roles) { ?>
-                      <option value="<?= $roles['id_rol']; ?>"><?php echo $roles['nombre_rol']; ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
+                
 
                 <div class="form-group">
                   <label for="">Email</label>
                   <input type="email" name="email" class="form-control" placeholder="Escriba aquí el Email del Nuevo Usuario">
+                  
                 </div>
 
                 <div class="form-group">
@@ -142,14 +132,7 @@
                   <label for="">Nombres</label>
                   <input type="text" name="names_edit" id="names_edit" class="form-control" placeholder="Escriba aquí el nombre del Nuevo Usuario">
                 </div>
-                <div class="form-group">
-                  <label for="">Rol</label>
-                  <select name="id_rol" id="id_rol" class="form-control">
-                    <?php foreach ($data_roles as $roles) { ?>
-                      <option value="<?= $roles['id_rol']; ?>"><?php echo $roles['nombre_rol']; ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
+               
 
                 <div class="form-group">
                   <label for="">Email</label>
