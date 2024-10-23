@@ -1,11 +1,10 @@
 <?php
 include('app/config.php');
 include($MODELS . 'usuario.php');
-include($MODELS . 'Rol.php');
+
 $usuario = new Usuario();
-$rol = new Rol();
 $data_users = $usuario->Listar();
-$data_roles = $rol->Listar();
+
 
 session_start();
 
@@ -21,11 +20,11 @@ if(isset($_POST['accion'])){
             $password_repeat = $_POST['password_repeat'];
             $email = $_POST['email'];
             $fecha = date("Y-m-d H:i:s"); 
-            $id_rol = $_POST['id_rol'];
+          
             $response = array();
         
             // Validaciones en el lado del servidor
-            if (empty($names) || empty($password_user) || empty($password_repeat) || empty($email) || empty($id_rol)) {
+            if (empty($names) || empty($password_user) || empty($password_repeat) || empty($email)) {
                 $response['estatus'] = 0;
                 $response['mensaje'] = "Todos los campos son obligatorios.";
                 echo json_encode($response);
@@ -46,7 +45,7 @@ if(isset($_POST['accion'])){
             }
         
         
-            $result = $usuario->Crear($names, $email, $password_user, $fecha, $id_rol);
+            $result = $usuario->Crear($names, $email, $password_user, $fecha);
             
             if ($result) {
                 $response['estatus'] = 1;
@@ -96,9 +95,9 @@ if(isset($_POST['accion'])){
             $names = $_POST['names'];
             $password_user = $_POST['password_user'];
             $email = $_POST['email'];
-            $id_rol = $_POST['id_rol'];
+          
         
-            $result = $usuario->Modificar($id, $names, $email, $password_user, $id_rol);
+            $result = $usuario->Modificar($id, $names, $email, $password_user, $email);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;

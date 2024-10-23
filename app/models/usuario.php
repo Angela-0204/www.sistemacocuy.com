@@ -18,7 +18,7 @@ class Usuario extends connectDB
 
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT * FROM tb_usuarios INNER JOIN tb_roles ON tb_usuarios.id_rol=tb_roles.id_rol;");
+        $resultado = $this->conex->prepare("SELECT * FROM tb_usuarios");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -29,20 +29,20 @@ class Usuario extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($names, $email, $password_user, $fyh_creation, $id_rol)
+    public function Crear($names, $email, $password_user, $fyh_creation)
     {
         // Iniciar una transacción
         $this->conex->beginTransaction();
     
-        $resultado = $this->conex->prepare("INSERT INTO tb_usuarios (names, email, password_user, fyh_creation, id_rol) 
-                                            VALUES (:names, :email, :password_user, :fyh_creation, :id_rol)");
+        $resultado = $this->conex->prepare("INSERT INTO tb_usuarios (names, email, password_user, fyh_creation) 
+                                            VALUES (:names, :email, :password_user, :fyh_creation)");
         try {
             $resultado->execute([
                 'names' => $names,
                 'email' => $email,
                 'password_user' => $password_user,
-                'fyh_creation' => $fyh_creation,
-                'id_rol' => $id_rol
+                'fyh_creation' => $fyh_creation
+               
             ]);
     
             $this->conex->commit();
@@ -69,9 +69,9 @@ class Usuario extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_users, $names, $email, $password_user, $id_rol)
+    public function Modificar($id_users, $names, $email, $password_user)
     {
-        $sql = "UPDATE tb_usuarios SET names = :names, email = :email, password_user = :password_user  , id_rol = :id_rol  
+        $sql = "UPDATE tb_usuarios SET names = :names, email = :email, password_user = :password_user 
                 WHERE id_users = :id_users";
             
         $resultado = $this->conex->prepare($sql);
@@ -80,7 +80,7 @@ class Usuario extends connectDB
                 'names' => $names,
                 'email' => $email,
                 'password_user' => $password_user,
-                'id_rol' => $id_rol,
+
                 'id_users' => $id_users
             ]);
         } catch (Exception $e) {
