@@ -1,44 +1,16 @@
 //Para registrar nuevo usuario
-
 $("#registrar").click(function (e) {
     e.preventDefault(); 
-    var nombres = $("input[name='names']").val();
-    var email = $("input[name='email']").val();
-    var password_user = $("input[name='password_user']").val();
-    var password_repeat = $("input[name='password_repeat']").val();
-    var id_rol = $("select[name='id_rol']").val();
-
-    // Verificar si algún campo requerido está vacío
-    if (nombres === "" || email === "" || password_user === "" || password_repeat === "" || id_rol === "") {
-        Swal.fire({
-            icon: "warning",
-            title: "Campos incompletos",
-            text: "Por favor, complete todos los campos requeridos."
-        });
-        return; // Detener el proceso si algún campo está vacío
-    }
-
-    // Verificar que las contraseñas coincidan
-    if (password_user !== password_repeat) {
-        Swal.fire({
-            icon: "error",
-            title: "Error de contraseña",
-            text: "Las contraseñas no coinciden. Intente de nuevo."
-        });
-        return; // Detener el proceso si las contraseñas no coinciden
-    }
-
-    // Si todos los campos están llenos, continuar con el registro
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("names", nombres);
-    datos.append("email", email);
-    datos.append("password_user", password_user);
-    datos.append("password_repeat", password_repeat);
-    datos.append("id_rol", id_rol);
-
-    AjaxRegistrar(datos); // Llamar a la función que ejecuta la solicitud AJAX
+    datos.append("names", $("input[name='names']").val());
+    datos.append("email", $("input[name='email']").val());
+    datos.append("password_user", $("input[name='password_user']").val());
+    datos.append("password_repeat", $("input[name='password_repeat']").val());
+    datos.append("id_rol", $("select[name='id_rol']").val());
+    AjaxRegistrar(datos);
 });
+
 
 
 //Para modificar usuario
@@ -189,3 +161,47 @@ function AjaxEditar(datos) {
         },
     });
 }
+
+document.getElementById('registrar').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Obtener los valores de los campos del formulario
+    var names = document.querySelector("input[name='names']").value;
+    var email = document.querySelector("input[name='email']").value;
+    var password = document.querySelector("input[name='password_user']").value;
+    var passwordRepeat = document.querySelector("input[name='password_repeat']").value;
+    var idRol = document.querySelector("select[name='id_rol']").value;
+
+    // Validación
+    if (!names || !email || !password || !passwordRepeat || !idRol) {
+        alert("Todos los campos son obligatorios.");
+        return;
+    }
+
+    if (password !== passwordRepeat) {
+        alert("Las contraseñas no coinciden.");
+        return;
+    }
+
+    // Si todo está bien, enviar el formulario
+    document.querySelector("form").submit();
+});
+
+document.getElementById('registrar').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Obtener el valor del campo de correo electrónico
+    var email = document.querySelector("input[name='email']").value;
+
+    // Expresión regular para validar el formato de email
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Validar el correo
+    if (!emailRegex.test(email)) {
+        alert("Por favor, ingrese un email válido con un '@'.");
+        return;
+    }
+
+    // Continuar con el envío del formulario si el email es válido
+    document.querySelector("form").submit();
+});
