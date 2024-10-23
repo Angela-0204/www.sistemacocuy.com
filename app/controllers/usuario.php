@@ -23,16 +23,31 @@ if(isset($_POST['accion'])){
             $fecha = date("Y-m-d H:i:s"); 
             $id_rol = $_POST['id_rol'];
             $response = array();
-
-            if($password_user != $password_repeat){
+        
+            // Validaciones en el lado del servidor
+            if (empty($names) || empty($password_user) || empty($password_repeat) || empty($email) || empty($id_rol)) {
                 $response['estatus'] = 0;
-                $response['mensaje'] = "La contraseña debe coincidir";
+                $response['mensaje'] = "Todos los campos son obligatorios.";
                 echo json_encode($response);
                 return 0;
             }
         
+            if ($password_user != $password_repeat) {
+                $response['estatus'] = 0;
+                $response['mensaje'] = "Las contraseñas no coinciden.";
+                echo json_encode($response);
+                return 0;
+            }
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $response['estatus'] = 0;
+                $response['mensaje'] = "Por favor, ingrese un email válido.";
+                echo json_encode($response);
+                return 0;
+            }
+        
+        
             $result = $usuario->Crear($names, $email, $password_user, $fecha, $id_rol);
-                
+            
             if ($result) {
                 $response['estatus'] = 1;
                 $response['mensaje'] = "Usuario registrado exitosamente.";
@@ -44,6 +59,7 @@ if(isset($_POST['accion'])){
             echo json_encode($response);
             return 0;
         break;
+        
 
         //Para consultar el registro a modificar
         case 'consultar':

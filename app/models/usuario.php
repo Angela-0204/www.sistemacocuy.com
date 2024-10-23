@@ -31,7 +31,11 @@ class Usuario extends connectDB
 
     public function Crear($names, $email, $password_user, $fyh_creation, $id_rol)
     {
-        $resultado = $this->conex->prepare("INSERT INTO tb_usuarios (names, email, password_user, fyh_creation, id_rol) VALUES (:names, :email, :password_user, :fyh_creation, :id_rol)");
+        // Iniciar una transacción
+        $this->conex->beginTransaction();
+    
+        $resultado = $this->conex->prepare("INSERT INTO tb_usuarios (names, email, password_user, fyh_creation, id_rol) 
+                                            VALUES (:names, :email, :password_user, :fyh_creation, :id_rol)");
         try {
             $resultado->execute([
                 'names' => $names,
@@ -40,12 +44,17 @@ class Usuario extends connectDB
                 'fyh_creation' => $fyh_creation,
                 'id_rol' => $id_rol
             ]);
+    
+            $this->conex->commit();
         } catch (Exception $e) {
+        
+            $this->conex->rollBack();
             echo "Error al crear el usuario: " . $e->getMessage();
             return false;
         }
         return true;
     }
+    
 
     public function Buscar($id)
     {
