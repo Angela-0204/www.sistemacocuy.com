@@ -7,7 +7,6 @@ include ($MODELS . 'presentacion.php');
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
-$data_products = is_array($producto->Listar()) ? $producto->Listar() : [];
 $presentacion = new Presentacion();
 //Para listar categorias en los selects
 $data_categorias = $categoria->Listar();
@@ -59,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             document.addEventListener('DOMContentLoaded', function() {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Rol',
+                    title: 'Producto',
                     text: '".$respuesta['mensaje'] ."'
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -72,5 +71,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-include($VIEW.'producto/agregar.php'); 
+include($VIEW.'producto/agregar.php')
 ?>

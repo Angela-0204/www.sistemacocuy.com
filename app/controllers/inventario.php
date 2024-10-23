@@ -50,7 +50,7 @@ if(isset($_POST['accion'])){
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Rol',
+                        title: 'Producto',
                         text: '".$respuesta['mensaje'] ."'
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -79,7 +79,7 @@ if(isset($_GET['accion'])){
         document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 icon: 'success',
-                title: 'Rol',
+                title: 'Producto',
                 text: '".$respuesta['mensaje'] ."'
             }).then((result) => {
                 if (result.isConfirmed) {
