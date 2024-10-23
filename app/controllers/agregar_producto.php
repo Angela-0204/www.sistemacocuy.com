@@ -7,6 +7,7 @@ include ($MODELS . 'presentacion.php');
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
+$data_products = is_array($producto->Listar()) ? $producto->Listar() : [];
 $presentacion = new Presentacion();
 //Para listar categorias en los selects
 $data_categorias = $categoria->Listar();
