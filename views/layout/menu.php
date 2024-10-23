@@ -107,19 +107,12 @@
                 <li class="nav-item">
                   <a href="?pagina=usuario" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Listar de usuarios</p>
+                    <p>Lista de usuarios</p>
                   </a>
                 </li>
                 
               </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=roles" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Lista de roles</p>
-                  </a>
-                </li>
-              </ul>
+
             </li>
            
             <li class="nav-item">
@@ -255,6 +248,27 @@
                 </li>
               </ul>
             </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-folder-open"></i>
+                <p>
+                  Reportes
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=catalogo" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Gestionar reportes</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+            
             
             <li class="nav-item">
               <a href="?pagina=login" class="nav-link" style="background-color: #C82333">
