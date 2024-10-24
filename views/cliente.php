@@ -20,7 +20,7 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-10">
           <div class="card card-outline card-primary">
             <div class="card-header d-flex align-items-center">
               <div class="d-flex align-items-center">
@@ -40,6 +40,7 @@
             <div class="card-body">
               <table class="table table-bordered table-hover">
                 <tr>
+                <th>Codigo</th>
                   <th>Cedula</th>
                   <th>Nombre</th>
                   <th>Apellido</th>
@@ -52,6 +53,7 @@
                   <?php
                   foreach ($data_cliente as $data_cliente) { ?>
                     <tr>
+                    <td><?php echo $data_cliente['codigo_cliente'] ?></td>
                       <td><?php echo $data_cliente['cedula_cliente'] ?></td>
                       <td><?php echo $data_cliente['nombre_cliente'] ?></td>
                       <td><?php echo $data_cliente['apellido'] ?></td>
@@ -61,10 +63,10 @@
                       <td><?php echo $data_cliente['estatus'] ?></td>
                   
                       <td>
-                        <button onclick="editar(<?php echo $data_cliente['cedula_cliente']; ?>)" class="btn btn-warning btn-sm">
+                        <button onclick="editar(<?php echo $data_cliente['codigo_cliente']; ?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="eliminar(<?php echo $data_cliente['cedula_cliente']; ?>)" class="btn btn-danger btn-sm">
+                        <button onclick="eliminar(<?php echo $data_cliente['codigo_cliente']; ?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
                       </td>
@@ -141,7 +143,7 @@
         </div>
       </div>
 
-      <!-- Modal Editar Rol -->
+      
       <div class="modal fade" id="modal-edit-users" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -152,29 +154,47 @@
               </button>
             </div>
             <form action="" method="post">
-              <div class="modal-body">
-                <input type="hidden" id="id" name="id">
-                <div class="form-group">
-                  <label for="">Nombres</label>
-                  <input type="text" name="names_edit" id="names_edit" class="form-control" placeholder="Escriba aquí el nombre del Nuevo Usuario">
-                </div>
-               
+    <div class="modal-body">
+        <input type="hidden" id="cedula_cliente" name="cedula_cliente">
 
-                <div class="form-group">
-                  <label for="">Email</label>
-                  <input type="email" name="email_edit" id="email_edit" class="form-control" placeholder="Escriba aquí el Email del Nuevo Usuario">
-                </div>
+        <div class="form-group">
+            <label for="nombre_cliente_edit">Nombre</label>
+            <input type="text" name="nombre_cliente_edit" id="nombre_cliente_edit" class="form-control" placeholder="Escriba el nombre del cliente">
+        </div>
 
-                <div class="form-group">
-                  <label for="">Contraseña</label>
-                  <input type="password" name="password_user_edit" id="password_user_edit" class="form-control">
-                </div>
-                <hr>
-                <div class="form-group">
-                  <a href="" class="btn btn-secondary">Cancelar</a>
-                  <button id="modificar" class="btn btn-primary">Guardar</button>
-                </div>
-              </div>
+        <div class="form-group">
+            <label for="apellido_edit">Apellido</label>
+            <input type="text" name="apellido_edit" id="apellido_edit" class="form-control" placeholder="Escriba el apellido del cliente">
+        </div>
+
+        <div class="form-group">
+            <label for="email_edit">Correo</label>
+            <input type="email" name="email_edit" id="email_edit" class="form-control" placeholder="Escriba el correo del cliente">
+        </div>
+
+        <div class="form-group">
+            <label for="direccion_edit">Dirección</label>
+            <input type="text" name="direccion_edit" id="direccion_edit" class="form-control" placeholder="Escriba la dirección del cliente">
+        </div>
+
+        <div class="form-group">
+            <label for="telefono_edit">Teléfono</label>
+            <input type="text" name="telefono_edit" id="telefono_edit" class="form-control" placeholder="Escriba el teléfono del cliente">
+        </div>
+
+        <div class="form-group">
+            <label for="estatus_edit">Estatus</label>
+            <input type="text" name="estatus_edit" id="estatus_edit" class="form-control" placeholder="Escriba el estatus del cliente">
+        </div>
+
+        <hr>
+        <div class="form-group">
+            <a href="" class="btn btn-secondary">Cancelar</a>
+            <button id="modificar" class="btn btn-primary">Guardar</button>
+        </div>
+    </div>
+</form>
+
 
 
             </form>

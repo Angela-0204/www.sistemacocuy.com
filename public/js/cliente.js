@@ -4,7 +4,7 @@ $("#registrar").click(function (e) {
     var datos = new FormData();
     datos.append("accion", "registrar");
     datos.append("cedula_cliente", $("input[name='cedula_cliente']").val());
-    datos.append("nombre-cliente", $("input[name='nombre_cliente']").val());
+    datos.append("nombre_cliente", $("input[name='nombre_cliente']").val());
     datos.append("apellido", $("input[name='apellido']").val());
     datos.append("correo", $("input[name='correo']").val());
     datos.append("direccion", $("input[name='direccion']").val());
@@ -21,24 +21,28 @@ $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "modificar");
-    datos.append("id", $("input[name='id']").val());
-    datos.append("names", $("input[name='names_edit']").val());
-    datos.append("email", $("input[name='email_edit']").val());
-    datos.append("password_user", $("input[name='password_user_edit']").val());
-    datos.append("id_rol", $("select[name='id_rol']").val());
+    datos.append("codigo_cliente", $("input[name='codigo_cliente']").val());
+    datos.append("cedula_cliente", $("input[name='cedula_cliente']").val());
+    datos.append("nombre_cliente", $("input[name='nombre_cliente_edit']").val());
+    datos.append("apellido", $("input[name='apellido_edit']").val());
+    datos.append("correo", $("input[name='email_edit']").val());
+    datos.append("direccion", $("select[name='direccion_edit']").val());
+    datos.append("telefono", $("select[name='telefono_edit']").val());
+    datos.append("estatus", $("select[name='estatus_edit']").val());
+   
     funcionAjax(datos);
 });
 
-function editar(id){
+function editar(codigo_cliente){
     var datos = new FormData();
     datos.append("accion", "consultar");
-    datos.append("id_usuario", id);
+    datos.append("codigo_cliente", codigo_cliente);
     AjaxEditar(datos);
 }
 
 
 //Para eliminar un registro
-function eliminar(id) {
+function eliminar(codigo_cliente) {
     Swal.fire({
         title: "¿Está seguro de eliminar el registro?",
         text: "¡No podrás revertir esto!",
@@ -54,7 +58,7 @@ function eliminar(id) {
             setTimeout(function () {
                 var datos = new FormData();
                 datos.append("accion", "eliminar");
-                datos.append("id", id);
+                datos.append("codigo_cliente", codigo_cliente);
                 funcionAjax(datos);
             }, 10);
         }
@@ -75,7 +79,7 @@ function AjaxRegistrar(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Usuario",
+                    title: "Cliente",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -113,7 +117,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Usuario",
+                    title: "Cliente",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -149,10 +153,14 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-            $("#id").val(res.id);
-            $("#names_edit").val(res.names);
-            $("#email_edit").val(res.email);
-            $("#password_user_edit").val(res.password_user);
+            $("#codigo_cliente").val(res.codigo_cliente);
+            $("#cedula_cliente").val(res.cedula_cliente);
+            $("#nombre_cliente_edit").val(res.nombre_cliente);
+            $("#apellido_edit").val(res.apellido);
+            $("#email_edit").val(res.correo);
+            $("#direccion_edit").val(res.direccion);
+            $("#telefono_edit").val(res.telefono);
+            $("#estatus_edit").val(res.estatus);
             $("#modal-edit-users").modal("show");   
         },
         error: function (err) {
@@ -169,20 +177,17 @@ document.getElementById('registrar').addEventListener('click', function (e) {
     e.preventDefault();
 
     // Obtener los valores de los campos del formulario
-    var names = document.querySelector("input[name='names']").value;
-    var email = document.querySelector("input[name='email']").value;
-    var password = document.querySelector("input[name='password_user']").value;
-    var passwordRepeat = document.querySelector("input[name='password_repeat']").value;
-    var idRol = document.querySelector("select[name='id_rol']").value;
+    var cedula_cliente = document.querySelector("input[name='cedula_cliente']").value;
+    var nombre_cliente = document.querySelector("input[name='npmbre_cliente']").value;
+    var apellido = document.querySelector("input[name='apellido']").value;
+    var correo = document.querySelector("input[name='correo']").value;
+    var direccion = document.querySelector("select[name='direccion']").value;
+    var telefono = document.querySelector("select[name='telefono']").value;
+    var estatus = document.querySelector("select[name='estatus']").value;
 
     // Validación
-    if (!names || !email || !password || !passwordRepeat || !idRol) {
+    if (!cedula_cliente || !nombre_cliente || !apellido|| !correo|| !direccion|| !telefono|| !estatus) {
         alert("Todos los campos son obligatorios.");
-        return;
-    }
-
-    if (password !== passwordRepeat) {
-        alert("Las contraseñas no coinciden.");
         return;
     }
 
@@ -195,7 +200,7 @@ document.getElementById('registrar').addEventListener('click', function (e) {
     e.preventDefault();
 
     // Obtener el valor del campo de correo electrónico
-    var email = document.querySelector("input[name='email']").value;
+    var email = document.querySelector("input[name='correo']").value;
 
     // Expresión regular para validar el formato de email
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

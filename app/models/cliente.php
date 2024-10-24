@@ -18,11 +18,11 @@ class Cliente extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($cedula_cliente, $nombre_cliente, $apellido, $correo, $direccion, $telefono,$estatus)
+    public function Crear($cedula_cliente, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus)
     {
         // Iniciar una transacción
         $this->conex->beginTransaction();
-    
+        
         $resultado = $this->conex->prepare("INSERT INTO cliente (cedula_cliente, nombre_cliente, apellido, correo, direccion, telefono, estatus) 
                                             VALUES (:cedula_cliente, :nombre_cliente, :apellido, :correo, :direccion, :telefono, :estatus)");
         try {
@@ -34,19 +34,16 @@ class Cliente extends connectDB
                 'direccion' => $direccion,
                 'telefono' => $telefono,
                 'estatus' => $estatus
-
-               
             ]);
-    
+        
             $this->conex->commit();
         } catch (Exception $e) {
-        
+            // En caso de error, hacer rollback y mostrar el error
             $this->conex->rollBack();
-            echo "Error al crear el Nuevo cliente: " . $e->getMessage();
+            echo "Error al crear el cliente: " . $e->getMessage();
             return false;
         }
         return true;
-        
     }
     
 
@@ -55,10 +52,9 @@ class Cliente extends connectDB
 
 
 
-
-    public function Buscar($cedula_cliente)
+    public function Buscar($codigo_cliente)
     {
-        $resultado = $this->conex->prepare("SELECT * FROM cliente WHERE cedula_cliente = '$cedula_cliente'");
+        $resultado = $this->conex->prepare("SELECT * FROM cliente WHERE codigo_cliente = '$codigo_cliente'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -69,7 +65,7 @@ class Cliente extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($cedula_cliente, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus)
+    public function Modificar($codigo_cliente,$cedula_cliente, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus)
     {
         $sql = "UPDATE cliente SET cedula_cliente = :cedula_cliente, nombre_cliente = :nombre_cliente, apellido = :apellido, correo = :correo, direccion = :direccion, telefono = :telefono, estatus = :estatus
                 WHERE codigo_cliente = :codigo_cliente";
@@ -77,13 +73,15 @@ class Cliente extends connectDB
         $resultado = $this->conex->prepare($sql);
         try {
             $resultado->execute([
-                'cedula"_cliente' => $cedula_cliente,
+                'cedula_cliente' => $cedula_cliente,
                 'nombre_cliente' => $nombre_cliente,
                 'apellido' => $apellido,
                 'correo' => $correo,
                 'direccion' => $direccion,
                 'telefono' => $telefono,
-                'estatus' => $estatus
+                'estatus' => $estatus,
+
+                'codigo_cliente' => $codigo_cliente
                 
             ]);
         } catch (Exception $e) {
@@ -94,13 +92,13 @@ class Cliente extends connectDB
         return true;
     }
 
-    public function Eliminar($cedula_cliente)
+    public function Eliminar($codigo_cliente)
     {
-        $sql = "DELETE FROM cliente WHERE cedula_cliente = :cedula_cliente";
+        $sql = "DELETE FROM cliente WHERE codigo_cliente = :codigo_cliente";
         $resultado = $this->conex->prepare($sql);
         
         try {
-            $resultado->execute(['cedula_cliente' => $cedula_cliente]);
+            $resultado->execute(['codigo_cliente' => $codigo_cliente]);
         } catch (Exception $e) {
             echo "Error al eliminar el cliente " . $e->getMessage();
             return false;
