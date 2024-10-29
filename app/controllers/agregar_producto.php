@@ -3,31 +3,31 @@ include('app/config.php');
 include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
 include($MODELS . 'caja.php');
-include ($MODELS . 'presentacion.php');
+include ($MODELS . 'marcas.php');
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
-$presentacion = new Presentacion();
+$marcas = new Marcas();
 //Para listar categorias en los selects
 $data_categorias = $categoria->Listar();
 $data_cajas = $caja->Listar();
-$data_presentacion = $presentacion->Listar();
+$data_marcas = $marcas->Listar();
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch($_POST['accion']){
         case 'registrar':
             $nombre = $_POST['nombre'];
-            $codigo = $_POST['codigo'];
             $descripcion = $_POST['descripcion'];
             $id_categoria = $_POST['categoria'];
             $stock = $_POST['stock'];
-            $stock_minimo = $_POST['stock_minimo'];
-            $stock_maximo = $_POST['stock_maximo'];
             $precio_venta = $_POST['precio'];
             $fecha_ingreso = $_POST['fecha'];
-            $id_caja = $_POST['caja'];
-            $presentacion = $_POST['presentacion']; 
+            $id_empaquetado = $_POST['id_empaquetado'];
+            $marca = $_POST['marca']; 
+            $lote = $_POST['lote'];
+            $estatus = $_POST['estatus'];
+
         
             // Manejar la subida de la imagen
             $imagen = '';
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fyh_creacion = date('Y-m-d H:i:s');
             $fyh_actualizacion = date('Y-m-d H:i:s');
         
-            $result = $producto->Crear($codigo, $nombre, $descripcion, $id_categoria, $stock, $stock_minimo, $stock_maximo, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_caja, $presentacion);
+            $result = $producto->Crear($nombre, $descripcion, $id_categoria, $stock, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_empaquetado, $marca, $lote,$estatus);
             
             $respuesta = array();
             if ($result) {

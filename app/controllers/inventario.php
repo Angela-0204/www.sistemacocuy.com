@@ -3,23 +3,27 @@ include('app/config.php');
 include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
 include($MODELS . 'caja.php');
+include($MODELS . 'marca.php');
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
+$marcas = new Marcas();
 //Para listar los productos
 $data_products = $producto->Listar();
 session_start();
 
 //Para listar categorias en los selects
+
 $data_categorias = $categoria->Listar();
 $data_cajas = $caja->Listar();
+$data_marcas = $marcas->Listar();
+
 //Para modificar un registro
 if(isset($_POST['accion'])){
     switch($_POST['accion']){
         case 'modificar':
             $id = $_POST['id'];
             $nombre = $_POST['nombre'];
-            $codigo = $_POST['codigo'];
             $descripcion = $_POST['descripcion'];
             $id_categoria = $_POST['categoria'];
             $precio_venta = $_POST['precio'];
@@ -35,7 +39,7 @@ if(isset($_POST['accion'])){
                 }
             }
 
-            $result = $producto->Modificar($id, $codigo, $nombre, $descripcion, $id_categoria, $stock_minimo, $stock_maximo, $precio_venta, $imagen);
+            $result = $producto->Modificar($id, $codigo, $nombre, $descripcion, $id_categoria, $precio_venta, $imagen);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;

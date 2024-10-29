@@ -5,7 +5,7 @@ class Producto extends connectDB
 {
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT p.litraje, a.id_producto, a.codigo, a.nombre, a.descripcion, a.id_categoria, a.stock, a.stock_minimo, a.stock_maximo, a.precio_venta, a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria FROM inventario a INNER JOIN tb_categorias c ON a.id_categoria=c.id_categoria INNER JOIN presentacion p ON p.id_presentacion=a.id_presentacion;");
+        $resultado = $this->conex->prepare("SELECT  a.cod_inventario, a.nombre, a.descripcion, a.id_categoria, a.stock, a.precio_venta, a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria, a.cantidad, a.marca, a.lote, a.estatus, a.id_empaquetado FROM inventario a INNER JOIN categorias c ON a.id_categoria=c.id_categoria INNER JOIN presentacion p ON p.id_presentacion=a.id_presentacion INNER JOIN detalle_inventario p ON p.id_detalle_inventario=a.id_detalle_invetario INNER JOIN empaquetado p ON p.id_empaquetado=a.id_empaquetado;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -16,27 +16,27 @@ class Producto extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($codigo, $nombre, $descripcion, $id_categoria, $stock, $stock_minimo, $stock_maximo, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_caja, $litraje)
+    public function Crear($nombre, $descripcion, $id_categoria, $stock, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_empaquetado, $id_presentacion, $lote, $estatus)
     {
-        $sql = "INSERT INTO inventario (codigo, nombre, descripcion, id_categoria, stock, stock_minimo, stock_maximo, precio_venta, imagen, fyh_creacion, fyh_actualizacion, id_caja, id_presentacion) 
-                VALUES (:codigo, :nombre, :descripcion, :id_categoria, :stock, :stock_minimo, :stock_maximo, :precio_venta, :imagen, :fyh_creacion, :fyh_actualizacion, :id_caja, :litraje)";
+        $sql = "INSERT INTO inventario (nombre, descripcion, id_categoria, stock, precio_venta, imagen, fyh_creacion, fyh_actualizacion, id_empaquetado, id_presentacion, lote, estatus) 
+                VALUES (:cod_inventario, :nombre, :descripcion, :id_categoria, :stock, :precio_venta, :imagen, :fyh_creacion, :fyh_actualizacion, :id_empaquetado, :id_presentacion, :lote, :estatus)";
         $resultado = $this->conex->prepare($sql);
         
         try {
             $resultado->execute([
-                'codigo' => $codigo,
+
                 'nombre' => $nombre,
                 'descripcion' => $descripcion,
                 'id_categoria' => $id_categoria,
                 'stock' => $stock,
-                'stock_minimo' => $stock_minimo,
-                'stock_maximo' => $stock_maximo,
                 'precio_venta' => $precio_venta,
                 'imagen' => $imagen,
                 'fyh_creacion' => $fyh_creacion,
                 'fyh_actualizacion' => $fyh_actualizacion,
-                'id_caja' => $id_caja,
-                'litraje' => $litraje
+                'id_empaquetado' => $id_empaquetado,
+                'id_presentacion' => $id_presentacion,
+                'lote' => $lote,
+                'estatus' => $estatus
             ]);
         } catch (Exception $e) {
             echo "Error al crear el producto: " . $e->getMessage();
@@ -48,7 +48,7 @@ class Producto extends connectDB
     
     public function Buscar($id)
     {
-        $resultado = $this->conex->prepare("SELECT id_producto, codigo, nombre, descripcion, id_categoria, stock, stock_minimo, stock_maximo, precio_venta, imagen FROM inventario WHERE id_producto = '$id'");
+        $resultado = $this->conex->prepare("SELECT cod_inventario,  nombre, descripcion, id_categoria, precio_venta, imagen FROM inventario WHERE id_producto = '$id'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();

@@ -3,14 +3,15 @@ $("#registrar").click(function (e) {
     var datos = new FormData();
     datos.append("registrar", "true");
     datos.append("nombre", $("input[name='nombre']").val());
-    datos.append("codigo", $("input[name='codigo']").val());
     datos.append("descripcion", $("input[name='descripcion']").val());
-    datos.append("presentacion", $("select[name='presentacion']").val());
+    datos.append("marca", $("select[name='marca']").val());
     datos.append("categoria", $("select[name='categoria']").val());
     datos.append("stock", $("input[name='stock']").val());
     datos.append("precio", $("input[name='precio']").val());
     datos.append("fecha", $("input[name='fecha']").val());
     datos.append("caja", $("select[name='caja']").val());
+    datos.append("lote", $("select[name='lote']").val());
+    datos.append("estatus", $("select[name='estatus']").val());
     datos.append("imagen", $("input[name='imagen']")[0].files[0]);
 
     AjaxRegistrar(datos);

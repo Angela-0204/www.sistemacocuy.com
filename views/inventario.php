@@ -36,9 +36,9 @@
                                 <th>Nombre del Producto</th>
                                 <th>Descripción</th>
                                 <th>Categoria</th>
-                                <th>Disponibilidad en almacen</th>
+                                <th>Marca</th>
                                 <th>Precio</th>
-                                <th>Presentacion</th>
+                                <th>Empaquetado</th>
                                 <th>Ultima actualizacion</th>
                             </tr>
                         </thead>
@@ -46,21 +46,23 @@
                             <?php
                             foreach ($data_products as $data) { ?>
                                 <tr>
-                                    <td><?php echo $data['codigo'] ?></td>
+                                    <td><?php echo $data['cod_inventario'] ?></td>
                                     <td><?php echo $data['nombre'] ?></td>
                                     <td><?php echo $data['descripcion'] ?></td>
                                     <td><?php echo $data['nombre_categoria'] ?></td>
+                                    <td><?php echo $data['lote'] ?></td>
                                     <td><?php echo $data['stock'] ?></td>
                                     <td><?php echo $data['precio_venta'] ?></td>
+                                    <td><?php echo $data['status'] ?></td>
                                    
 
                                     <td><?php echo date('d/m/Y H:i', strtotime($data['fyh_actualizacion'])); ?></td>
 
                                     <td>
-                                        <a href="?pagina=inventario&accion=consultar&id=<?= $data['id_producto']; ?>" class="btn btn-warning btn-sm">
+                                        <a href="?pagina=inventario&accion=consultar&id=<?= $data['cod_inventario']; ?>" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                         </a>  
-                                        <a href="?pagina=inventario&accion=eliminar&id=<?= $data['id_producto']; ?>" class="btn btn-danger btn-sm">
+                                        <a href="?pagina=inventario&accion=eliminar&id=<?= $data['cod_inventario']; ?>" class="btn btn-danger btn-sm">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>

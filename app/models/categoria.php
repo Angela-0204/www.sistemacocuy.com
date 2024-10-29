@@ -5,12 +5,11 @@ class Categoria extends connectDB
 {
     private $id_categoria;
     private $nombre_categoria;
-    private $fyh_creacion;
-    private $fyh_actualizacion;
+
 
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT *FROM tb_categorias;");
+        $resultado = $this->conex->prepare("SELECT *FROM categoria;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -21,17 +20,16 @@ class Categoria extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($nombre_categoria, $fyh_creacion, $fyh_actualizacion)
+    public function Crear($nombre_categoria)
     {
-        $sql = "INSERT INTO tb_categorias (nombre_categoria, fyh_creacion, fyh_actualizacion) 
-                VALUES (:nombre_categoria, :fyh_creacion, :fyh_actualizacion)";
+        $sql = "INSERT INTO categoria (nombre_categoria) 
+                VALUES (:nombre_categoria)";
         $resultado = $this->conex->prepare($sql);
         
         try {
             $resultado->execute([
                 'nombre_categoria' => $nombre_categoria,
-                'fyh_creacion' => $fyh_creacion,
-                'fyh_actualizacion' => $fyh_actualizacion
+         
             ]);
         } catch (Exception $e) {
             echo "Error al crear el producto: " . $e->getMessage();
@@ -43,7 +41,7 @@ class Categoria extends connectDB
     
     public function Buscar($id)
     {
-        $resultado = $this->conex->prepare("SELECT * FROM tb_categorias WHERE id_categoria = '$id'");
+        $resultado = $this->conex->prepare("SELECT * FROM categoria WHERE id_categoria = '$id'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -54,16 +52,16 @@ class Categoria extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_categoria, $nombre_categoria, $fyh_actualizacion)
+    public function Modificar($id_categoria, $nombre_categoria)
     {
-        $sql = "UPDATE tb_categorias SET nombre_categoria = :nombre_categoria, fyh_actualizacion = :fyh_actualizacion 
+        $sql = "UPDATE categoria SET nombre_categoria = :nombre_categoria
                 WHERE id_categoria = :id_categoria";
             
         $resultado = $this->conex->prepare($sql);
         try {
             $resultado->execute([
                 'nombre_categoria' => $nombre_categoria,
-                'fyh_actualizacion' => $fyh_actualizacion,
+                
                 'id_categoria' => $id_categoria
             ]);
         } catch (Exception $e) {
@@ -76,7 +74,7 @@ class Categoria extends connectDB
 
     public function Eliminar($id_categoria)
     {
-        $sql = "DELETE FROM tb_categorias WHERE id_categoria = :id_categoria";
+        $sql = "DELETE FROM categoria WHERE id_categoria = :id_categoria";
         $resultado = $this->conex->prepare($sql);
         
         try {

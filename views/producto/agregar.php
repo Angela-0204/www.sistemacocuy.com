@@ -44,10 +44,6 @@
                         <label for="">Nombre del producto</label>
                         <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nombre del producto">
                       </div>
-                      <div class="col-md-6 form-group">
-                        <label for="">Codigo de producto</label>
-                        <input type="text" name="codigo" class="form-control" placeholder="Escriba aquí el codigo del producto">
-                      </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 form-group">
@@ -55,10 +51,10 @@
                         <input type="text" name="descripcion" class="form-control" placeholder="Escriba aqui una breve descripción del producto">
                       </div>
                       <div class="col-md-6 form-group">
-                        <label for="">Presentacion de embotellado</label>
-                        <select name="presentacion" id="presentacion" class="form-control">
-                          <?php foreach ($data_presentacion as $presentacion) { ?>
-                            <option value="<?= $presentacion['id_presentacion']; ?>"><?php echo $presentacion['litraje']; ?></option>
+                        <label for="">Marca</label>
+                        <select name="marca" id="marca" class="form-control">
+                          <?php foreach ($data_marcas as $marcas_dato) { ?>
+                            <option value="<?= $marcas_dato['id_presentacion']; ?>"><?php echo $marcas_dato['marca']; ?></option>
                           <?php } ?>
                         </select>
                       </div>
@@ -79,7 +75,7 @@
                         <label for="">Unidades de la caja</label>
                         <select name="caja" id="caja" class="form-control">
                           <?php foreach ($data_cajas as $cajas) { ?>
-                            <option value="<?= $cajas['id_caja']; ?>"><?php echo $cajas['cantidad']; ?></option>
+                            <option value="<?= $cajas['id_empaquetado']; ?>"><?php echo $cajas['cantidad']; ?></option>
                           <?php } ?>
                         </select>  
                       </div>
@@ -89,19 +85,20 @@
                         <label for="">Cantidad de productos</label>
                         <input type="number" name="stock" class="form-control" placeholder="Escriba aquí la cantidad en cajas del producto">
                       </div>
-                      <div class="col-md-6 form-group">
-                        <label for="">Cantidad minima permitida en inventario</label>
-                        <input type="number" name="stock_minimo" class="form-control" placeholder="Escriba aquí la cantidad minima de este producto en el inventario">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Cantidad maxima permitida en inventario</label>
-                        <input type="number" name="stock_maximo" class="form-control" placeholder="Escriba aquí la cantidad maxima de este producto en el inventario">
-                      </div>
+            
                       <div class="col-md-6 form-group">
                         <label for="">Precio por caja del producto</label>
                         <input type="text" name="precio" class="form-control" placeholder="Escriba aquí el precio del producto por caja">
+                      </div>
+                      
+                      <div class="col-md-6 form-group">
+                        <label for="">Lote</label>
+                        <input type="text" name="lote" class="form-control" placeholder="Escriba aquí el lote del producto.">
+                      </div>
+                      
+                      <div class="col-md-6 form-group">
+                        <label for="">Estatus</label>
+                        <input type="text" name="estatus" class="form-control" placeholder="Escriba aquí el estatus del producto">
                       </div>
                     </div>
                     <div class="row">
