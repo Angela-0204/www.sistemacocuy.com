@@ -1,36 +1,29 @@
+//Para registrar nueva categoria
 $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
-    datos.append("registrar", "true");
-    datos.append("nombre", $("input[name='nombre']").val());
-    datos.append("codigo", $("input[name='codigo']").val());
-    datos.append("descripcion", $("input[name='descripcion']").val());
-    datos.append("presentacion", $("select[name='presentacion']").val());
-    datos.append("categoria", $("select[name='categoria']").val());
-    datos.append("stock", $("input[name='stock']").val());
-    datos.append("precio", $("input[name='precio']").val());
-    datos.append("fecha", $("input[name='fecha']").val());
-    datos.append("caja", $("select[name='caja']").val());
-    datos.append("imagen", $("input[name='imagen']")[0].files[0]);
-
+    datos.append("accion", "registrar");
+    datos.append("medida", $("input[name='ml']").val());
     AjaxRegistrar(datos);
 });
 
+//Para modificar categoria
 $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
-    //Parametros(variable, valor)
-    datos.append("modificar", "true");
-    datos.append("id", $("input[name='id']").val());
-    datos.append("nombre", $("input[name='nombre']").val());
-    datos.append("codigo", $("input[name='codigo']").val());
-    datos.append("descripcion", $("input[name='descripcion']").val());
-    datos.append("categoria", $("select[name='categoria']").val());
-    datos.append("almacen", $("select[name='nombre_almacen']").val());
-    datos.append("precio", $("input[name='precio']").val());
-    datos.append("imagen", $("input[name='imagen']")[0].files[0]);
+    datos.append("accion", "modificar");
+    datos.append("cod_unidad", $("input[name='id']").val());
+    datos.append("medida", $("input[name='nombre_editar']").val());
     funcionAjax(datos);
 });
+
+function editar(id){
+    var datos = new FormData();
+    datos.append("accion", "consultar");
+    datos.append("cod_unidad", id);
+    AjaxEditar(datos);
+}
+
 
 //Para eliminar un registro
 function eliminar(id) {
@@ -48,7 +41,7 @@ function eliminar(id) {
         if (result.isConfirmed) {
             setTimeout(function () {
                 var datos = new FormData();
-                datos.append("eliminar", "true");
+                datos.append("accion", "eliminar");
                 datos.append("id", id);
                 funcionAjax(datos);
             }, 10);
@@ -70,14 +63,17 @@ function AjaxRegistrar(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Producto",
+                    title: "Medida",
                     text: res.mensaje
                 });
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000);
             } else {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Hubo un problema al registrar el producto."
+                    text: "Hubo un problema al registrar la Marca."
                 });
             }
         },
@@ -105,7 +101,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Producto",
+                    title: "Medida",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -119,6 +115,31 @@ function funcionAjax(datos) {
                     text: res.mensaje
                 });
             }
+        },
+        error: function (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error en la solicitud."
+            });
+        },
+    });
+}
+
+
+function AjaxEditar(datos) {
+    $.ajax({
+        url: "",
+        type: "POST",
+        contentType: false,
+        data: datos,
+        processData: false,
+        cache: false,
+        success: function (response) {  
+            var res = JSON.parse(response);   
+            $("#id").val(res.cod_unidad);
+            $("#nombre_editar").val(res.medida);
+            $("#modal-edit-categoria").modal("show");   
         },
         error: function (err) {
             Swal.fire({

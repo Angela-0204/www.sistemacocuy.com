@@ -2,11 +2,15 @@
 include('app/config.php');
 session_start();
 
-include($MODELS . 'caja.php');
-$caja = new Caja();
+include($MODELS . 'marcas.php');
+include($MODELS . 'medida.php');
 
-//Para listar cajas 
-$data_cajas = $caja->Listar();
+$ml = new Medida();
+$marcas = new Marcas();
+
+//Para listar categorias 
+$data_medida = $ml->Listar();
+$data_marcas = $marcas->Listar();
 if(isset($_POST['accion'])){
     //Establecer zona horaria para obtener la fecha actual
     date_default_timezone_set('UTC');
@@ -14,18 +18,19 @@ if(isset($_POST['accion'])){
     switch($_POST['accion']){
         //Para registrar
         case 'registrar':
-            $cantidad = $_POST['cantidad'];
-            $descripcion = $_POST['descripcion'];
-        
-            $result = $caja->Crear($cantidad, $descripcion);
+            $marca = $_POST['marca'];
+            $medida =$_POST['medida'];
+
+    
+            $result = $marcas->Crear($marca,$medida);
             
             $response = array();
             if ($result) {
                 $response['estatus'] = 1;
-                $response['mensaje'] = "Caja registrada exitosamente.";
+                $response['mensaje'] = "Marca registrada exitosamente.";
             } else {
                 $response['estatus'] = 0;
-                $response['mensaje'] = "Error al registrar la caja.";
+                $response['mensaje'] = "Error al registrar la marca.";
             }
             
             echo json_encode($response);
@@ -34,12 +39,11 @@ if(isset($_POST['accion'])){
 
         //Para consultar el registro a modificar
         case 'consultar':
-            $data = $caja->Buscar($_POST['id_empaquetado']);
+            $data = $marcas->Buscar($_POST['id_presentacion']);
             foreach ($data as $valor) {
                 echo json_encode([
-                    'id_empaquetado' => $valor['id_empaquetado'],
-                    'cantidad' => $valor['cantidad'],
-                    'descripcion' => $valor['descripcion']
+                    'id_presentacion' => $valor['id_presentacion'],
+                    'marca' => $valor['marca']
                 ]);
             }
             return 0;
@@ -47,14 +51,14 @@ if(isset($_POST['accion'])){
 
         //Para eliminar un registro
         case 'eliminar':
-            $result = $caja->Eliminar($_POST['id']);
+            $result = $marcas->Eliminar($_POST['id']);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Caja Eliminada exitosamente.";
+                $respuesta['mensaje'] = "Marca Eliminada exitosamente.";
             } else {
                 $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al eliminar el Empaquetado.";
+                $respuesta['mensaje'] = "Error al eliminar la Marca.";
             }
             echo json_encode($respuesta);
             return 0;
@@ -62,18 +66,19 @@ if(isset($_POST['accion'])){
 
         //Para modificar los datos
         case 'modificar':
-            $id = $_POST['id_empaquetado'];
-            $cantidad = $_POST['cantidad'];
-            $descripcion = $_POST['descripcion'];
+            $id = $_POST['id_presentacion'];
+            $marca = $_POST['marca'];
+            $cod_unidad = $_POST['cod_unidad'];
+           
         
-            $result = $caja->Modificar($id, $cantidad, $descripcion);
+            $result = $marcas->Modificar($id, $marca, $cod_unidad);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Caja Modificada exitosamente.";
+                $respuesta['mensaje'] = "Marcas Modificada exitosamente.";
             } else {
                 $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al modificar la caja.";
+                $respuesta['mensaje'] = "Error al modificar la Marcas.";
             }
             echo json_encode($respuesta);
             return 0;
@@ -83,5 +88,5 @@ if(isset($_POST['accion'])){
 }
 
 
-include($VIEW.'caja.php'); 
+include($VIEW.'marcas.php'); 
 ?>

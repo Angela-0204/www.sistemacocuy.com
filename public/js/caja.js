@@ -13,7 +13,7 @@ $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "modificar");
-    datos.append("id_caja", $("input[name='id']").val());
+    datos.append("id_empaquetado", $("input[name='id']").val());
     datos.append("cantidad", $("input[name='cantidad_editar']").val());
     datos.append("descripcion", $("input[name='descripcion_editar']").val());
     funcionAjax(datos);
@@ -22,7 +22,7 @@ $("#modificar").click(function (e) {
 function editar(id){
     var datos = new FormData();
     datos.append("accion", "consultar");
-    datos.append("id_caja", id);
+    datos.append("id_empaquetado", id);
     AjaxEditar(datos);
 }
 
@@ -65,7 +65,7 @@ function AjaxRegistrar(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Empaquetado",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -75,7 +75,7 @@ function AjaxRegistrar(datos) {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Hubo un problema al registrar la caja."
+                    text: "Hubo un problema al registrar el empaquetado."
                 });
             }
         },
@@ -103,7 +103,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Caja",
+                    title: "Empaquetado",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -139,7 +139,7 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-            $("#id").val(res.id_caja);
+            $("#id").val(res.id_empaquetado);
             $("#cantidad_editar").val(res.cantidad);
             $("#descripcion_editar").val(res.descripcion);
             $("#modal-edit-caja").modal("show");   

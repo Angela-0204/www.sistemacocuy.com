@@ -10,7 +10,7 @@ class connectDB {
         $this->usuario = 'root';
         $this->password = '';
         $this->local = 'localhost';
-        $this->nameDB = 'sistema_ventas2';
+        $this->nameDB = 'sistema';
         $this->conectarDB();
     }
 

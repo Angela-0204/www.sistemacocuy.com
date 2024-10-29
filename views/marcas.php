@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="m-0">Listado de Empaquetado</h1>
+          <h1 class="m-0">Listado de Marcas</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -23,15 +23,15 @@
         <div class="col-md-6">
           <div class="card card-outline card-primary">
             <div class="card-header ">
-              <h3 class="card-title mb-0">Empaquetados registrados</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-caja">Añadir Empaquetado</button>
+              <h3 class="card-title mb-0">Marcas registradas</h3>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Añadir Marca</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
               </div>
 
             </div>
-            <div class="card-body-md-6">
+            <div class="card-body">
               <table id="examplel" class="table table-bordered table-atriped">
                 <thead>
                   <tr>
@@ -39,10 +39,10 @@
                       <center>Nro</center>
                     </th>
                     <th>
-                      <center>Cantidad de botellas</center>
+                      <center>Nombre de las Marcas</center>
                     </th>
                     <th>
-                      <center>Descripción</center>
+                      <center>Mililitros</center>
                     </th>
                     <th>
                       <center>Accion</center>
@@ -52,18 +52,19 @@
                 <tbody>
                   <?php
                   $contador = 0;
-                  foreach ($data_cajas as $cajas_dato) {
-                    $id_empaquetado = $cajas_dato['id_empaquetado']; ?>
+                  foreach ($data_marcas as $marcas_dato) {
+                    $id_presentacion = $marcas_dato['id_presentacion']; 
+                    $cod_unidad = $marcas_dato['cod_unidad'];?>
 
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
-                      <td><?php echo $cajas_dato['cantidad']; ?></td>
-                      <td><?php echo $cajas_dato['descripcion']; ?></td>
+                      <td><?php echo $marcas_dato['marca']; ?></td>
+                      <td><?php echo $marcas_dato['medida'] ?></td>
                       <td>
-                        <button onclick="editar(<?=$cajas_dato['id_empaquetado'];?>)" class="btn btn-warning btn-sm">
+                        <button onclick="editar(<?=$marcas_dato['id_presentacion'];?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="eliminar(<?=$cajas_dato['id_empaquetado'];?>)" class="btn btn-danger btn-sm">
+                        <button onclick="eliminar(<?=$marcas_dato['id_presentacion'];?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
                       </td>
@@ -85,12 +86,12 @@
 </div>
 <!-- /.content-wrapper -->
 
-<!-- Modal crear caja -->
-<div class="modal fade" id="modal-add-caja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal crear Marca -->
+<div class="modal fade" id="modal-add-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Crear Nuevo Empaquetado</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Crear Nueva Marca</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -98,14 +99,22 @@
       <form action="" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="cantidad">Cantidad de botellas</label>
-            <input type="text" name="cantidad" class="form-control" placeholder="Escriba aquí la cantidad de botellas" required>
-          </div>
-          <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <input type="text" name="descripcion" class="form-control" placeholder="Escriba aquí una descripción" required>
+            <label for="nombre_categoria">Nombre de la Marca</label>
+            <input type="text" name="marca" id="marca" class="form-control" placeholder="Escriba aquí el nombre de la marca" required>
           </div>
         </div>
+        <div class="row-md-4">
+                      <div class="col align-self-center-md-4 form-group">
+                        <label for="">Medida Mililitros</label>
+                        <select name="mililitro" id="mililitro" class="form-control">
+                          <?php foreach ($data_medida as $medida_dato) { ?>
+                            <option value="<?= $medida_dato['cod_unidad']; ?>"><?php echo $medida_dato['medida']; ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary" id="registrar">Guardar</button>
@@ -115,12 +124,12 @@
   </div>
 </div>
 
-<!-- Modal editar caja -->
-<div class="modal fade" id="modal-edit-caja" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal editar marca -->
+<div class="modal fade" id="modal-edit-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Empaquetado</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Editar Marca</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -129,13 +138,20 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="cantidad_editar">Cantidad de botellas para el Empaquetado</label>
-            <input type="text" name="cantidad_editar" id="cantidad_editar" class="form-control" placeholder="Escriba aquí el cantidad de botellas" required>
+            <label for="nombre_editar">Nombre de la Marca</label>
+            <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de la marca" required>
           </div>
-          <div class="form-group">
-            <label for="descripcion_editar">Descripción de Empaquetado</label>
-            <input type="text" name="descripcion_editar" id="descripcion_editar" class="form-control" placeholder="Escriba aquí la descripción de la caja" required>
-          </div>
+          <div class="row-md-4">
+                      <div class="col align-self-center-md-4 form-group">
+                        <label for="">Medida Mililitros</label>
+                       
+                        <select name="mililitro" id="mililitro" class="form-control">
+                          <?php foreach ($data_medida as $medida_dato) { ?>
+                            <option value="<?= $medida_dato['cod_unidad']; ?>"><?php echo $medida_dato['medida']; ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -146,4 +162,4 @@
   </div>
 </div>
 <?php include('views/layout/footer.php'); ?>
-<script src="public/js/caja.js"></script>
+<script src="public/js/marca.js"></script>

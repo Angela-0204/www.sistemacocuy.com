@@ -22,8 +22,6 @@ if(isset($_POST['accion'])){
             $codigo = $_POST['codigo'];
             $descripcion = $_POST['descripcion'];
             $id_categoria = $_POST['categoria'];
-            $stock_minimo = $_POST['stock_minimo'];
-            $stock_maximo = $_POST['stock_maximo'];
             $precio_venta = $_POST['precio'];
 
             // Manejar la subida de la imagen

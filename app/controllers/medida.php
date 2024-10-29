@@ -2,11 +2,11 @@
 include('app/config.php');
 session_start();
 
-include($MODELS . 'caja.php');
-$caja = new Caja();
+include($MODELS . 'medida.php');
+$ml = new Medida();
 
-//Para listar cajas 
-$data_cajas = $caja->Listar();
+//Para listar categorias 
+$data_medida = $ml->Listar();
 if(isset($_POST['accion'])){
     //Establecer zona horaria para obtener la fecha actual
     date_default_timezone_set('UTC');
@@ -14,18 +14,18 @@ if(isset($_POST['accion'])){
     switch($_POST['accion']){
         //Para registrar
         case 'registrar':
-            $cantidad = $_POST['cantidad'];
-            $descripcion = $_POST['descripcion'];
+            $medida = $_POST['medida'];
+            
         
-            $result = $caja->Crear($cantidad, $descripcion);
+            $result = $ml->Crear($medida);
             
             $response = array();
             if ($result) {
                 $response['estatus'] = 1;
-                $response['mensaje'] = "Caja registrada exitosamente.";
+                $response['mensaje'] = "Medida registrada exitosamente.";
             } else {
                 $response['estatus'] = 0;
-                $response['mensaje'] = "Error al registrar la caja.";
+                $response['mensaje'] = "Error al registrar la medida.";
             }
             
             echo json_encode($response);
@@ -34,12 +34,11 @@ if(isset($_POST['accion'])){
 
         //Para consultar el registro a modificar
         case 'consultar':
-            $data = $caja->Buscar($_POST['id_empaquetado']);
+            $data = $ml->Buscar($_POST['cod_unidad']);
             foreach ($data as $valor) {
                 echo json_encode([
-                    'id_empaquetado' => $valor['id_empaquetado'],
-                    'cantidad' => $valor['cantidad'],
-                    'descripcion' => $valor['descripcion']
+                    'cod_unidad' => $valor['cod_unidad'],
+                    'medida' => $valor['medida']
                 ]);
             }
             return 0;
@@ -47,14 +46,14 @@ if(isset($_POST['accion'])){
 
         //Para eliminar un registro
         case 'eliminar':
-            $result = $caja->Eliminar($_POST['id']);
+            $result = $medida->Eliminar($_POST['id']);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Caja Eliminada exitosamente.";
+                $respuesta['mensaje'] = "Medida Eliminada exitosamente.";
             } else {
                 $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al eliminar el Empaquetado.";
+                $respuesta['mensaje'] = "Error al eliminar la Medida.";
             }
             echo json_encode($respuesta);
             return 0;
@@ -62,18 +61,18 @@ if(isset($_POST['accion'])){
 
         //Para modificar los datos
         case 'modificar':
-            $id = $_POST['id_empaquetado'];
-            $cantidad = $_POST['cantidad'];
-            $descripcion = $_POST['descripcion'];
+            $id = $_POST['cod_unidad'];
+            $medida = $_POST['medida'];
+           
         
-            $result = $caja->Modificar($id, $cantidad, $descripcion);
+            $result = $marcas->Modificar($id, $medida);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Caja Modificada exitosamente.";
+                $respuesta['mensaje'] = "Medida Modificada exitosamente.";
             } else {
                 $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al modificar la caja.";
+                $respuesta['mensaje'] = "Error al modificar la Medida.";
             }
             echo json_encode($respuesta);
             return 0;
@@ -83,5 +82,5 @@ if(isset($_POST['accion'])){
 }
 
 
-include($VIEW.'caja.php'); 
+include($VIEW.'medida.php'); 
 ?>

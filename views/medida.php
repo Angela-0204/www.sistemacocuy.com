@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="m-0">Listado de almacenes</h1>
+          <h1 class="m-0">Listado de Medidas (ml)</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -23,8 +23,8 @@
         <div class="col-md-6">
           <div class="card card-outline card-primary">
             <div class="card-header ">
-              <h3 class="card-title mb-0">Almacenes Registrados</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Añadir Nuevo Almacen</button>
+              <h3 class="card-title mb-0">Unidades de medidas (mL) registradas</h3>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Añadir nueva medida</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -39,7 +39,7 @@
                       <center>Nro</center>
                     </th>
                     <th>
-                      <center>Nombre del almacen</center>
+                      <center>Mililitros</center>
                     </th>
                     <th>
                       <center>Accion</center>
@@ -49,17 +49,18 @@
                 <tbody>
                   <?php
                   $contador = 0;
-                  foreach ($data_almacen as $dato_almacen) {
-                    $id_almacen = $dato_almacen['id_almacen']; ?>
+                  foreach ($data_medida as $medida_dato) {
+                    $cod_unidad = $medida_dato['cod_unidad']; ?>
 
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
-                      <td><?php echo $dato_almacen['nombre_almacen']; ?></td>
+                      <td><?php echo $medida_dato['medida']; ?></td>
+                      
                       <td>
-                        <button onclick="editar(<?=$dato_almacen['id_almacen'];?>)" class="btn btn-warning btn-sm">
+                        <button onclick="editar(<?=$medida_dato['cod_unidad'];?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="eliminar(<?=$dato_almacen['id_almacen'];?>)" class="btn btn-danger btn-sm">
+                        <button onclick="eliminar(<?=$medida_dato['cod_unidad'];?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
                       </td>
@@ -81,12 +82,12 @@
 </div>
 <!-- /.content-wrapper -->
 
-<!-- Modal crear Rol -->
+<!-- Modal crear medida -->
 <div class="modal fade" id="modal-add-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar Nuevo Almacen</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Crear Nueva Medida</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -94,10 +95,12 @@
       <form action="" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="nombre_categoria">Nombre del almacen</label>
-            <input type="text" name="nombre_categoria" class="form-control" placeholder="Escriba aquí el nombre del almacen" required>
+            <label for="medida">Cantidad en mL</label>
+            <input type="text" name="ml" class="form-control" placeholder="Escriba aquí la cantidad en Mililitros ej(1000ml)" required>
           </div>
         </div>
+       
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary" id="registrar">Guardar</button>
@@ -108,11 +111,11 @@
 </div>
 
 <!-- Modal editar categoria -->
-<div class="modal fade" id="modal-edit-almacen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-edit-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Almacen</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Editar Medida</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -121,8 +124,8 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="nombre_editar">Nombre del almacen</label>
-            <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre del almacen" required>
+            <label for="nombre_editar">Cantidad en mL</label>
+            <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí la cantidad en Mililitros ej(1000ml)" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -134,4 +137,4 @@
   </div>
 </div>
 <?php include('views/layout/footer.php'); ?>
-<script src="public/js/almacen.js"></script>
+<script src="public/js/medida.js"></script>

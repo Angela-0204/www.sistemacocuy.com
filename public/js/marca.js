@@ -1,11 +1,60 @@
-//Para registrar 
+//Para registrar nueva marca
 $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("nombre_almacen", $("input[name='nombre_almacen']").val());
+    datos.append("marca", $("input[name='marca']").val());
+    datos.append("medida", $("select[name='mililitro']").val());
+
     AjaxRegistrar(datos);
 });
+
+//Para modificar categoria
+$("#modificar").click(function (e) {
+    e.preventDefault(); 
+    var datos = new FormData();
+    datos.append("accion", "modificar");
+    datos.append("id_presentacion", $("input[name='id']").val());
+    datos.append("marca", $("input[name='nombre_editar']").val());
+    datos.append("medida", $("select[name='mililitro']").val());
+
+    funcionAjax(datos);
+});
+
+function editar(id){
+    var datos = new FormData();
+    datos.append("accion", "consultar");
+    datos.append("id_presentacion", id);
+    datos.append("cod_unidad", id);
+    
+    AjaxEditar(datos);
+}
+
+
+//Para eliminar un registro
+function eliminar(id) {
+    Swal.fire({
+        title: "¿Está seguro de eliminar el registro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: "#0C72C4",
+        cancelButtonColor: "#9D2323",
+        confirmButtonText: "Confirmar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            setTimeout(function () {
+                var datos = new FormData();
+                datos.append("accion", "eliminar");
+                datos.append("id", id);
+                funcionAjax(datos);
+            }, 10);
+        }
+    });
+}
+
 
 function AjaxRegistrar(datos) {
     $.ajax({
@@ -20,7 +69,7 @@ function AjaxRegistrar(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Almacen",
+                    title: "Marca",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -30,7 +79,7 @@ function AjaxRegistrar(datos) {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Hubo un problema al registrar el Almacen."
+                    text: "Hubo un problema al registrar la Marca."
                 });
             }
         },
@@ -58,7 +107,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Almacen",
+                    title: "Marca",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -94,9 +143,11 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-            $("#id").val(res.id_categoria);
-            $("#nombre_editar").val(res.nombre_categoria);
-            $("#modal-edit-almacen").modal("show");   
+            $("#id").val(res.id_presentacion);
+            $("#nombre_editar").val(res.marca);
+            $("#cantidad_editar").val(res.medida);
+
+            $("#modal-edit-categoria").modal("show");   
         },
         error: function (err) {
             Swal.fire({

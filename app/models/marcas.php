@@ -1,15 +1,19 @@
 <?php
 require_once(__DIR__ . '/../connectDB.php');
 
-class Caja extends connectDB
+class Marcas extends connectDB
 {
-    private $id_empaquetado;
-    private $cantidad;
-    private $descripcion;
+    private $id_presentacion;
+    private $marca;
+    private $cod_unidad;
+    private $medida;
+    
+  
 
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT *FROM empaquetado;");
+        $resultado = $this->conex->prepare("SELECT c.cod_unidad, a.id_presentacion, c.medida, a.marca FROM presentacion a INNER JOIN unidad_medida c ON a.cod_unidad=c.cod_unidad;");
+
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -20,16 +24,17 @@ class Caja extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($cantidad, $descripcion)
+    public function Crear($marca, $cod_unidad)
     {
-        $sql = "INSERT INTO empaquetado (cantidad, descripcion) 
-                VALUES (:cantidad, :descripcion)";
+        $sql = "INSERT INTO presentacion (marca, cod_unidad) 
+                VALUES (:marca, :cod_unidad)";
         $resultado = $this->conex->prepare($sql);
         
         try {
             $resultado->execute([
-                'cantidad' => $cantidad,
-                'descripcion' => $descripcion
+                'marca' => $marca,
+                'cod_unidad' => $cod_unidad
+                
             ]);
         } catch (Exception $e) {
             echo "Error al crear el producto: " . $e->getMessage();
@@ -41,7 +46,7 @@ class Caja extends connectDB
     
     public function Buscar($id)
     {
-        $resultado = $this->conex->prepare("SELECT * FROM empaquetado WHERE id_empaquetado = '$id'");
+        $resultado = $this->conex->prepare("SELECT * FROM presentacion WHERE id_presentacion = '$id'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -52,35 +57,35 @@ class Caja extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_empaquetado, $cantidad, $descripcion)
+    public function Modificar($id_presentacion, $marca, $cod_unidad)
     {
-        $sql = "UPDATE empaquetado SET cantidad = :cantidad, descripcion = :descripcion 
-                WHERE id_empaquetado = :id_empaquetado";
+        $sql = "UPDATE presentacion SET marca = :marca, cod_unidad = :cod_unidad
+                WHERE id_presentacion = :id_presentacion";
             
         $resultado = $this->conex->prepare($sql);
         try {
             $resultado->execute([
-                'cantidad' => $cantidad,
-                'descripcion' => $descripcion,
-                'id_empaquetado' => $id_empaquetado
+                'marca' => $marca,
+                'cod_unidad' => $cod_unidad,
+                'id_presentacion' => $id_presentacion
             ]);
         } catch (Exception $e) {
-            echo "Error al modificar el empaquetado: " . $e->getMessage();
+            echo "Error al modificar el producto: " . $e->getMessage();
             return false;
         }
         
         return true;
     }
 
-    public function Eliminar($id_empaquetado)
+    public function Eliminar($id_presentacion)
     {
-        $sql = "DELETE FROM empaquetado WHERE id_empaquetado = :id_empaquetado";
+        $sql = "DELETE FROM presentacion WHERE id_presentacion = :id_presentacion";
         $resultado = $this->conex->prepare($sql);
         
         try {
-            $resultado->execute(['id_empaquetado' => $id_empaquetado]);
+            $resultado->execute(['id_presentacion' => $id_presentacion]);
         } catch (Exception $e) {
-            echo "Error al eliminar el empaquetado: " . $e->getMessage();
+            echo "Error al eliminar la marca: " . $e->getMessage();
             return false;
         }
         

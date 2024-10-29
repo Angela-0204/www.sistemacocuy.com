@@ -1,15 +1,15 @@
 <?php
 require_once(__DIR__ . '/../connectDB.php');
 
-class Caja extends connectDB
+class Medida extends connectDB
 {
-    private $id_empaquetado;
-    private $cantidad;
-    private $descripcion;
+    private $cod_unidad;
+    private $medida;
+  
 
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT *FROM empaquetado;");
+        $resultado = $this->conex->prepare("SELECT *FROM unidad_medida;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -20,19 +20,19 @@ class Caja extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($cantidad, $descripcion)
+    public function Crear($medida)
     {
-        $sql = "INSERT INTO empaquetado (cantidad, descripcion) 
-                VALUES (:cantidad, :descripcion)";
+        $sql = "INSERT INTO unidad_medida (medida) 
+                VALUES (:medida)";
         $resultado = $this->conex->prepare($sql);
         
         try {
             $resultado->execute([
-                'cantidad' => $cantidad,
-                'descripcion' => $descripcion
+                'medida' => $medida,
+                
             ]);
         } catch (Exception $e) {
-            echo "Error al crear el producto: " . $e->getMessage();
+            echo "Error al crear la medida: " . $e->getMessage();
             return false;
         }
         
@@ -41,7 +41,7 @@ class Caja extends connectDB
     
     public function Buscar($id)
     {
-        $resultado = $this->conex->prepare("SELECT * FROM empaquetado WHERE id_empaquetado = '$id'");
+        $resultado = $this->conex->prepare("SELECT * FROM unidad_medida WHERE cod_unidad = '$id'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -52,35 +52,34 @@ class Caja extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_empaquetado, $cantidad, $descripcion)
+    public function Modificar($cod_unidad, $medida)
     {
-        $sql = "UPDATE empaquetado SET cantidad = :cantidad, descripcion = :descripcion 
-                WHERE id_empaquetado = :id_empaquetado";
+        $sql = "UPDATE unidad_medida SET medida = :medida
+                WHERE cod_medida = :cod_medida";
             
         $resultado = $this->conex->prepare($sql);
         try {
             $resultado->execute([
-                'cantidad' => $cantidad,
-                'descripcion' => $descripcion,
-                'id_empaquetado' => $id_empaquetado
+                'medida' => $medida,
+                'cod_unidad' => $cod_unidad
             ]);
         } catch (Exception $e) {
-            echo "Error al modificar el empaquetado: " . $e->getMessage();
+            echo "Error al modificar la medida: " . $e->getMessage();
             return false;
         }
         
         return true;
     }
 
-    public function Eliminar($id_empaquetado)
+    public function Eliminar($cod_unidad)
     {
-        $sql = "DELETE FROM empaquetado WHERE id_empaquetado = :id_empaquetado";
+        $sql = "DELETE FROM unidad_medida WHERE cod_unidad = :cod_unidad";
         $resultado = $this->conex->prepare($sql);
         
         try {
-            $resultado->execute(['id_empaquetado' => $id_empaquetado]);
+            $resultado->execute(['cod_unidad' => $cod_unidad]);
         } catch (Exception $e) {
-            echo "Error al eliminar el empaquetado: " . $e->getMessage();
+            echo "Error al eliminar la medida: " . $e->getMessage();
             return false;
         }
         

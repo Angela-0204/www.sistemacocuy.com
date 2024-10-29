@@ -158,7 +158,7 @@
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-box"></i>
                 <p>
-                 Gestion de cajas
+                   Empaquetado
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -166,7 +166,25 @@
                 <li class="nav-item">
                   <a href="?pagina=caja" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Listado de cajas</p>
+                    <p>Listado de Empaquetado</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+      
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-thin fa-wine-glass"></i>
+                <p>
+                 Gestionar Marcas
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=marcas" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Listado de Marcas</p> 
                   </a>
                 </li>
               </ul>
@@ -175,15 +193,15 @@
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-wine-bottle"></i>
                 <p>
-                 Gestionar presentacion
+                 Gestionar Medida
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="?pagina=presentacion" class="nav-link active">
+                  <a href="?pagina=medida" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Listado de presentaciones</p> 
+                    <p>Listado de Medidas</p> 
                   </a>
                 </li>
               </ul>
@@ -204,38 +222,14 @@
                   </a>
                 </li>
               </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=banco" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Bancos</p>
-                  </a>
-                </li>
-              </ul>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-clipboard"></i>
-                <p>
-                  Almacen
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="?pagina=almacen" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Listado de almacen</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+          
 
             <li class="nav-item">
               <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-truck"></i>
                 <p>
-                  Realizar Pedido
+                  Gestionar Pedido
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -251,7 +245,7 @@
 
             <li class="nav-item">
               <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-truck"></i>
+              <i class="nav-icon fas fa-user-tie"></i>
                 <p>
                   Clientes
                   <i class="right fas fa-angle-left"></i>
