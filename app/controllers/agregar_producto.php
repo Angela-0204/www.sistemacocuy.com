@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_categoria = $_POST['categoria'];
             $stock = $_POST['stock'];
             $precio_venta = $_POST['precio'];
-            $fecha_ingreso = $_POST['fecha'];
-            $id_empaquetado = $_POST['id_empaquetado'];
+            $fecha_creacion = $_POST['fecha'];
+            $id_empaquetado = $_POST['caja'];
             $marca = $_POST['marca']; 
             $lote = $_POST['lote'];
             $estatus = $_POST['estatus'];
@@ -40,11 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
         
-            $fyh_creacion = date('Y-m-d H:i:s');
             $fyh_actualizacion = date('Y-m-d H:i:s');
         
-            $result = $producto->Crear($nombre, $descripcion, $id_categoria, $stock, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_empaquetado, $marca, $lote,$estatus);
-            
+            $result = $producto->Crear($nombre, $descripcion, $id_categoria, $stock, $precio_venta, $imagen, $fecha_creacion, $fyh_actualizacion, $id_empaquetado, $marca, $lote,$estatus);
+
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;

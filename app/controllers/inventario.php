@@ -3,7 +3,7 @@ include('app/config.php');
 include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
 include($MODELS . 'caja.php');
-include($MODELS . 'marca.php');
+include($MODELS . 'marcas.php');
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();

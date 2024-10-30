@@ -5,7 +5,7 @@ class Producto extends connectDB
 {
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT  a.cod_inventario, a.nombre, a.descripcion, a.id_categoria, a.stock, a.precio_venta, a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria, a.cantidad, a.marca, a.lote, a.estatus, a.id_empaquetado FROM inventario a INNER JOIN categorias c ON a.id_categoria=c.id_categoria INNER JOIN presentacion p ON p.id_presentacion=a.id_presentacion INNER JOIN detalle_inventario p ON p.id_detalle_inventario=a.id_detalle_invetario INNER JOIN empaquetado p ON p.id_empaquetado=a.id_empaquetado;");
+        $resultado = $this->conex->prepare("SELECT a.cod_inventario, a.nombre, a.descripcion, di.stock, a.precio_venta, a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria, di.lote, di.estatus, e.cantidad, pr.marca  FROM inventario a INNER JOIN categoria c ON a.id_categoria=c.id_categoria INNER JOIN detalle_inventario di ON di.id_detalle_inventario=a.id_detalle_inventario INNER JOIN empaquetado e ON e.id_empaquetado=di.id_empaquetado INNER JOIN presentacion pr ON pr.id_presentacion=di.id_presentacion;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -18,33 +18,48 @@ class Producto extends connectDB
 
     public function Crear($nombre, $descripcion, $id_categoria, $stock, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_empaquetado, $id_presentacion, $lote, $estatus)
     {
-        $sql = "INSERT INTO inventario (nombre, descripcion, id_categoria, stock, precio_venta, imagen, fyh_creacion, fyh_actualizacion, id_empaquetado, id_presentacion, lote, estatus) 
-                VALUES (:cod_inventario, :nombre, :descripcion, :id_categoria, :stock, :precio_venta, :imagen, :fyh_creacion, :fyh_actualizacion, :id_empaquetado, :id_presentacion, :lote, :estatus)";
-        $resultado = $this->conex->prepare($sql);
-        
+        // SQL para insertar en la tabla inventario
+        $sql_inventario = "INSERT INTO detalle_inventario (stock, id_empaquetado, id_presentacion, lote, estatus) 
+                VALUES (:stock, :id_empaquetado, :id_presentacion, :lote, :estatus)";
+        // Preparamos la consulta
+        $resultado_inventario = $this->conex->prepare($sql_inventario);
+    
         try {
-            $resultado->execute([
-
-                'nombre' => $nombre,
-                'descripcion' => $descripcion,
-                'id_categoria' => $id_categoria,
+            // Ejecutamos el primer INSERT en inventario
+            $resultado_inventario->execute([
                 'stock' => $stock,
-                'precio_venta' => $precio_venta,
-                'imagen' => $imagen,
-                'fyh_creacion' => $fyh_creacion,
-                'fyh_actualizacion' => $fyh_actualizacion,
                 'id_empaquetado' => $id_empaquetado,
                 'id_presentacion' => $id_presentacion,
                 'lote' => $lote,
                 'estatus' => $estatus
+            ]);           
+    
+            // Obtener el ID generado del último registro insertado en inventario
+            $cod_inventario = $this->conex->lastInsertId();
+            $sql_detalle_inventario = "INSERT INTO inventario (id_detalle_inventario, nombre, descripcion, id_categoria,  precio_venta, imagen, fyh_creacion, fyh_actualizacion) 
+                VALUES (:id_detalle_inventario, :nombre, :descripcion, :id_categoria,  :precio_venta, :imagen, :fyh_creacion, :fyh_actualizacion)";
+            // Preparamos la consulta para detalle_inventario
+            $resultado_detalle = $this->conex->prepare($sql_detalle_inventario);
+    
+            // Ejecutamos el segundo INSERT en detalle_inventario con el cod_inventario obtenido
+            $resultado_detalle->execute([
+                'id_detalle_inventario' => $cod_inventario,
+                'nombre' => $nombre,
+                'descripcion' => $descripcion,
+                'id_categoria' => $id_categoria,
+                'precio_venta' => $precio_venta,
+                'imagen' => $imagen,
+                'fyh_creacion' => $fyh_creacion,
+                'fyh_actualizacion' => $fyh_actualizacion                
             ]);
+    
+            return true;  // Todo se ejecutó correctamente
         } catch (Exception $e) {
             echo "Error al crear el producto: " . $e->getMessage();
             return false;
         }
-        
-        return true;
     }
+    
     
     public function Buscar($id)
     {

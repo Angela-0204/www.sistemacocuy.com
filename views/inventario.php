@@ -37,8 +37,10 @@
                                 <th>Descripción</th>
                                 <th>Categoria</th>
                                 <th>Marca</th>
+                                <th>Lote</th>
                                 <th>Precio</th>
                                 <th>Empaquetado</th>
+                                <th>Estatus</th>
                                 <th>Ultima actualizacion</th>
                             </tr>
                         </thead>
@@ -50,10 +52,11 @@
                                     <td><?php echo $data['nombre'] ?></td>
                                     <td><?php echo $data['descripcion'] ?></td>
                                     <td><?php echo $data['nombre_categoria'] ?></td>
+                                    <td><?php echo $data['marca'] ?></td>
                                     <td><?php echo $data['lote'] ?></td>
                                     <td><?php echo $data['stock'] ?></td>
                                     <td><?php echo $data['precio_venta'] ?></td>
-                                    <td><?php echo $data['status'] ?></td>
+                                    <td><?php echo $data['estatus'] ?></td>
                                    
 
                                     <td><?php echo date('d/m/Y H:i', strtotime($data['fyh_actualizacion'])); ?></td>
