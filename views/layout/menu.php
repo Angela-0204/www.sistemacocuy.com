@@ -223,7 +223,23 @@
                 </li>
               </ul>
             </li>
-          
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-landmark"></i>
+                <p>
+                 Reportes de pagos
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="?pagina=reportar_pago" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Reportar pago</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
             <li class="nav-item">
               <a href="#" class="nav-link active">

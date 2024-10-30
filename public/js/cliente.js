@@ -3,7 +3,7 @@ $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("cedula_cliente", $("input[name='cedula_cliente']").val());
+    datos.append("cedula_rif", $("input[name='cedula_rif']").val());
     datos.append("nombre_cliente", $("input[name='nombre_cliente']").val());
     datos.append("apellido", $("input[name='apellido']").val());
     datos.append("correo", $("input[name='correo']").val());
@@ -21,8 +21,7 @@ $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "modificar");
-    datos.append("codigo_cliente", $("input[name='codigo_cliente']").val());
-    datos.append("cedula_cliente", $("input[name='cedula_cliente']").val());
+    datos.append("cedula_rif", $("input[name='cedula_rif_editar']").val());
     datos.append("nombre_cliente", $("input[name='nombre_cliente_edit']").val());
     datos.append("apellido", $("input[name='apellido_edit']").val());
     datos.append("correo", $("input[name='email_edit']").val());
@@ -33,16 +32,16 @@ $("#modificar").click(function (e) {
     funcionAjax(datos);
 });
 
-function editar(codigo_cliente){
+function editar(cedula_rif){
     var datos = new FormData();
     datos.append("accion", "consultar");
-    datos.append("codigo_cliente", codigo_cliente);
+    datos.append("cedula_rif", cedula_rif);
     AjaxEditar(datos);
 }
 
 
 //Para eliminar un registro
-function eliminar(codigo_cliente) {
+function eliminar(cod_cliente) {
     Swal.fire({
         title: "¿Está seguro de eliminar el registro?",
         text: "¡No podrás revertir esto!",
@@ -58,7 +57,7 @@ function eliminar(codigo_cliente) {
             setTimeout(function () {
                 var datos = new FormData();
                 datos.append("accion", "eliminar");
-                datos.append("codigo_cliente", codigo_cliente);
+                datos.append("cod_cliente", cod_cliente);
                 funcionAjax(datos);
             }, 10);
         }
@@ -75,21 +74,31 @@ function AjaxRegistrar(datos) {
         processData: false,
         cache: false,
         success: function (response) {
-            var res = JSON.parse(response);
-            if (res.estatus == 1) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Cliente",
-                    text: res.mensaje
-                });
-                setTimeout(function () {
-                    window.location.reload();
-                }, 2000);
-            } else {
+            try {
+                var res = JSON.parse(response);
+                if (res.estatus == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Cliente",
+                        text: res.mensaje
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: res.mensaje || "Error desconocido al registrar el cliente."
+                    });
+                }
+            } catch (error) {
+                console.error("Error al parsear la respuesta JSON:", error);
+                console.error("Respuesta recibida:", response);
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: res.mensaje
+                    text: "La respuesta del servidor no es válida."
                 });
             }
         },
@@ -97,8 +106,9 @@ function AjaxRegistrar(datos) {
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: "Error en la solicitud."
+                text: "Error en la solicitud al servidor."
             });
+            console.error("Error en la solicitud AJAX:", err);
         },
     });
 }
@@ -153,8 +163,8 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-            $("#codigo_cliente").val(res.codigo_cliente);
-            $("#cedula_cliente").val(res.cedula_cliente);
+          
+            $("#cedula_rif_editar").val(res.cedula_rif);
             $("#nombre_cliente_edit").val(res.nombre_cliente);
             $("#apellido_edit").val(res.apellido);
             $("#email_edit").val(res.correo);
@@ -177,8 +187,8 @@ document.getElementById('registrar').addEventListener('click', function (e) {
     e.preventDefault();
 
     // Obtener los valores de los campos del formulario
-    var cedula_cliente = document.querySelector("input[name='cedula_cliente']").value;
-    var nombre_cliente = document.querySelector("input[name='npmbre_cliente']").value;
+    var cedula_rif = document.querySelector("input[name='cedula_rif']").value;
+    var nombre_cliente = document.querySelector("input[name='nombre_cliente']").value;
     var apellido = document.querySelector("input[name='apellido']").value;
     var correo = document.querySelector("input[name='correo']").value;
     var direccion = document.querySelector("select[name='direccion']").value;
@@ -186,7 +196,7 @@ document.getElementById('registrar').addEventListener('click', function (e) {
     var estatus = document.querySelector("select[name='estatus']").value;
 
     // Validación
-    if (!cedula_cliente || !nombre_cliente || !apellido|| !correo|| !direccion|| !telefono|| !estatus) {
+    if (!cedula_rif || !nombre_cliente || !apellido|| !correo|| !direccion|| !telefono|| !estatus) {
         alert("Todos los campos son obligatorios.");
         return;
     }

@@ -15,7 +15,8 @@ if(isset($_POST['accion'])){
     switch($_POST['accion']){
         //Para registrar
         case 'registrar':
-            $cedula_cliente = $_POST['cedula_cliente'];
+           
+            $cedula_rif = $_POST['cedula_rif'];
             $nombre_cliente = $_POST['nombre_cliente'];
             $apellido = $_POST['apellido'];
             $correo = $_POST['correo'];
@@ -27,7 +28,7 @@ if(isset($_POST['accion'])){
             $response = array();
         
             // Validaciones en el lado del servidor
-            if (empty($cedula_cliente) || empty($nombre_cliente) || empty($apellido) || empty($correo) || empty($direccion) || empty($telefono) || empty($estatus) ) {
+            if (  empty($cedula_rif) || empty($nombre_cliente) || empty($apellido) || empty($correo) || empty($direccion) || empty($telefono) || empty($estatus) ) {
                 $response['estatus'] = 0;
                 $response['mensaje'] = "Todos los campos son obligatorios.";
                 echo json_encode($response);
@@ -43,7 +44,7 @@ if(isset($_POST['accion'])){
             }
         
         
-            $result = $cliente->Crear($cedula_cliente, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus );
+            $result = $cliente->Crear($cedula_rif, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus );
             
             if ($result) {
                 $response['estatus'] = 1;
@@ -60,10 +61,10 @@ if(isset($_POST['accion'])){
 
         //Para consultar el registro a modificar
         case 'consultar':
-            $data = $cliente->Buscar($_POST['codigo_cliente']);
+            $data = $cliente->Buscar($_POST['cod_cliente']);
             foreach ($data as $valor) {
                 echo json_encode([
-                    'Cedula' => $valor['cedula_cliente'],
+                    'cedula_rif' => $valor['cedula_rif'],
                     'nombre_cliente' => $valor['nombre_cliente'],
                     'apellido' => $valor['apellido'],
                     'correo' => $valor['correo'],
@@ -78,7 +79,7 @@ if(isset($_POST['accion'])){
 
         //Para eliminar un registro
         case 'eliminar':
-            $result = $cliente->Eliminar($_POST['codigo_cliente']);
+            $result = $cliente->Eliminar($_POST['cod_cliente']);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
@@ -93,8 +94,8 @@ if(isset($_POST['accion'])){
 
         //Para modificar los datos
         case 'modificar':
-            $codigo_cliente = $_POST['codigo_cliente'];
-            $cedula_cliente = $_POST['cedula_cliente'];
+       
+            $cedula_cliente = $_POST['cedula_rif'];
             $nombre_cliente = $_POST['nombre_cliente'];
             $apellido = $_POST['apellido'];
             $correo= $_POST['correo'];
@@ -104,7 +105,7 @@ if(isset($_POST['accion'])){
 
           
         
-            $result = $cliente->Modificar($codigo_cliente, $cedula_cliente, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus);
+            $result = $cliente->Modificar( $cedula_rif, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;

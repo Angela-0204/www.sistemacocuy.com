@@ -3,7 +3,7 @@ require_once(__DIR__ . '/../connectDB.php');
 
 class Tipo extends connectDB
 {
-    private $id_tipo_caja;
+    private $id_tipo_pago;
     private $nombre;
     private $identificacion;
     private $datos;

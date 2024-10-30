@@ -51,22 +51,22 @@
                 </tr>
                 <tbody>
                   <?php
-                  foreach ($data_cliente as $data_cliente) { ?>
+                  foreach ($data_cliente as $data_clientes) { ?>
                     <tr>
-                    <td><?php echo $data_cliente['codigo_cliente'] ?></td>
-                      <td><?php echo $data_cliente['cedula_cliente'] ?></td>
-                      <td><?php echo $data_cliente['nombre_cliente'] ?></td>
-                      <td><?php echo $data_cliente['apellido'] ?></td>
-                      <td><?php echo $data_cliente['correo'] ?></td>
-                      <td><?php echo $data_cliente['telefono'] ?></td>
-                      <td><?php echo $data_cliente['direccion'] ?></td>
-                      <td><?php echo $data_cliente['estatus'] ?></td>
+                    <td><?php echo $data_clientes['cod_cliente'] ?></td>
+                      <td><?php echo $data_clientes['cedula_rif'] ?></td>
+                      <td><?php echo $data_clientes['nombre_cliente'] ?></td>
+                      <td><?php echo $data_clientes['apellido'] ?></td>
+                      <td><?php echo $data_clientes['correo'] ?></td> 
+                      <td><?php echo $data_clientes['direccion'] ?></td>
+                      <td><?php echo $data_clientes['telefono'] ?></td>
+                      <td><?php echo $data_clientes['estatus'] ?></td>
                   
                       <td>
-                        <button onclick="editar(<?php echo $data_cliente['codigo_cliente']; ?>)" class="btn btn-warning btn-sm">
+                        <button onclick="editar(<?php echo $data_clientes['cedula_rif']; ?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="eliminar(<?php echo $data_cliente['codigo_cliente']; ?>)" class="btn btn-danger btn-sm">
+                        <button onclick="eliminar(<?php echo $data_clientes['cod_cliente']; ?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
                       </td>
@@ -92,7 +92,7 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label for="">Cedula del cliente </label>
-                  <input type="text" name="cedula_cliente" class="form-control" placeholder="Escriba aquí la cedula o el RIF del cliente">
+                  <input type="text" name="cedula_rif" class="form-control" placeholder="Escriba aquí la cedula o el RIF del cliente">
                 </div>
 
                 <div class="form-group">
@@ -155,7 +155,7 @@
             </div>
             <form action="" method="post">
     <div class="modal-body">
-        <input type="hidden" id="cedula_cliente" name="cedula_cliente">
+        <input type="hidden" id="cedula_rif_editar" name="cedula_rif_editar">
 
         <div class="form-group">
             <label for="nombre_cliente_edit">Nombre</label>

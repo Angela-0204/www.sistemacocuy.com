@@ -41,11 +41,6 @@
                         <select class="form-control" > </select>
                       </div>
 
-                      <div class="form-group">
-                        <label for="">Seleccione El Banco </label>
-                        <select class="form-control" > </select>
-                        
-                      </div>
 
                       <div class="form-group">
                         <label for="">Numero de Referencia</label>
