@@ -12,11 +12,11 @@ if(isset($_POST['accion'])){
     switch($_POST['accion']){
         //Para registrar
         case 'registrar':
-            $identificacion = $_POST['identificacion'];
+          
             $nombre = $_POST['nombre'];
-            $datos = $_POST['datos'];
+           
         
-            $result = $tipo->Crear($nombre, $identificacion, $datos);
+            $result = $tipo->Crear($nombre);
             
             $response = array();
             if ($result) {
@@ -38,8 +38,7 @@ if(isset($_POST['accion'])){
                 echo json_encode([
                     'id_tipo_pago' => $valor['id_tipo_pago'],
                     'nombre' => $valor['nombre'],
-                    'identificacion' => $valor['identificacion'],
-                    'datos' => $valor['datos']
+                   
                 ]);
             }
             return 0;
@@ -62,13 +61,12 @@ if(isset($_POST['accion'])){
 
         //Para modificar los datos
         case 'modificar':
-            $identificacion = $_POST['identificacion'];
-            $nombre = $_POST['nombre'];
-            $datos = $_POST['datos'];
-            $id_tipo_pago = $_POST['id_tipo_pago'];
 
+            $id_tipo_pago = $_POST['id_tipo_pago'];
+            $nombre = $_POST['nombre'];
+         
         
-            $result = $tipo->Modificar($id_tipo_pago, $nombre, $identificacion, $datos);
+            $result = $tipo->Modificar($id_tipo_pago, $nombre);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;

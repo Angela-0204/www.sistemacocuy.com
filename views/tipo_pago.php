@@ -56,8 +56,7 @@
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
                       <td><?php echo $data_tipo['nombre']; ?></td>
-                      <td><?php echo $data_tipo['identificacion']; ?></td>
-                      <td><?php echo $data_tipo['datos']; ?></td>
+                
                       <td>
                         <button onclick="editar(<?=$data_tipo['id_tipo_pago'];?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
@@ -110,12 +109,12 @@
   </div>
 </div>
 
-<!-- Modal editar pago -->
-<div class="modal fade" id="modal-edit-tipo-pago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal editar categoria -->
+<div class="modal fade" id="modal-edit-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Tipo de pago</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Editar Metodo de Pago</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -124,18 +123,9 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="nombre_editar">Nombre tipo de pago</label>
-            <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de tipo de pagos" required>
+            <label for="nombre_editar">Nombre del Nuevo Metodo de Pago</label>
+            <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de la categoria" required>
           </div>
-          <div class="form-group">
-            <label for="identificacion_editar">Identificación</label>
-            <input type="text" name="identificacion_editar" id="identificacion_editar" class="form-control" placeholder="Escriba aquí la descripción de la caja" required>
-          </div>
-          <div class="form-group">
-            <label for="datos_editar">Datos de pagos</label>
-            <input type="text" name="datos_editar" id="datos_editar" class="form-control" placeholder="Escriba aquí los datos del tipo del pago" required>
-          </div>
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
