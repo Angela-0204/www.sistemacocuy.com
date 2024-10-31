@@ -43,6 +43,8 @@
                   <th>Nro</th>
                   <th>Nombre</th>
                   <th>Email</th>
+                  <th>Rol</th>
+                 
                  
                 </tr>
                 <tbody>
@@ -52,6 +54,7 @@
                       <td><?php echo $data_user['id_users'] ?></td>
                       <td><?php echo $data_user['names'] ?></td>
                       <td><?php echo $data_user['email'] ?></td>
+                      <td><?php echo $data_user['rol'] ?></td>
                   
                       <td>
                         <button onclick="editar(<?php echo $data_user['id_users']; ?>)" class="btn btn-warning btn-sm">
@@ -93,6 +96,15 @@
                   
                 </div>
 
+                      <div class="col align-self-center-md-4 form-group">
+                        <label for="">Roles</label>
+                        <select name="roles" id="roles" class="form-control">
+                          <?php foreach ($data_rol as $rol_dato) { ?>
+                            <option value="<?= $rol_dato['cod_tipo_usuario']; ?>"><?php echo $rol_dato['rol']; ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                
                 <div class="form-group">
                   <label for="">Contraseña</label>
                   <input type="password" name="password_user" class="form-control">
@@ -102,6 +114,8 @@
                   <label for="">Repita Contraseña</label>
                   <input type="password" name="password_repeat" class="form-control">
                 </div>
+
+
                 <hr>
                 <div class="form-group">
                   <a href="" class="btn btn-secondary">Cancelar</a>
@@ -138,6 +152,15 @@
                   <label for="">Email</label>
                   <input type="email" name="email_edit" id="email_edit" class="form-control" placeholder="Escriba aquí el Email del Nuevo Usuario">
                 </div>
+
+                <div class="col align-self-center-md-4 form-group">
+                        <label for="">Roles</label>
+                        <select name="roles_edit" id="roles_edit" class="form-control">
+                          <?php foreach ($data_rol as $rol_dato) { ?>
+                            <option value="<?= $rol_dato['cod_tipo_usuario']; ?>"><?php echo $rol_dato['rol']; ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
 
                 <div class="form-group">
                   <label for="">Contraseña</label>

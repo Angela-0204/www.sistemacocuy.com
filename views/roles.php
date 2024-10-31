@@ -18,7 +18,6 @@
                     <div class="card card-outline card-primary">
                         <div class="card-header d-flex align-items-center">
                             <h3 class="card-title mb-0">Roles registrados</h3>
-                            <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-rol">Añadir Rol</button>
                             <div class="ml-auto">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
@@ -32,23 +31,16 @@
                                     <tr>
                                         <th>ID Rol</th>
                                         <th>Nombre de Rol</th>
-                                        <th>Acciones</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php if (!empty($rol_datos)) {
                                         foreach ($rol_datos as $data_user) { ?>
                                             <tr>
-                                                <td><?php echo $data_user['id_rol']; ?></td>
-                                                <td><?php echo $data_user['nombre_rol']; ?></td>
-                                                <td>
-                                                    <button onclick="editar(<?php echo $data_user['id_rol']; ?>)" class="btn btn-warning btn-sm">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button onclick="eliminar(<?php echo $data_user['id_rol']; ?>)" class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
+                                                <td><?php echo $data_user['cod_tipo_usuario']; ?></td>
+                                                <td><?php echo $data_user['rol']; ?></td>
+                                            
                                             </tr>
                                         <?php }
                                     } else { ?>
@@ -64,60 +56,9 @@
                 </div>
             </div>
 
-            <!-- Modal Añadir Rol -->
-            <div class="modal fade" id="modal-add-rol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Añadir Nuevo Rol</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="" method="post">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="nombre_rol">Nombre del Rol</label>
-                                    <input type="text" name="nombre_rol" class="form-control" placeholder="Escriba aquí el nombre del nuevo rol" required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button id="registrar" class="btn btn-primary">Guardar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Editar Rol -->
-            <div class="modal fade" id="modal-edit-rol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Añadir Nuevo Rol</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="" method="post">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input type="hidden" id="id" name="id">
-                                    <label for="nombre_editar">Nombre del Rol</label>
-                                    <input type="text" id="nombre_editar" name="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre del nuevo rol" required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button id="modificar" class="btn btn-primary">Guardar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            
             </div>
         </div>
     </div>
 </div>
 <?php include('views/layout/footer.php'); ?>
-<script src="public/js/rol.js"></script>

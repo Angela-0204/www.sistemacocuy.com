@@ -3,6 +3,9 @@ include('app/connectDB.php');
 
 class Usuario extends connectDB
 {
+    private $cod_tipo_usuario;
+    private $rol;
+
     public function ValidarIngreso($email, $clave)
     {
         $resultado = $this->conex->prepare("SELECT *FROM usuario WHERE email ='$email' AND password_user='$clave'; ");
@@ -18,7 +21,7 @@ class Usuario extends connectDB
 
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT * FROM usuario");
+        $resultado = $this->conex->prepare("SELECT a.id_users, a.names, a.email, a.password_user, c.rol, c.cod_tipo_usuario FROM usuario a INNER JOIN tipo_usuario c ON a.cod_tipo_usuario=c.cod_tipo_usuario;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -29,19 +32,19 @@ class Usuario extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($names, $email, $password_user, $fyh_creation)
+    public function Crear($names, $email, $password_user, $cod_tipo_usuario)
     {
         // Iniciar una transacción
         $this->conex->beginTransaction();
     
-        $resultado = $this->conex->prepare("INSERT INTO usuario (names, email, password_user, fyh_creation) 
-                                            VALUES (:names, :email, :password_user, :fyh_creation)");
+        $resultado = $this->conex->prepare("INSERT INTO usuario (names, email, password_user, cod_tipo_usuario) 
+                                            VALUES (:names, :email, :password_user,  :cod_tipo_usuario)");
         try {
             $resultado->execute([
                 'names' => $names,
                 'email' => $email,
                 'password_user' => $password_user,
-                'fyh_creation' => $fyh_creation
+                'cod_tipo_usuario' => $cod_tipo_usuario
                
             ]);
     
@@ -63,6 +66,7 @@ class Usuario extends connectDB
 
 
 
+
     public function Buscar($id)
     {
         $resultado = $this->conex->prepare("SELECT * FROM usuario WHERE id_users = '$id'");
@@ -76,9 +80,9 @@ class Usuario extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_users, $names, $email, $password_user)
+    public function Modificar($id_users, $names, $email, $password_user, $rol)
     {
-        $sql = "UPDATE usuario SET names = :names, email = :email, password_user = :password_user 
+        $sql = "UPDATE usuario SET names = :names, email = :email, password_user = :password_user, rol = :rol
                 WHERE id_users = :id_users";
             
         $resultado = $this->conex->prepare($sql);
@@ -87,7 +91,7 @@ class Usuario extends connectDB
                 'names' => $names,
                 'email' => $email,
                 'password_user' => $password_user,
-
+                 'rol' => $rol,
                 'id_users' => $id_users
             ]);
         } catch (Exception $e) {
@@ -106,7 +110,7 @@ class Usuario extends connectDB
         try {
             $resultado->execute(['id_users' => $id_users]);
         } catch (Exception $e) {
-            echo "Error al eliminar el rol: " . $e->getMessage();
+            echo "Error al eliminar el usuario: " . $e->getMessage();
             return false;
         }
         

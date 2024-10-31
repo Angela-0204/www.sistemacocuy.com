@@ -7,6 +7,7 @@ $("#registrar").click(function (e) {
     datos.append("email", $("input[name='email']").val());
     datos.append("password_user", $("input[name='password_user']").val());
     datos.append("password_repeat", $("input[name='password_repeat']").val());
+    datos.append("rol", $("select[name='roles']").val());
     
     AjaxRegistrar(datos);
 });
@@ -22,7 +23,7 @@ $("#modificar").click(function (e) {
     datos.append("names", $("input[name='names_edit']").val());
     datos.append("email", $("input[name='email_edit']").val());
     datos.append("password_user", $("input[name='password_user_edit']").val());
-    datos.append("id_rol", $("select[name='id_rol']").val());
+    datos.append("rol", $("select[name='roles_edit']").val());
     funcionAjax(datos);
 });
 
@@ -170,10 +171,10 @@ document.getElementById('registrar').addEventListener('click', function (e) {
     var email = document.querySelector("input[name='email']").value;
     var password = document.querySelector("input[name='password_user']").value;
     var passwordRepeat = document.querySelector("input[name='password_repeat']").value;
-    var idRol = document.querySelector("select[name='id_rol']").value;
+    var rol = document.querySelector("select[name='roles']").value;
 
     // Validación
-    if (!names || !email || !password || !passwordRepeat || !idRol) {
+    if (!names || !email || !password || !passwordRepeat || !rol) {
         alert("Todos los campos son obligatorios.");
         return;
     }
