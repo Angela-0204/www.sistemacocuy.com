@@ -2,20 +2,18 @@
 include('app/config.php');
 include($MODELS . 'cliente.php');
 
-$cliente= new Cliente();
+$cliente = new Cliente();
 $data_cliente = $cliente->Listar();
-
 
 session_start();
 
-if(isset($_POST['accion'])){
-    //Establecer zona horaria para obtener la fecha actual
+if (isset($_POST['accion'])) {
+    // Establecer zona horaria para obtener la fecha actual
     date_default_timezone_set('UTC');
 
-    switch($_POST['accion']){
-        //Para registrar
+    switch ($_POST['accion']) {
+        // Para registrar
         case 'registrar':
-           
             $cedula_rif = $_POST['cedula_rif'];
             $nombre_cliente = $_POST['nombre_cliente'];
             $apellido = $_POST['apellido'];
@@ -24,27 +22,32 @@ if(isset($_POST['accion'])){
             $telefono = $_POST['telefono'];
             $estatus = $_POST['estatus'];
             
-          
             $response = array();
         
             // Validaciones en el lado del servidor
-            if (  empty($cedula_rif) || empty($nombre_cliente) || empty($apellido) || empty($correo) || empty($direccion) || empty($telefono) || empty($estatus) ) {
+            if (empty($cedula_rif) || empty($nombre_cliente) || empty($apellido) || empty($correo) || empty($direccion) || empty($telefono) || empty($estatus)) {
                 $response['estatus'] = 0;
                 $response['mensaje'] = "Todos los campos son obligatorios.";
                 echo json_encode($response);
-                return 0;
+                return;
             }
-        
         
             if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
                 $response['estatus'] = 0;
                 $response['mensaje'] = "Por favor, ingrese un email válido.";
                 echo json_encode($response);
-                return 0;
+                return;
+            }
+
+            // Verificar si el cliente ya está registrado
+            if ($cliente->Existe($cedula_rif)) {
+                $response['estatus'] = 0;
+                $response['mensaje'] = "El cliente con esta cédula o RIF ya está registrado.";
+                echo json_encode($response);
+                return;
             }
         
-        
-            $result = $cliente->Crear($cedula_rif, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus );
+            $result = $cliente->Crear($cedula_rif, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus);
             
             if ($result) {
                 $response['estatus'] = 1;
@@ -55,11 +58,9 @@ if(isset($_POST['accion'])){
             }
             
             echo json_encode($response);
-            return 0;
-        break;
-        
+            return;
 
-        //Para consultar el registro a modificar
+        // Para consultar el registro a modificar
         case 'consultar':
             $data = $cliente->Buscar($_POST['cod_cliente']);
             foreach ($data as $valor) {
@@ -71,54 +72,62 @@ if(isset($_POST['accion'])){
                     'direccion' => $valor['direccion'],
                     'telefono' => $valor['telefono'],
                     'estatus' => $valor['estatus'],
-                    
                 ]);
             }
-            return 0;
-        break;
+            return;
 
-        //Para eliminar un registro
+        // Para eliminar un registro
         case 'eliminar':
-            $result = $cliente->Eliminar($_POST['cod_cliente']);
+            $cod_cliente = $_POST['cod_cliente'];
+            // Validar si el cliente existe antes de intentar eliminar
+            if (!$cliente->ExistePorId($cod_cliente)) {
+                $response['estatus'] = 0;
+                $response['mensaje'] = "No se puede eliminar: el cliente no existe.";
+                echo json_encode($response);
+                return;
+            }
+
+            $result = $cliente->Eliminar($cod_cliente);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Cliente Eliminado exitosamente.";
+                $respuesta['mensaje'] = "Cliente eliminado exitosamente.";
             } else {
                 $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al eliminar la usuario.";
+                $respuesta['mensaje'] = "Error al eliminar el cliente.";
             }
             echo json_encode($respuesta);
-            return 0;
-        break;
+            return;
 
-        //Para modificar los datos
+        // Para modificar los datos
         case 'modificar':
-       
             $cedula_cliente = $_POST['cedula_rif'];
             $nombre_cliente = $_POST['nombre_cliente'];
             $apellido = $_POST['apellido'];
-            $correo= $_POST['correo'];
-            $direccion= $_POST['direccion'];
-            $telefono= $_POST['telefono'];
-            $estatus= $_POST['estatus'];
+            $correo = $_POST['correo'];
+            $direccion = $_POST['direccion'];
+            $telefono = $_POST['telefono'];
+            $estatus = $_POST['estatus'];
 
-          
-        
-            $result = $cliente->Modificar( $cedula_rif, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus);
+            // Validar que el cliente exista antes de modificar
+            if (!$cliente->Existe($cedula_cliente)) {
+                $response['estatus'] = 0;
+                $response['mensaje'] = "No se puede modificar: el cliente no existe.";
+                echo json_encode($response);
+                return;
+            }
+
+            $result = $cliente->Modificar($cedula_cliente, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Cliente  Modificado exitosamente.";
+                $respuesta['mensaje'] = "Cliente modificado exitosamente.";
             } else {
                 $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al modificar al cliente.";
+                $respuesta['mensaje'] = "Error al modificar el cliente.";
             }
             echo json_encode($respuesta);
-            return 0;
-        break;        
-
+            return;
     }
 }
 include($VIEW.'cliente.php'); 
-

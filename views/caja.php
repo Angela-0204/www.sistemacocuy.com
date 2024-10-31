@@ -103,7 +103,7 @@
           </div>
           <div class="form-group">
             <label for="descripcion">Descripción</label>
-            <input type="text" name="descripcion" class="form-control" placeholder="Escriba aquí una descripción" required>
+            <input type="text" maxlength="20" name="descripcion" class="form-control" placeholder="Escriba aquí una descripción" required>
           </div>
         </div>
         <div class="modal-footer">

@@ -1,0 +1,15 @@
+{
+    "name": "administrator/www.sistemacocuy.com",
+    "autoload": {
+        "psr-4": {
+            "Administrator\\WwwSistemacocuyCom\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Angela-0204",
+            "email": "angelarojas0204@gmail.com"
+        }
+    ],
+    "require": {}
+}
