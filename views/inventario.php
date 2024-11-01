@@ -27,9 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-right">
-                    <a href="views/fpdf/PruebaV.php"  target="_blank"  class="btn btn-success">Generar reporte</a>
-                </div>
+                
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
@@ -41,6 +39,7 @@
                                 <th>Marca</th>
                                 <th>Lote</th>
                                 <th>Precio</th>
+                                <th>Cantidad</th>
                                 <th>Empaquetado</th>
                                 <th>Estatus</th>
                                 <th>Ultima actualizacion</th>
@@ -56,8 +55,9 @@
                                     <td><?php echo $data['nombre_categoria'] ?></td>
                                     <td><?php echo $data['marca'] ?></td>
                                     <td><?php echo $data['lote'] ?></td>
-                                    <td><?php echo $data['stock'] ?></td>
                                     <td><?php echo $data['precio_venta'] ?></td>
+                                    <td><?php echo $data['stock'] ?></td>
+                                    <td><?php echo $data['cantidad'] ?></td>
                                     <td><?php echo $data['estatus'] ?></td>
                                    
 
