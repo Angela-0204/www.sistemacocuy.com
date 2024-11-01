@@ -99,7 +99,8 @@ class Producto extends connectDB
     }
 
     public function Modificar($id_producto, $codigo, $nombre, $descripcion, $id_categoria, $stock_minimo, $stock_maximo, $precio_venta, $imagen)
-    {
+    { 
+
         $sql = "UPDATE inventario SET codigo = :codigo, nombre = :nombre, descripcion = :descripcion, id_categoria = :id_categoria, stock_minimo = :stock_minimo, stock_maximo = :stock_maximo, precio_venta = :precio_venta,imagen = :imagen 
                 WHERE id_producto = :id_producto";
             
@@ -116,6 +117,7 @@ class Producto extends connectDB
                 'imagen' => $imagen,
                 'id_producto' => $id_producto
             ]);
+            
         } catch (Exception $e) {
             echo "Error al modificar el producto: " . $e->getMessage();
             return false;

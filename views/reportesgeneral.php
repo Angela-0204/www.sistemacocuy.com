@@ -43,11 +43,11 @@
           </div>
           <a href="?pagina=reporteinventario">
             <div class="icon">
-              <i class="nav-icon fas fa-file-excel"></i>
+              <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
             </div>
           </a>
           <a href="?pagina=reporteinventario" class="small-box-footer" style="color:black">
-            Generar Reporte en Excel <i class="fas fa-arrow-circle-right"></i>
+            Generar Reporte en PDF <i class="fas fa-arrow-circle-right"></i>
           </a>
         </div>
       </div>
@@ -64,11 +64,11 @@
           </div>
           <a href="?pagina=reporteinventario">
             <div class="icon">
-              <i class="nav-icon fas fa-file-excel"></i>
+              <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
             </div>
           </a>
           <a href="?pagina=reporteinventario" class="small-box-footer" style="color:black">
-            Generar Reporte en Excel <i class="fas fa-arrow-circle-right"></i>
+            Generar Reporte en PDF <i class="fas fa-arrow-circle-right"></i>
           </a>
         </div>
       </div>
@@ -82,11 +82,11 @@
           </div>
           <a href="?pagina=reporteinventario">
             <div class="icon">
-              <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+              <i class="nav-icon fas fa-sharp-duotone  fa-file-excel"></i>
             </div>
           </a>
           <a href="?pagina=reporteinventario" class="small-box-footer" style="color:black">
-            Generar Reporte en PDF <i class="fas fa-arrow-circle-right"></i>
+            Generar Reporte en Excel <i class="fas fa-arrow-circle-right"></i>
           </a>
         </div>
       </div>

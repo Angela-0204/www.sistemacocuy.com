@@ -58,8 +58,8 @@
                       <td><?php echo $data_clientes['nombre_cliente'] ?></td>
                       <td><?php echo $data_clientes['apellido'] ?></td>
                       <td><?php echo $data_clientes['correo'] ?></td> 
-                      <td><?php echo $data_clientes['direccion'] ?></td>
                       <td><?php echo $data_clientes['telefono'] ?></td>
+                      <td><?php echo $data_clientes['direccion'] ?></td>
                       <td><?php echo $data_clientes['estatus'] ?></td>
                   
                       <td>
