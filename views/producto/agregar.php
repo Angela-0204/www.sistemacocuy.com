@@ -91,7 +91,7 @@
             
                       <div class="col-md-6 form-group">
                         <label for="">Precio por caja del producto</label>
-                        <input type="text" name="precio" class="form-control" placeholder="Escriba aquí el precio del producto por caja">
+                        <input type="number" name="precio" class="form-control" placeholder="Escriba aquí el precio del producto por caja">
                       </div>
                       
                       <div class="col-md-6 form-group">

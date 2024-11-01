@@ -22,7 +22,7 @@
 <h3>2</h3>
 <p>Usuarios Registrados</p>
 </div>
-<a href="?pagina=usuario_create">
+<a href="?pagina=usuario">
 <div class="icon">
 <i class="nav-icon fas fa-user-plus"></i>
 </div>

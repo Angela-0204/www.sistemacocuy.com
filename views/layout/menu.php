@@ -297,7 +297,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="?pagina=catalogo" class="nav-link active">
+                  <a href="?pagina=reportesgeneral" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Gestionar reportes</p>
                   </a>
