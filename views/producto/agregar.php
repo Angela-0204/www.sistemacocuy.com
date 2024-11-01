@@ -38,7 +38,6 @@
               <div class="row">
                 <div class="col-md-12">
                   <form action="" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="accion" value="registrar">
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label for="">Nombre del producto</label>
@@ -138,8 +137,5 @@
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<?php 
-if (isset($script)) {
-    echo $script;
-}?>
 <?php include('views/layout/footer.php'); ?>
+<script src="<?php echo $URL;?>/public/js/producto.js"></script>
