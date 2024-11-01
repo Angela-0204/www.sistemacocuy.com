@@ -18,13 +18,16 @@ class Producto extends connectDB
 
     public function Crear($nombre, $descripcion, $id_categoria, $stock, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_empaquetado, $id_presentacion, $lote, $estatus)
     {
-        // SQL para insertar en la tabla inventario
-        $sql_inventario = "INSERT INTO detalle_inventario (stock, id_empaquetado, id_presentacion, lote, estatus) 
-                VALUES (:stock, :id_empaquetado, :id_presentacion, :lote, :estatus)";
-        // Preparamos la consulta
-        $resultado_inventario = $this->conex->prepare($sql_inventario);
-    
+        // Iniciamos la transacción
+        $this->conex->beginTransaction();
+        
         try {
+            // SQL para insertar en la tabla detalle_inventario
+            $sql_inventario = "INSERT INTO detalle_inventario (stock, id_empaquetado, id_presentacion, lote, estatus) 
+                    VALUES (:stock, :id_empaquetado, :id_presentacion, :lote, :estatus)";
+            // Preparamos la consulta
+            $resultado_inventario = $this->conex->prepare($sql_inventario);
+            
             // Ejecutamos el primer INSERT en inventario
             $resultado_inventario->execute([
                 'stock' => $stock,
@@ -32,16 +35,19 @@ class Producto extends connectDB
                 'id_presentacion' => $id_presentacion,
                 'lote' => $lote,
                 'estatus' => $estatus
-            ]);           
+            ]);
     
             // Obtener el ID generado del último registro insertado en inventario
             $cod_inventario = $this->conex->lastInsertId();
-            $sql_detalle_inventario = "INSERT INTO inventario (id_detalle_inventario, nombre, descripcion, id_categoria,  precio_venta, imagen, fyh_creacion, fyh_actualizacion) 
-                VALUES (:id_detalle_inventario, :nombre, :descripcion, :id_categoria,  :precio_venta, :imagen, :fyh_creacion, :fyh_actualizacion)";
-            // Preparamos la consulta para detalle_inventario
+            
+            // SQL para insertar en la tabla inventario
+            $sql_detalle_inventario = "INSERT INTO inventario (id_detalle_inventario, nombre, descripcion, id_categoria, precio_venta, imagen, fyh_creacion, fyh_actualizacion) 
+                    VALUES (:id_detalle_inventario, :nombre, :descripcion, :id_categoria, :precio_venta, :imagen, :fyh_creacion, :fyh_actualizacion)";
+            
+            // Preparamos la consulta para inventario
             $resultado_detalle = $this->conex->prepare($sql_detalle_inventario);
-    
-            // Ejecutamos el segundo INSERT en detalle_inventario con el cod_inventario obtenido
+            
+            // Ejecutamos el segundo INSERT en inventario con el cod_inventario obtenido
             $resultado_detalle->execute([
                 'id_detalle_inventario' => $cod_inventario,
                 'nombre' => $nombre,
@@ -53,12 +59,17 @@ class Producto extends connectDB
                 'fyh_actualizacion' => $fyh_actualizacion                
             ]);
     
-            return true;  // Todo se ejecutó correctamente
+            // Si todo se ejecutó correctamente, hacemos el commit
+            $this->conex->commit();
+            return true;
         } catch (Exception $e) {
+            // Si ocurre un error, hacemos rollback
+            $this->conex->rollback();
             echo "Error al crear el producto: " . $e->getMessage();
             return false;
         }
     }
+    
     
     
     public function Buscar($id)
