@@ -41,6 +41,9 @@
     .nav-sidebar>.nav-item>.nav-link {
       color: gray !important;
     }
+    .required{
+      color: red;
+    }
   </style>
 </head>
 <body class="hold-transition sidebar-mini">

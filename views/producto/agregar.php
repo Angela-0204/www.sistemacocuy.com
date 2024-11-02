@@ -37,90 +37,93 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12">
-                  <form action="" method="post" enctype="multipart/form-data">
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Nombre del producto</label>
-                        <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nombre del producto">
-                      </div>
-                      <div class="col-md-6 form-group">
-                        <label for="">Marca</label>
-                        <select name="marca" id="marca" class="form-control">
-                          <?php foreach ($data_marcas as $marcas_dato) { ?>
-                            <option value="<?= $marcas_dato['id_presentacion']; ?>"><?php echo $marcas_dato['marca']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12 form-group">
-                        <label for="">Descripción del producto</label>
-                        <input type="text" name="descripcion" class="form-control" placeholder="Escriba aqui una breve descripción del producto">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Categoria del producto</label>
-                        <select name="categoria" id="categoria" class="form-control">
-                          <?php foreach ($data_categorias as $categorias) { ?>
-                            <option value="<?= $categorias['id_categoria']; ?>"><?php echo $categorias['nombre_categoria']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                      <div class="col-md-6 form-group">
-                        
-                        <label for="">Unidades de la caja</label>
-                        <select name="caja" id="caja" class="form-control">
-                          <?php foreach ($data_cajas as $cajas) { ?>
-                            <option value="<?= $cajas['id_empaquetado']; ?>"><?php echo $cajas['cantidad']; ?></option>
-                          <?php } ?>
-                        </select>  
-                      </div>
-                    </div>
-                       <div class="row">
-                      
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Cantidad de productos</label>
-                        <input type="number" name="stock" class="form-control" placeholder="Escriba aquí la cantidad en cajas del producto">
-                      </div>
-            
-                      <div class="col-md-6 form-group">
-                        <label for="">Precio por caja del producto</label>
-                        <input type="number" name="precio" class="form-control" placeholder="Escriba aquí el precio del producto por caja">
-                      </div>
-                      
-                      <div class="col-md-6 form-group">
-                        <label for="">Lote</label>
-                        <input type="text" name="lote" class="form-control" placeholder="Escriba aquí el lote del producto.">
-                      </div>
-                      
-                      <div class="col-md-6 form-group">
-                        <label for="">Estatus</label>
-                        <select class="form-control" name="estatus" id="">
-                          <option value="activo">Activo</option>
-                          <option value="inactivo">Inactivo</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Fecha de expedicion del producto</label>
-                        <input type="date" name="fecha" class="form-control">
-                      </div>
-                      <div class=" col-md-6 form-group mb-3">
+                  <h6 style="color: red;">* Campos obligatorios</h6>
+                  <form action="" method="post" enctype="multipart/form-data" id="productoForm">
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label for="nombre">Nombre del producto <span class="required">*</span></label>
+                              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Escriba aquí el nombre del producto" maxlength="50">
+                              <span id="nombreError" class="text-danger"></span>
 
-                        <label for="">Agregar imagen del producto</label>
-                        <input class="form-control" name="imagen" id="formFileSm" type="file">
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label for="marca">Marca *</label>
+                              <select name="marca" id="marca" class="form-control">
+                                  <?php foreach ($data_marcas as $marcas_dato) { ?>
+                                      <option value="<?= $marcas_dato['id_presentacion']; ?>"><?= $marcas_dato['marca']; ?></option>
+                                  <?php } ?>
+                              </select>
+                          </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <a href="" class="btn btn-secondary">Cancelar</a>
-                      <button class="btn btn-primary" id="registrar" name="registrar">Guardar</button>
+                      <div class="row">
+                          <div class="col-md-12 form-group">
+                              <label for="descripcion">Descripción del producto</label>
+                              <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Escriba aqui una breve descripción del producto" maxlength="100">
+                              <span id="descripcionError" class="text-danger"></span>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label for="categoria">Categoría del producto *</label>
+                              <select name="categoria" id="categoria" class="form-control">
+                                  <?php foreach ($data_categorias as $categorias) { ?>
+                                      <option value="<?= $categorias['id_categoria']; ?>"><?= $categorias['nombre_categoria']; ?></option>
+                                  <?php } ?>
+                              </select>
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label for="caja">Unidades de la caja *</label>
+                              <select name="caja" id="caja" class="form-control">
+                                  <?php foreach ($data_cajas as $cajas) { ?>
+                                      <option value="<?= $cajas['id_empaquetado']; ?>"><?= $cajas['cantidad']; ?></option>
+                                  <?php } ?>
+                              </select>  
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label for="stock">Cantidad de productos</label>
+                              <input type="text" name="stock" id="stock" class="form-control" placeholder="Escriba aquí la cantidad en cajas del producto">
+                              <span id="stockError" class="text-danger"></span>
+                          </div>
 
-                    </div>
-                    <hr>
+                          <div class="col-md-6 form-group">
+                              <label for="precio">Precio por caja del producto *</label>
+                              <input type="text" step="0.01" name="precio" id="precio" class="form-control" placeholder="Escriba aquí el precio del producto por caja">
+                              <span id="precioError" class="text-danger"></span>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label for="lote">Lote *</label>
+                              <input type="text" name="lote" id="lote" class="form-control" placeholder="Escriba aquí el lote del producto">
+                              <span id="loteError" class="text-danger"></span>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label for="estatus">Estatus *</label>
+                              <select class="form-control" name="estatus">
+                                  <option value="activo">Activo</option>
+                                  <option value="inactivo">Inactivo</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label for="fecha">Fecha de expedición del producto *</label>
+                              <input type="date" name="fecha" class="form-control" id="fecha">
+                              <span id="fechaError" class="text-danger"></span>
+                          </div>
+                          <div class="col-md-6 form-group mb-3">
+                              <label for="imagen">Agregar imagen del producto</label>
+                              <input class="form-control" name="imagen" type="file" id="imagen">
+                              <span id="imagenError" class="text-danger"></span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <a href="" class="btn btn-secondary">Cancelar</a>
+                          <button type="submit" class="btn btn-primary" id="registrar" name="registrar" disabled>Guardar</button>
+                      </div>
+                      <hr>
                   </form>
                 </div>
               </div>
