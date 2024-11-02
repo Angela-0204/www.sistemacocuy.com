@@ -230,7 +230,14 @@
                     <p>Metodos de pago</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="?pagina=banco" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Banco</p>
+                  </a>
+                </li>
               </ul>
+              
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link active">
