@@ -11,5 +11,7 @@
             "email": "angelarojas0204@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "tecnickcom/tcpdf": "^6.7"
+    }
 }

@@ -43,12 +43,6 @@
                         <label for="">Nombre del producto</label>
                         <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nombre del producto">
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Descripción del producto</label>
-                        <input type="text" name="descripcion" class="form-control" placeholder="Escriba aqui una breve descripción del producto">
-                      </div>
                       <div class="col-md-6 form-group">
                         <label for="">Marca</label>
                         <select name="marca" id="marca" class="form-control">
@@ -57,9 +51,12 @@
                           <?php } ?>
                         </select>
                       </div>
-
-
-                      
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 form-group">
+                        <label for="">Descripción del producto</label>
+                        <input type="text" name="descripcion" class="form-control" placeholder="Escriba aqui una breve descripción del producto">
+                      </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 form-group">
@@ -70,8 +67,6 @@
                           <?php } ?>
                         </select>
                       </div>
-                    </div>
-                       <div class="row">
                       <div class="col-md-6 form-group">
                         
                         <label for="">Unidades de la caja</label>
@@ -81,6 +76,9 @@
                           <?php } ?>
                         </select>  
                       </div>
+                    </div>
+                       <div class="row">
+                      
                     </div>
                     <div class="row">
                       <div class="col-md-6 form-group">
@@ -100,7 +98,10 @@
                       
                       <div class="col-md-6 form-group">
                         <label for="">Estatus</label>
-                        <input type="text" name="estatus" class="form-control" placeholder="Escriba aquí el estatus del producto">
+                        <select class="form-control" name="estatus" id="">
+                          <option value="activo">Activo</option>
+                          <option value="inactivo">Inactivo</option>
+                        </select>
                       </div>
                     </div>
                     <div class="row">

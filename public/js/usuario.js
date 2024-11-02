@@ -1,6 +1,25 @@
 //Para registrar nuevo usuario
 $("#registrar").click(function (e) {
     e.preventDefault(); 
+    var password = document.querySelector("input[name='password_user']").value;
+    var passwordRepeat = document.querySelector("input[name='password_repeat']").value;
+    if (password !== passwordRepeat) {
+        mostrarError("Las contraseñas no coinciden.");
+        return;
+    }
+
+
+    var email = document.querySelector("input[name='email']").value;
+
+    // Expresión regular para validar el formato de email
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Validar el correo
+    if (!emailRegex.test(email)) {
+        mostrarError("Por favor, ingrese un email válido con un '@'.");
+        return;
+    }
+
     var datos = new FormData();
     datos.append("accion", "registrar");
     datos.append("names", $("input[name='names']").val());
@@ -8,7 +27,6 @@ $("#registrar").click(function (e) {
     datos.append("password_user", $("input[name='password_user']").val());
     datos.append("password_repeat", $("input[name='password_repeat']").val());
     datos.append("rol", $("select[name='roles']").val());
-    
     AjaxRegistrar(datos);
 });
 
@@ -34,6 +52,13 @@ function editar(id){
     AjaxEditar(datos);
 }
 
+function mostrarError(mensaje){
+    Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: mensaje
+    });
+}
 
 //Para eliminar un registro
 function eliminar(id) {
@@ -163,7 +188,7 @@ function AjaxEditar(datos) {
     });
 }
 
-document.getElementById('registrar').addEventListener('click', function (e) {
+/*document.getElementById('registrar').addEventListener('click', function (e) {
     e.preventDefault();
 
     // Obtener los valores de los campos del formulario
@@ -179,31 +204,9 @@ document.getElementById('registrar').addEventListener('click', function (e) {
         return;
     }
 
-    if (password !== passwordRepeat) {
-        alert("Las contraseñas no coinciden.");
-        return;
-    }
+
 
     // Si todo está bien, enviar el formulario
     document.querySelector("form").submit();
-});
+});*/
 //correo validacion
-
-document.getElementById('registrar').addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // Obtener el valor del campo de correo electrónico
-    var email = document.querySelector("input[name='email']").value;
-
-    // Expresión regular para validar el formato de email
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    // Validar el correo
-    if (!emailRegex.test(email)) {
-        alert("Por favor, ingrese un email válido con un '@'.");
-        return;
-    }
-
-    // Continuar con el envío del formulario si el email es válido
-    document.querySelector("form").submit();
-});

@@ -41,12 +41,12 @@
             <h3>Pedido</h3>
             <p>Reporte de Pedidos</p>
           </div>
-          <a href="?pagina=reporteinventario">
+          <a href="#" onclick="generar('reporte_pedido');">
             <div class="icon">
               <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
             </div>
           </a>
-          <a href="?pagina=reporteinventario" class="small-box-footer" style="color:black">
+          <a href="#" onclick="generar('reporte_pedido');" class="small-box-footer" style="color:black">
             Generar Reporte en PDF <i class="fas fa-arrow-circle-right"></i>
           </a>
         </div>
@@ -111,3 +111,4 @@
   
   <!-- /.content-wrapper -->
   <?php include('views/layout/footer.php'); ?>
+<script src="public/js/reportes.js"></script>
