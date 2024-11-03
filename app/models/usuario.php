@@ -80,9 +80,9 @@ class Usuario extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_users, $names, $email, $password_user, $rol)
+    public function Modificar($id_users, $names, $email, $password_user, $cod_tipo_usuario)
     {
-        $sql = "UPDATE usuario SET names = :names, email = :email, password_user = :password_user, rol = :rol
+        $sql = "UPDATE usuario SET names = :names, email = :email, password_user = :password_user, cod_tipo_usuario = :cod_tipo_usuario
                 WHERE id_users = :id_users";
             
         $resultado = $this->conex->prepare($sql);
@@ -91,7 +91,8 @@ class Usuario extends connectDB
                 'names' => $names,
                 'email' => $email,
                 'password_user' => $password_user,
-                 'rol' => $rol,
+                 'cod_tipo_usuario' => $cod_tipo_usuario,
+                 
                 'id_users' => $id_users
             ]);
         } catch (Exception $e) {

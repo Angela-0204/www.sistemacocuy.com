@@ -5,7 +5,7 @@ $("#registrar").click(function (e) {
     datos.append("accion", "registrar");
     datos.append("nombre_banco", $("input[name='nombre_banco']").val());
     datos.append("datos_banco", $("input[name='datos_banco']").val());
-    datos.append("nombre",$("input[name='tipo_pago']").val());
+    datos.append("nombre",$("select[name='tipo_pago']").val());
         AjaxRegistrar(datos);
 });
 
@@ -17,7 +17,7 @@ $("#modificar").click(function (e) {
     datos.append("id_banco", $("input[name='id']").val());
     datos.append("nombre_banco", $("input[name='nombre_editar']").val());
     datos.append("datos_banco", $("input[name='datos_editar']").val());
-    datos.append("tipo_pago", $("input[name='tipo_pago_edit']").val());
+    datos.append("nombre", $("select[name='tipo_pago_edit']").val());
     funcionAjax(datos);
 });
 
@@ -143,8 +143,8 @@ function AjaxEditar(datos) {
             var res = JSON.parse(response);   
             $("#id").val(res.id_banco);
             $("#nombre_editar").val(res.nombre_banco);
-            $("#nombre_editar").val(res.datos_banco);
-            $("#tipo_pago_edit").val(res.nombre);
+            $("#datos_editar").val(res.datos_banco);
+            $("#tipo_pago_edit").val(res.id_tipo_pago);
             $("#modal-edit-categoria").modal("show");   
         },
         error: function (err) {

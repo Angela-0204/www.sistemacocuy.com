@@ -104,7 +104,7 @@
                           <?php } ?>
                         </select>
                       </div>
-             <!-- Contraseña -->
+            
 <!-- Contraseña -->
 <div class="form-group">
   <label for="password_user">Contraseña</label>
@@ -150,7 +150,7 @@
 
                 <div class="form-group">
                   <label for="">Email</label>
-                  <input type="email" name="email_edit" id="email_edit" class="form-control" placeholder="Escriba aquí el Email del Nuevo Usuario">
+                  <input type="email_edit" name="email_edit" id="email_edit" class="form-control" placeholder="Escriba aquí el Email del Nuevo Usuario">
                 </div>
 
                 <div class="col align-self-center-md-4 form-group">

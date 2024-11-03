@@ -151,7 +151,7 @@
             <input type="text" maxlength="20" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de la categoria" required>
           </div>
           <div class="form-group">
-            <label for="nombre_editar">Datos del Banco</label>
+            <label for="">Datos del Banco</label>
             <input type="text" maxlength="25" name="datos_editar" id="datos_editar" class="form-control" placeholder="Escriba aquí el nombre de la categoria" required>
           </div>
           

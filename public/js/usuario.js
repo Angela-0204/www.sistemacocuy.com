@@ -176,6 +176,7 @@ function AjaxEditar(datos) {
             $("#names_edit").val(res.names);
             $("#email_edit").val(res.email);
             $("#password_user_edit").val(res.password_user);
+            $("#roles_edit").val(res.cod_tipo_usuario);
             $("#modal-edit-users").modal("show");   
         },
         error: function (err) {
