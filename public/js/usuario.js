@@ -187,6 +187,37 @@ function AjaxEditar(datos) {
         },
     });
 }
+const togglePassword1 = document.getElementById('togglePassword1');
+  const passwordField1 = document.getElementById('password_user');
+  
+  const togglePassword2 = document.getElementById('togglePassword2');
+  const passwordField2 = document.getElementById('password_repeat');
+
+  // Función para alternar la visibilidad de la contraseña
+  togglePassword1.addEventListener('click', function () {
+    const type = passwordField1.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField1.setAttribute('type', type);
+    this.classList.toggle('fa-eye-slash'); 
+  });
+
+  togglePassword2.addEventListener('click', function () {
+    const type = passwordField2.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField2.setAttribute('type', type);
+    this.classList.toggle('fa-eye-slash'); 
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*document.getElementById('registrar').addEventListener('click', function (e) {
     e.preventDefault();

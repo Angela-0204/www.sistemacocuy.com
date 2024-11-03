@@ -11,7 +11,7 @@ class Banco extends connectDB
 
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT a.id_banco, b.id_tipo_pago, b.nombre, b.datos_banco FROM banco a INNER JOIN banco b ON b.id_tipo_pago=a.id_tipo_pago;");
+        $resultado = $this->conex->prepare("SELECT a.id_banco, b.id_tipo_pago,a.nombre_banco,b.nombre, a.datos_banco FROM banco a INNER JOIN tipo_pago b ON b.id_tipo_pago=a.id_tipo_pago;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();

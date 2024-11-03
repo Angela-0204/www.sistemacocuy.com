@@ -153,3 +153,31 @@ function AjaxEditar(datos) {
         },
     });
 }
+function showError(field, message) {
+    document.getElementById(field + "Error").textContent = message;
+}
+
+function clearError(field) {
+    document.getElementById(field + "Error").textContent = "";
+}
+
+function restrictInput(event, regex, field, errorMsg) {
+    const key = event.key;
+    if (!regex.test(key) && key !== "Backspace" && key !== "Tab") {
+        event.preventDefault();
+        showError(field, errorMsg); // Muestra mensaje solo si el caracter es incorrecto
+    } else {
+        clearError(field); // Limpia el mensaje si el caracter es permitido
+    }
+}
+document.getElementById("cantidad").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[0-9.]$/, "cantidad", "Solo se permiten números.");
+});
+
+function validateCantidad() {
+    const cantidad = document.getElementById("cantidad").value;
+    const valor = parseFloat(cantidad);
+    return !isNaN(valor) && valor > 0;
+}
+
+

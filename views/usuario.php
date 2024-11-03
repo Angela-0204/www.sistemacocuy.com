@@ -104,19 +104,19 @@
                           <?php } ?>
                         </select>
                       </div>
-                
-                <div class="form-group">
-                  <label for="">Contraseña</label>
-                  <input type="password" name="password_user" class="form-control">
-                </div>
+             <!-- Contraseña -->
+<!-- Contraseña -->
+<div class="form-group">
+  <label for="password_user">Contraseña</label>
+  <input type="password" name="password_user" id="password_user" class="form-control">
+</div>
 
-                <div class="form-group">
-                  <label for="">Repita Contraseña</label>
-                  <input type="password" name="password_repeat" class="form-control">
-                </div>
-
-
-                <hr>
+<!-- Repetir Contraseña -->
+<div class="form-group">
+  <label for="password_repeat">Repita Contraseña</label>
+  <input type="password" name="password_repeat" id="password_repeat" class="form-control">
+</div>
+   <hr>
                 <div class="form-group">
                   <a href="" class="btn btn-secondary">Cancelar</a>
                   <button id="registrar" class="btn btn-primary">Guardar</button>

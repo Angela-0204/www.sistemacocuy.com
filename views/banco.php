@@ -61,10 +61,10 @@
 
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
-                      <td><?php echo $banco_dato['id_banco']; ?></td>
+                     
                       <td><?php echo $banco_dato['nombre_banco']; ?></td>
                       <td><?php echo $banco_dato['datos_banco']; ?></td>
-                      <td><?php echo $banco_dato['id_tipo_pago']; ?></td>
+                      <td><?php echo $banco_dato['nombre']; ?></td>
                       
                       <td>
                         <button onclick="editar(<?=$banco_dato['id_banco'];?>)" class="btn btn-warning btn-sm">
@@ -92,7 +92,7 @@
 </div>
 <!-- /.content-wrapper -->
 
-<!-- Modal crear Rol -->
+<!-- Modal crear banco -->
 <div class="modal fade" id="modal-add-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

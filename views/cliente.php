@@ -118,15 +118,29 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="">Telefono</label>
-                  <input type="text" name="telefono" class="form-control" placeholder="Escriba aquí el numero telefonico del nuevo cliente">
-                  
-                </div>
-                <div class="form-group">
-                  <label for="">Estatus</label>
-                  <input type="text" name="estatus" class="form-control" placeholder="Escriba aquí el estatus del nuevo cliente">
-                  
-                </div>
+  <label for="telefono">Telefono</label>
+  <div class="d-flex">
+    <select class="form-control" name="telefono" style="width: auto; margin-right: 10px;">
+      <option value="0414">0414</option>
+      <option value="0424">0424</option>
+      <option value="0412">0412</option>
+      <option value="0426">0426</option>
+      <option value="0416">0416</option>
+      <option value="0251">0251</option>
+      <option value="0212">0212</option>
+    </select>
+    
+    <input type="text" name="telefono" class="form-control" placeholder="Escriba el número telefónico">
+  </div>
+          </div>
+                
+        <div class="col-md-12 form-group">
+       <label for="estatus">Estatus *</label>
+         <select class="form-control" name="estatus">
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+        </select>
+                        </div>
 
         
             

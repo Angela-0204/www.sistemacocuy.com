@@ -97,10 +97,12 @@
       </div>
       <form action="" method="post">
         <div class="modal-body">
-          <div class="form-group">
-            <label for="cantidad">Cantidad de botellas</label>
-            <input type="text" name="cantidad" class="form-control" placeholder="Escriba aquí la cantidad de botellas" required>
-          </div>
+        <div class=" form-group">
+                   <label for="cantidad">Cantidad de Productos en el Empaquetado</label>
+                      <input type="text" step="0.01" name="cantidad" id="cantidad" class="form-control" placeholder="Escriba aquí la cantidad de productos en el empaquetado">
+                      <span id="precioError" class="text-danger"></span>                          </div>
+
+          
           <div class="form-group">
             <label for="descripcion">Descripción</label>
             <input type="text" maxlength="20" name="descripcion" class="form-control" placeholder="Escriba aquí una descripción" required>

@@ -95,7 +95,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="nombre_categoria">Nombre de la categoría</label>
-            <input type="text" name="nombre_categoria" class="form-control" placeholder="Escriba aquí el nombre de la categoria" required>
+            <input type="text" name="nombre_categoria" maxlength="15" class="form-control" placeholder="Escriba aquí el nombre de la categoria" required>
           </div>
         </div>
         <div class="modal-footer">
