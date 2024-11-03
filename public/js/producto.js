@@ -1,7 +1,7 @@
 $("#registrar").click(function (e) {
     e.preventDefault();
     var datos = new FormData();
-    datos.append("accion", "registrar"); // Cambiado aquí
+    datos.append("accion", "registrar"); 
     datos.append("nombre", $("input[name='nombre']").val());
     datos.append("descripcion", $("input[name='descripcion']").val());
     datos.append("marca", $("select[name='marca']").val());

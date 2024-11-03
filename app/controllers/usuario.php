@@ -72,6 +72,7 @@ if(isset($_POST['accion'])){
                     'names' => $valor['names'],
                     'email' => $valor['email'],
                     'password_user' => $valor['password_user'],
+                    'cod_tipo_usuario' => $valor['cod_tipo_usuario']
                   
                    
                 ]);
@@ -97,9 +98,10 @@ if(isset($_POST['accion'])){
         //Para modificar los datos
         case 'modificar':
             $id = $_POST['id'];
-            $names = $_POST['names'];
-            $password_user = $_POST['password_user'];
+            $names = $_POST['names']; 
             $email = $_POST['email'];
+            $password_user = $_POST['password_user'];
+           
             $rol= $_POST ['rol'];
           
         

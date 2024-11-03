@@ -22,17 +22,17 @@ class Banco extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($nombre_banco, $datos_banco,$nombre)
+    public function Crear($nombre_banco, $datos_banco,$id_tipo_pago)
     {
-        $sql = "INSERT INTO banco (nombre_banco, datos_banco,nombre) 
-                VALUES (:nombre_banco, :datos_banco, :nombre)";
+        $sql = "INSERT INTO banco (nombre_banco, datos_banco,id_tipo_pago) 
+                VALUES (:nombre_banco, :datos_banco, :id_tipo_pago)";
         $resultado = $this->conex->prepare($sql);
         
         try {
             $resultado->execute([
                 'nombre_banco' => $nombre_banco,
                 'datos_banco' => $datos_banco,
-                'nombre' => $nombre
+                'id_tipo_pago' => $id_tipo_pago
          
             ]);
         } catch (Exception $e) {
@@ -56,9 +56,9 @@ class Banco extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_banco, $nombre_banco, $datos_banco, $nombre)
+    public function Modificar($id_banco, $nombre_banco, $datos_banco, $id_tipo_pago)
     {
-        $sql = "UPDATE banco SET nombre_banco = :nombre_banco, datos_banco = :datos_banco, nombre = :nombre
+        $sql = "UPDATE banco SET nombre_banco = :nombre_banco, datos_banco = :datos_banco, id_tipo_pago = :id_tipo_pago
                 WHERE id_banco = :id_banco";
             
         $resultado = $this->conex->prepare($sql);
@@ -66,7 +66,7 @@ class Banco extends connectDB
             $resultado->execute([
                 'nombre_banco' => $nombre_banco,
                 'datos_banco' => $datos_banco,
-                'nombre' => $nombre,
+                'id_tipo_pago' => $id_tipo_pago,
                 
                 'id_banco' => $id_banco
             ]);

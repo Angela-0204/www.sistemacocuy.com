@@ -150,3 +150,59 @@ function AjaxEditar(datos) {
         },
     });
 }
+
+//Para mostrar el error en el span
+function showError(field, message) {
+    //El contenido del mensaje se mostrará en el span que tenga el id field+Error (ejemplo nombreError)
+    document.getElementById(field + "Error").textContent = message;
+}
+
+//Para limpiar el error en el span 
+function clearError(field) {
+    document.getElementById(field + "Error").textContent = "";
+}
+
+//Se evalua el campo y depende de eso se muestra o se limpia el error en el span correspondiente
+//Se envia como parametros: el event, la expresion regular, el campo, y el mensaje de error que se mostrará
+function restrictInput(event, regex, field, errorMsg) {
+    const key = event.key;
+    //Si se está recibiendo por teclado una tecla que no este en la exp reg, que no sea tecla de borrar ni tab    
+    if (!regex.test(key) && key !== "Backspace" && key !== "Tab") {
+        event.preventDefault();
+        showError(field, errorMsg); // Muestra mensaje solo si el caracter es incorrecto
+    } 
+    //En caso que todas las teclas que se esten ingresando sean correctar
+    else {
+        clearError(field); // Limpia el mensaje si el caracter es permitido
+    }
+}
+
+// Bloqueo de caracteres no permitidos en `keypress`, para validar en tiempo real
+document.getElementById("nombre_categoria").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[a-zA-Z\s]*$/, "nombre_categoria", "Solo se permiten letras.");
+});
+
+// Validaciones completas en `input`, sin mensajes de error
+function validateNombre() {
+    const nombre_categoria = document.getElementById("nombre_categoria").value;
+    const nombreRegex = /^[a-zA-Z\s]{5,50}$/;
+    if (!nombreRegex.test(nombre_categoria)) {
+        showError("nombre_categoria", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
+        return false;
+    } else {
+        clearError("nombre_categoria");
+        return true;
+    }
+}
+
+//Se valida de manera general
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+        validateNombre() &&
+        document.getElementById("nombre_categoria").value;
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("registrar").disabled = !isFormValid;
+}
+
+document.getElementById("nombre_categoria").addEventListener("input", enableSubmit);

@@ -171,7 +171,7 @@ function restrictInput(event, regex, field, errorMsg) {
     }
 }
 document.getElementById("cantidad").addEventListener("keypress", function(event) {
-    restrictInput(event, /^[0-9.]$/, "cantidad", "Solo se permiten números.");
+    restrictInput(event, /^[0-9]$/, "cantidad", "Solo se permiten números.");
 });
 
 function validateCantidad() {
@@ -179,5 +179,28 @@ function validateCantidad() {
     const valor = parseFloat(cantidad);
     return !isNaN(valor) && valor > 0;
 }
+
+function validateDescripcion() {
+    const descripcion = document.getElementById("descripcion").value;
+    if (descripcion.length > 20) {
+        showError("descripcion", "La descripción no debe superar los 20 caracteres.");
+        return false;
+    } else {
+        clearError("descripcion");
+        return true;
+    }
+}
+//Se valida de manera general
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+        validateCantidad() &&
+        document.getElementById("descripcion").value &&
+        document.getElementById("cantidad").value;
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("registrar").disabled = !isFormValid;
+}
+document.getElementById("descripcion").addEventListener("input", enableSubmit);
+document.getElementById("cantidad").addEventListener("input", enableSubmit);
 
 

@@ -19,6 +19,8 @@ if(isset($_POST['accion'])){
         //Para registrar
         case 'registrar':
             $nombre_banco = $_POST['nombre_banco'];
+            $datos_banco = $_POST['datos_banco'];
+            $nombre = $_POST['nombre'];
            
         
             $result = $banco->Crear($nombre_banco, $datos_banco, $nombre);
@@ -43,7 +45,8 @@ if(isset($_POST['accion'])){
                 echo json_encode([
                     'id_banco' => $valor['id_banco'],
                     'nombre_banco' => $valor['nombre_banco'],
-                    'nombre' => $valor['nombre']
+                    'datos_banco' => $valor['datos_banco'],
+                    'id_tipo_pago' => $valor['id_tipo_pago']
                 ]);
             }
             return 0;
@@ -67,7 +70,10 @@ if(isset($_POST['accion'])){
         //Para modificar los datos
         case 'modificar':
             $id = $_POST['id_banco'];
-            $nombre = $_POST['nombre_banco'];
+            $nombre_banco = $_POST['nombre_banco'];
+            $datos_banco = $_POST['datos_banco'];
+            $nombre = $_POST['nombre'];
+            
           
         
             $result = $banco->Modificar($id, $nombre_banco, $datos_banco, $nombre);

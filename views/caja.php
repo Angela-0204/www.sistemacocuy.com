@@ -98,14 +98,15 @@
       <form action="" method="post">
         <div class="modal-body">
         <div class=" form-group">
-                   <label for="cantidad">Cantidad de Productos en el Empaquetado</label>
+                   <label for="cantidad">Cantidad de Productos en el Empaquetado <span class="required">*</span></label>
                       <input type="text" step="0.01" name="cantidad" id="cantidad" class="form-control" placeholder="Escriba aquí la cantidad de productos en el empaquetado">
-                      <span id="precioError" class="text-danger"></span>                          </div>
+                      <span id="cantidadError" class="text-danger"></span>                          </div>
 
           
           <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <input type="text" maxlength="20" name="descripcion" class="form-control" placeholder="Escriba aquí una descripción" required>
+            <label for="descripcion">Descripción <span class="required">*</span></label>
+            <input type="text" name="descripcion" class="form-control" placeholder="Escriba aquí una descripción">
+            <span id="descripcionError" class="text-danger"></span>
           </div>
         </div>
         <div class="modal-footer">
