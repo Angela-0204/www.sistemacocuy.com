@@ -63,26 +63,33 @@ function AjaxRegistrar(datos) {
     });
 }
 
-
+//Para mostrar el error en el span
 function showError(field, message) {
+    //El contenido del mensaje se mostrará en el span que tenga el id field+Error (ejemplo nombreError)
     document.getElementById(field + "Error").textContent = message;
 }
 
+//Para limpiar el error en el span 
 function clearError(field) {
     document.getElementById(field + "Error").textContent = "";
 }
 
+//Se evalua el campo y depende de eso se muestra o se limpia el error en el span correspondiente
+//Se envia como parametros: el event, la expresion regular, el campo, y el mensaje de error que se mostrará
 function restrictInput(event, regex, field, errorMsg) {
     const key = event.key;
+    //Si se está recibiendo por teclado una tecla que no este en la exp reg, que no sea tecla de borrar ni tab    
     if (!regex.test(key) && key !== "Backspace" && key !== "Tab") {
         event.preventDefault();
         showError(field, errorMsg); // Muestra mensaje solo si el caracter es incorrecto
-    } else {
+    } 
+    //En caso que todas las teclas que se esten ingresando sean correctar
+    else {
         clearError(field); // Limpia el mensaje si el caracter es permitido
     }
 }
 
-// Bloqueo de caracteres no permitidos en `keypress`
+// Bloqueo de caracteres no permitidos en `keypress`, para validar en tiempo real
 document.getElementById("nombre").addEventListener("keypress", function(event) {
     restrictInput(event, /^[A-Za-z0-9\s]$/, "nombre", "Solo se permiten letras y números.");
 });
@@ -144,18 +151,20 @@ function validateFecha() {
     return fecha !== "";
 }
 
+//Se valida de manera general
 function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
         validateNombre() &&
         validateStock() &&
         validatePrecio() &&
         validateLote() &&
         validateFecha() &&
-        document.getElementById("descripcion").value &&
-        document.getElementById("categoria").value &&
+        document.getElementById("descripcion").value && //Y aqui se validan que realmente tengan un valor estos campos
+        document.getElementById("categoria").value && //Ya que son los requeridos
         document.getElementById("caja").value;
-
-    document.getElementById("registrar").disabled = !isFormValid;
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("registrar").disabled = !isFormValid;
 }
 
 // Asignar eventos `input` para validar el formulario y habilitar el botón de guardar sin mostrar mensajes de error
