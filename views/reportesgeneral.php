@@ -62,13 +62,14 @@
             <h3>Clientes</h3>
             <p>Reporte de Clientes</p>
           </div>
-          <a href="?pagina=reporteinventario">
+          <a href="#" onclick="generar('reporte_clientes');">
             <div class="icon">
               <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
             </div>
           </a>
-          <a href="?pagina=reporteinventario" class="small-box-footer" style="color:black">
+          <a href="#" onclick="generar('reporte_clientes');" class="small-box-footer" style="color:black">
             Generar Reporte en PDF <i class="fas fa-arrow-circle-right"></i>
+          </a>
           </a>
         </div>
       </div>
