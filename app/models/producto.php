@@ -5,7 +5,7 @@ class Producto extends connectDB
 {
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT a.cod_inventario, a.nombre, a.descripcion, di.stock, a.precio_venta, a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria, di.lote, di.estatus, e.cantidad, pr.marca  FROM inventario a INNER JOIN categoria c ON a.id_categoria=c.id_categoria INNER JOIN detalle_inventario di ON di.id_detalle_inventario=a.id_detalle_inventario INNER JOIN empaquetado e ON e.id_empaquetado=di.id_empaquetado INNER JOIN presentacion pr ON pr.id_presentacion=di.id_presentacion;");
+        $resultado = $this->conex->prepare("SELECT a.cod_inventario, a.nombre, a.descripcion, di.stock, a.precio_venta, a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria, di.lote, di.estatus, e.cantidad, pr.marca  FROM inventario a INNER JOIN categoria c ON a.id_categoria=c.id_categoria INNER JOIN detalle_inventario di ON di.id_detalle_inventario=a.id_detalle_inventario INNER JOIN empaquetado e ON e.id_empaquetado=di.id_empaquetado INNER JOIN presentacion pr ON pr.id_presentacion=di.id_presentacion ORDER BY a.fyh_actualizacion desc;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -68,13 +68,11 @@ class Producto extends connectDB
             echo "Error al crear el producto: " . $e->getMessage();
             return false;
         }
-    }
-    
-    
+    }  
     
     public function Buscar($id)
     {
-        $resultado = $this->conex->prepare("SELECT cod_inventario,  nombre, descripcion, id_categoria, precio_venta, imagen FROM inventario WHERE id_producto = '$id'");
+        $resultado = $this->conex->prepare("SELECT a.cod_inventario, a.nombre, pr.id_presentacion as id_marca,a.descripcion, c.id_categoria as id_categoria , e.id_empaquetado as id_empaquetado, di.stock, a.precio_venta, di.lote, di.estatus, a.imagen, a.fyh_actualizacion FROM inventario a INNER JOIN categoria c ON a.id_categoria=c.id_categoria INNER JOIN detalle_inventario di ON di.id_detalle_inventario=a.id_detalle_inventario INNER JOIN empaquetado e ON e.id_empaquetado=di.id_empaquetado INNER JOIN presentacion pr ON pr.id_presentacion=di.id_presentacion WHERE a.cod_inventario='$id'");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -98,47 +96,120 @@ class Producto extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_producto, $codigo, $nombre, $descripcion, $id_categoria, $stock_minimo, $stock_maximo, $precio_venta, $imagen)
-    { 
-
-        $sql = "UPDATE inventario SET codigo = :codigo, nombre = :nombre, descripcion = :descripcion, id_categoria = :id_categoria, stock_minimo = :stock_minimo, stock_maximo = :stock_maximo, precio_venta = :precio_venta,imagen = :imagen 
-                WHERE id_producto = :id_producto";
-            
-        $resultado = $this->conex->prepare($sql);
+    public function Modificar($cod_inventario, $nombre, $descripcion, $id_categoria, $precio_venta, $imagen, $fyh_actualizacion, $id_empaquetado, $id_presentacion, $lote, $estatus)
+    {
+        // Iniciamos la transacción
+        $this->conex->beginTransaction();
+    
         try {
-            $resultado->execute([
-                'codigo' => $codigo,
+            // Primero, obtenemos el `id_detalle_inventario` de la tabla `inventario` para este producto
+            $sql_get_detalle_id = "SELECT id_detalle_inventario FROM inventario WHERE cod_inventario = :cod_inventario";
+            $stmt = $this->conex->prepare($sql_get_detalle_id);
+            $stmt->execute(['cod_inventario' => $cod_inventario]);
+            $result = $stmt->fetch();
+    
+            if (!$result) {
+                throw new Exception("No se encontró el producto con el código: " . $cod_inventario);
+            }
+    
+            $id_detalle_inventario = $result['id_detalle_inventario'];
+    
+            // Luego, actualizamos la tabla `detalle_inventario` usando el `id_detalle_inventario` obtenido
+            $sql_detalle_inventario = "UPDATE detalle_inventario 
+                                        SET id_empaquetado = :id_empaquetado, 
+                                            id_presentacion = :id_presentacion, 
+                                            lote = :lote, 
+                                            estatus = :estatus
+                                        WHERE id_detalle_inventario = :id_detalle_inventario";
+            
+            $resultado_detalle = $this->conex->prepare($sql_detalle_inventario);
+    
+            // Ejecutamos la consulta para `detalle_inventario`
+            $resultado_detalle->execute([
+                'id_empaquetado' => $id_empaquetado,
+                'id_presentacion' => $id_presentacion,
+                'lote' => $lote,
+                'estatus' => $estatus,
+                'id_detalle_inventario' => $id_detalle_inventario
+            ]);
+    
+            // Luego, actualizamos la tabla `inventario`
+            $sql_inventario = "UPDATE inventario 
+                               SET nombre = :nombre, 
+                                   descripcion = :descripcion, 
+                                   id_categoria = :id_categoria, 
+                                   precio_venta = :precio_venta, 
+                                   imagen = :imagen, 
+                                   fyh_actualizacion = :fyh_actualizacion
+                               WHERE cod_inventario = :cod_inventario";
+            
+            $resultado_inventario = $this->conex->prepare($sql_inventario);
+    
+            // Ejecutamos la consulta para `inventario`
+            $resultado_inventario->execute([
                 'nombre' => $nombre,
                 'descripcion' => $descripcion,
                 'id_categoria' => $id_categoria,
-                'stock_minimo' => $stock_minimo,
-                'stock_maximo' => $stock_maximo,
                 'precio_venta' => $precio_venta,
                 'imagen' => $imagen,
-                'id_producto' => $id_producto
+                'fyh_actualizacion' => $fyh_actualizacion,
+                'cod_inventario' => $cod_inventario
             ]);
-            
+    
+            // Hacemos el commit de la transacción si todo salió bien
+            $this->conex->commit();
+            return true;
         } catch (Exception $e) {
+            // Si ocurre algún error, hacemos rollback
+            $this->conex->rollback();
             echo "Error al modificar el producto: " . $e->getMessage();
             return false;
         }
-        
-        return true;
     }
+    
 
-    public function Eliminar($id_producto)
+    public function Eliminar($cod_inventario) 
     {
-        $sql = "DELETE FROM inventario WHERE id_producto = :id_producto";
-        $resultado = $this->conex->prepare($sql);
-        
+        // Iniciamos la transacción
+        $this->conex->beginTransaction();
+    
         try {
-            $resultado->execute(['id_producto' => $id_producto]);
+            // Primero, obtenemos el `id_detalle_inventario` de la tabla `inventario` para este producto
+            $sql_get_detalle_id = "SELECT id_detalle_inventario FROM inventario WHERE cod_inventario = :cod_inventario";
+            $stmt = $this->conex->prepare($sql_get_detalle_id);
+            $stmt->execute(['cod_inventario' => $cod_inventario]);
+            $result = $stmt->fetch();
+    
+            if (!$result) {
+                throw new Exception("No se encontró el producto con el código: " . $cod_inventario);
+            }
+    
+            $id_detalle_inventario = $result['id_detalle_inventario'];
+    
+            // Eliminamos primero el registro de `inventario`
+            $sql_delete_inventario = "DELETE FROM inventario WHERE cod_inventario = :cod_inventario";
+            $stmt_delete_inventario = $this->conex->prepare($sql_delete_inventario);
+            $stmt_delete_inventario->execute(['cod_inventario' => $cod_inventario]);
+    
+            // Luego eliminamos el registro correspondiente en `detalle_inventario`
+            $sql_delete_detalle_inventario = "DELETE FROM detalle_inventario WHERE id_detalle_inventario = :id_detalle_inventario";
+            $stmt_delete_detalle_inventario = $this->conex->prepare($sql_delete_detalle_inventario);
+            $stmt_delete_detalle_inventario->execute(['id_detalle_inventario' => $id_detalle_inventario]);
+    
+            // Si todo sale bien, hacemos el commit de la transacción
+            $this->conex->commit();
+            return true;
+    
         } catch (Exception $e) {
+            // Si ocurre algún error, hacemos rollback
+            $this->conex->rollback();
             echo "Error al eliminar el producto: " . $e->getMessage();
             return false;
         }
-        
-        return true;
     }
+    
+    
+    
+    
 }
 ?>
