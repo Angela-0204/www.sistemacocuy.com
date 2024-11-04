@@ -37,7 +37,7 @@ if(isset($_POST['accion'])){
             foreach ($data as $valor) {
                 echo json_encode([
                     'id_tipo_pago' => $valor['id_tipo_pago'],
-                    'nombre' => $valor['nombre'],
+                    'nombre' => $valor['nombre']
                    
                 ]);
             }

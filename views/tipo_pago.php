@@ -110,7 +110,7 @@
   </div>
 </div>
 
-<!-- Modal editar categoria -->
+<!-- Modal editar tipo_pago -->
 <div class="modal fade" id="modal-edit-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -124,7 +124,7 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="nombre_editar">Nombre del Nuevo Metodo de Pago</label>
+            <label for="nombre_tipo">Nombre del Nuevo Metodo de Pago</label>
             <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de la categoria" required>
           </div>
         </div>
@@ -136,6 +136,6 @@
     </div>
   </div>
 </div>
-                </div>
+                
 <?php include('views/layout/footer.php'); ?>
 <script src="public/js/tipo_pago.js"></script>

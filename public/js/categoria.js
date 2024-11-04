@@ -147,7 +147,7 @@ function AjaxEditar(datos) {
                 title: "Error",
                 text: "Error en la solicitud."
             });
-        },
+        }
     });
 }
 
