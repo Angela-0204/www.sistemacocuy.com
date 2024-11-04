@@ -241,7 +241,8 @@ function validatePassword() {
     const password_user = document.getElementById("password_user").value;
     const nombreRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     if (!nombreRegex.test(password_user)) {
-        showError("password_user", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
+        showError("password_user", "");
+     
         return false;
     } else {
         clearError("password_user");
@@ -277,6 +278,9 @@ function enableSubmit() {
 
 
 document.getElementById("names").addEventListener("input", enableSubmit);
+
+
+
 
 const togglePassword1 = document.getElementById('togglePassword1');
 const passwordField1 = document.getElementById('password_user');

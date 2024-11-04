@@ -11,7 +11,7 @@
 .password-container i {
     position: absolute;
     right: 10px;
-    top: 75%;
+    top: 65%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #888; /* Color del ícono, ajustable */
