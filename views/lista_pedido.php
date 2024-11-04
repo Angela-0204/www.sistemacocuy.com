@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1 class="m-0">Productos disponibles en inventario</h1>
+                    <h1 class="m-0">Pedidos registrados</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="card ml-15" style="margin-left: 20px;">
                 <div class="card-header">
-                    <h3 class="card-title">Tabla de inventario </h3>
+                    <h3 class="card-title">Tabla de pedidos </h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
                             <input type="text" name="table_search" class="form-control float-right" placeholder="Buscar">
@@ -29,50 +29,54 @@
                 </div>
 
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                            <tr>
-                                <th>Codigo de Producto</th>
-                                <th>Nombre del Producto</th>
-                                <th>Descripción</th>
-                                <th>Categoria</th>
-                                <th>Marca</th>
-                                <th>Lote</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Empaquetado</th>
-                                <th>Estatus</th>
-                              
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($data_catalogo as $data) { ?>
-                                <tr>
-                                    <td><?php echo $data['cod_inventario'] ?></td>
-                                    <td><?php echo $data['nombre'] ?></td>
-                                    <td><?php echo $data['descripcion'] ?></td>
-                                    <td><?php echo $data['nombre_categoria'] ?></td>
-                                    <td><?php echo $data['marca'] ?></td>
-                                    <td><?php echo $data['lote'] ?></td>
-                                    <td><?php echo $data['stock'] ?></td>
-                                    <td><?php echo $data['precio_venta'] ?></td>
-                                    <td><?php echo $data['cantidad'] ?></td>
-                                    <td><?php echo $data['estatus'] ?></td>
-                                    
-                                </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                <table id="examplel" class="table table-bordered table-atriped">
+                <thead>
+                  <tr>
+                    <th>
+                      <center>Cod. Pedido</center>
+                    </th>
+                    <th>
+                      <center>Fecha</center>
+                    </th>
+                    <th>
+                      <center>Clientes</center>
+                    </th>
+                    <th>
+                      <center>Estatus</center>
+                    </th>
+                    <th>
+                      <center>Accion</center>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $contador = 0;
+                  foreach ($data_pedido as $pedido_dato) {
+                    $status = $pedido_dato['estatus'] == 1 ? 'Activo': 'Inactivo'; ?>
+
+                    <tr style="text-align: center;">
+                      <td><?php echo 'A-000'.$pedido_dato['id_pedido']; ?></td>
+                      <td><?php echo date("d/m/Y", strtotime($pedido_dato['fecha_pedido'])); ?></td>
+                      <td><?php echo $pedido_dato['nombre_cliente'].' '.$pedido_dato['apellido']; ?></td>
+                      <td><?php echo $status ?></td>
+                      <td>
+                        <button onclick="editar(<?=$pedido_dato['id_presentacion'];?>)" class="btn btn-warning btn-sm">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="eliminar(<?=$pedido_dato['id_presentacion'];?>)" class="btn btn-danger btn-sm">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  <?php
+                  } ?>
+                </tbody>
+              </table>
                 </div>
 
                 <!-- Botón "Agregar Productos" que abre la modal -->
                 <div class="card-footer">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarProductoModal">
-                        Agregar Productos
-                    </button>
                 </div>
 
             </div> 
@@ -118,8 +122,8 @@
                     <div class="col-md-6 form-group">
                         <label for="">Marca</label>
                         <select name="marca" id="marca" class="form-control">
-                          <?php foreach ($data_marcas as $marcas_dato) { ?>
-                            <option value="<?= $marcas_dato['id_presentacion']; ?>"><?php echo $marcas_dato['marca']; ?></option>
+                          <?php foreach ($data_pedido as $pedido_dato) { ?>
+                            <option value="<?= $pedido_dato['id_presentacion']; ?>"><?php echo $pedido_dato['marca']; ?></option>
                           <?php } ?>
                         </select>
                       </div>

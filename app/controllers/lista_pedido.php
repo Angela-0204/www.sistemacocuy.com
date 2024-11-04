@@ -4,6 +4,8 @@ include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
 include($MODELS . 'caja.php');
 include($MODELS . 'marcas.php');
+include($MODELS . 'pedido.php');
+$pedido = new Pedido();
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
@@ -17,6 +19,7 @@ session_start();
 $data_categorias = $categoria->Listar();
 $data_cajas = $caja->Listar();
 $data_marcas = $marcas->Listar();
+$data_pedido = $pedido->Listar();
 include($VIEW.'lista_pedido.php'); 
 
 
