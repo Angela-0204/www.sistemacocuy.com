@@ -71,20 +71,41 @@ class Medida extends connectDB
         return true;
     }
 
+    public function VerificarVinculacion($cod_unidad)
+    {
+        // Consulta para verificar la vinculación en la tabla `presentacion`
+        $sql = "SELECT marca FROM presentacion WHERE cod_unidad = :cod_unidad";
+        $stmt = $this->conex->prepare($sql);
+        $stmt->execute(['cod_unidad' => $cod_unidad]);
+    
+        // Obtener el resultado
+        $presentacion = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($presentacion) {
+            // Si existe una vinculación, devolver el valor de `marca`
+            return $presentacion['marca'];
+        }
+    
+        // Si no hay vinculación, devolver `null` o `false`
+        return false;
+    }
+    
     public function Eliminar($cod_unidad)
     {
+        // Eliminar el registro de `unidad_medida` sin verificación previa
         $sql = "DELETE FROM unidad_medida WHERE cod_unidad = :cod_unidad";
         $resultado = $this->conex->prepare($sql);
-        
+    
         try {
             $resultado->execute(['cod_unidad' => $cod_unidad]);
         } catch (Exception $e) {
             echo "Error al eliminar la medida: " . $e->getMessage();
             return false;
         }
-        
+    
         return true;
     }
+    
 
 }
 ?>

@@ -46,18 +46,30 @@ if(isset($_POST['accion'])){
 
         //Para eliminar un registro
         case 'eliminar':
-            $result = $ml->Eliminar($_POST['id']);
+            $marca = $ml->VerificarVinculacion($_POST['id']);
             $respuesta = array();
-            if ($result) {
-                $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Medida Eliminada exitosamente.";
-            } else {
+        
+            if ($marca) {
+                // Si hay una vinculación, enviar el mensaje indicando la marca
                 $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al eliminar la Medida.";
+                $respuesta['mensaje'] = "La medida se encuentra vinculada a la presentación $marca.";
+            } else {
+                // Si no hay vinculación, proceder a eliminar
+                $result = $ml->Eliminar($_POST['id']);
+        
+                if ($result) {
+                    $respuesta['estatus'] = 1;
+                    $respuesta['mensaje'] = "Medida eliminada exitosamente.";
+                } else {
+                    $respuesta['estatus'] = 0;
+                    $respuesta['mensaje'] = "Error al eliminar la medida.";
+                }
             }
+        
             echo json_encode($respuesta);
             return 0;
         break;
+        
 
         //Para modificar los datos
         case 'modificar':
