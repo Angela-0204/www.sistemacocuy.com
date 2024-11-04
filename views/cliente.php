@@ -92,35 +92,35 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label for="">Cedula del cliente </label>
-                  <input type="text" name="cedula_rif" class="form-control" placeholder="Escriba aquí la cedula o el RIF del cliente">
+                  <input type="text" name="cedula_rif" id="cedula_rif" class="form-control" placeholder="Escriba aquí la cedula o el RIF del cliente">
                 </div>
 
                 <div class="form-group">
                   <label for="">Nombre del cliente</label>
-                  <input type="text" name="nombre_cliente" class="form-control" placeholder="Escriba aquí el nombre del nuevo cliente">
+                  <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control" placeholder="Escriba aquí el nombre del nuevo cliente">
                   
                 </div>
                 <div class="form-group">
                   <label for="">Apellido del cliente</label>
-                  <input type="text" name="apellido" class="form-control" placeholder="Escriba aquí el apellido del nuevo cliente">
+                  <input type="text" name="apellido" id="apellido" class="form-control" placeholder="Escriba aquí el apellido del nuevo cliente">
                   
                 </div>
 
                 <div class="form-group">
                   <label for="">Correo</label>
-                  <input type="email" name="correo" class="form-control" placeholder="Escriba aquí el Correo del Nuevo cliente">
+                  <input type="email" name="correo" id="correo" class="form-control" placeholder="Escriba aquí el Correo del Nuevo cliente">
                   
                 </div>
                 <div class="form-group">
                   <label for="">Direccion</label>
-                  <input type="text" name="direccion" class="form-control" placeholder="Escriba aquí la direccion del nuevo cliente">
+                  <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Escriba aquí la direccion del nuevo cliente">
                   
                 </div>
 
                 <div class="form-group">
   <label for="telefono">Telefono</label>
   <div class="d-flex">
-    <select class="form-control" name="operadora" style="width: auto; margin-right: 10px;">
+    <select class="form-control" id="operadora" name="operadora" style="width: auto; margin-right: 10px;">
       <option value="0414">0414</option>
       <option value="0424">0424</option>
       <option value="0412">0412</option>
@@ -130,7 +130,7 @@
       <option value="0212">0212</option>
     </select>
     
-    <input type="text" name="telefono" class="form-control" placeholder="Escriba el número telefónico">
+    <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Escriba el número telefónico">
   </div>
           </div>
                 

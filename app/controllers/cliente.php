@@ -29,22 +29,24 @@ if (isset($_POST['accion'])) {
                 $response['estatus'] = 0;
                 $response['mensaje'] = "Todos los campos son obligatorios.";
                 echo json_encode($response);
-                return;
+                return 0;
             }
         
             if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
                 $response['estatus'] = 0;
                 $response['mensaje'] = "Por favor, ingrese un email válido.";
                 echo json_encode($response);
-                return;
+                return 0;
             }
 
             // Verificar si el cliente ya está registrado
-            if ($cliente->Existe($cedula_rif)) {
+            $validar = $cliente->Existe($cedula_rif);
+            
+            if ($validar) {
                 $response['estatus'] = 0;
                 $response['mensaje'] = "El cliente con esta cédula o RIF ya está registrado.";
                 echo json_encode($response);
-                return;
+                return 0;
             }
         
             $result = $cliente->Crear($cedula_rif, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus);
@@ -58,7 +60,8 @@ if (isset($_POST['accion'])) {
             }
             
             echo json_encode($response);
-            return;
+            return 0;
+        break;
 
         // Para consultar el registro a modificar
         case 'consultar':

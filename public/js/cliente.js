@@ -1,6 +1,20 @@
 //Para registrar nuevo usuario
 $("#registrar").click(function (e) {
     e.preventDefault(); 
+    var email = document.querySelector("input[name='correo']").value;
+
+    // Expresión regular para validar el formato de email
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Validar el correo
+    if (!emailRegex.test(email)) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Por favor, ingrese un email válido con un '@'."
+        });
+
+    }
     var datos = new FormData();
     datos.append("accion", "registrar");
     datos.append("cedula_rif", $("input[name='cedula_rif']").val());
@@ -95,7 +109,6 @@ function AjaxRegistrar(datos) {
                 }
             } catch (error) {
                 console.error("Error al parsear la respuesta JSON:", error);
-                console.error("Respuesta recibida:", response);
                 Swal.fire({
                     icon: "error",
                     title: "Error",
@@ -183,45 +196,3 @@ function AjaxEditar(datos) {
         },
     });
 }
-
-document.getElementById('registrar').addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // Obtener los valores de los campos del formulario
-    var cedula_rif = document.querySelector("input[name='cedula_rif']").value;
-    var nombre_cliente = document.querySelector("input[name='nombre_cliente']").value;
-    var apellido = document.querySelector("input[name='apellido']").value;
-    var correo = document.querySelector("input[name='correo']").value;
-    var direccion = document.querySelector("select[name='direccion']").value;
-    var telefono = document.querySelector("select[name='telefono']").value;
-    var estatus = document.querySelector("select[name='estatus']").value;
-
-    // Validación
-    if (!cedula_rif || !nombre_cliente || !apellido|| !correo|| !direccion|| !telefono|| !estatus) {
-        alert("Todos los campos son obligatorios.");
-        return;
-    }
-
-    // Si todo está bien, enviar el formulario
-    document.querySelector("form").submit();
-});
-//correo validacion
-
-document.getElementById('registrar').addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // Obtener el valor del campo de correo electrónico
-    var email = document.querySelector("input[name='correo']").value;
-
-    // Expresión regular para validar el formato de email
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    // Validar el correo
-    if (!emailRegex.test(email)) {
-        alert("Por favor, ingrese un email válido con un '@'.");
-        return;
-    }
-
-    // Continuar con el envío del formulario si el email es válido
-    document.querySelector("form").submit();
-});

@@ -55,10 +55,18 @@ class Cliente extends connectDB
 
     public function Existe($cedula_rif)
     {
-        $resultado = $this->conex->prepare("SELECT * FROM cliente WHERE cedula_rif = :cedula_rif");
+        // Asegúrate de que el nombre del campo y la tabla estén correctos
+        $sql = "SELECT COUNT(*) FROM cliente WHERE cedula_rif = :cedula_rif";
+        $resultado = $this->conex->prepare($sql);
         $resultado->execute(['cedula_rif' => $cedula_rif]);
-        return $resultado->rowCount() > 0; // Retorna verdadero si existe
+        
+        // Obtenemos el conteo de filas
+        $count = $resultado->fetchColumn();
+        
+        // Retorna verdadero si existe al menos un registro
+        return $count > 0;
     }
+    
 
     public function ExistePorId($cod_cliente)
     {
