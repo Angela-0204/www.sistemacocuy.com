@@ -120,7 +120,7 @@
                 <div class="form-group">
   <label for="telefono">Telefono</label>
   <div class="d-flex">
-    <select class="form-control" name="telefono" style="width: auto; margin-right: 10px;">
+    <select class="form-control" name="operadora" style="width: auto; margin-right: 10px;">
       <option value="0414">0414</option>
       <option value="0424">0424</option>
       <option value="0412">0412</option>

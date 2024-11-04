@@ -99,8 +99,9 @@
       <form action="" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="nombre_categoria">Nombre de la Marca</label>
-            <input type="text" name="marca" id="marca" class="form-control" placeholder="Escriba aquí el nombre de la marca" required>
+            <label for="nombre_marca">Nombre de la Marca <span class="required">*</span></label>
+            <input type="text" name="marca" id="nombre_marca" class="form-control" placeholder="Escriba aquí el nombre de la marca" >
+            <span id="nombre_marcaError" class="text-danger"></span>
           </div>
         </div>
         <div class="row-md-4">
@@ -138,14 +139,15 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="nombre_editar">Nombre de la Marca</label>
-            <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de la marca" required>
+            <label for="nombre_editar">Nombre de la Marca <span class="required">*</span></label>
+            <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de la marca" >
+            <span id="nombre_marcaError" class="text-danger"></span>
           </div>
           <div class="row-md-4">
                       <div class="col align-self-center-md-4 form-group">
                         <label for="">Medida Mililitros</label>
                        
-                        <select name="mililitro" id="mililitro" class="form-control">
+                        <select name="unidad_medida" id="unidad_medida" class="form-control">
                           <?php foreach ($data_medida as $medida_dato) { ?>
                             <option value="<?= $medida_dato['cod_unidad']; ?>"><?php echo $medida_dato['medida']; ?></option>
                           <?php } ?>

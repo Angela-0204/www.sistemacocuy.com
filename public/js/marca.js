@@ -9,14 +9,14 @@ $("#registrar").click(function (e) {
     AjaxRegistrar(datos);
 });
 
-//Para modificar categoria
+//Para modificar marca
 $("#modificar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "modificar");
     datos.append("id_presentacion", $("input[name='id']").val());
     datos.append("marca", $("input[name='nombre_editar']").val());
-    datos.append("medida", $("select[name='mililitro']").val());
+    datos.append("medida", $("select[name='unidad_medida']").val());
 
     funcionAjax(datos);
 });
@@ -24,9 +24,7 @@ $("#modificar").click(function (e) {
 function editar(id){
     var datos = new FormData();
     datos.append("accion", "consultar");
-    datos.append("id_presentacion", id);
-    datos.append("cod_unidad", id);
-    
+    datos.append("id_presentacion", id);    
     AjaxEditar(datos);
 }
 
@@ -145,7 +143,7 @@ function AjaxEditar(datos) {
             var res = JSON.parse(response);   
             $("#id").val(res.id_presentacion);
             $("#nombre_editar").val(res.marca);
-            $("#cantidad_editar").val(res.medida);
+            $("#unidad_medida").val(res.medida);
 
             $("#modal-edit-categoria").modal("show");   
         },
@@ -158,3 +156,56 @@ function AjaxEditar(datos) {
         },
     });
 }
+
+//Para mostrar el error en el span
+function showError(field, message) {
+    //El contenido del mensaje se mostrará en el span que tenga el id field+Error (ejemplo nombreError)
+    document.getElementById(field + "Error").textContent = message;
+}
+
+//Para limpiar el error en el span 
+function clearError(field) {
+    document.getElementById(field + "Error").textContent = "";
+}
+
+//Se evalua el campo y depende de eso se muestra o se limpia el error en el span correspondiente
+//Se envia como parametros: el event, la expresion regular, el campo, y el mensaje de error que se mostrará
+function restrictInput(event, regex, field, errorMsg) {
+    const key = event.key;
+    //Si se está recibiendo por teclado una tecla que no este en la exp reg, que no sea tecla de borrar ni tab    
+    if (!regex.test(key) && key !== "Backspace" && key !== "Tab") {
+        event.preventDefault();
+        showError(field, errorMsg); // Muestra mensaje solo si el caracter es incorrecto
+    } 
+    //En caso que todas las teclas que se esten ingresando sean correctar
+    else {
+        clearError(field); // Limpia el mensaje si el caracter es permitido
+    }
+}
+
+// Bloqueo de caracteres no permitidos en `keypress`, para validar en tiempo real
+document.getElementById("nombre_marca").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z0-9\s]$/, "nombre_marca", "Solo se permiten letras y números.");
+});
+// Validaciones completas en `input`, sin mensajes de error
+function validateNombre() {
+    const nombre_marca = document.getElementById("nombre_marca").value;
+    const nombreRegex = /^[A-Za-z0-9\s]{5,50}$/;
+    if (!nombreRegex.test(nombre_marca)) {
+        showError("nombre_marca", "El nombre de la marca debe tener entre 5 y 50 caracteres, solo letras y números.");
+        return false;
+    } else {
+        clearError("nombre_marca");
+        return true;
+    }
+}
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+        validateNombre()&&
+        document.getElementById("nombre_marca").value;
+      
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("registrar").disabled = !isFormValid;
+}
+document.getElementById("nombre_marca").addEventListener("input", enableSubmit);

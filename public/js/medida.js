@@ -150,3 +150,59 @@ function AjaxEditar(datos) {
         },
     });
 }
+
+function showError(field, message) {
+    //El contenido del mensaje se mostrará en el span que tenga el id field+Error (ejemplo nombreError)
+    document.getElementById(field + "Error").textContent = message;
+}
+
+//Para limpiar el error en el span 
+function clearError(field) {
+    document.getElementById(field + "Error").textContent = "";
+}
+
+//Se evalua el campo y depende de eso se muestra o se limpia el error en el span correspondiente
+//Se envia como parametros: el event, la expresion regular, el campo, y el mensaje de error que se mostrará
+function restrictInput(event, regex, field, errorMsg) {
+    const key = event.key;
+    //Si se está recibiendo por teclado una tecla que no este en la exp reg, que no sea tecla de borrar ni tab    
+    if (!regex.test(key) && key !== "Backspace" && key !== "Tab") {
+        event.preventDefault();
+        showError(field, errorMsg); // Muestra mensaje solo si el caracter es incorrecto
+    } 
+    //En caso que todas las teclas que se esten ingresando sean correctar
+    else {
+        clearError(field); // Limpia el mensaje si el caracter es permitido
+    }
+}
+
+document.getElementById("nombre_medida").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z0-9\s.]$/, "nombre_medida", "Solo se permiten letras, números y punto.");
+});
+
+
+function validateNombre() {
+    const nombre_medida = document.getElementById("nombre_medida").value;
+    const nombreRegex = /^[A-Za-z0-9\s.]{5,50}$/;
+    if (!nombreRegex.test(nombre_medida)) {
+        showError("nombre_medida", "El nombre de la medida debe tener entre 5 y 50 caracteres, solo letras, números y un punto.");
+        return false;
+    } else {
+        clearError("nombre_medida");
+        return true;
+    }
+   
+}
+
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =    
+        validateNombre() &&
+        document.getElementById("nombre_medida").value;
+      
+       
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("registrar").disabled = !isFormValid;
+}
+
+document.getElementById("nombre_medida").addEventListener("input", enableSubmit);

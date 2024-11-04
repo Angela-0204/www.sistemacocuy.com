@@ -46,7 +46,7 @@ if(isset($_POST['accion'])){
 
         //Para eliminar un registro
         case 'eliminar':
-            $result = $medida->Eliminar($_POST['id']);
+            $result = $ml->Eliminar($_POST['id']);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
@@ -63,9 +63,8 @@ if(isset($_POST['accion'])){
         case 'modificar':
             $id = $_POST['cod_unidad'];
             $medida = $_POST['medida'];
-           
-        
-            $result = $marcas->Modificar($id, $medida);
+
+            $result = $ml->Modificar($id, $medida);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;

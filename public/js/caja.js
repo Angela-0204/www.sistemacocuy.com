@@ -173,6 +173,11 @@ function restrictInput(event, regex, field, errorMsg) {
 document.getElementById("cantidad").addEventListener("keypress", function(event) {
     restrictInput(event, /^[0-9]$/, "cantidad", "Solo se permiten números.");
 });
+// Bloqueo de caracteres no permitidos en `keypress`, para validar en tiempo real
+document.getElementById("descripcion").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z0-9\s]$/, "descripcion", "Solo se permiten letras y números.");
+});
+
 
 function validateCantidad() {
     const cantidad = document.getElementById("cantidad").value;
@@ -195,6 +200,7 @@ function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
         validateCantidad() &&
+        validateDescripcion()&&
         document.getElementById("descripcion").value &&
         document.getElementById("cantidad").value;
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
