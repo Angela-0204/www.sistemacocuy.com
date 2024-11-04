@@ -55,7 +55,7 @@ class Medida extends connectDB
     public function Modificar($cod_unidad, $medida)
     {
         $sql = "UPDATE unidad_medida SET medida = :medida
-                WHERE cod_medida = :cod_medida";
+                WHERE cod_unidad = :cod_unidad";
             
         $resultado = $this->conex->prepare($sql);
         try {

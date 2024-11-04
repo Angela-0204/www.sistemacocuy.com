@@ -95,8 +95,9 @@
       <form action="" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="medida">Cantidad en mL</label>
-            <input type="text" name="ml" class="form-control" placeholder="Escriba aquí la cantidad en Mililitros ej(1000ml)" required>
+            <label for="nombre_medida">Cantidad en mL <span class="required">*</span></label>
+            <input type="text" name="ml" class="form-control" id="nombre_medida" maxlength="30"  placeholder="Escriba aquí la cantidad en Mililitros ej(1000ml)">
+            <span id="nombre_medidaError" class="text-danger"></span>
           </div>
         </div>
        

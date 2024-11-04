@@ -19,7 +19,7 @@ if (isset($_POST['accion'])) {
             $apellido = $_POST['apellido'];
             $correo = $_POST['correo'];
             $direccion = $_POST['direccion'];
-            $telefono = $_POST['telefono'];
+            $telefono = $_POST['operadora'].'-'.$_POST['telefono'];
             $estatus = $_POST['estatus'];
             
             $response = array();

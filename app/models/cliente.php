@@ -1,5 +1,5 @@
 <?php
-include('app/connectDB.php'); 
+require_once(__DIR__ . '/../connectDB.php');
 
 class Cliente extends connectDB
 {

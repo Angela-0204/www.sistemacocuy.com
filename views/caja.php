@@ -105,7 +105,7 @@
           
           <div class="form-group">
             <label for="descripcion">Descripción <span class="required">*</span></label>
-            <input type="text" name="descripcion" class="form-control" placeholder="Escriba aquí una descripción">
+            <input type="text" name="descripcion" id="descripcion"  maxlength="20" class="form-control" placeholder="Escriba aquí una descripción">
             <span id="descripcionError" class="text-danger"></span>
           </div>
         </div>

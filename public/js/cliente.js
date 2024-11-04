@@ -9,7 +9,8 @@ $("#registrar").click(function (e) {
     datos.append("correo", $("input[name='correo']").val());
     datos.append("direccion", $("input[name='direccion']").val());
     datos.append("telefono", $("input[name='telefono']").val());
-    datos.append("estatus", $("input[name='estatus']").val());
+    datos.append("operadora", $("select[name='operadora']").val());
+    datos.append("estatus", $("select[name='estatus']").val());
     
     AjaxRegistrar(datos);
 });

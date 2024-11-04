@@ -24,18 +24,8 @@ if (isset($_GET['reporte'])) {
                 "mensaje" => "Error al generar el PDF."
             ]);
         }
-    } else {
-        // Respuesta en caso de que el reporte solicitado no exista
-        echo json_encode([
-            "estatus" => 0,
-            "mensaje" => "Tipo de reporte no válido."
-        ]);
+        exit;
     }
-    exit;
-}
-
-if (isset($_GET['reporte'])) {
-    $reporte = $_GET['reporte'];
     if ($reporte == 'reporte_clientes') {
         // Generar el PDF y devolver la URL para abrir el archivo
         $pdfFilePath = 'app/reportes/'.$reporte.'.php';
@@ -52,6 +42,7 @@ if (isset($_GET['reporte'])) {
                 "mensaje" => "Error al generar el PDF."
             ]);
         }
+        exit;
     } else {
         // Respuesta en caso de que el reporte solicitado no exista
         echo json_encode([
@@ -61,6 +52,7 @@ if (isset($_GET['reporte'])) {
     }
     exit;
 }
+
 include($VIEW.'reportesgeneral.php'); 
 
 ?>

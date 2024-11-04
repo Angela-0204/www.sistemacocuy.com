@@ -96,8 +96,9 @@
       <form action="" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="cantidad">Nombre Del Metodo de Pago</label>
-            <input type="text" name="nombre" class="form-control" placeholder="Escriba aquí el nuevo metodo de pago ejemplo (Transferencia, zelle, etc)" required>
+            <label for="nombre_tipo">Nombre Del Metodo de Pago</label>
+            <input type="text" name="nombre" class="form-control" maxlength="30" id="nombre_tipo" placeholder="Escriba aquí el nuevo metodo de pago ejemplo (Transferencia, zelle, etc)">
+            <span id="nombre_tipoError" class="text-danger"></span>
           </div>
           
         <div class="modal-footer">

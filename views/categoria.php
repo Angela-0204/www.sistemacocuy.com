@@ -95,7 +95,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="nombre_categoria">Nombre de la categoría <span class="required">*</span></label>
-            <input type="text" name="nombre_categoria" maxlength="15" class="form-control" placeholder="Escriba aquí el nombre de la categoria">
+            <input type="text" name="nombre_categoria" maxlength="15" id="nombre_categoria" class="form-control" placeholder="Escriba aquí el nombre de la categoria">
             <span id="nombre_categoriaError" class="text-danger"></span>
           </div>
         </div>
@@ -123,7 +123,7 @@
           <input type="hidden" id="id" name="id">
           <div class="form-group">
             <label for="nombre_categoria">Nombre de la categoría <span class="required">*</span></label>
-            <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de la categoria">
+            <input type="text" name="nombre_editar" id="nombre_categoria" class="form-control" placeholder="Escriba aquí el nombre de la categoria">
             <span id="nombre_categoriaError" class="text-danger"></span>
           </div>
         </div>

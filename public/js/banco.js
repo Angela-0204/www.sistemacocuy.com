@@ -156,3 +156,55 @@ function AjaxEditar(datos) {
         },
     });
 }
+//Para mostrar el error en el span
+function showError(field, message) {
+    //El contenido del mensaje se mostrará en el span que tenga el id field+Error (ejemplo nombreError)
+    document.getElementById(field + "Error").textContent = message;
+}
+
+//Para limpiar el error en el span 
+function clearError(field) {
+    document.getElementById(field + "Error").textContent = "";
+}
+
+//Se evalua el campo y depende de eso se muestra o se limpia el error en el span correspondiente
+//Se envia como parametros: el event, la expresion regular, el campo, y el mensaje de error que se mostrará
+function restrictInput(event, regex, field, errorMsg) {
+    const key = event.key;
+    //Si se está recibiendo por teclado una tecla que no este en la exp reg, que no sea tecla de borrar ni tab    
+    if (!regex.test(key) && key !== "Backspace" && key !== "Tab") {
+        event.preventDefault();
+        showError(field, errorMsg); // Muestra mensaje solo si el caracter es incorrecto
+    } 
+    //En caso que todas las teclas que se esten ingresando sean correctar
+    else {
+        clearError(field); // Limpia el mensaje si el caracter es permitido
+    }
+}
+
+// Bloqueo de caracteres no permitidos en `keypress`, para validar en tiempo real
+document.getElementById("nombre_banco").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z0-9\s]$/, "nombre_banco", "Solo se permiten letras y números.");
+});
+// Validaciones completas en `input`, sin mensajes de error
+function validateNombre() {
+    const nombre_banco = document.getElementById("nombre_banco").value;
+    const nombreRegex = /^[A-Za-z0-9\s]{5,50}$/;
+    if (!nombreRegex.test(nombre_banco)) {
+        showError("nombre_banco", "El nombre debe tener entre 5 y 50 caracteres, solo letras y números.");
+        return false;
+    } else {
+        clearError("nombre_banco");
+        return true;
+    }
+}
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+        validateNombre().value
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("registrar").disabled = !isFormValid;
+}
+
+// Asignar eventos `input` para validar el formulario y habilitar el botón de guardar sin mostrar mensajes de error
+document.getElementById("nombre_banco").addEventListener("input", enableSubmit);

@@ -43,7 +43,8 @@ if(isset($_POST['accion'])){
             foreach ($data as $valor) {
                 echo json_encode([
                     'id_presentacion' => $valor['id_presentacion'],
-                    'marca' => $valor['marca']
+                    'marca' => $valor['marca'],
+                    'medida' => $valor['cod_unidad']
                 ]);
             }
             return 0;
@@ -68,8 +69,7 @@ if(isset($_POST['accion'])){
         case 'modificar':
             $id = $_POST['id_presentacion'];
             $marca = $_POST['marca'];
-            $cod_unidad = $_POST['cod_unidad'];
-           
+            $cod_unidad = $_POST['medida'];           
         
             $result = $marcas->Modificar($id, $marca, $cod_unidad);
             $respuesta = array();

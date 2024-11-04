@@ -105,16 +105,20 @@
       <form action="" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="nombre_banco">Nombre del Banco</label>
-            <input type="text" maxlength="20" name="nombre_banco" class="form-control" placeholder="Escriba aquí el nombre del Banco" required>
+            <label for="nombre_banco">Nombre del Banco <span class="required">*</span></label>
+            <input type="text" maxlength="20" name="nombre_banco" id="nombre_banco" class="form-control" placeholder="Escriba aquí el nombre del Banco" required>
+            <span id="nombre_bancoError" class="text-danger"></span>
+
           </div>
           <div class="form-group">
-            <label for="nombre_banco">Datos del Banco</label>
-            <input type="text" maxlength="25" name="datos_banco" class="form-control" placeholder="Escriba aquí los datos del Banco" required>
+            <label for="nombre_banco">Datos del Banco  <span class="required">*</span></label>
+            <input type="text" maxlength="25" name="datos_banco" id="datos_banco" class="form-control" placeholder="Escriba aquí los datos del Banco" required>
+            <span id="datos_bancoError" class="text-danger"></span>
+
           </div>
          
           <div class="col align-self-center-md-4 form-group">
-            <label for="">Metodo De Pago</label>
+            <label for="">Metodo De Pago  <span class="required">*</span></label>
                 <select name="tipo_pago" id="tipo_pago" class="form-control">
                       <?php foreach ($data_tipos as $pago_dato) { ?>
                             <option value="<?= $pago_dato['id_tipo_pago']; ?>"><?php echo $pago_dato['nombre']; ?></option>
