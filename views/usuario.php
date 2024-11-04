@@ -1,5 +1,23 @@
 <?php include('views/layout/menu.php'); ?>
+<style>
+.password-container {
+    position: relative;
+}
 
+.password-container .form-control {
+    padding-right: 30px; /* Espacio para el ícono a la derecha */
+}
+
+.password-container i {
+    position: absolute;
+    right: 10px;
+    top: 75%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888; /* Color del ícono, ajustable */
+}
+
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -85,8 +103,9 @@
             <form action="" method="post">
               <div class="modal-body">
                 <div class="form-group">
-                  <label for="">Nombre </label>
-                  <input type="text" name="names" class="form-control" placeholder="Escriba aquí el nombre del Nuevo Usuario">
+                  <label for="names">Nombre de Usuario <span class="required">*</span></label>
+                  <input type="text" name="names" class="form-control" id="names" maxlength="25" placeholder="Escriba aquí el nombre del Nuevo Usuario">
+                  <span id="namesError" class="text-danger"></span>
                 </div>
                 
 
@@ -106,16 +125,22 @@
                       </div>
             
 <!-- Contraseña -->
-<div class="form-group">
-  <label for="password_user">Contraseña</label>
-  <input type="password" name="password_user" id="password_user" class="form-control">
+<div class="form-group password-container">
+  <label for="password_user">Contraseña <span class="required">*</span></label>
+  <input name="password_user" id="password_user" class="form-control">
+  <span id="password_userError" class="text-danger"></span>
+  <i id="togglePassword1" class="fas fa-eye"></i> <!-- El ícono fuera del input -->
 </div>
 
-<!-- Repetir Contraseña -->
-<div class="form-group">
-  <label for="password_repeat">Repita Contraseña</label>
-  <input type="password" name="password_repeat" id="password_repeat" class="form-control">
+<div class="form-group password-container">
+  <label for="password_repeat">Repetir Contraseña <span class="required">*</span></label>
+  <input  name="password_repeat" id="password_repeat" class="form-control">
+  <i id="togglePassword2" class="fas fa-eye"></i> <!-- El ícono fuera del input -->
 </div>
+
+
+
+
    <hr>
                 <div class="form-group">
                   <a href="" class="btn btn-secondary">Cancelar</a>

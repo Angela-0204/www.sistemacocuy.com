@@ -188,57 +188,127 @@ function AjaxEditar(datos) {
         },
     });
 }
-const togglePassword1 = document.getElementById('togglePassword1');
-  const passwordField1 = document.getElementById('password_user');
-  
-  const togglePassword2 = document.getElementById('togglePassword2');
-  const passwordField2 = document.getElementById('password_repeat');
-
-  // Función para alternar la visibilidad de la contraseña
-  togglePassword1.addEventListener('click', function () {
-    const type = passwordField1.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordField1.setAttribute('type', type);
-    this.classList.toggle('fa-eye-slash'); 
-  });
-
-  togglePassword2.addEventListener('click', function () {
-    const type = passwordField2.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordField2.setAttribute('type', type);
-    this.classList.toggle('fa-eye-slash'); 
-  });
 
 
 
 
+  //Para mostrar el error en el span
+function showError(field, message) {
+    //El contenido del mensaje se mostrará en el span que tenga el id field+Error (ejemplo nombreError)
+    document.getElementById(field + "Error").textContent = message;
+}
 
+//Para limpiar el error en el span 
+function clearError(field) {
+    document.getElementById(field + "Error").textContent = "";
+}
 
-
-
-
-
-
-
-
-
-/*document.getElementById('registrar').addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // Obtener los valores de los campos del formulario
-    var names = document.querySelector("input[name='names']").value;
-    var email = document.querySelector("input[name='email']").value;
-    var password = document.querySelector("input[name='password_user']").value;
-    var passwordRepeat = document.querySelector("input[name='password_repeat']").value;
-    var rol = document.querySelector("select[name='roles']").value;
-
-    // Validación
-    if (!names || !email || !password || !passwordRepeat || !rol) {
-        alert("Todos los campos son obligatorios.");
-        return;
+//Se evalua el campo y depende de eso se muestra o se limpia el error en el span correspondiente
+//Se envia como parametros: el event, la expresion regular, el campo, y el mensaje de error que se mostrará
+function restrictInput(event, regex, field, errorMsg) {
+    const key = event.key;
+    //Si se está recibiendo por teclado una tecla que no este en la exp reg, que no sea tecla de borrar ni tab    
+    if (!regex.test(key) && key !== "Backspace" && key !== "Tab") {
+        event.preventDefault();
+        showError(field, errorMsg); // Muestra mensaje solo si el caracter es incorrecto
+    } 
+    //En caso que todas las teclas que se esten ingresando sean correctar
+    else {
+        clearError(field); // Limpia el mensaje si el caracter es permitido
     }
+}
+
+// Bloqueo de caracteres no permitidos en `keypress`, para validar en tiempo real
+document.getElementById("names").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[a-zA-Z\s]*$/, "names", "Solo se permiten letras.");
+});
+
+
+document.getElementById("password_user").addEventListener("input", function() {
+    const password = this.value;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    if (!passwordRegex.test(password)) {
+        showError("password_user", "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.");
+    } else {
+        clearError("password_user");
+    }
+});
 
 
 
-    // Si todo está bien, enviar el formulario
-    document.querySelector("form").submit();
-});*/
-//correo validacion
+// Validaciones completas en `input`, sin mensajes de error
+function validatePassword() {
+    const password_user = document.getElementById("password_user").value;
+    const nombreRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    if (!nombreRegex.test(password_user)) {
+        showError("password_user", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
+        return false;
+    } else {
+        clearError("password_user");
+        return true;
+    }
+}
+
+// Validaciones completas en `input`, sin mensajes de error
+function validateNombre() {
+    const names = document.getElementById("names").value;
+    const nombreRegex = /^[a-zA-Z\s]{5,50}$/;
+    if (!nombreRegex.test(names)) {
+        showError("names", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
+        return false;
+    } else {
+        clearError("names");
+        return true;
+    }
+}
+
+
+//Se valida de manera general
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+    validatePassword() &&
+        validateNombre() &&
+        document.getElementById("password_user").value &&
+        document.getElementById("names").value;
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("registrar").disabled = !isFormValid;
+}
+
+
+document.getElementById("names").addEventListener("input", enableSubmit);
+
+const togglePassword1 = document.getElementById('togglePassword1');
+const passwordField1 = document.getElementById('password_user');
+
+const togglePassword2 = document.getElementById('togglePassword2');
+const passwordField2 = document.getElementById('password_repeat');
+
+// Alterna visibilidad para el primer campo
+togglePassword1.addEventListener('click', function () {
+  const type = passwordField1.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordField1.setAttribute('type', type);
+  this.classList.toggle('fa-eye-slash');
+});
+
+// Alterna visibilidad para el segundo campo
+togglePassword2.addEventListener('click', function () {
+  const type = passwordField2.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordField2.setAttribute('type', type);
+  this.classList.toggle('fa-eye-slash');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
