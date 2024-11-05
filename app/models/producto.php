@@ -16,6 +16,19 @@ class Producto extends connectDB
         return $respuestaArreglo;
     }
 
+    public function ListarEnPedido()
+    {
+        $resultado = $this->conex->prepare("SELECT di.id_detalle_inventario as cod_inventario, a.nombre, a.descripcion, di.stock, a.precio_venta, a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria, di.lote, di.estatus, e.cantidad, pr.marca FROM inventario a INNER JOIN categoria c ON a.id_categoria=c.id_categoria INNER JOIN detalle_inventario di ON di.id_detalle_inventario=a.id_detalle_inventario INNER JOIN empaquetado e ON e.id_empaquetado=di.id_empaquetado INNER JOIN presentacion pr ON pr.id_presentacion=di.id_presentacion ORDER BY a.fyh_actualizacion desc;");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
     public function Crear($nombre, $descripcion, $id_categoria, $stock, $precio_venta, $imagen, $fyh_creacion, $fyh_actualizacion, $id_empaquetado, $id_presentacion, $lote, $estatus)
     {
         // Iniciamos la transacción
