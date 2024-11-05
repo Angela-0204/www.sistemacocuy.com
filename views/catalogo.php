@@ -24,14 +24,14 @@
                         <div class="col-md-6">
                             <label for="clientSelect">Seleccionar Cliente</label>
                             <select class="form-control" id="clientSelect">
-                                <option value="Cliente 1">Cliente 1</option>
-                                <option value="Cliente 2">Cliente 2</option>
-                                <option value="Cliente 3">Cliente 3</option>
+                                <?php foreach ($data_clientes as $clientes_dato) { ?>
+                                      <option value="<?= $clientes_dato['id_cliente']; ?>"><?= $clientes_dato['nombre_cliente'].' '.$clientes_dato['apellido']; ?></option>
+                                  <?php } ?>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label for="orderDate">Fecha de Pedido</label>
-                            <input type="date" class="form-control" id="orderDate">
+                            <input type="date" disabled class="form-control" id="orderDate">
                         </div>
                     </div>
 
@@ -91,9 +91,9 @@
                     <div class="form-group">
                         <label for="productSelect">Producto</label>
                         <select class="form-control" id="productSelect">
-                            <option value="1" data-name="Producto A" data-price="100">Producto A - $100</option>
-                            <option value="2" data-name="Producto B" data-price="200">Producto B - $200</option>
-                            <option value="3" data-name="Producto C" data-price="300">Producto C - $300</option>
+                            <?php foreach ($data_productos as $productos_dato) { ?>
+                                <option value="<?= $productos_dato['cod_inventario']; ?>"  data-name="<?= $productos_dato['nombre']; ?>" data-price="<?= $productos_dato['precio_venta']; ?>"><?= $productos_dato['nombre']; ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="form-group">
