@@ -15,6 +15,18 @@ if(isset($_POST['accion'])){
           
             $nombre = $_POST['nombre'];
            
+             
+    // Verificar si el nombre ya existe
+    if ($tipo->VerificarNombre($nombre)) {
+        echo json_encode([
+            'estatus' => 0,
+            'mensaje' => "El tipo de pago ya existe, por favor ingrese otro nombre."
+        ]);
+        return 0;
+    }
+
+
+
         
             $result = $tipo->Crear($nombre);
             
@@ -77,8 +89,18 @@ if(isset($_POST['accion'])){
             }
             echo json_encode($respuesta);
             return 0;
-        break;            
-
+        break;        
+            
+  case 'verificarNombre':
+    $nombre = $_POST['nombre'];
+    $existe = $tipo->VerificarNombre($nombre);
+    echo json_encode(['existe' => $existe]);
+    return 0;
     }
+    
+  
 }
+
+
+
 include($VIEW.'tipo_pago.php'); 

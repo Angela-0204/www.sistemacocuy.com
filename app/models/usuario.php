@@ -31,6 +31,23 @@ class Usuario extends connectDB
         }
         return $respuestaArreglo;
     }
+    public function VerificarCorreo($email)
+{
+    $sql = "SELECT COUNT(*) as count FROM usuario WHERE email = :email";
+    $resultado = $this->conex->prepare($sql);
+
+    try {
+        $resultado->execute(['email' => $email]);
+        $count = $resultado->fetch(PDO::FETCH_ASSOC)['count'];
+    } catch (Exception $e) {
+        return false;
+    }
+
+    return $count > 0;
+}
+
+
+
 
     public function Crear($names, $email, $password_user, $cod_tipo_usuario)
     {

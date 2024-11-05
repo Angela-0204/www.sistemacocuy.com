@@ -263,6 +263,46 @@ function validateNombre() {
     }
 }
 
+// Validación del correo
+function validateEmail() {
+    const email = document.getElementById("email").value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showError("email", "Por favor, ingrese un email válido.");
+        return false;
+    } else {
+        clearError("email");
+        return true;
+    }
+}
+// Verificación AJAX de existencia de correo
+function checkEmailExists(email) {
+    var datos = new FormData();
+    datos.append("accion", "verificarCorreo");
+    datos.append("email", email);
+
+    $.ajax({
+        url: "", // URL del archivo PHP actual
+        type: "POST",
+        data: datos,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            var res = JSON.parse(response);
+            if (res.existe) {
+                showError("email", "El correo ya está registrado.");
+                document.getElementById("registrar").disabled = true;
+            } else {
+                clearError("email");
+                enableSubmit(); // Habilita el botón si todo es válido
+            }
+        },
+        error: function (err) {
+            console.error("Error en la verificación del correo: ", err);
+        }
+    });
+}
+
 
 //Se valida de manera general
 function enableSubmit() {
@@ -270,14 +310,26 @@ function enableSubmit() {
     const isFormValid =
     validatePassword() &&
         validateNombre() &&
+        validateEmail() &&
+        checkEmailExists () &&
         document.getElementById("password_user").value &&
-        document.getElementById("names").value;
+        document.getElementById("names").value &&
+        document.getElementById("email").value;
+
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
 
 document.getElementById("names").addEventListener("input", enableSubmit);
+document.getElementById("password_user").addEventListener("input", enableSubmit);
 
+
+
+// Añade evento de validación en tiempo real para el email
+document.getElementById("email").addEventListener("input", function() {
+    validateEmail();
+    checkEmailExists(this.value); // Verifica si el email ya está en uso
+});
 
 
 const togglePassword1 = document.getElementById('togglePassword1');

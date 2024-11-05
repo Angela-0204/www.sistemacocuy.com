@@ -49,6 +49,7 @@ $("#modificar").click(function (e) {
 
 function editar(cedula_rif){
     var datos = new FormData();
+    
     datos.append("accion", "consultar");
     datos.append("cedula_rif", cedula_rif);
     AjaxEditar(datos);

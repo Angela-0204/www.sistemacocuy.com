@@ -118,6 +118,14 @@ if(isset($_POST['accion'])){
             return 0;
         break;        
 
+
+        case 'verificarCorreo':
+            $email = $_POST['email'];
+            $existe = $usuario->VerificarCorreo($email);
+            echo json_encode(['existe' => $existe]);
+            return 0;
+        
+
     }
 }
 include($VIEW.'usuario.php'); 

@@ -53,6 +53,25 @@ class Tipo extends connectDB
         return $respuestaArreglo;
     }
 
+    public function VerificarNombre($nombre)
+{
+    $sql = "SELECT COUNT(*) as count FROM tipo_pago WHERE nombre = :nombre";
+    $resultado = $this->conex->prepare($sql);
+
+    try {
+        $resultado->execute(['nombre' => $nombre]);
+        $count = $resultado->fetch(PDO::FETCH_ASSOC)['count'];
+    } catch (Exception $e) {
+        return false;
+    }
+
+    return $count > 0;
+}
+
+
+
+
+
     public function Modificar($id_tipo_pago, $nombre)
     {
         $sql = "UPDATE tipo_pago SET nombre = :nombre

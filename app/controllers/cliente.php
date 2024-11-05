@@ -104,7 +104,7 @@ if (isset($_POST['accion'])) {
 
         // Para modificar los datos
         case 'modificar':
-            $cedula_cliente = $_POST['cedula_rif'];
+            $cedula_rif = $_POST['cedula_rif'];
             $nombre_cliente = $_POST['nombre_cliente'];
             $apellido = $_POST['apellido'];
             $correo = $_POST['correo'];
@@ -113,14 +113,14 @@ if (isset($_POST['accion'])) {
             $estatus = $_POST['estatus'];
 
             // Validar que el cliente exista antes de modificar
-            if (!$cliente->Existe($cedula_cliente)) {
+            if (!$cliente->Existe($cedula_rif)) {
                 $response['estatus'] = 0;
                 $response['mensaje'] = "No se puede modificar: el cliente no existe.";
                 echo json_encode($response);
                 return;
             }
 
-            $result = $cliente->Modificar($cedula_cliente, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus);
+            $result = $cliente->Modificar($cedula_rif, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;

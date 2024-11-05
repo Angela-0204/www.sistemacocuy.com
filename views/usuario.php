@@ -110,9 +110,9 @@
                 
 
                 <div class="form-group">
-                  <label for="">Email</label>
-                  <input type="email" name="email" class="form-control" placeholder="Escriba aquí el Email del Nuevo Usuario">
-                  
+                  <label for="email">Email  <span class="required">*</span></label>
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Escriba aquí el Email del Nuevo Usuario">
+                  <span id="emailError" class="text-danger"></span>
                 </div>
 
                       <div class="col align-self-center-md-4 form-group">

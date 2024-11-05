@@ -156,6 +156,36 @@ function AjaxEditar(datos) {
     });
 }
 
+$("#nombre_tipo").on("input", function () {
+    var nombre = $(this).val();
+    var datos = new FormData();
+    datos.append("accion", "verificarNombre");
+    datos.append("nombre", nombre);
+
+    $.ajax({
+        url: "", // Mismo URL que los otros llamados AJAX
+        type: "POST",
+        data: datos,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            var res = JSON.parse(response);
+            if (res.existe) {
+                showError("nombre_tipo", "El tipo de pago ya existe.");
+                document.getElementById("registrar").disabled = true;
+            } else {
+                clearError("nombre_tipo");
+                enableSubmit(); // Rehabilita el botón si el formulario es válido
+            }
+        }
+    });
+});
+
+
+
+
+
+
 //Para mostrar el error en el span
 function showError(field, message) {
     //El contenido del mensaje se mostrará en el span que tenga el id field+Error (ejemplo nombreError)

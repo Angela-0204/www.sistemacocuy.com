@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="m-0">Listado de Marcas</h1>
+          <h1 class="m-0">Listado de Tipos de Pagos</h1>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -23,8 +23,8 @@
         <div class="col-md-6">
           <div class="card card-outline card-primary">
             <div class="card-header ">
-              <h3 class="card-title mb-0">Marcas registradas</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-tipo-pago">Añadir Marca</button>
+              <h3 class="card-title mb-0">Tipos de Pagos registrados</h3>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-tipo-pago">Añadir Tipo de Pago</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -83,12 +83,12 @@
 </div>
 <!-- /.content-wrapper -->
 
-<!-- Modal crear Marca -->
+<!-- Modal crear tipo de pago -->
 <div class="modal fade" id="modal-add-tipo-pago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Crear Nueva Marca</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Crear Nuevo tipo de pago</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -96,23 +96,12 @@
       <form action="" method="post">
         <div class="modal-body">
           <div class="form-group">
-            <label for="nombre_marca">Nombre del T <span class="required">*</span></label>
-            <input type="text" name="marca" id="nombre_marca" class="form-control" placeholder="Escriba aquí el nombre de la marca" >
-            <span id="nombre_marcaError" class="text-danger"></span>
+            <label for="nombre_tipo">Nombre del Tipo de Pago <span class="required">*</span></label>
+            <input type="text" name="nombre" id="nombre_tipo" class="form-control" placeholder="Escriba aquí el nombre del tipo de pago" >
+            <span id="nombre_tipoError" class="text-danger"></span>
           </div>
         </div>
-        <div class="row-md-4">
-                      <div class="col align-self-center-md-4 form-group">
-                        <label for="">Medida Mililitros</label>
-                        <select name="mililitro" id="mililitro" class="form-control">
-                          <?php foreach ($data_medida as $medida_dato) { ?>
-                            <option value="<?= $medida_dato['cod_unidad']; ?>"><?php echo $medida_dato['medida']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    </div>
-
-
+  
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary" id="registrar">Guardar</button>
