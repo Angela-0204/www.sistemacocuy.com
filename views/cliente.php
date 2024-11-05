@@ -20,7 +20,7 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
           <div class="card card-outline card-primary">
             <div class="card-header d-flex align-items-center">
               <div class="d-flex align-items-center">
@@ -91,34 +91,36 @@
             <form action="" method="post">
               <div class="modal-body">
                 <div class="form-group">
-                  <label for="">Cedula del cliente </label>
+                  <label for="cedula_rif">Cedula del cliente <span class="required">*</span> </label>
                   <input type="text" name="cedula_rif" id="cedula_rif" class="form-control" placeholder="Escriba aquí la cedula o el RIF del cliente">
+                  <span id="cedula_rifError" class="text-danger"></span>
+               
                 </div>
 
                 <div class="form-group">
-                  <label for="">Nombre del cliente</label>
+                  <label for="nombre_cliente">Nombre del cliente <span class="required">*</span></label>
                   <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control" placeholder="Escriba aquí el nombre del nuevo cliente">
-                  
+                  <span id="nombre_clienteError" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                  <label for="">Apellido del cliente</label>
+                  <label for="apellido">Apellido del cliente<span class="required">*</span></label>
                   <input type="text" name="apellido" id="apellido" class="form-control" placeholder="Escriba aquí el apellido del nuevo cliente">
-                  
+                  <span id="apellidoError" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                  <label for="">Correo</label>
+                  <label for="">Correo <span class="required">*</span></label>
                   <input type="email" name="correo" id="correo" class="form-control" placeholder="Escriba aquí el Correo del Nuevo cliente">
-                  
+                  <span id="correoError" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                  <label for="">Direccion</label>
+                  <label for="direccion">Direccion <span class="required">*</span> </label>
                   <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Escriba aquí la direccion del nuevo cliente">
-                  
+                  <span id="direccionError" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-  <label for="telefono">Telefono</label>
+  <label for="telefono">Telefono <span class="required">*</span></label>
   <div class="d-flex">
     <select class="form-control" id="operadora" name="operadora" style="width: auto; margin-right: 10px;">
       <option value="0414">0414</option>
@@ -130,10 +132,12 @@
       <option value="0212">0212</option>
     </select>
     
-    <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Escriba el número telefónico">
+    <input type="text" name="telefono" id="telefono" maxlength="7"  class="form-control" placeholder="Escriba el número telefónico">
+    
   </div>
+  <span id="telefonoError" class="text-danger"></span>
           </div>
-                
+            
         <div class="col-md-12 form-group">
        <label for="estatus">Estatus *</label>
          <select class="form-control" name="estatus">
