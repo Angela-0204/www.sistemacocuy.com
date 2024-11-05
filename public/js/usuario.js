@@ -276,11 +276,7 @@ function enableSubmit() {
         document.getElementById("registrar").disabled = !isFormValid;
 }
 
-
 document.getElementById("names").addEventListener("input", enableSubmit);
-
-
-
 
 const togglePassword1 = document.getElementById('togglePassword1');
 const passwordField1 = document.getElementById('password_user');
