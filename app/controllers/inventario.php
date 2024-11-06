@@ -87,6 +87,7 @@ if(isset($_POST['accion'])){
             // Establece el tipo de contenido de la respuesta
             header('Content-Type: application/json');
             echo json_encode($respuesta);
+            exit;
             break;
         
     }

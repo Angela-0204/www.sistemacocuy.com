@@ -65,7 +65,7 @@ if (isset($_POST['accion'])) {
 
         // Para consultar el registro a modificar
         case 'consultar':
-            $data = $cliente->Buscar($_POST['cod_cliente']);
+            $data = $cliente->Buscar($_POST['cedula_rif']);
             foreach ($data as $valor) {
                 echo json_encode([
                     'cedula_rif' => $valor['cedula_rif'],
@@ -74,11 +74,11 @@ if (isset($_POST['accion'])) {
                     'correo' => $valor['correo'],
                     'direccion' => $valor['direccion'],
                     'telefono' => $valor['telefono'],
-                    'estatus' => $valor['estatus'],
+                    'estatus' => $valor['estatus']
                 ]);
             }
-            return;
-
+            exit;
+        break;
         // Para eliminar un registro
         case 'eliminar':
             $cod_cliente = $_POST['cod_cliente'];

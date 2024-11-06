@@ -185,9 +185,5 @@
     </div>
   </div>
 </div>
-<?php
-if (isset($script)) {
-    echo $script;
-} ?>
 <?php include('views/layout/footer.php'); ?>
 <script src="public/js/inventario.js"></script>

@@ -23,16 +23,17 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="clientSelect">Seleccionar Cliente</label>
-                            <select class="form-control" id="clientSelect">
-                                <option value="Cliente 1">Cliente 1</option>
-                                <option value="Cliente 2">Cliente 2</option>
-                                <option value="Cliente 3">Cliente 3</option>
+                            <select class="form-control" id="cod_cliente">
+                                <?php foreach ($data_clientes as $clientes_dato) { ?>
+                                    <option value="<?= $clientes_dato['cod_cliente']; ?>"><?= $clientes_dato['nombre_cliente'].' '.$clientes_dato['apellido']; ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label for="orderDate">Fecha de Pedido</label>
-                            <input type="date" class="form-control" id="orderDate">
+                            <input type="date" class="form-control" id="orderDate" value="<?= date('Y-m-d'); ?>" disabled>
                         </div>
+
                     </div>
 
                     <!-- Botón para agregar productos al pedido -->
@@ -48,6 +49,7 @@
                                     <th>Producto</th>
                                     <th>Cantidad</th>
                                     <th>Precio Unitario</th>
+                                    <th>Stock</th> <!-- Nueva columna para el stock -->
                                     <th>Subtotal</th>
                                     <th>Acción</th>
                                 </tr>
@@ -65,7 +67,7 @@
                 </div>
                 <!-- Botón "Agregar Productos" que abre la modal -->
                 <div class="card-footer">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarProductoModal">
+                    <button type="button" class="btn btn-success" id="registrar">
                         Guardar Pedido <i class="fa fa-save"></i>
                     </button>
                 </div>
@@ -91,15 +93,34 @@
                     <div class="form-group">
                         <label for="productSelect">Producto</label>
                         <select class="form-control" id="productSelect">
-                            <option value="1" data-name="Producto A" data-price="100">Producto A - $100</option>
-                            <option value="2" data-name="Producto B" data-price="200">Producto B - $200</option>
-                            <option value="3" data-name="Producto C" data-price="300">Producto C - $300</option>
+                                <option selected disabled value="">Seleccione un producto</option>
+                            <?php foreach ($data_productos as $productos_dato) { ?>
+                                <option value="<?= $productos_dato['cod_inventario']; ?>"
+                                        data-name="<?= $productos_dato['nombre']; ?>"
+                                        data-price="<?= $productos_dato['precio_venta']; ?>"
+                                        data-stock="<?= $productos_dato['stock']; ?>">
+                                    <?= $productos_dato['nombre']; ?>
+                                </option>
+                            <?php } ?>
                         </select>
+
                     </div>
-                    <div class="form-group">
-                        <label for="productQuantity">Cantidad</label>
-                        <input type="number" class="form-control" id="productQuantity" min="1" value="1">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="productQuantity">Cantidad</label>
+                                <input type="number" class="form-control" id="productQuantity" min="1" value="1">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div>
+                                <label>Stock disponible:</label>
+                                <input type="text" disabled class="form-control" id="productStock">
+                            </div>
+                        </div>
                     </div>
+                    
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -117,72 +138,6 @@ if (isset($script)) {
 } ?>
 <?php include('views/layout/footer.php'); ?>
 <!-- JavaScript para manejar la adición de productos a la tabla -->
-<script>
-    // Establecer la fecha actual en el campo de fecha
-    document.getElementById('orderDate').valueAsDate = new Date();
-
-    // Función para actualizar el total
-    function updateTotal() {
-        let total = 0;
-        document.querySelectorAll('#orderTable tbody tr').forEach(row => {
-            const subtotal = parseFloat(row.querySelector('.subtotal').innerText.replace('$', ''));
-            total += subtotal;
-        });
-        document.getElementById('totalAmount').innerText = total.toFixed(2);
-    }
-
-    // Agregar o actualizar producto en el pedido
-    document.getElementById('addProductBtn').addEventListener('click', function () {
-        const productSelect = document.getElementById('productSelect');
-        const productId = productSelect.value;
-        const productName = productSelect.options[productSelect.selectedIndex].getAttribute('data-name');
-        const productPrice = parseFloat(productSelect.options[productSelect.selectedIndex].getAttribute('data-price'));
-        const productQuantity = parseInt(document.getElementById('productQuantity').value);
-
-        const existingRow = document.querySelector(`#orderTable tbody tr[data-product-id="${productId}"]`);
-        if (existingRow) {
-            // Producto ya existe en la tabla, actualizar cantidad y subtotal
-            const quantityInput = existingRow.querySelector('.product-quantity');
-            const newQuantity = parseInt(quantityInput.value) + productQuantity;
-            const newSubtotal = productPrice * newQuantity;
-            quantityInput.value = newQuantity;
-            existingRow.querySelector('.subtotal').innerText = `$${newSubtotal.toFixed(2)}`;
-        } else {
-            // Crear una nueva fila para el producto
-            const orderTableBody = document.getElementById('orderTable').getElementsByTagName('tbody')[0];
-            const newRow = document.createElement('tr');
-            newRow.setAttribute('data-product-id', productId);
-            const subtotal = productPrice * productQuantity;
-
-            newRow.innerHTML = `
-                <td>${productName}</td>
-                <td><input type="number" class="form-control product-quantity" value="${productQuantity}" min="1" style="width: 80px;"></td>
-                <td>$${productPrice.toFixed(2)}</td>
-                <td class="subtotal">$${subtotal.toFixed(2)}</td>
-                <td><button type="button" class="btn btn-danger btn-sm remove-product-btn">Eliminar</button></td>
-            `;
-            orderTableBody.appendChild(newRow);
-
-            // Evento para eliminar producto
-            newRow.querySelector('.remove-product-btn').addEventListener('click', function () {
-                newRow.remove();
-                updateTotal();
-            });
-
-            // Evento para editar cantidad y actualizar subtotal y total
-            newRow.querySelector('.product-quantity').addEventListener('input', function () {
-                const newQuantity = parseInt(this.value);
-                const newSubtotal = productPrice * newQuantity;
-                newRow.querySelector('.subtotal').innerText = `$${newSubtotal.toFixed(2)}`;
-                updateTotal();
-            });
-        }
-
-        // Limpiar y cerrar el modal
-        document.getElementById('productForm').reset();
-        $('#addProductModal').modal('hide');
-        updateTotal();
-    });
-</script>
+<script src="public/js/catalogo.js"></script>
 
 
