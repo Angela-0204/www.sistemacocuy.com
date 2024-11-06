@@ -239,9 +239,13 @@ function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
         validateNombre() &&
-        validateNombreEditar() &&
+      
         validateDatos() &&
-        validateDatosEditar().value;
+        
+        document.getElementById("nombre_banco").value &&
+  
+        document.getElementById("datos_banco").value;
+       
 
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
@@ -249,6 +253,24 @@ function enableSubmit() {
 
 // Asignar eventos `input` para validar el formulario y habilitar el botón de guardar sin mostrar mensajes de error
 document.getElementById("nombre_banco").addEventListener("input", enableSubmit);
-document.getElementById("nombre_editar").addEventListener("input", enableSubmit);
+
 document.getElementById("datos_banco").addEventListener("input", enableSubmit);
+
+
+
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+       
+        validateNombreEditar() &&
+      
+        validateDatosEditar() &&
+ 
+        document.getElementById("nombre_edit").value &&
+  
+        document.getElementById("datos_edit").value;
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("modificar").disabled = !isFormValid;
+}
+document.getElementById("nombre_editar").addEventListener("input", enableSubmit);
 document.getElementById("datos_editar").addEventListener("input", enableSubmit);
