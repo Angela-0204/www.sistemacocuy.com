@@ -111,7 +111,7 @@
 
           </div>
           <div class="form-group">
-            <label for="nombre_banco">Datos del Banco  <span class="required">*</span></label>
+            <label for="datos_banco">Datos del Banco  <span class="required">*</span></label>
             <input type="text" maxlength="25" name="datos_banco" id="datos_banco" class="form-control" placeholder="Escriba aquí los datos del Banco" required>
             <span id="datos_bancoError" class="text-danger"></span>
 
@@ -151,12 +151,16 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="nombre_editar">Nombre del Banco</label>
+            <label for="nombre_editar">Nombre del Banco <span class="required">*</span></label>
             <input type="text" maxlength="20" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de la categoria" required>
+            <span id="nombre_editarError" class="text-danger"></span>
+
           </div>
           <div class="form-group">
-            <label for="">Datos del Banco</label>
+            <label for="datos_editar">Datos del Banco</label>
             <input type="text" maxlength="25" name="datos_editar" id="datos_editar" class="form-control" placeholder="Escriba aquí el nombre de la categoria" required>
+            <span id="datos_editarError" class="text-danger"></span>
+
           </div>
           
           <div class="col align-self-center-md-4 form-group">

@@ -176,34 +176,55 @@
         <input type="hidden" id="cedula_rif_editar" name="cedula_rif_editar">
 
         <div class="form-group">
-            <label for="nombre_cliente_edit">Nombre</label>
+            <label for="nombre_cliente_edit">Nombre <span class="required">*</span></label>
             <input type="text" name="nombre_cliente_edit" id="nombre_cliente_edit" class="form-control" placeholder="Escriba el nombre del cliente">
-        </div>
+            <span id="nombre_cliente_editError" class="text-danger"></span>
+          </div>
 
         <div class="form-group">
-            <label for="apellido_edit">Apellido</label>
+            <label for="apellido_edit">Apellido <span class="required">*</span></label>
             <input type="text" name="apellido_edit" id="apellido_edit" class="form-control" placeholder="Escriba el apellido del cliente">
-        </div>
+            <span id="apellido_editError" class="text-danger"></span>
+          </div>
 
         <div class="form-group">
-            <label for="email_edit">Correo</label>
+            <label for="email_edit">Correo <span class="required">*</span></label>
             <input type="email" name="email_edit" id="email_edit" class="form-control" placeholder="Escriba el correo del cliente">
-        </div>
+            <span id="email_editError" class="text-danger"></span>
+          </div>
 
         <div class="form-group">
-            <label for="direccion_edit">Dirección</label>
+            <label for="direccion_edit">Dirección <span class="required">*</span></label>
             <input type="text" name="direccion_edit" id="direccion_edit" class="form-control" placeholder="Escriba la dirección del cliente">
-        </div>
+            <span id="direccion_editError" class="text-danger"></span>
+          </div>
 
-        <div class="form-group">
-            <label for="telefono_edit">Teléfono</label>
-            <input type="text" name="telefono_edit" id="telefono_edit" class="form-control" placeholder="Escriba el teléfono del cliente">
-        </div>
-
-        <div class="form-group">
-            <label for="estatus_edit">Estatus</label>
-            <input type="text" name="estatus_edit" id="estatus_edit" class="form-control" placeholder="Escriba el estatus del cliente">
-        </div>
+          <div class="form-group">
+  <label for="telefono_edit">Telefono <span class="required">*</span></label>
+  <div class="d-flex">
+    <select class="form-control" id="operadora_edit" name="operadora" style="width: auto; margin-right: 10px;">
+      <option value="0414">0414</option>
+      <option value="0424">0424</option>
+      <option value="0412">0412</option>
+      <option value="0426">0426</option>
+      <option value="0416">0416</option>
+      <option value="0251">0251</option>
+      <option value="0212">0212</option>
+    </select>
+    
+    <input type="text" name="telefono_edit" id="telefono_edit" maxlength="7"  class="form-control" placeholder="Escriba el número telefónico">
+    
+  </div>
+  <span id="telefono_editError" class="text-danger"></span>
+          </div>
+            
+        <div class="col-md-12 form-group">
+       <label for="estatus">Estatus *</label>
+         <select class="form-control" name="estatus_edit">
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+        </select>
+                        </div>
 
         <hr>
         <div class="form-group">

@@ -184,27 +184,71 @@ function restrictInput(event, regex, field, errorMsg) {
 
 // Bloqueo de caracteres no permitidos en `keypress`, para validar en tiempo real
 document.getElementById("nombre_banco").addEventListener("keypress", function(event) {
-    restrictInput(event, /^[A-Za-z0-9\s]$/, "nombre_banco", "Solo se permiten letras y números.");
+    restrictInput(event, /^[A-Za-z\s]$/, "nombre_banco", "Solo se permiten letras.");
 });
+document.getElementById("nombre_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z\s]$/, "nombre_editar", "Solo se permiten letras.");
+});
+document.getElementById("datos_banco").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[0-9]$/, "datos_banco", "Solo se permiten números.");
+});
+
+document.getElementById("datos_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[0-9]$/, "datos_editar", "Solo se permiten números.");
+});
+
+
 // Validaciones completas en `input`, sin mensajes de error
 function validateNombre() {
     const nombre_banco = document.getElementById("nombre_banco").value;
-    const nombreRegex = /^[A-Za-z0-9\s]{5,50}$/;
+    const nombreRegex = /^[A-Za-z\s]{5,50}$/;
     if (!nombreRegex.test(nombre_banco)) {
-        showError("nombre_banco", "El nombre debe tener entre 5 y 50 caracteres, solo letras y números.");
+        showError("nombre_banco", "El nombre debe tener entre 5 y 50 caracteres, solo letras.");
         return false;
     } else {
         clearError("nombre_banco");
         return true;
     }
 }
+
+function validateNombreEditar() {
+    const nombre_editar = document.getElementById("nombre_editar").value;
+    const nombreRegex = /^[A-Za-z\s]{5,50}$/;
+    if (!nombreRegex.test(nombre_editar)) {
+        showError("nombre_editar", "El nombre debe tener entre 5 y 50 caracteres, solo letras.");
+        return false;
+    } else {
+        clearError("nombre_editar");
+        return true;
+    }
+}
+function validateDatos() {
+    const datos_banco = document.getElementById("datos_banco").value;
+    const valor = parseFloat(datos_banco);
+    return !isNaN(valor) && valor > 0;
+}
+ 
+function validateDatosEditar() {
+    const datos_editar = document.getElementById("datos_editar").value;
+    const valor = parseFloat(datos_editar);
+    return !isNaN(valor) && valor > 0;
+}
+
+
 function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
-        validateNombre().value
+        validateNombre() &&
+        validateNombreEditar() &&
+        validateDatos() &&
+        validateDatosEditar().value;
+
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
 
 // Asignar eventos `input` para validar el formulario y habilitar el botón de guardar sin mostrar mensajes de error
 document.getElementById("nombre_banco").addEventListener("input", enableSubmit);
+document.getElementById("nombre_editar").addEventListener("input", enableSubmit);
+document.getElementById("datos_banco").addEventListener("input", enableSubmit);
+document.getElementById("datos_editar").addEventListener("input", enableSubmit);

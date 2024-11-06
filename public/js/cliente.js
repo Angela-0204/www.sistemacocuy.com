@@ -41,7 +41,8 @@ $("#modificar").click(function (e) {
     datos.append("apellido", $("input[name='apellido_edit']").val());
     datos.append("correo", $("input[name='email_edit']").val());
     datos.append("direccion", $("select[name='direccion_edit']").val());
-    datos.append("telefono", $("select[name='telefono_edit']").val());
+    datos.append("telefono", $("input[name='telefono_edit']").val());
+    datos.append("operadora", $("select[name='operadora_edit']").val());
     datos.append("estatus", $("select[name='estatus_edit']").val());
    
     funcionAjax(datos);
@@ -184,6 +185,7 @@ function AjaxEditar(datos) {
             $("#apellido_edit").val(res.apellido);
             $("#email_edit").val(res.correo);
             $("#direccion_edit").val(res.direccion);
+            $("#operadora_edit").val(res.telefono);
             $("#telefono_edit").val(res.telefono);
             $("#estatus_edit").val(res.estatus);
             $("#modal-edit-users").modal("show");   
@@ -229,9 +231,20 @@ document.getElementById("cedula_rif").addEventListener("keypress", function(even
 document.getElementById("nombre_cliente").addEventListener("keypress", function(event) {
     restrictInput(event, /^[A-Za-z0-9\s]$/, "nombre_cliente", "Solo se permiten letras.");
 });
+// para la model de modidficar el nombre
+document.getElementById("nombre_cliente_edit").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z0-9\s]$/, "nombre_cliente_edit", "Solo se permiten letras.");
+});
+
 document.getElementById("apellido").addEventListener("keypress", function(event) {
     restrictInput(event, /^[A-Za-z\s]$/, "apellido", "Solo se permiten letras.");
 });
+// para la model de modidficar el apellido
+
+document.getElementById("apellido_edit").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z\s]$/, "apellido_edit", "Solo se permiten letras.");
+});
+
 
 document.getElementById("correo").addEventListener("input", function() {
     const correo = this.value;
@@ -240,6 +253,16 @@ document.getElementById("correo").addEventListener("input", function() {
         showError("correo", "El correo debe incluir una direccion como @gmail.com, @hotmail.com, @yahoo.com, @outlook.com.");
     } else {
         clearError("correo");
+    }
+});
+// para editar correo 
+document.getElementById("email_edit").addEventListener("input", function() {
+    const email_edit = this.value;
+    const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!correoRegex.test(email_edit)) {
+        showError("email_edit", "El correo debe incluir una direccion como @gmail.com, @hotmail.com, @yahoo.com, @outlook.com.");
+    } else {
+        clearError("email_edit");
     }
 });
 
@@ -252,9 +275,24 @@ document.getElementById("direccion").addEventListener("input", function() {
         clearError("direccion");
     }
 });
+// para editar direccion
+document.getElementById("direccion_edit").addEventListener("input", function() {
+    const direccion_edit = this.value;
+    const direccionRegex = /^[A-Za-z0-9#\-\.\s]+$/;
+    if (!direccionRegex.test(direccion_edit)) {
+        showError("direccion_edit", "Solo se aceptan numeros, letras, espacios, # y -.");
+    } else {
+        clearError("direccion_edit");
+    }
+});
+
 
 document.getElementById("telefono").addEventListener("keypress", function(event) {
     restrictInput(event, /^[0-9]$/, "telefono", "Solo se permiten números.");
+});
+ //para editar telefono
+document.getElementById("telefono_edit").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[0-9]$/, "telefono_edit", "Solo se permiten números.");
 });
 
 
@@ -269,6 +307,20 @@ function validateNombre() {
         return true;
     }
 } 
+
+function validateNombreEdit() {
+    const nombre_cliente_edit = document.getElementById("nombre_cliente_edit").value;
+    const nombreRegex = /^[A-Za-z\s]{5,50}$/;
+    if (!nombreRegex.test(nombre_cliente_edit)) {
+        showError("nombre_cliente_edit", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
+        return false;
+    } else {
+        clearError("nombre_cliente_edit");
+        return true;
+    }
+} 
+
+
 function validateApellido() {
     const apellido = document.getElementById("apellido").value;
     const nombreRegex = /^[A-Za-z\s]{5,50}$/;
@@ -277,6 +329,18 @@ function validateApellido() {
         return false;
     } else {
         clearError("apellido");
+        return true;
+    }
+}
+
+function validateApellidoEdit() {
+    const apellido_edit = document.getElementById("apellido_edit").value;
+    const nombreRegex = /^[A-Za-z\s]{5,50}$/;
+    if (!nombreRegex.test(apellido_edit)) {
+        showError("apellido_edit", "El apellido debe tener entre 5 y 50 caracteres y solo letras.");
+        return false;
+    } else {
+        clearError("apellido_edit");
         return true;
     }
 }
@@ -290,6 +354,19 @@ function validateCorreo() {
         return false;
     } else {
         clearError("correo");
+        return true;
+    }
+} 
+
+function validateCorreoEdit() {
+    const email_edit = document.getElementById("email_edit").value;
+    const nombreRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!nombreRegex.test(email_edit)) {
+        showError("email_edit", "El correo debe incluir una direccion como @gmail.com, @hotmail.com, @yahoo.com, @outlook.com");
+     
+        return false;
+    } else {
+        clearError("email_edit");
         return true;
     }
 }
@@ -307,6 +384,19 @@ function validateDireccion() {
     }
 }
 
+function validateDireccionEdit() {
+    const direccion_edit = document.getElementById("direccion_edit").value;
+    const nombreRegex = /^[A-Za-z0-9#\-\.\,\s]+$/ ;
+    if (!nombreRegex.test(direccion_edit)) {
+        showError("direccion_edit", "La direccion_edit debe incluir Ciudad,Avenida,calle, carrera, urbanizacion(comunidad) y numero de casa .");
+     
+        return false;
+    } else {
+        clearError("direccion_edit");
+        return true;
+    }
+}
+
 function validateCedula_rif() {
     const cedula_rif = document.getElementById("cedula_rif").value;
     const valor = parseFloat(cedula_rif);
@@ -319,6 +409,11 @@ function validateTelefono() {
     return !isNaN(valor) && valor > 0;
 }
 
+function validateTelefonoEdit() {
+    const telefono_edit= document.getElementById("telefono_edit").value;
+    const valor = parseFloat(telefono_edit);
+    return !isNaN(valor) && valor > 0;
+}
 
 
 
@@ -327,23 +422,74 @@ function enableSubmit() {
     const isFormValid =
        
         validateCedula_rif() &&
+        validateNombre()&&
+       
         validateApellido() &&
+       
         validateCorreo()  &&
+       
         validateDireccion () &&
-        validateTelefono () &&
+  
+        validateTelefono ().value;
+  
     
         document.getElementById("cedula_rif").value &&//Y aqui se validan que realmente tengan un valor estos campos
+        document.getElementById("nombre_cliente").value &&
+        
         document.getElementById("correo").value &&
+   
         document.getElementById("apellido").value &&
+      
         document.getElementById("direccion").value &&
+   
         document.getElementById("telefono").value;
+       
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
 
 document.getElementById("cedula_rif").addEventListener("input", enableSubmit);
 document.getElementById("apellido").addEventListener("input", enableSubmit);
+
+document.getElementById("nombre_cliente").addEventListener("input", enableSubmit);
+
 document.getElementById("correo").addEventListener("input", enableSubmit);
+
 document.getElementById("direccion").addEventListener("input", enableSubmit);
+
 document.getElementById("telefono").addEventListener("input", enableSubmit);
 
+
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+       
+        validateNombreEdit () &&
+        validateApellidoEdit () &&
+        validateCorreoEdit &&
+        validateDireccionEdit () &&
+        validateTelefonoEdit () &&
+    
+      
+        document.getElementById("nombre_cliente_edit").value &&
+       
+        document.getElementById("email_edit").value &&
+    
+        document.getElementById("apellido_edit").value &&
+    
+        document.getElementById("direccion_edit").value &&
+  
+        document.getElementById("telefono_edit").value;
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("modificar").disabled = !isFormValid;
+}
+
+document.getElementById("apellido_edit").addEventListener("input", enableSubmit);
+
+document.getElementById("nombre_cliente_edit").addEventListener("input", enableSubmit);
+
+document.getElementById("email_edit").addEventListener("input", enableSubmit);
+
+document.getElementById("direccion_edit").addEventListener("input", enableSubmit);
+
+document.getElementById("telefono_edit").addEventListener("input", enableSubmit);
