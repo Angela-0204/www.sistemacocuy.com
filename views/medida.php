@@ -125,8 +125,9 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="nombre_editar">Cantidad en mL</label>
+            <label for="nombre_editar">Cantidad en mL <span class="required">*</span></label>
             <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí la cantidad en Mililitros ej(1000ml)" required>
+            <span id="nombre_editarError" class="text-danger"></span>
           </div>
         </div>
         <div class="modal-footer">

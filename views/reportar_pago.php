@@ -36,9 +36,7 @@
                     <th>
                       <center>Nro De Pago</center>
                     </th>
-                    <th>
-                      <center>Cantidad de Pagos</center>
-                    </th>
+                
                     <th>
                       <center>Tipo de Pago Efectuado</center>
                     </th>

@@ -132,12 +132,15 @@
         <div class="modal-body">
           <input type="hidden" id="id" name="id">
           <div class="form-group">
-            <label for="cantidad_editar">Cantidad de botellas para el Empaquetado</label>
+            <label for="cantidad_editar">Cantidad de botellas para el Empaquetado <span class="required">*</span></label>
             <input type="text" name="cantidad_editar" id="cantidad_editar" class="form-control" placeholder="Escriba aquí el cantidad de botellas" required>
+            <span id="cantidad_editarError" class="text-danger"></span>  
+             
           </div>
           <div class="form-group">
-            <label for="descripcion_editar">Descripción de Empaquetado</label>
+            <label for="descripcion_editar">Descripción de Empaquetado <span class="required">*</span></label>
             <input type="text" name="descripcion_editar" id="descripcion_editar" class="form-control" placeholder="Escriba aquí la descripción de la caja" required>
+            <span id="descripcion_editarError" class="text-danger"></span>  
           </div>
         </div>
         <div class="modal-footer">

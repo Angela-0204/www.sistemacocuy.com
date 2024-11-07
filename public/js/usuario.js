@@ -233,6 +233,20 @@ document.getElementById("password_user").addEventListener("input", function() {
         clearError("password_user");
     }
 });
+document.getElementById("names_edit").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[a-zA-Z\s]*$/, "names_edit", "Solo se permiten letras.");
+});
+
+
+document.getElementById("password_user_edit").addEventListener("input", function() {
+    const password_user_edit = this.value;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    if (!passwordRegex.test(password_user_edit)) {
+        showError("password_user_edit", "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.");
+    } else {
+        clearError("password_user_edit");
+    }
+});
 
 
 
@@ -251,6 +265,20 @@ function validatePassword() {
 }
 
 // Validaciones completas en `input`, sin mensajes de error
+function validatePassword_edit() {
+    const password_user_edit = document.getElementById("password_user_edit").value;
+    const nombreRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    if (!nombreRegex.test(password_user_edit)) {
+        showError("password_user_edit", "");
+     
+        return false;
+    } else {
+        clearError("password_user_edit");
+        return true;
+    }
+}
+
+// Validaciones completas en `input`, sin mensajes de error
 function validateNombre() {
     const names = document.getElementById("names").value;
     const nombreRegex = /^[a-zA-Z\s]{5,50}$/;
@@ -263,6 +291,19 @@ function validateNombre() {
     }
 }
 
+function validateNombreEditar() {
+    const names_edit = document.getElementById("names_edit").value;
+    const nombreRegex = /^[a-zA-Z\s]{5,50}$/;
+    if (!nombreRegex.test(names_edit)) {
+        showError("names_edit", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
+        return false;
+    } else {
+        clearError("names_edit");
+        return true;
+    }
+}
+
+
 // Validación del correo
 function validateEmail() {
     const email = document.getElementById("email").value;
@@ -272,6 +313,18 @@ function validateEmail() {
         return false;
     } else {
         clearError("email");
+        return true;
+    }
+}
+
+function validateEmailEdit() {
+    const email_edit = document.getElementById("email_edit").value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email_edit)) {
+        showError("email_edit", "Por favor, ingrese un email válido.");
+        return false;
+    } else {
+        clearError("email_edit");
         return true;
     }
 }
@@ -332,11 +385,19 @@ document.getElementById("email").addEventListener("input", function() {
 });
 
 
+
+
 const togglePassword1 = document.getElementById('togglePassword1');
 const passwordField1 = document.getElementById('password_user');
+  
 
 const togglePassword2 = document.getElementById('togglePassword2');
 const passwordField2 = document.getElementById('password_repeat');
+
+const togglePassword3 = document.getElementById('togglePassword3');
+const passwordField3 = document.getElementById('password_user_edit');
+
+
 
 // Alterna visibilidad para el primer campo
 togglePassword1.addEventListener('click', function () {
@@ -357,7 +418,35 @@ togglePassword2.addEventListener('click', function () {
 
 
 
+  function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+    validatePassword_edit() &&
+        validateNombreEditar() &&
+        validateEmailEdit() &&
+        checkEmailExists () &&
+        document.getElementById("password_user_edit").value &&
+        document.getElementById("names_edit").value &&
+        document.getElementById("email_edit").value;
 
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("modificar").disabled = !isFormValid;
+}
+
+document.getElementById("names_edit").addEventListener("input", enableSubmit);
+document.getElementById("password_user_edit").addEventListener("input", enableSubmit);
+
+
+document.getElementById("email_edit").addEventListener("input", function() {
+    validateEmailEdit();
+    checkEmailExists(this.value); // Verifica si el email ya está en uso
+});
+
+togglePassword3.addEventListener('click', function () {
+    const type = passwordField3.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField3.setAttribute('type', type);
+    this.classList.toggle('fa-eye-slash');
+  });
 
 
 

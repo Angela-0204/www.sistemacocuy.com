@@ -182,6 +182,10 @@ document.getElementById("nombre_categoria").addEventListener("keypress", functio
     restrictInput(event, /^[a-zA-Z\s]*$/, "nombre_categoria", "Solo se permiten letras.");
 });
 
+document.getElementById("nombre_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[a-zA-Z\s]*$/, "nombre_editar", "Solo se permiten letras.");
+});
+
 // Validaciones completas en `input`, sin mensajes de error
 function validateNombre() {
     const nombre_categoria = document.getElementById("nombre_categoria").value;
@@ -191,6 +195,19 @@ function validateNombre() {
         return false;
     } else {
         clearError("nombre_categoria");
+        return true;
+    }
+}
+
+// Validaciones completas en `input`, sin mensajes de error
+function validateNombreEditar() {
+    const nombre_editar = document.getElementById("nombre_editar").value;
+    const nombreRegex = /^[a-zA-Z\s]{3,50}$/;
+    if (!nombreRegex.test(nombre_editar)) {
+        showError("nombre_editar", "El nombre debe tener entre 3 y 50 caracteres y solo letras.");
+        return false;
+    } else {
+        clearError("nombre_editar");
         return true;
     }
 }
@@ -206,3 +223,15 @@ function enableSubmit() {
 }
 
 document.getElementById("nombre_categoria").addEventListener("input", enableSubmit);
+
+//Se valida de manera general
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+        validateNombreEditar() &&
+        document.getElementById("nombre_editar").value;
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("modificar").disabled = !isFormValid;
+}
+
+document.getElementById("nombre_editar").addEventListener("input", enableSubmit);

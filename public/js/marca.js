@@ -187,6 +187,12 @@ function restrictInput(event, regex, field, errorMsg) {
 document.getElementById("nombre_marca").addEventListener("keypress", function(event) {
     restrictInput(event, /^[A-Za-z0-9\s]$/, "nombre_marca", "Solo se permiten letras y números.");
 });
+//editar nombre 
+document.getElementById("nombre_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z0-9\s]$/, "nombre_editar", "Solo se permiten letras y números.");
+});
+
+
 // Validaciones completas en `input`, sin mensajes de error
 function validateNombre() {
     const nombre_marca = document.getElementById("nombre_marca").value;
@@ -199,13 +205,40 @@ function validateNombre() {
         return true;
     }
 }
+function validateNombreEditar() {
+    const nombre_editar = document.getElementById("nombre_editar").value;
+    const nombreRegex = /^[A-Za-z0-9\s]{5,50}$/;
+    if (!nombreRegex.test(nombre_editar)) {
+        showError("nombre_editar", "El nombre de la marca debe tener entre 5 y 50 caracteres, solo letras y números.");
+        return false;
+    } else {
+        clearError("nombre_editar");
+        return true;
+    }
+}
 function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
         validateNombre()&&
+     
         document.getElementById("nombre_marca").value;
+      
       
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
+        
 }
 document.getElementById("nombre_marca").addEventListener("input", enableSubmit);
+
+
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+
+        validateNombreEditar () &&
+     
+        document.getElementById("nombre_editar").value;
+    
+        document.getElementById("modificar").disabled = !isFormValid;
+}
+document.getElementById("nombre_editar").addEventListener("input", enableSubmit);

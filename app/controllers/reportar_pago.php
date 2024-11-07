@@ -4,7 +4,7 @@ include('app/config.php');
 include($MODELS . 'reporte_pago.php');
 include ($MODELS . 'tipo_pago.php');
 $tipo = new Tipo();
-$reporte = new Reporte();
+$reporte = new Reporte_pago();
 $data_tipos = $tipo->Listar();
 $data_reportes = $reporte->Listar();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

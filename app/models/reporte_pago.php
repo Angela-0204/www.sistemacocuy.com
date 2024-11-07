@@ -1,12 +1,12 @@
 <?php
 require_once(__DIR__ . '/../connectDB.php');
 
-class Reporte extends connectDB
+class Reporte_pago extends connectDB
 {
    
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT a.nro_pago, a.fyh_pago, a.monto, a.id_detalle_pago, c.cantidad_pago, c.referencia, d.nombre FROM pago a INNER JOIN detalle_pago c ON c.id_detalle_pago=a.id_detalle_pago INNER JOIN tipo_pago d ON d.id_tipo_pago=c.id_tipo_pago;");
+        $resultado = $this->conex->prepare("SELECT a.nro_pago, a.fyh_pago, a.monto, a.id_detalle_pago, a.id_pedido c.referencia, d.nombre FROM pago a INNER JOIN detalle_pago c ON c.id_detalle_pago=a.id_detalle_pago INNER JOIN tipo_pago d ON d.id_tipo_pago=c.id_tipo_pago;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
@@ -17,11 +17,11 @@ class Reporte extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($fyh_pago, $monto, $id_tipo_pago, $cantidad_pago, $referencia)
+    public function Crear($fyh_pago, $monto, $id_tipo_pago,  $referencia)
     {
         // SQL para insertar en la tabla detalle_pago
-        $sql_detalle_pago = "INSERT INTO detalle_pago (id_tipo_pago, cantidad_pago, referencia)
-                VALUES (:id_tipo_pago, :cantidad_pago, :referencia)";
+        $sql_detalle_pago = "INSERT INTO detalle_pago (id_tipo_pago, referencia)
+                VALUES (:id_tipo_pago, :referencia)";
         // Preparamos la consulta
         $resultado_detalle_pago = $this->conex->prepare($sql_detalle_pago);
     
@@ -30,7 +30,7 @@ class Reporte extends connectDB
             $resultado_detalle_pago->execute([
 
                 'id_tipo_pago' => $id_tipo_pago,
-                'cantidad_pago' => $cantidad_pago,
+             
                 'referencia' => $referencia
                 
             ]);           
@@ -49,7 +49,7 @@ class Reporte extends connectDB
                 'fyh_pago' => $fyh_pago,
                 'monto' => $monto,
                 'id_tipo_pago' => $id_tipo_pago,
-                'cantidad_pago' => $cantidad_pago,
+          
                 'referencia' => $referencia
                 
                              

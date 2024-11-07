@@ -179,7 +179,10 @@ function restrictInput(event, regex, field, errorMsg) {
 document.getElementById("nombre_medida").addEventListener("keypress", function(event) {
     restrictInput(event, /^[A-Za-z0-9\s.]$/, "nombre_medida", "Solo se permiten letras, números y punto.");
 });
-
+// para modificar
+document.getElementById("nombre_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z0-9\s.]$/, "nombre_editar", "Solo se permiten letras, números y punto.");
+});
 
 function validateNombre() {
     const nombre_medida = document.getElementById("nombre_medida").value;
@@ -194,6 +197,22 @@ function validateNombre() {
    
 }
 
+function validateNombreEditar() {
+    const nombre_editar = document.getElementById("nombre_editar").value;
+    const nombreRegex = /^[A-Za-z0-9\s.]{5,50}$/;
+    if (!nombreRegex.test(nombre_editar)) {
+        showError("nombre_editar", "El nombre de la medida debe tener entre 5 y 50 caracteres, solo letras, números y un punto.");
+        return false;
+    } else {
+        clearError("nombre_editar");
+        return true;
+    }
+   
+}
+
+
+
+
 function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =    
@@ -206,3 +225,19 @@ function enableSubmit() {
 }
 
 document.getElementById("nombre_medida").addEventListener("input", enableSubmit);
+
+
+
+
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =    
+        validateNombreEditar() &&
+        document.getElementById("nombre_editar").value;
+      
+       
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("modificar").disabled = !isFormValid;
+}
+
+document.getElementById("nombre_editar").addEventListener("input", enableSubmit);

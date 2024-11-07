@@ -159,7 +159,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Añadir Nuevo Rol</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -168,14 +168,16 @@
               <div class="modal-body">
                 <input type="hidden" id="id" name="id">
                 <div class="form-group">
-                  <label for="">Nombres</label>
+                  <label for="">Nombre <span class="required">*</span></label>
                   <input type="text" name="names_edit" id="names_edit" class="form-control" placeholder="Escriba aquí el nombre del Nuevo Usuario">
+                  <span id="names_editError" class="text-danger"></span>
                 </div>
                
 
                 <div class="form-group">
-                  <label for="">Email</label>
+                  <label for="">Email <span class="required">*</span></label>
                   <input type="email_edit" name="email_edit" id="email_edit" class="form-control" placeholder="Escriba aquí el Email del Nuevo Usuario">
+                  <span id="email_editError" class="text-danger"></span>
                 </div>
 
                 <div class="col align-self-center-md-4 form-group">
@@ -187,10 +189,13 @@
                         </select>
                       </div>
 
-                <div class="form-group">
-                  <label for="">Contraseña</label>
-                  <input type="password" name="password_user_edit" id="password_user_edit" class="form-control">
-                </div>
+                      <div class="form-group password-container">
+                      <label for="password_user_edit">Contraseña <span class="required">*</span></label>
+                      <input name="password_user_edit" id="password_user_edit" class="form-control">
+                      <span id="password_user_editError" class="text-danger"></span>
+                      <i id="togglePassword3" class="fas fa-eye"></i> <!-- El ícono fuera del input -->
+                     </div>
+
                 <hr>
                 <div class="form-group">
                   <a href="" class="btn btn-secondary">Cancelar</a>

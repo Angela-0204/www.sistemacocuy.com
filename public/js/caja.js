@@ -178,6 +178,13 @@ document.getElementById("descripcion").addEventListener("keypress", function(eve
     restrictInput(event, /^[A-Za-z0-9\s]$/, "descripcion", "Solo se permiten letras y números.");
 });
 
+document.getElementById("cantidad_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[0-9]$/, "cantidad_editar", "Solo se permiten números.");
+});
+// Bloqueo de caracteres no permitidos en `keypress`, para validar en tiempo real
+document.getElementById("descripcion_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z0-9\s]$/, "descripcion_editar", "Solo se permiten letras y números.");
+});
 
 function validateCantidad() {
     const cantidad = document.getElementById("cantidad").value;
@@ -195,6 +202,23 @@ function validateDescripcion() {
         return true;
     }
 }
+
+function validateCantidadEditar() {
+    const cantidad_editar = document.getElementById("cantidad_editar").value;
+    const valor = parseFloat(cantidad_editar);
+    return !isNaN(valor) && valor > 0;
+}
+
+function validateDescripcionEditar() {
+    const descripcion_editar = document.getElementById("descripcion_editar").value;
+    if (descripcion_editar.length > 20) {
+        showError("descripcion_editar", "La descripción no debe superar los 20 caracteres.");
+        return false;
+    } else {
+        clearError("descripcion_editar");
+        return true;
+    }
+}
 //Se valida de manera general
 function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
@@ -208,5 +232,19 @@ function enableSubmit() {
 }
 document.getElementById("descripcion").addEventListener("input", enableSubmit);
 document.getElementById("cantidad").addEventListener("input", enableSubmit);
+
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+        validateCantidadEditar() &&
+        validateDescripcionEditar()&&
+        document.getElementById("descripcion_editar").value &&
+        document.getElementById("cantidad_editar").value;
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("modificar").disabled = !isFormValid;
+}
+document.getElementById("descripcion_editar").addEventListener("input", enableSubmit);
+document.getElementById("cantidad_editar").addEventListener("input", enableSubmit);
+
 
 

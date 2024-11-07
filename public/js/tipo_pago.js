@@ -216,6 +216,10 @@ function restrictInput(event, regex, field, errorMsg) {
 document.getElementById("nombre_tipo").addEventListener("keypress", function(event) {
     restrictInput(event, /^[A-Za-z\s]$/, "nombre_tipo", "Solo se permiten letras.");
 });
+
+document.getElementById("nombre_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[A-Za-z\s]$/, "nombre_editar", "Solo se permiten letras.");
+});
 // Validaciones completas en `input`, sin mensajes de error
 function validateNombre() {
     const nombre_tipo = document.getElementById("nombre_tipo").value;
@@ -225,6 +229,17 @@ function validateNombre() {
         return false;
     } else {
         clearError("nombre_tipo");
+        return true;
+    }
+}
+function validateNombreEditar() {
+    const nombre_editar = document.getElementById("nombre_editar").value;
+    const nombreRegex = /^[A-Za-z\s]{5,50}$/;
+    if (!nombreRegex.test(nombre_editar)) {
+        showError("nombre_editar", "El nombre del pago de pago debe tener entre 5 y 50 caracteres y solo letras.");
+        return false;
+    } else {
+        clearError("nombre_editar");
         return true;
     }
 }
@@ -238,3 +253,14 @@ function enableSubmit() {
         document.getElementById("registrar").disabled = !isFormValid;
 }
 document.getElementById("nombre_tipo").addEventListener("input", enableSubmit);
+
+function enableSubmit() {
+    //Se validan en funciones que cumplan todas con las exp reg
+    const isFormValid =
+        validateNombreEditar()&&
+        document.getElementById("nombre_editar").value;
+      
+        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
+        document.getElementById("modificar").disabled = !isFormValid;
+}
+document.getElementById("nombre_editar").addEventListener("input", enableSubmit);
