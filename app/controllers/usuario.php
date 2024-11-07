@@ -48,7 +48,7 @@ if(isset($_POST['accion'])){
             }
         
         
-            $result = $usuario->Crear($names, $email, $password_user,$password_repeat, $rol);
+            $result = $usuario->Crear($names, $email, $password_user, $rol);
             
             if ($result) {
                 $response['estatus'] = 1;
@@ -100,12 +100,11 @@ if(isset($_POST['accion'])){
             $id = $_POST['id'];
             $names = $_POST['names']; 
             $email = $_POST['email'];
-            $password_user = $_POST['password_user'];
-           
-            $rol= $_POST ['rol'];
+            $password_user = $_POST['password_user'];           
+            $rol= $_POST['rol'];
           
         
-            $result = $usuario->Modificar($id, $names, $email, $password_user, $email, $rol);
+            $result = $usuario->Modificar($id, $names, $email, $password_user, $rol);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
