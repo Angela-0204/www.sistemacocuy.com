@@ -4,7 +4,7 @@ $("#registrar").click(function (e) {
     datos.append("registrar", "true");
     datos.append("nombre", $("select[name='nombre']").val());
     datos.append("referencia", $("input[name='referencia']").val());
-    datos.append("cantidad_pago", $("input[name='cantidad_pago']").val());
+
     datos.append("monto", $("input[name='monto']").val());
     datos.append("fyh_pago", $("input[name='fecha']").val());
 

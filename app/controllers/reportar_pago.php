@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            
            
             $id_detalle_pago = $_POST ['id_detalle_pago'];
-            $cantidad_pago = $_POST ['cantidad_pago'];
+            
              $monto = $_POST ['monto'];
             $referencia = $_POST ['referencia'];
             $nombre = $_POST ['nombre'];
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             
         
-             $result = $reporte->Crear($monto, $id_detalle_pago, $cantidad_pago, $referencia, $nombre, $fyh_pago);
+             $result = $reporte->Crear($monto, $id_detalle_pago, $referencia, $nombre, $fyh_pago);
 
             
             $response = array();

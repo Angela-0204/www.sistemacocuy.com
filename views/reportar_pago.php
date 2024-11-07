@@ -18,11 +18,11 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="card card-outline card-primary">
             <div class="card-header ">
               <h3 class="card-title mb-0">Pagos registrados</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="##pagoModal">Regristrar Pago de Pedido</button>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="pagoModalLabel">Registrar Pago de Pedido</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -47,6 +47,14 @@
                        <th>
                       <center>Monto Depositado</center>
                     </th>
+                    
+                    <th>
+                      <center>Numero de pedido</center>
+                    </th>
+                    <th>
+                      <center>Cliente</center>
+                    </th>
+                
                     <th>
                       <center>Accion</center>
                     </th>
@@ -55,18 +63,23 @@
                 <tbody>
                   <?php
                   $contador = 0;
-                  foreach ($data_pagos as $pago_dato) {
-                    $id_pago = $pago_dato['id_pago']; ?>
+                  foreach ($data_reportes as $pago_dato) {
+                    $nro_pago = $pago_dato['nro_pago']; ?>
 
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
-                      <td><?php echo $cajas_dato['referencia']; ?></td>
-                      <td><?php echo $cajas_dato['monto']; ?></td>
+                      
+                      <td><?php echo $pago_dato['tipo_pago']; ?></td>
+                      <td><?php echo $pago_dato['nombre_banco']; ?></td>
+                      <td><?php echo $pago_dato['monto']; ?></td>
+                      <td><?php echo $pago_dato['id_pedido']; ?></td>
+                      <td><?php echo $pago_dato['nombre_cliente']; ?></td>
+
                       <td>
-                        <button onclick="editar(<?=$cajas_dato['id_empaquetado'];?>)" class="btn btn-warning btn-sm">
+                        <button onclick="editar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="eliminar(<?=$cajas_dato['id_empaquetado'];?>)" class="btn btn-danger btn-sm">
+                        <button onclick="eliminar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
                       </td>
@@ -108,16 +121,22 @@
               <?php } ?>
             </select>  
           </div>
+
+          <div class="form-group">
+            <label for="pedido">Seleccione el pedido al cual va a realizar el pago</label>
+            <select name="nombre" id="nombre" class="form-control">
+              <?php foreach ($pedido as $data_pedidos) { ?>
+                <option value="<?= $tipos['id_pedido']; ?>"><?php echo $tipos['id_pedido']; ?></option>
+              <?php } ?>
+            </select>  
+          </div>
           
           <div class="form-group">
             <label for="referencia">Número de Referencia</label>
             <input type="text" name="referencia" class="form-control" placeholder="Escriba aquí el número de referencia del depósito">
           </div>
           
-          <div class="form-group">
-            <label for="cantidad_pago">Cantidades de Pago</label>
-            <input type="text" name="cantidad_pago" class="form-control" placeholder="Escriba aquí la cantidad de pago">
-          </div>
+     
           
           <div class="form-group">
             <label for="monto">Monto depositado en Bolívares</label>
