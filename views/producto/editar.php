@@ -103,7 +103,7 @@
                         </thead>
                         <tbody>
                             <?php foreach ($detallesInventario as $detalle) { ?>
-                                <tr>
+                                <tr data-id-detalle="<?= htmlspecialchars($detalle['id_detalle_inventario']); ?>">
                                     <td><?= htmlspecialchars($detalle['empaquetado']); ?></td>
                                     <td contenteditable="true"><?= htmlspecialchars($detalle['stock']); ?></td>
                                     <td contenteditable="true"><?= htmlspecialchars($detalle['lote']); ?></td>
@@ -117,6 +117,7 @@
                                 </tr>
                             <?php } ?>
                         </tbody>
+
                     </table>
 
                     <button id="modificar" class="btn btn-primary">Guardar Cambios</button>
@@ -194,37 +195,40 @@
 <?php include('views/layout/footer.php'); ?>
 <script>
 
-
 $("#modificar").click(function (e) {
     e.preventDefault();
-
-    var detalles = [];
-    $("#detalleInventarioTable tbody tr").each(function () {
-        var row = $(this);
-        detalles.push({
-            stock: row.find("td:eq(1)").text(),
-            lote: row.find("td:eq(2)").text(),
-            precio_venta: row.find("td:eq(3)").text(),
-            estatus: row.find("select").val(),
-            id_empaquetado: row.find("td:eq(0)").data("id_empaquetado") // Suponiendo que tienes el id del empaquetado
-        });
-    });
 
     var datos = new FormData();
     datos.append("accion", "modificar");
     datos.append("nombre", $("input[name='nombre']").val());
     datos.append("descripcion", $("input[name='descripcion']").val());
-    datos.append("marca", $("select[name='marca']").val());
     datos.append("categoria", $("select[name='categoria']").val());
+    datos.append("marca", $("select[name='marca']").val());
     datos.append("fecha", $("input[name='fecha']").val());
     datos.append("imagen", $("input[name='imagen']")[0].files[0]);
 
-    // Agregar detalles de inventario
-    datos.append("detalles", JSON.stringify(detalles));
+    $("#detalleInventarioTable tbody tr").each(function (index, row) {
+        let idDetalle = $(row).data("id-detalle"); // Obtienes el id_detalle_inventario
+        let empaquetadoId = $(row).find("td[data-empaquetado-id]").data("empaquetado-id");
+        let stock = $(row).find("td:eq(1)").text().trim();
+        let lote = $(row).find("td:eq(2)").text().trim();
+        let precio = $(row).find("td:eq(3)").text().trim();
+        let estatus = $(row).find("td:eq(4) select").val();
 
-    // Llamada AJAX para modificar el producto
+        datos.append(`detalles[${index}][id_detalle_inventario]`, idDetalle); // Incluye el id_detalle_inventario
+        datos.append(`detalles[${index}][empaquetado]`, empaquetadoId);
+        datos.append(`detalles[${index}][stock]`, stock);
+        datos.append(`detalles[${index}][lote]`, lote);
+        datos.append(`detalles[${index}][precio]`, precio);
+        datos.append(`detalles[${index}][estatus]`, estatus);
+    });
+
+    console.log("Datos enviados:", datos); // Imprime en consola para revisar
+
     AjaxRegistrar(datos);
 });
+
+
 
 function AjaxRegistrar(datos) {
     $.ajax({

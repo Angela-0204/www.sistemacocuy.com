@@ -103,6 +103,80 @@ class Pedido extends connectDB
         return $respuestaArreglo;
     } 
     
+    public function ConsultarPedido($id_pedido) {
+        try {
+            // Consulta de la información básica del pedido
+            $sql = "SELECT 
+                        p.id_pedido, 
+                        p.fecha_pedido, 
+                        p.estatus, 
+                        c.nombre_cliente, 
+                        c.cedula_rif, 
+                        c.telefono, 
+                        u.names as usuario
+                    FROM pedido p
+                    JOIN cliente c ON p.cod_cliente = c.cod_cliente
+                    JOIN usuario u ON p.id_users = u.id_users
+                    WHERE p.id_pedido = :id_pedido";
+    
+            $stmt = $this->conex->prepare($sql);
+            $stmt->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
+            $stmt->execute();
+            $pedido = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if (!$pedido) {
+                throw new Exception("Pedido no encontrado.");
+            }
+    
+            // Ahora obtenemos los detalles del pedido, con la información de los productos
+            $sqlDetalles = "SELECT 
+                                dp.id_detalle_pedido, 
+                                dp.cantidad, 
+                                di.id_empaquetado, 
+                                di.stock, 
+                                di.lote, 
+                                di.precio_venta, 
+                                di.estatus, 
+                                i.nombre as producto_nombre, 
+                                i.descripcion as producto_descripcion,
+                                c.nombre_categoria, 
+                                e.descripcion as empaquetado_descripcion,
+                                um.medida as unidad_medida
+                            FROM detalle_pedido dp
+                            JOIN detalle_inventario di ON dp.id_detalle_inventario = di.id_detalle_inventario
+                            JOIN inventario i ON di.cod_inventario = i.cod_inventario
+                            JOIN categoria c ON i.id_categoria = c.id_categoria
+                            JOIN empaquetado e ON di.id_empaquetado = e.id_empaquetado
+                            JOIN presentacion p ON di.id_presentacion = p.id_presentacion
+                            JOIN unidad_medida um ON p.cod_unidad = um.cod_unidad
+                            WHERE dp.id_pedido = :id_pedido";
+    
+            $stmtDetalles = $this->conex->prepare($sqlDetalles);
+            $stmtDetalles->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
+            $stmtDetalles->execute();
+            $detalles = $stmtDetalles->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Calcular el subtotal y el total
+            $total = 0;
+            foreach ($detalles as &$detalle) {
+                $subtotal = $detalle['precio_venta'] * $detalle['cantidad'];
+                $total += $subtotal;
+                $detalle['subtotal'] = $subtotal;
+            }
+    
+            // Devolver todos los datos en un array
+            $data = [
+                'pedido' => $pedido,
+                'detalles' => $detalles,
+                'total' => $total
+            ];
+    
+            return $data;
+    
+        } catch (Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
+    }
     
 }
 ?>

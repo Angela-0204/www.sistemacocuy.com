@@ -89,7 +89,6 @@ if(isset($_POST['accion'])){
             echo json_encode($respuesta);
             exit;
             break;
-        
     }
     
 }

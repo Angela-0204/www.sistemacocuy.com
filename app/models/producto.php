@@ -125,59 +125,72 @@ class Producto extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($cod_inventario, $nombre, $descripcion, $id_categoria, $id_marca, $imagen, $fecha_creacion, $fyh_actualizacion,$detalles) {
+    public function Modificar($cod_inventario, $nombre, $descripcion, $id_categoria, $id_marca, $imagen, $fecha_creacion, $fyh_actualizacion, $detalles) {
         try {
             // Iniciar la transacción para asegurar que todo se actualiza correctamente
             $this->conex->beginTransaction();
-
+    
             // Primero, actualizar los datos principales del producto
             $sql = "UPDATE inventario SET 
                         nombre = :nombre, 
                         descripcion = :descripcion, 
                         id_categoria = :id_categoria, 
                         id_marca = :id_marca, 
-                        imagen = :imagen, 
                         fyh_creacion = :fyh_creacion, 
                         fyh_actualizacion = :fyh_actualizacion
                     WHERE cod_inventario = :cod_inventario";
-            
+    
             $stmt = $this->conex->prepare($sql);
             $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
             $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
             $stmt->bindParam(':id_categoria', $id_categoria, PDO::PARAM_INT);
             $stmt->bindParam(':id_marca', $id_marca, PDO::PARAM_INT);
-            $stmt->bindParam(':imagen', $imagen, PDO::PARAM_STR);
             $stmt->bindParam(':fyh_creacion', $fecha_creacion, PDO::PARAM_STR);
             $stmt->bindParam(':fyh_actualizacion', $fyh_actualizacion, PDO::PARAM_STR);
             $stmt->bindParam(':cod_inventario', $cod_inventario, PDO::PARAM_INT);
-            $stmt->execute();
-
-            // Ahora, actualizar los detalles del inventario
-            foreach ($detalles as $detalle) {
-                // Aquí necesitarás los datos de los detalles de inventario como stock, lote, precio, estatus, etc.
-                // Suponiendo que tienes un campo para actualizar el stock y demás, puedes hacerlo como sigue:
-
-                $sqlDetalle = "UPDATE detalle_inventario SET
-                                    stock = :stock,
-                                    lote = :lote,
-                                    precio_venta = :precio_venta,
-                                    estatus = :estatus
-                                WHERE cod_inventario = :cod_inventario AND id_empaquetado = :id_empaquetado";
-
-                $stmtDetalle = $this->conex->prepare($sqlDetalle);
-                $stmtDetalle->bindParam(':stock', $detalle['stock'], PDO::PARAM_INT);
-                $stmtDetalle->bindParam(':lote', $detalle['lote'], PDO::PARAM_STR);
-                $stmtDetalle->bindParam(':precio_venta', $detalle['precio_venta'], PDO::PARAM_STR);
-                $stmtDetalle->bindParam(':estatus', $detalle['estatus'], PDO::PARAM_STR);
-                $stmtDetalle->bindParam(':cod_inventario', $cod_inventario, PDO::PARAM_INT);
-                $stmtDetalle->bindParam(':id_empaquetado', $detalle['id_empaquetado'], PDO::PARAM_INT);
-                $stmtDetalle->execute();
+            
+            // Si se subió una nueva imagen, actualizarla
+            if (!empty($imagen)) {
+                $sqlImagen = "UPDATE inventario SET imagen = :imagen WHERE cod_inventario = :cod_inventario";
+                $stmtImagen = $this->conex->prepare($sqlImagen);
+                $stmtImagen->bindParam(':imagen', $imagen, PDO::PARAM_STR);
+                $stmtImagen->bindParam(':cod_inventario', $cod_inventario, PDO::PARAM_INT);
+                $stmtImagen->execute();
             }
-
+            
+            $stmt->execute();
+    
+            // Ahora, actualizar los detalles del inventario
+            if (!empty($detalles)) {
+                foreach ($detalles as $detalle) {
+                    // Asegúrate de que los detalles contengan los valores esperados
+                    if (!isset($detalle['id_detalle_inventario'], $detalle['stock'], $detalle['lote'], $detalle['precio'], $detalle['estatus'])) {
+                        throw new Exception("Faltan datos para actualizar un detalle.");
+                    }
+    
+                    $sqlDetalle = "UPDATE detalle_inventario SET
+                                        stock = :stock,
+                                        lote = :lote,
+                                        precio_venta = :precio_venta,
+                                        estatus = :estatus
+                                    WHERE cod_inventario = :cod_inventario 
+                                    AND id_detalle_inventario = :id_detalle_inventario";
+    
+                    $stmtDetalle = $this->conex->prepare($sqlDetalle);
+                    $stmtDetalle->bindParam(':stock', $detalle['stock'], PDO::PARAM_INT);
+                    $stmtDetalle->bindParam(':lote', $detalle['lote'], PDO::PARAM_STR);
+                    $stmtDetalle->bindParam(':precio_venta', $detalle['precio'], PDO::PARAM_STR);
+                    $stmtDetalle->bindParam(':estatus', $detalle['estatus'], PDO::PARAM_STR);
+                    $stmtDetalle->bindParam(':cod_inventario', $cod_inventario, PDO::PARAM_INT);
+                    $stmtDetalle->bindParam(':id_detalle_inventario', $detalle['id_detalle_inventario'], PDO::PARAM_INT); // Asegúrate de incluir el ID correcto
+                    $stmtDetalle->execute();
+                }
+            }
+    
             // Si todo salió bien, hacemos commit de la transacción
             $this->conex->commit();
             return true;
-
+    
         } catch (Exception $e) {
             // Si algo sale mal, hacemos rollback
             $this->conex->rollBack();
@@ -185,46 +198,74 @@ class Producto extends connectDB
         }
     }
     
+    
+    
 
     public function Eliminar($cod_inventario) 
     {
-        // Iniciamos la transacción
+        // Iniciar la transacción
         $this->conex->beginTransaction();
-    
+        
         try {
-            // Primero, obtenemos el `id_detalle_inventario` de la tabla `inventario` para este producto
-            $sql_get_detalle_id = "SELECT id_detalle_inventario FROM inventario WHERE cod_inventario = :cod_inventario";
-            $stmt = $this->conex->prepare($sql_get_detalle_id);
-            $stmt->execute(['cod_inventario' => $cod_inventario]);
-            $result = $stmt->fetch();
+            // 1. Obtener todos los `id_detalle_inventario` asociados al `cod_inventario`
+            $sql_get_detalles = "SELECT id_detalle_inventario FROM detalle_inventario WHERE cod_inventario = :cod_inventario";
+            $stmt_get_detalles = $this->conex->prepare($sql_get_detalles);
+            $stmt_get_detalles->execute(['cod_inventario' => $cod_inventario]);
+            $detalles = $stmt_get_detalles->fetchAll(PDO::FETCH_COLUMN); // Arreglo de `id_detalle_inventario`
     
-            if (!$result) {
-                throw new Exception("No se encontró el producto con el código: " . $cod_inventario);
+            // 2. Verificar si alguno de estos `id_detalle_inventario` existe en `detalle_pedido`
+            if (!empty($detalles)) {
+                $placeholders = implode(',', array_fill(0, count($detalles), '?'));
+                $sql_check_pedidos = "SELECT COUNT(*) FROM detalle_pedido WHERE id_detalle_inventario IN ($placeholders)";
+                $stmt_check_pedidos = $this->conex->prepare($sql_check_pedidos);
+                $stmt_check_pedidos->execute($detalles);
+    
+                $cantidad_pedidos = $stmt_check_pedidos->fetchColumn();
+                
+                if ($cantidad_pedidos > 0) {
+                    // Si algún detalle está en un pedido, abortar el proceso y devolver un mensaje
+                    $respuesta = [
+                        'estatus' => 0,
+                        'mensaje' => "No se puede eliminar el inventario ya que uno de sus detalles está asociado a un pedido existente."
+                    ];
+                    // Establecer el tipo de contenido de la respuesta
+                    header('Content-Type: application/json');
+                    echo json_encode($respuesta); // Devolver la respuesta como JSON
+                    exit;
+                }
             }
     
-            $id_detalle_inventario = $result['id_detalle_inventario'];
+            // 3. Eliminar los registros en `detalle_inventario` para este `cod_inventario`
+            $sql_delete_detalle_inventario = "DELETE FROM detalle_inventario WHERE cod_inventario = :cod_inventario";
+            $stmt_delete_detalle_inventario = $this->conex->prepare($sql_delete_detalle_inventario);
+            $stmt_delete_detalle_inventario->execute(['cod_inventario' => $cod_inventario]);
     
-            // Eliminamos primero el registro de `inventario`
+            // 4. Eliminar el registro en `inventario`
             $sql_delete_inventario = "DELETE FROM inventario WHERE cod_inventario = :cod_inventario";
             $stmt_delete_inventario = $this->conex->prepare($sql_delete_inventario);
             $stmt_delete_inventario->execute(['cod_inventario' => $cod_inventario]);
     
-            // Luego eliminamos el registro correspondiente en `detalle_inventario`
-            $sql_delete_detalle_inventario = "DELETE FROM detalle_inventario WHERE id_detalle_inventario = :id_detalle_inventario";
-            $stmt_delete_detalle_inventario = $this->conex->prepare($sql_delete_detalle_inventario);
-            $stmt_delete_detalle_inventario->execute(['id_detalle_inventario' => $id_detalle_inventario]);
-    
-            // Si todo sale bien, hacemos el commit de la transacción
+            // Confirmar la transacción
             $this->conex->commit();
             return true;
     
         } catch (Exception $e) {
-            // Si ocurre algún error, hacemos rollback
+            // Si ocurre algún error, revertir los cambios y devolver el mensaje de error en formato JSON
             $this->conex->rollback();
-            echo "Error al eliminar el producto: " . $e->getMessage();
-            return false;
+            $respuesta = [
+                'estatus' => 0,
+                'mensaje' => "Error al eliminar el producto: " . $e->getMessage() // Aquí se captura el mensaje de la excepción
+            ];
+            // Establecer el tipo de contenido de la respuesta
+            header('Content-Type: application/json');
+            echo json_encode($respuesta); // Devolver la respuesta como JSON
+            exit;
         }
     }
+    
+    
+    
+    
     
     public function ObtenerProductoPorId($id) {
         $sql = "SELECT nombre, descripcion, id_categoria, imagen, fyh_creacion
@@ -238,7 +279,8 @@ class Producto extends connectDB
 
     // Método para obtener los detalles del inventario del producto
     public function ObtenerDetallesInventario($id) {
-        $sql = "SELECT di.stock, di.lote, di.precio_venta, di.estatus, e.cantidad AS empaquetado, p.marca AS presentacion
+        $sql = "SELECT di.id_detalle_inventario, di.stock, di.lote, di.precio_venta, di.estatus, 
+                       e.cantidad AS empaquetado, p.marca AS presentacion
                 FROM detalle_inventario di
                 JOIN empaquetado e ON di.id_empaquetado = e.id_empaquetado
                 JOIN presentacion p ON di.id_presentacion = p.id_presentacion
@@ -248,6 +290,7 @@ class Producto extends connectDB
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     
     
 }

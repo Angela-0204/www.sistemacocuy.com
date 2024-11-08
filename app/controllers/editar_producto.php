@@ -54,12 +54,14 @@ if (isset($_POST['accion'])) {
                     $imagen = $rutaImagen;
                 }
             }
-
+    
             $fyh_actualizacion = date('Y-m-d H:i:s');
     
             // Recoger detalles del inventario
-            $detalles = isset($_POST['detalles']) ? $_POST['detalles'] : [];
+            // Aquí vamos a decodificar la cadena JSON que enviamos desde el cliente
+            $detalles = isset($_POST['detalles']) ? json_decode($_POST['detalles'], true) : [];    
             if (!is_array($detalles) || empty($detalles)) {
+                header("Content-Type: application/json");
                 echo json_encode(['estatus' => 0, 'mensaje' => "Detalles de producto no válidos."]);
                 exit;
             }
@@ -76,7 +78,7 @@ if (isset($_POST['accion'])) {
                 $fyh_actualizacion,
                 $detalles
             );
-
+    
             // Respuesta
             $respuesta = array();
             if ($result) {
@@ -93,6 +95,7 @@ if (isset($_POST['accion'])) {
             echo json_encode($respuesta);
             exit;
     }
+    
 }
 
 
