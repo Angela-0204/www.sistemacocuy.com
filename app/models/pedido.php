@@ -17,21 +17,21 @@ class Pedido extends connectDB
     }
 
     //Este si es funcional
-    public function Crear($cod_cliente, $nro_pago, $fecha_pedido, $productos)
+    public function Crear($cod_cliente, $id_users, $fecha_pedido, $productos)
     {
         // Iniciar la transacción
         $this->conex->beginTransaction();
     
         try {
             // Insertar el pedido en la tabla `pedido`
-            $sql_pedido = "INSERT INTO pedido (fecha_pedido, estatus, cod_cliente, nro_pago) 
-                           VALUES (:fecha_pedido, :estatus, :cod_cliente, :nro_pago)";
+            $sql_pedido = "INSERT INTO pedido (fecha_pedido, estatus, cod_cliente, id_users) 
+                           VALUES (:fecha_pedido, :estatus, :cod_cliente, :id_users)";
             $stmt_pedido = $this->conex->prepare($sql_pedido);
             $stmt_pedido->execute([
                 'fecha_pedido' => $fecha_pedido,
                 'estatus' => 1,
                 'cod_cliente' => $cod_cliente,
-                'nro_pago' => $nro_pago
+                'id_users' => $id_users
             ]);
     
             // Obtener el ID del último pedido insertado

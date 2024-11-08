@@ -9,6 +9,7 @@ if(isset($_POST['accion'])){
     foreach ($users as $user) {
         $cont = $cont + 1;
         $names = $user['names'];
+        $id = $user['id_users'];
     }
     if ($cont == 0) {
         echo json_encode([
@@ -21,6 +22,7 @@ if(isset($_POST['accion'])){
     } else {
         session_start();
         $_SESSION['sesion_email'] = $names;
+        $_SESSION['id_user'] = $id;
         echo json_encode([
             'estatus' => '1',
             'icon' => 'success',
