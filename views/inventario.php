@@ -29,54 +29,37 @@
                 </div>
                 
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
-                        <thead>
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Cod.</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Última actualización</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($data_products as $data) { ?>
                             <tr>
-                                <th>Cod.</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Categoria</th>
-                                <th>Marca</th>
-                                <th>Lote</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Empaquetado</th>
-                                <th>Estatus</th>
-                                <th>Ultima actualización</th>
+                                <td><?php echo $data['cod_inventario']; ?></td>
+                                <td><?php echo $data['nombre']; ?></td>
+                                <td><?php echo $data['descripcion']; ?></td>
+                                <td><?php echo $data['nombre_categoria']; ?></td>
+                                <td><?php echo date('d/m/Y H:i', strtotime($data['fyh_actualizacion'])); ?></td>
+                                <td>
+                                    <a href="?pagina=editar_producto&id=<?=$data['cod_inventario'];?>" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button onclick="eliminar(<?=$data['cod_inventario'];?>)" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($data_products as $data) { ?>
-                                <tr>
-                                    <td><?php echo $data['cod_inventario'] ?></td>
-                                    <td><?php echo $data['nombre'] ?></td>
-                                    <td><?php echo $data['descripcion'] ?></td>
-                                    <td><?php echo $data['nombre_categoria'] ?></td>
-                                    <td><?php echo $data['marca'] ?></td>
-                                    <td><?php echo $data['lote'] ?></td>
-                                    <td><?php echo $data['precio_venta'] ?></td>
-                                    <td><?php echo $data['stock'] ?></td>
-                                    <td><?php echo $data['cantidad'] ?></td>
-                                    <td><?php echo $data['estatus'] ?></td>
-                                   
-
-                                    <td><?php echo date('d/m/Y H:i', strtotime($data['fyh_actualizacion'])); ?></td>
-
-                                    <td>
-                                        <button onclick="editar(<?=$data['cod_inventario'];?>)" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button onclick="eliminar(<?=$data['cod_inventario'];?>)" class="btn btn-danger btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                        <?php } ?>
+                    </tbody>
+                </table>
                 </div>
             </div>
         </div>

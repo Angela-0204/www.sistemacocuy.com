@@ -9,8 +9,7 @@ $pedido = new Pedido();
 $data_clientes = $cliente->Listar();
 session_start();
 
-$data_productos = $producto->ListarEnPedido();
-
+$data_inventarios = $producto->ListarInventarios();
 if (isset($_POST['accion'])) {
     date_default_timezone_set('UTC');
 
@@ -32,15 +31,25 @@ if (isset($_POST['accion'])) {
                 $response['estatus'] = 0;
                 $response['mensaje'] = "Error al guardar el pedido.";
             }
-
             echo json_encode($response);
-            return;
-            break;
+            return 0;
+        break;
+        
     }
+}
+if (isset($_POST['cod_inventario'])) {
+    $cod_inventario = $_POST['cod_inventario'];
+    $presentaciones = $producto->ListarPresentacionesPorInventario($cod_inventario);
+    
+    // Enviar los datos en formato JSON
+    header('Content-Type: application/json');
+    echo json_encode($presentaciones);
+    exit;
 }
 
 
 
 include($VIEW.'catalogo.php'); 
+?>
 
 

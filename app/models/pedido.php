@@ -29,7 +29,7 @@ class Pedido extends connectDB
             $stmt_pedido = $this->conex->prepare($sql_pedido);
             $stmt_pedido->execute([
                 'fecha_pedido' => $fecha_pedido,
-                'estatus' => 1,
+                'estatus' => 1, // El valor de "estatus" aquí podría referirse a "activo" o "pendiente" 
                 'cod_cliente' => $cod_cliente,
                 'id_users' => $id_users
             ]);
@@ -75,6 +75,7 @@ class Pedido extends connectDB
             return false;
         }
     }
+    
     
     public function Buscar($id)
     {
