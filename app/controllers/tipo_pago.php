@@ -4,7 +4,12 @@ include($MODELS . 'tipo_pago.php');
 $tipo = new Tipo();
 $data_tipos = $tipo->Listar();
 session_start();
-
+// Verificar si la sesión está activa
+if (!isset($_SESSION['id_user'])) {
+    // Si no está iniciada la sesión, redirigir al login
+    header('Location: ?pagina=login');
+    exit();  // Asegura que no se ejecute el código restante de la página
+}
 if(isset($_POST['accion'])){
     //Establecer zona horaria para obtener la fecha actual
     date_default_timezone_set('UTC');

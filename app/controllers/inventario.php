@@ -11,7 +11,12 @@ $marcas = new Marcas();
 //Para listar los productos
 $data_products = $producto->Listar();
 session_start();
-
+// Verificar si la sesión está activa
+if (!isset($_SESSION['id_user'])) {
+    // Si no está iniciada la sesión, redirigir al login
+    header('Location: ?pagina=login');
+    exit();  // Asegura que no se ejecute el código restante de la página
+}
 //Para listar categorias en los selects
 
 $data_categorias = $categoria->Listar();

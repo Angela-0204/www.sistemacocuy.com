@@ -14,8 +14,13 @@ $marcas = new Marcas();
 $data_categorias = $categoria->Listar();
 $data_cajas = $caja->Listar();
 $data_marcas = $marcas->Listar();
-
 session_start();
+// Verificar si la sesión está activa
+if (!isset($_SESSION['id_user'])) {
+    // Si no está iniciada la sesión, redirigir al login
+    header('Location: ?pagina=login');
+    exit();  // Asegura que no se ejecute el código restante de la página
+}
 
 // Verificar si recibimos el id del producto a editar
 if (isset($_GET['id'])) {

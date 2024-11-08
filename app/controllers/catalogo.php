@@ -8,7 +8,12 @@ $producto = new Producto();
 $pedido = new Pedido();
 $data_clientes = $cliente->Listar();
 session_start();
-
+// Verificar si la sesión está activa
+if (!isset($_SESSION['id_user'])) {
+    // Si no está iniciada la sesión, redirigir al login
+    header('Location: ?pagina=login');
+    exit();  // Asegura que no se ejecute el código restante de la página
+}
 $data_inventarios = $producto->ListarInventarios();
 if (isset($_POST['accion'])) {
     date_default_timezone_set('UTC');
