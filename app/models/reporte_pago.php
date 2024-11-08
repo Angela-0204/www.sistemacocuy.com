@@ -6,7 +6,7 @@ class Reporte_pago extends connectDB
    
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT p.nro_pago, p.fyh_pago, p.monto, dp.id_detalle_pago, dp.id_pedido, p.referencia, b.nombre_banco, tp.nombre AS tipo_pago, cl.nombre_cliente, cl.apellido FROM pago AS p INNER JOIN detalle_pago AS dp ON dp.nro_pago = p.nro_pago INNER JOIN banco AS b ON b.id_banco = p.id_banco INNER JOIN tipo_pago AS tp ON tp.id_tipo_pago = b.id_tipo_pago INNER JOIN pedido AS ped ON ped.id_pedido = dp.id_pedido INNER JOIN cliente AS cl ON cl.cod_cliente = ped.cod_cliente;");
+        $resultado = $this->conex->prepare("SELECT p.nro_pago, p.fyh_pago, p.monto, dp.id_detalle_pago, dp.id_pedido, p.referencia, b.nombre_banco, tp.nombre AS tipo_pago, cl.nombre_cliente, cl.apellido, u.names as usuario FROM pago AS p INNER JOIN detalle_pago AS dp ON dp.nro_pago = p.nro_pago INNER JOIN banco AS b ON b.id_banco = p.id_banco INNER JOIN tipo_pago AS tp ON tp.id_tipo_pago = b.id_tipo_pago INNER JOIN pedido AS ped ON ped.id_pedido = dp.id_pedido INNER JOIN cliente AS cl ON cl.cod_cliente = ped.cod_cliente INNER JOIN usuario AS u on ped.id_users= u.id_users;");
         $respuestaArreglo = [];
         try {
             $resultado->execute();

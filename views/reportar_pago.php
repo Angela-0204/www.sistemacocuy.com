@@ -18,7 +18,7 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
           <div class="card card-outline card-primary">
             <div class="card-header ">
               <h3 class="card-title mb-0">Pagos registrados</h3>
@@ -29,7 +29,7 @@
               </div>
 
             </div>
-            <div class="card-body-md-6">
+            <div class="card-body">
               <table id="examplel" class="table table-bordered table-atriped">
                 <thead>
                   <tr>
@@ -54,6 +54,9 @@
                     <th>
                       <center>Cliente</center>
                     </th>
+                    <th>
+                      <center>Vendedor</center>
+                    </th>
                 
                     <th>
                       <center>Accion</center>
@@ -74,6 +77,7 @@
                       <td><?php echo $pago_dato['monto']; ?></td>
                       <td><?php echo $pago_dato['id_pedido']; ?></td>
                       <td><?php echo $pago_dato['nombre_cliente']; ?></td>
+                      <td><?php echo $pago_dato['usuario']; ?></td>
 
                       <td>
                         <button onclick="editar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-warning btn-sm">
