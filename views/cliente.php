@@ -92,30 +92,30 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label for="cedula_rif">Cedula del cliente <span class="required">*</span> </label>
-                  <input type="text" name="cedula_rif" id="cedula_rif" class="form-control" placeholder="Escriba aquí la cedula o el RIF del cliente">
+                  <input type="text" name="cedula_rif" id="cedula_rif" class="form-control" maxlength="8" placeholder="Escriba aquí la cedula o el RIF del cliente">
                   <span id="cedula_rifError" class="text-danger"></span>
                
                 </div>
 
                 <div class="form-group">
                   <label for="nombre_cliente">Nombre del cliente <span class="required">*</span></label>
-                  <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control" placeholder="Escriba aquí el nombre del nuevo cliente">
+                  <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control" maxlength="10" placeholder="Escriba aquí el nombre del nuevo cliente">
                   <span id="nombre_clienteError" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                   <label for="apellido">Apellido del cliente<span class="required">*</span></label>
-                  <input type="text" name="apellido" id="apellido" class="form-control" placeholder="Escriba aquí el apellido del nuevo cliente">
+                  <input type="text" name="apellido" id="apellido" class="form-control" maxlength="10" placeholder="Escriba aquí el apellido del nuevo cliente">
                   <span id="apellidoError" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                   <label for="">Correo <span class="required">*</span></label>
-                  <input type="email" name="correo" id="correo" class="form-control" placeholder="Escriba aquí el Correo del Nuevo cliente">
+                  <input type="email" name="correo" id="correo" class="form-control" maxlength="25" placeholder="Escriba aquí el Correo del Nuevo cliente">
                   <span id="correoError" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                   <label for="direccion">Direccion <span class="required">*</span> </label>
-                  <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Escriba aquí la direccion del nuevo cliente">
+                  <input type="text" name="direccion" id="direccion" class="form-control" maxlength="35" placeholder="Escriba aquí la direccion del nuevo cliente">
                   <span id="direccionError" class="text-danger"></span>
                 </div>
 
@@ -177,32 +177,32 @@
 
         <div class="form-group">
             <label for="nombre_cliente_edit">Nombre <span class="required">*</span></label>
-            <input type="text" name="nombre_cliente_edit" id="nombre_cliente_edit" class="form-control" placeholder="Escriba el nombre del cliente">
+            <input type="text" name="nombre_cliente_edit" id="nombre_cliente_edit" maxlength="10" class="form-control" placeholder="Escriba el nombre del cliente">
             <span id="nombre_cliente_editError" class="text-danger"></span>
           </div>
 
         <div class="form-group">
             <label for="apellido_edit">Apellido <span class="required">*</span></label>
-            <input type="text" name="apellido_edit" id="apellido_edit" class="form-control" placeholder="Escriba el apellido del cliente">
+            <input type="text" name="apellido_edit" id="apellido_edit" maxlength="10" class="form-control" placeholder="Escriba el apellido del cliente">
             <span id="apellido_editError" class="text-danger"></span>
           </div>
 
         <div class="form-group">
             <label for="email_edit">Correo <span class="required">*</span></label>
-            <input type="email" name="email_edit" id="email_edit" class="form-control" placeholder="Escriba el correo del cliente">
+            <input type="email" name="email_edit" id="email_edit" maxlength="25" class="form-control" placeholder="Escriba el correo del cliente">
             <span id="email_editError" class="text-danger"></span>
           </div>
 
         <div class="form-group">
             <label for="direccion_edit">Dirección <span class="required">*</span></label>
-            <input type="text" name="direccion_edit" id="direccion_edit" class="form-control" placeholder="Escriba la dirección del cliente">
+            <input type="text" name="direccion_edit" id="direccion_edit" maxlength="35" class="form-control" placeholder="Escriba la dirección del cliente">
             <span id="direccion_editError" class="text-danger"></span>
           </div>
 
           <div class="form-group">
   <label for="telefono_edit">Telefono <span class="required">*</span></label>
   <div class="d-flex">
-    <select class="form-control" id="operadora_edit" name="operadora" style="width: auto; margin-right: 10px;">
+    <select class="form-control" id="operadora_edit" name="operadora_edit" style="width: auto; margin-right: 10px;">
       <option value="0414">0414</option>
       <option value="0424">0424</option>
       <option value="0412">0412</option>

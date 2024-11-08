@@ -90,13 +90,13 @@ class Cliente extends connectDB
         $resultado = $this->conex->prepare($sql);
         try {
             $resultado->execute([
-                'cedula_rif' => $cedula_rif,
                 'nombre_cliente' => $nombre_cliente,
                 'apellido' => $apellido,
                 'correo' => $correo,
                 'direccion' => $direccion,
                 'telefono' => $telefono,
-                'estatus' => $estatus
+                'estatus' => $estatus,
+                'cedula_rif' => $cedula_rif,
             ]);
         } catch (Exception $e) {
             echo "Error al modificar el Cliente: " . $e->getMessage();

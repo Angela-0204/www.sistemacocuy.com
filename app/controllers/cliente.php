@@ -119,7 +119,6 @@ if (isset($_POST['accion'])) {
                 echo json_encode($response);
                 return;
             }
-
             $result = $cliente->Modificar($cedula_rif, $nombre_cliente, $apellido, $correo, $direccion, $telefono, $estatus);
             $respuesta = array();
             if ($result) {

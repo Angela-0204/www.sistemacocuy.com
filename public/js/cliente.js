@@ -40,11 +40,10 @@ $("#modificar").click(function (e) {
     datos.append("nombre_cliente", $("input[name='nombre_cliente_edit']").val());
     datos.append("apellido", $("input[name='apellido_edit']").val());
     datos.append("correo", $("input[name='email_edit']").val());
-    datos.append("direccion", $("select[name='direccion_edit']").val());
+    datos.append("direccion", $("input[name='direccion_edit']").val());
     datos.append("telefono", $("input[name='telefono_edit']").val());
     datos.append("operadora", $("select[name='operadora_edit']").val());
     datos.append("estatus", $("select[name='estatus_edit']").val());
-   
     funcionAjax(datos);
 });
 
@@ -179,14 +178,20 @@ function AjaxEditar(datos) {
         cache: false,
         success: function (response) {  
             var res = JSON.parse(response);   
-          
+            var telefonoCompleto = res.telefono;
+    
+            // Obtener los primeros 4 dígitos (operadora)
+            var operadora = telefonoCompleto.substring(0, 4);
+            
+            // Obtener los últimos 7 dígitos (número de teléfono)
+            var telefono = telefonoCompleto.substring(5); 
             $("#cedula_rif_editar").val(res.cedula_rif);
             $("#nombre_cliente_edit").val(res.nombre_cliente);
             $("#apellido_edit").val(res.apellido);
             $("#email_edit").val(res.correo);
             $("#direccion_edit").val(res.direccion);
-            $("#operadora_edit").val(res.telefono);
-            $("#telefono_edit").val(res.telefono);
+            $("#operadora_edit").val(operadora);
+            $("#telefono_edit").val(telefono);
             $("#estatus_edit").val(res.estatus);
             $("#modal-edit-users").modal("show");   
         },

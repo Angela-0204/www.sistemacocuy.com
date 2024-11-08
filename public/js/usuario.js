@@ -226,7 +226,7 @@ document.getElementById("names").addEventListener("keypress", function(event) {
 
 document.getElementById("password_user").addEventListener("input", function() {
     const password = this.value;
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*.,])[A-Za-z\d!@#$%^&*.,]{8,}$/;
     if (!passwordRegex.test(password)) {
         showError("password_user", "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.");
     } else {
@@ -240,7 +240,7 @@ document.getElementById("names_edit").addEventListener("keypress", function(even
 
 document.getElementById("password_user_edit").addEventListener("input", function() {
     const password_user_edit = this.value;
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*.,])[A-Za-z\d!@#$%^&*.,]{8,}$/;
     if (!passwordRegex.test(password_user_edit)) {
         showError("password_user_edit", "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.");
     } else {
@@ -253,7 +253,7 @@ document.getElementById("password_user_edit").addEventListener("input", function
 // Validaciones completas en `input`, sin mensajes de error
 function validatePassword() {
     const password_user = document.getElementById("password_user").value;
-    const nombreRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    const nombreRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*.,])[A-Za-z\d!@#$%^&*.,]{8,}$/;
     if (!nombreRegex.test(password_user)) {
         showError("password_user", "");
      
@@ -267,9 +267,9 @@ function validatePassword() {
 // Validaciones completas en `input`, sin mensajes de error
 function validatePassword_edit() {
     const password_user_edit = document.getElementById("password_user_edit").value;
-    const nombreRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    const nombreRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*.,])[A-Za-z\d!@#$%^&*.,]{8,}$/;
     if (!nombreRegex.test(password_user_edit)) {
-        showError("password_user_edit", "");
+        showError("password_user_edit", "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial");
      
         return false;
     } else {
@@ -346,7 +346,7 @@ function checkEmailExists(email) {
                 showError("email", "El correo ya está registrado.");
                 document.getElementById("registrar").disabled = true;
             } else {
-                clearError("email");
+             
                 enableSubmit(); // Habilita el botón si todo es válido
             }
         },
@@ -357,6 +357,7 @@ function checkEmailExists(email) {
 }
 
 
+
 //Se valida de manera general
 function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
@@ -364,7 +365,7 @@ function enableSubmit() {
     validatePassword() &&
         validateNombre() &&
         validateEmail() &&
-        checkEmailExists () &&
+        checkEmailExists() &&
         document.getElementById("password_user").value &&
         document.getElementById("names").value &&
         document.getElementById("email").value;
@@ -424,7 +425,7 @@ togglePassword2.addEventListener('click', function () {
     validatePassword_edit() &&
         validateNombreEditar() &&
         validateEmailEdit() &&
-        checkEmailExists () &&
+      
         document.getElementById("password_user_edit").value &&
         document.getElementById("names_edit").value &&
         document.getElementById("email_edit").value;
@@ -439,7 +440,7 @@ document.getElementById("password_user_edit").addEventListener("input", enableSu
 
 document.getElementById("email_edit").addEventListener("input", function() {
     validateEmailEdit();
-    checkEmailExists(this.value); // Verifica si el email ya está en uso
+  
 });
 
 togglePassword3.addEventListener('click', function () {
