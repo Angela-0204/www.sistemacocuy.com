@@ -17,12 +17,12 @@ if (isset($_POST['accion'])) {
     switch ($_POST['accion']) {
         case 'registrar':
             $cod_cliente = $_POST['cod_cliente'];
-            $nro_pago = 54654;
+            $id_usuario = $_SESSION['id_user'];
             $fecha_pedido = $_POST['fecha_pedido']; // Captura la fecha del pedido
             $productos = json_decode($_POST['productos'], true); // Decodificar los productos JSON
             
             // Aquí deberías tener una función que maneje el registro del pedido
-            $result = $pedido->Crear($cod_cliente, $nro_pago, $fecha_pedido, $productos); // Asegúrate de que esta función esté implementada
+            $result = $pedido->Crear($cod_cliente, $id_usuario, $fecha_pedido, $productos); // Asegúrate de que esta función esté implementada
 
             $response = array();
             if ($result) {
