@@ -47,6 +47,30 @@ if(isset($_POST['accion'])){
     }
     
 }
+
+if (isset($_GET['reporte'])) {
+    $id = $_GET['reporte'];
+        // Generar el PDF y devolver la URL para abrir el archivo
+        $pdfFilePath = 'app/reportes/pedido.php';
+
+        // Verifica si el archivo existe
+        if (file_exists($pdfFilePath)) {
+            $archivo = 'app/reportes/pedido.php?id_pedido='.$id;
+
+            echo json_encode([
+                "estatus" => 1,
+                "url" => $archivo
+            ]);
+        } else {
+            echo json_encode([
+                "estatus" => 0,
+                "mensaje" => "Error al generar el PDF."
+            ]);
+        }
+        
+    exit;
+}
+
 include($VIEW.'lista_pedido.php'); 
 
 

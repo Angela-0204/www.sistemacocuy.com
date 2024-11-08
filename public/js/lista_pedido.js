@@ -65,6 +65,9 @@ function AjaxEditar(datos) {
             $("#modalPedido #detallePedido").html(detallesHTML);
             $("#modalPedido #totalPedido").text(total);
 
+            // Asignar el ID del pedido al botón de generar PDF en el modal
+            $("#modalPedido #btnGenerarPDF").attr("onclick", "generarPDF(" + pedido.id_pedido + ")");
+
             // Mostrar el modal
             $("#modalPedido").modal("show");
         },
@@ -73,6 +76,7 @@ function AjaxEditar(datos) {
         }
     });
 }
+
 
 
 
@@ -138,3 +142,34 @@ function funcionAjax(datos) {
         },
     });
 }
+
+
+
+function generarPDF(id_pedido) {
+    $.ajax({
+        url: "", 
+        type: "GET",
+        data: { reporte: id_pedido },
+        success: function(response) {
+            var res = JSON.parse(response);
+            if (res.estatus == 1) {
+                // Abrir el PDF en una nueva pestaña
+                window.open(res.url, '_blank');
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: res.mensaje
+                });
+            }
+        },
+        error: function() {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error en la solicitud."
+            });
+        }
+    });
+}
+

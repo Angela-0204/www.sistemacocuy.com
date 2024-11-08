@@ -136,6 +136,9 @@
                 </div>
             </div>
             <div class="modal-footer">
+              <!-- Botón para generar PDF -->
+                <button type="button" id="btnGenerarPDF" class="btn btn-success">Generar PDF</button>
+
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
