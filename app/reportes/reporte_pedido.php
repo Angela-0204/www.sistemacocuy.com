@@ -33,21 +33,29 @@ $pdf->Ln(10);
 
 // Encabezados de la tabla
 $pdf->SetFont('helvetica', 'B', 10);
-$pdf->Cell(30, 10, 'Código De Pedido', 1, 0, 'C');
-$pdf->Cell(40, 10, 'Fecha del Pedido', 1, 0, 'C');
-$pdf->Cell(60, 10, 'Estatus', 1, 0, 'C');
-$pdf->Cell(20, 10, 'Cliente', 1, 0, 'C');
+$pdf->Cell(10, 10, 'Código De Pedido', 1, 0, 'C');
+$pdf->Cell(30, 10, 'Fecha del Pedido', 1, 0, 'C');
+$pdf->Cell(20, 10, 'Estatus', 1, 0, 'C');
+$pdf->Cell(40, 10, 'Cliente', 1, 0, 'C');
 $pdf->Cell(20, 10, 'Cantidad', 1, 0, 'C');
+$pdf->Cell(40, 10, 'Producto', 1, 0, 'C');
+$pdf->Cell(30, 10, 'Categoria', 1, 0, 'C');
+$pdf->Cell(20, 10, 'Marca', 1, 0, 'C');
 $pdf->Ln();
 
 // Llenado de datos en la tabla
 $pdf->SetFont('helvetica', '', 9);
 foreach ($listar as $product) {
-    $pdf->Cell(30, 10, $product['id_pedido'], 1, 0, 'C');
-    $pdf->Cell(40, 10, $product['fecha_pedido'], 1, 0, 'L');
-    $pdf->Cell(60, 10, $product['nombre_cliente'], 1, 0, 'L');
-    $pdf->Cell(20, 10, 3, 1, 0, 'C');
-    $pdf->Cell(20, 10, '$' . 3, 1, 0, 'R');
+    $pdf->Cell(10, 10, $product['id_pedido'], 1, 0, 'C');
+    $pdf->Cell(30, 10, $product['fecha_pedido'], 1, 0, 'C');
+    $pdf->Cell(20, 10, $product['estatus'], 1, 0, 'C');
+    $pdf->Cell(40, 10, $product['nombre_cliente'].' '.$product['apellido'], 1, 0, 'C');
+    $pdf->Cell(20, 10, $product['cantidad'], 1, 0, 'C');
+    $pdf->Cell(40, 10, $product['nombre'], 1, 0, 'C');
+    $pdf->Cell(30, 10, $product['nombre_categoria'], 1, 0, 'C');
+    $pdf->Cell(20, 10, $product['marca'], 1, 0, 'C');
+    
+   
     $pdf->Ln();
 }
 
