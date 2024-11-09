@@ -22,7 +22,7 @@
           <div class="card card-outline card-primary">
             <div class="card-header ">
               <h3 class="card-title mb-0">Pagos registrados</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="pagoModalLabel">Registrar Pago de Pedido</button>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Añadir Categoría</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -103,9 +103,8 @@
   </div>
   <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
-<!-- Modal Structure -->
-<div class="modal fade" id="pagoModal" tabindex="-1" aria-labelledby="pagoModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="modal-add-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -122,6 +121,15 @@
             <select name="nombre" id="nombre" class="form-control">
               <?php foreach ($data_tipos as $tipos) { ?>
                 <option value="<?= $tipos['id_tipo_pago']; ?>"><?php echo $tipos['nombre']; ?></option>
+              <?php } ?>
+            </select>  
+          </div>
+
+          <div class="form-group">
+            <label for="banco">Seleccione el Banco al que realizo el Pago</label>
+            <select name="banco" id="banco" class="form-control">
+              <?php foreach ($data_banco as $bancos) { ?>
+                <option value="<?= $bancos['id_banco']; ?>"><?php echo $bancos['nombre_banco']; ?></option>
               <?php } ?>
             </select>  
           </div>

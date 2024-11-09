@@ -269,10 +269,6 @@
                 </li>
             </ul>
         </li>
-    <?php } ?>
-
-    <!-- Menú Gestionar Pedido -->
-    <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) { ?>
         <li class="nav-item">
             <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-truck"></i>
