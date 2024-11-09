@@ -1,4 +1,16 @@
 <?php include('views/layout/menu.php'); ?>
+<style>
+    /* Define colores de estado */
+    .status-activo {
+        color: green;
+        font-weight: bold;
+    }
+
+    .status-anulado {
+        color: red;
+        font-weight: bold;
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper"> <!-- Ajusta el valor de margin-top según tus necesidades -->
     <!-- Content Header (Page header) -->
@@ -50,27 +62,30 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
-                  $contador = 0;
-                  foreach ($data_pedido as $pedido_dato) {
-                    $status = $pedido_dato['estatus'] == 1 ? 'Activo': 'Inactivo'; ?>
+                  <?php foreach ($data_pedido as $pedido_dato) {
+                      // Determina el estado y la clase de color para el estado
+                      $status = $pedido_dato['estatus'] == 1 ? 'Activo' : 'Anulado';
+                      $status_class = $pedido_dato['estatus'] == 1 ? 'status-activo' : 'status-anulado';
+                  ?>
 
-                    <tr style="text-align: center;">
-                      <td><?php echo 'A-000'.$pedido_dato['id_pedido']; ?></td>
+                  <tr style="text-align: center;">
+                      <td><?php echo 'A-000' . $pedido_dato['id_pedido']; ?></td>
                       <td><?php echo date("d/m/Y", strtotime($pedido_dato['fecha_pedido'])); ?></td>
-                      <td><?php echo $pedido_dato['nombre_cliente'].' '.$pedido_dato['apellido']; ?></td>
-                      <td><?php echo $status ?></td>
+                      <td><?php echo $pedido_dato['nombre_cliente'] . ' ' . $pedido_dato['apellido']; ?></td>
+                      <td class="<?= $status_class; ?>"><?php echo $status; ?></td>
                       <td>
-                        <button onclick="mostrar(<?=$pedido_dato['id_pedido'];?>)" class="btn btn-warning btn-sm">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button onclick="eliminar(<?=$pedido_dato['id_pedido'];?>)" class="btn btn-danger btn-sm">
-                          <i class="fas fa-trash"></i>
-                        </button>
+                          <button onclick="mostrar(<?=$pedido_dato['id_pedido'];?>)" class="btn btn-warning btn-sm" title="Consultar Pedido">
+                              <i class="fas fa-eye"></i>
+                          </button>
+                          <?php if ($pedido_dato['estatus'] == 1) { ?>
+                              <button onclick="anular(<?=$pedido_dato['id_pedido'];?>)" class="btn btn-danger btn-sm" title="Anular Pedido">
+                                  <i class="fas fa-minus-circle"></i>
+                              </button>
+                          <?php } ?>
                       </td>
-                    </tr>
-                  <?php
-                  } ?>
+                  </tr>
+                  <?php } ?>
+
                 </tbody>
               </table>
                 </div>

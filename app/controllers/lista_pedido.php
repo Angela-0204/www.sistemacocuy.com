@@ -28,20 +28,20 @@ if(isset($_POST['accion'])){
             return 0;
         break;
             
-        case 'eliminar':
-            $cod_inventario = $_POST['id']; // Verifica que este ID sea correcto.
-            $result = $producto->Eliminar($cod_inventario);
+        case 'anular':
+            $id_pedido = $_POST['id']; // Verifica que este ID sea correcto.
+            $result = $pedido->Anular($id_pedido);
             
             // Prepara la respuesta
-            if ($result) {
+            if ($result === true) {
                 $respuesta = [
                     'estatus' => 1,
-                    'mensaje' => "Producto eliminado exitosamente."
+                    'mensaje' => "El pedido ha sido anulado."
                 ];
             } else {
                 $respuesta = [
                     'estatus' => 0,
-                    'mensaje' => "Error al eliminar el producto o producto no encontrado."
+                    'mensaje' => $result // Este incluirá el mensaje de error detallado.
                 ];
             }
             
@@ -49,7 +49,7 @@ if(isset($_POST['accion'])){
             header('Content-Type: application/json');
             echo json_encode($respuesta);
             exit;
-            break;
+            break;        
     }
     
 }

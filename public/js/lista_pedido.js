@@ -10,6 +10,29 @@ function mostrar(id) {
     AjaxEditar(datos);
 }
 
+function anular(id) {
+    Swal.fire({
+        title: "¿Está seguro de anular el pedido?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: "#0C72C4",
+        cancelButtonColor: "#9D2323",
+        confirmButtonText: "Confirmar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            setTimeout(function () {
+                var datos = new FormData();
+                datos.append("accion", "anular");
+                datos.append("id", id);
+                funcionAjax(datos);
+            }, 10);
+        }
+    });
+}
+
 function AjaxEditar(datos) {
     $.ajax({
         url: '',  // Cambia a la URL de tu controlador PHP
@@ -118,7 +141,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Producto",
+                    title: "Pedido",
                     text: res.mensaje
                 });
                 setTimeout(function () {

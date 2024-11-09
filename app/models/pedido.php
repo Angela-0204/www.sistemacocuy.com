@@ -90,18 +90,66 @@ class Pedido extends connectDB
         return $respuestaArreglo;
     }
 
-    public function BuscarPorCategoria($id_categoria)
+    public function Anular($id_pedido)
     {
-        $resultado = $this->conex->prepare("SELECT a.id_producto, a.codigo, a.nombre, a.descripcion, a.id_categoria, a.stock, a.stock_minimo, a.stock_maximo, a.precio_venta,  a.imagen, a.fyh_creacion, a.fyh_actualizacion, c.nombre_categoria FROM inventario a INNER JOIN tb_categorias c ON a.id_categoria=c.id_categoria WHERE c.id_categoria=$id_categoria;");
-        $respuestaArreglo = [];
+        // Iniciar la transacción
+        $this->conex->beginTransaction();
+        
         try {
-            $resultado->execute();
-            $respuestaArreglo = $resultado->fetchAll();
+            // Paso 1: Cambiar el estatus del pedido a "anulado"
+            $sql = "UPDATE pedido SET estatus = :estatus WHERE id_pedido = :id_pedido";
+            $stmt = $this->conex->prepare($sql);
+            $stmt->execute([
+                'estatus' => 0,
+                'id_pedido' => $id_pedido
+            ]);
+            
+            // Verificar que el pedido se haya actualizado
+            if ($stmt->rowCount() == 0) {
+                throw new Exception("No se pudo actualizar el estado del pedido con ID $id_pedido. Puede que no exista.");
+            }
+    
+            // Paso 2: Obtener los detalles del pedido y actualizar el inventario
+            $sql_detalle = "SELECT cantidad, id_detalle_inventario FROM detalle_pedido WHERE id_pedido = :id_pedido";
+            $stmt_detalle = $this->conex->prepare($sql_detalle);
+            $stmt_detalle->execute(['id_pedido' => $id_pedido]);
+            $detalles = $stmt_detalle->fetchAll(PDO::FETCH_ASSOC);
+            
+            // Verificar si hay detalles para el pedido
+            if (!$detalles) {
+                throw new Exception("No se encontraron detalles para el pedido con ID $id_pedido.");
+            }
+    
+            // Actualizar el inventario para cada producto en el detalle del pedido
+            foreach ($detalles as $detalle) {
+                $sql_update_inventario = "
+                    UPDATE detalle_inventario 
+                    SET stock = stock + :cantidad 
+                    WHERE id_detalle_inventario = :id_detalle_inventario
+                ";
+                $stmt_inventario = $this->conex->prepare($sql_update_inventario);
+                $stmt_inventario->execute([
+                    'cantidad' => $detalle['cantidad'],
+                    'id_detalle_inventario' => $detalle['id_detalle_inventario']
+                ]);
+                
+                // Verificar que se haya actualizado el inventario
+                if ($stmt_inventario->rowCount() == 0) {
+                    throw new Exception("No se pudo actualizar el inventario para el producto con ID " . $detalle['id_detalle_inventario']);
+                }
+            }
+            
+            // Confirmar la transacción
+            $this->conex->commit();
+            return true;
+    
         } catch (Exception $e) {
-            return $e->getMessage();
+            // Revertir los cambios si ocurre algún error
+            $this->conex->rollBack();
+            return "Error al anular el pedido: " . $e->getMessage();
         }
-        return $respuestaArreglo;
-    } 
+    }
+    
     
     public function ConsultarPedido($id_pedido) {
         try {
