@@ -31,7 +31,7 @@ class Producto extends connectDB
 
     public function ListarPresentacionesPorInventario($cod_inventario)
     {
-        $resultado = $this->conex->prepare("SELECT di.id_detalle_inventario, e.cantidad as id_presentacion, di.stock, di.precio_venta FROM detalle_inventario di INNER JOIN empaquetado e ON di.id_empaquetado=e.id_empaquetado WHERE cod_inventario =  :cod_inventario");
+        $resultado = $this->conex->prepare("SELECT di.id_detalle_inventario, e.cantidad as id_presentacion, di.stock, di.precio_venta FROM detalle_inventario di INNER JOIN empaquetado e ON di.id_empaquetado=e.id_empaquetado WHERE di.estatus= 'activo' AND cod_inventario =  :cod_inventario");
         $resultado->bindParam(":cod_inventario", $cod_inventario, PDO::PARAM_INT);
         $respuestaArreglo = [];
         try {
