@@ -262,11 +262,6 @@ class Producto extends connectDB
             exit;
         }
     }
-    
-    
-    
-    
-    
     public function ObtenerProductoPorId($id) {
         $sql = "SELECT nombre, descripcion, id_categoria, imagen, fyh_creacion
                 FROM inventario
@@ -284,14 +279,11 @@ class Producto extends connectDB
                 FROM detalle_inventario di
                 JOIN empaquetado e ON di.id_empaquetado = e.id_empaquetado
                 JOIN presentacion p ON di.id_presentacion = p.id_presentacion
-                WHERE di.cod_inventario = :id";
+                WHERE di.cod_inventario = :id AND di.estatus='activo'";
         $stmt = $this->conex->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
-    
-    
+    }  
 }
 ?>

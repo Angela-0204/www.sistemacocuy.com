@@ -26,6 +26,11 @@ $data_marcas = $marcas->Listar();
 //Para modificar un registro
 if(isset($_POST['accion'])){
     switch($_POST['accion']){  
+        case 'detalles':
+            $data = $producto->ObtenerDetallesInventario($_POST['id_producto']);
+            echo json_encode($data);
+            return 0;
+        break;
         //Para consultar el registro a modificar
         case 'consultar':
             $data = $producto->Buscar($_POST['id_producto']);
