@@ -22,7 +22,7 @@
           <div class="card card-outline card-primary">
             <div class="card-header ">
               <h3 class="card-title mb-0">Pagos registrados</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Añadir Categoría</button>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Crear Reporte De Pago</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -80,9 +80,7 @@
                       <td><?php echo $pago_dato['usuario']; ?></td>
 
                       <td>
-                        <button onclick="editar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-warning btn-sm">
-                          <i class="fas fa-edit"></i>
-                        </button>
+                        
                         <button onclick="eliminar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
@@ -117,8 +115,8 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="metodo">Seleccione el método de pago utilizado</label>
-            <select name="metodo" id="metodo" class="form-control">
+            <label for="nombre">Seleccione el método de pago utilizado</label>
+            <select name="nombre_metodo" id="nombre_metodo" class="form-control">
               <?php foreach ($data_tipos as $tipos) { ?>
                 <option value="<?= $tipos['id_tipo_pago']; ?>"><?php echo $tipos['nombre']; ?></option>
               <?php } ?>
@@ -128,6 +126,9 @@
           <div class="form-group">
             <label for="banco">Seleccione el Banco al que realizo el Pago</label>
             <select name="banco" id="banco" class="form-control">
+              <?php foreach ($data_banco as $bancos) { ?>
+                <option value="<?= $bancos['id_banco']; ?>"><?php echo $bancos['nombre_banco']; ?></option>
+              <?php } ?>
             </select>  
           </div>
 
@@ -169,8 +170,10 @@
   </div>
 </div>
 
-  </div>
+
+
+  
 
   <!-- /.content-wrapper -->
   <?php include('views/layout/footer.php'); ?>
-  <script src="public/js/reporte_pago.js"></script>
+  <script src="public/js/reporte.js"></script>
