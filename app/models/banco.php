@@ -56,6 +56,21 @@ class Banco extends connectDB
         return $respuestaArreglo;
     }
 
+    public function BuscarPorTipoPago($id_tipo_pago)
+    {
+        $resultado = $this->conex->prepare("SELECT * FROM banco WHERE id_tipo_pago = :id_tipo_pago");
+        $respuestaArreglo = [];
+        try {
+            $resultado->bindParam(':id_tipo_pago', $id_tipo_pago, PDO::PARAM_INT);
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+    
+
     public function Modificar($id_banco, $nombre_banco, $datos_banco, $id_tipo_pago)
     {
         $sql = "UPDATE banco SET nombre_banco = :nombre_banco, datos_banco = :datos_banco, id_tipo_pago = :id_tipo_pago

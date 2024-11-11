@@ -117,8 +117,8 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="nombre">Seleccione el método de pago utilizado</label>
-            <select name="nombre" id="nombre" class="form-control">
+            <label for="metodo">Seleccione el método de pago utilizado</label>
+            <select name="metodo" id="metodo" class="form-control">
               <?php foreach ($data_tipos as $tipos) { ?>
                 <option value="<?= $tipos['id_tipo_pago']; ?>"><?php echo $tipos['nombre']; ?></option>
               <?php } ?>
@@ -128,17 +128,14 @@
           <div class="form-group">
             <label for="banco">Seleccione el Banco al que realizo el Pago</label>
             <select name="banco" id="banco" class="form-control">
-              <?php foreach ($data_banco as $bancos) { ?>
-                <option value="<?= $bancos['id_banco']; ?>"><?php echo $bancos['nombre_banco']; ?></option>
-              <?php } ?>
             </select>  
           </div>
 
           <div class="form-group">
             <label for="pedido">Seleccione el pedido al cual va a realizar el pago</label>
             <select name="nombre" id="nombre" class="form-control">
-              <?php foreach ($pedido as $data_pedidos) { ?>
-                <option value="<?= $tipos['id_pedido']; ?>"><?php echo $tipos['id_pedido']; ?></option>
+              <?php foreach ($data_pedidos as $pedido) { ?>
+                <option value="<?= $pedido['id_pedido']; ?>"><?php echo "A-000".$pedido['id_pedido']." / Cliente: ".$pedido['nombre_cliente']; ?></option>
               <?php } ?>
             </select>  
           </div>
@@ -174,4 +171,4 @@
 
   <!-- /.content-wrapper -->
   <?php include('views/layout/footer.php'); ?>
-  <script src="public/js/reporte.js"></script>
+  <script src="public/js/reporte_pago.js"></script>

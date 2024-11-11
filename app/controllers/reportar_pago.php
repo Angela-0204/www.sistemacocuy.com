@@ -9,9 +9,14 @@ if (!isset($_SESSION['id_user'])) {
 include('app/config.php');
 include($MODELS . 'reporte_pago.php');
 include ($MODELS . 'tipo_pago.php');
+include ($MODELS . 'banco.php');
+include ($MODELS . 'pedido.php');
 $tipo = new Tipo();
 $reporte = new Reporte_pago();
+$banco = new Banco();
+$pedido = new Pedido();
 $data_tipos = $tipo->Listar();
+$data_pedidos = $pedido->Listar();
 $data_reportes = $reporte->Listar();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch($_POST['accion']){
@@ -88,7 +93,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             echo json_encode($respuesta);
             return 0;
-        break;            
+        break;    
+        case 'listar_bancos':
+            $data = $banco->BuscarPorTipoPago($_POST['id_tipo_pago']);
+            echo json_encode($data); // Devuelve los datos en formato JSON
+            return 0;
+        break;
+        
+        
 
     }
 }
