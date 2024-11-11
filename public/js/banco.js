@@ -257,20 +257,16 @@ document.getElementById("nombre_banco").addEventListener("input", enableSubmit);
 document.getElementById("datos_banco").addEventListener("input", enableSubmit);
 
 
-
-function enableSubmit() {
-    //Se validan en funciones que cumplan todas con las exp reg
+function enableSubmit_editar() {
+    // Valida que ambas funciones de validación pasen y que los campos no estén vacíos
     const isFormValid =
-       
         validateNombreEditar() &&
-      
         validateDatosEditar() &&
- 
-        document.getElementById("nombre_edit").value &&
-  
-        document.getElementById("datos_edit").value;
-        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
-        document.getElementById("modificar").disabled = !isFormValid;
+        document.getElementById("nombre_editar").value.trim() !== "" &&
+        document.getElementById("datos_editar").value.trim() !== "";
+
+    // Habilita o deshabilita el botón de "modificar" según el resultado de `isFormValid`
+    document.getElementById("modificar").disabled = !isFormValid;
 }
-document.getElementById("nombre_editar").addEventListener("input", enableSubmit);
-document.getElementById("datos_editar").addEventListener("input", enableSubmit);
+document.getElementById("nombre_editar").addEventListener("input", enableSubmit_editar);
+document.getElementById("datos_editar").addEventListener("input", enableSubmit_editar);

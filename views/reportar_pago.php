@@ -144,6 +144,7 @@
           <div class="form-group">
             <label for="referencia">Número de Referencia</label>
             <input type="text" name="referencia" id="referencia" class="form-control" placeholder="Escriba aquí el número de referencia del depósito">
+            <span id="referenciaError" class="text-danger"></span>
           </div>
           
      
@@ -151,6 +152,7 @@
           <div class="form-group">
             <label for="monto">Monto depositado en Bolívares</label>
             <input type="number" name="monto" id="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en bolívares">
+            <span id="montoError" class="text-danger"></span>
           </div>
           
           <div class="form-group">

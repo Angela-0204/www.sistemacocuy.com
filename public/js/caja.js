@@ -220,7 +220,7 @@ function validateDescripcionEditar() {
     }
 }
 //Se valida de manera general
-function enableSubmit() {
+function enableSubmit_registrar() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
         validateCantidad() &&
@@ -230,8 +230,8 @@ function enableSubmit() {
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
-document.getElementById("descripcion").addEventListener("input", enableSubmit);
-document.getElementById("cantidad").addEventListener("input", enableSubmit);
+document.getElementById("descripcion").addEventListener("input", enableSubmit_registrar);
+document.getElementById("cantidad").addEventListener("input", enableSubmit_registrar);
 
 function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
