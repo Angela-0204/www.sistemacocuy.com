@@ -133,23 +133,25 @@
 
           <div class="form-group">
             <label for="pedido">Seleccione el pedido al cual va a realizar el pago</label>
-            <select name="nombre" id="nombre" class="form-control">
+            <select name="pedido" id="pedido" class="form-control">
               <?php foreach ($data_pedidos as $pedido) { ?>
                 <option value="<?= $pedido['id_pedido']; ?>"><?php echo "A-000".$pedido['id_pedido']." / Cliente: ".$pedido['nombre_cliente']; ?></option>
               <?php } ?>
             </select>  
           </div>
-          
+          <div class="m-4">
+            <h4 id="monto-pagar"></h4>
+          </div>
           <div class="form-group">
             <label for="referencia">Número de Referencia</label>
-            <input type="text" name="referencia" class="form-control" placeholder="Escriba aquí el número de referencia del depósito">
+            <input type="text" name="referencia" id="referencia" class="form-control" placeholder="Escriba aquí el número de referencia del depósito">
           </div>
           
      
           
           <div class="form-group">
             <label for="monto">Monto depositado en Bolívares</label>
-            <input type="number" name="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en bolívares">
+            <input type="number" name="monto" id="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en bolívares">
           </div>
           
           <div class="form-group">

@@ -90,6 +90,43 @@ class Pedido extends connectDB
         return $respuestaArreglo;
     }
 
+    public function ObtenerMonto($id_pedido)
+    {
+        $resultado = $this->conex->prepare("
+            SELECT 
+                p.id_pedido,
+                IFNULL(SUM(dp.cantidad * di.precio_venta), 0) AS monto_total_pedido,
+                IFNULL(SUM(pa.monto), 0) AS monto_pagado,
+                (IFNULL(SUM(dp.cantidad * di.precio_venta), 0) - IFNULL(SUM(pa.monto), 0)) AS monto_pendiente
+            FROM 
+                pedido p
+            LEFT JOIN 
+                detalle_pedido dp ON p.id_pedido = dp.id_pedido
+            LEFT JOIN 
+                detalle_inventario di ON dp.id_detalle_inventario = di.id_detalle_inventario
+            LEFT JOIN 
+                detalle_pago dpa ON p.id_pedido = dpa.id_pedido
+            LEFT JOIN 
+                pago pa ON dpa.nro_pago = pa.nro_pago
+            WHERE 
+                p.id_pedido = :id_pedido
+            GROUP BY 
+                p.id_pedido
+        ");
+    
+        $respuestaArreglo = [];
+        try {
+            $resultado->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+    
+    
+
     public function Anular($id_pedido)
     {
         // Iniciar la transacción

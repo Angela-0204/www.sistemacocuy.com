@@ -3,12 +3,24 @@ document.getElementById('metodo').addEventListener('change', function() {
     consultarBancos(tipoPagoId);
 });
 
+document.getElementById('pedido').addEventListener('change', function() {
+    var id_pedido = this.value;
+    var datos = new FormData();
+    datos.append("accion", "mostrar_monto");
+    datos.append("id_pedido", id_pedido);
+    MostrarMonto(datos);
+});
+
 //Para registrar nueva categoria
 $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("nombre_categoria", $("input[name='nombre_categoria']").val());
+    datos.append("banco", $("select[name='banco']").val());
+    datos.append("pedido", $("select[name='pedido']").val());
+    datos.append("referencia", $("select[name='referencia']").val());
+    datos.append("monto", $("select[name='monto']").val());
+    datos.append("fecha", $("select[name='fecha']").val());
     AjaxRegistrar(datos);
 });
 
@@ -193,6 +205,44 @@ function AjaxBancos(datos) {
         }
     });
 }
+
+function MostrarMonto(datos) {
+    $.ajax({
+        url: "", // Cambia esta ruta por la de tu controlador
+        type: "POST",
+        contentType: false,
+        data: datos,
+        processData: false,
+        cache: false,
+        success: function (response) {
+            var data = JSON.parse(response);
+            var montoPagar = document.getElementById('monto-pagar');
+            
+            if (data && typeof data.monto_pendiente !== "undefined") {
+                // Si hay un monto pendiente, mostramos la cantidad
+                if (data.monto_pendiente > 0) {
+                    montoPagar.textContent = "Monto pendiente: $" + data.monto_pendiente;
+                    montoPagar.style.color = "black"; // Monto pendiente en color normal
+                } else {
+                    montoPagar.textContent = "Monto $" + data.monto_total_pedido +" pagado en su totalidad";
+                    montoPagar.style.color = "grren"; // Texto en rojo si el monto está completamente pagado
+                }
+            } else {
+                // Si no hay datos, mostramos un mensaje de error
+                montoPagar.textContent = "No se pudo obtener el monto.";
+                montoPagar.style.color = "red";
+            }
+        },
+        error: function (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error en la solicitud."
+            });
+        }
+    });
+}
+
 
 
 //Para mostrar el error en el span

@@ -99,6 +99,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode($data); // Devuelve los datos en formato JSON
             return 0;
         break;
+        case 'mostrar_monto':
+            $data = $pedido->ObtenerMonto($_POST['id_pedido']);
+            echo json_encode($data); // Devuelve los datos en formato JSON
+            return 0;
+        break;
+
         
         
 
