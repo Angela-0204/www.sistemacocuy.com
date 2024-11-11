@@ -9,7 +9,6 @@ if (!isset($_SESSION['id_user'])) {
 include('app/config.php');
 include($MODELS . 'reporte_pago.php');
 include ($MODELS . 'tipo_pago.php');
-<<<<<<< HEAD
 include($MODELS . 'banco.php');
 include($MODELS . 'pedido.php');
 $pedido = new Pedido();
@@ -18,16 +17,7 @@ $tipo = new Tipo();
 $reporte = new Reporte_pago();
 $banco = new Banco();
 $data_banco = $banco->Listar();
-=======
-include ($MODELS . 'banco.php');
-include ($MODELS . 'pedido.php');
-$tipo = new Tipo();
-$reporte = new Reporte_pago();
-$banco = new Banco();
-$pedido = new Pedido();
->>>>>>> f54d93cb0057396980cb4ecc33f7afee1f4018dd
 $data_tipos = $tipo->Listar();
-$data_pedidos = $pedido->Listar();
 $data_reportes = $reporte->Listar();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -80,39 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return 0;
         break;
 
-<<<<<<< HEAD
    
-=======
-        //Para modificar los datos
-        case 'modificar':
-            $id = $_POST['id_categoria'];
-            $nombre = $_POST['nombre_categoria'];
-            $fecha = date("Y-m-d H:i:s"); 
-        
-            $result = $categoria->Modificar($id, $nombre, $fecha);
-            $respuesta = array();
-            if ($result) {
-                $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Categoria Modificada exitosamente.";
-            } else {
-                $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al modificar la categoria.";
-            }
-            echo json_encode($respuesta);
-            return 0;
-        break;    
-        case 'listar_bancos':
-            $data = $banco->BuscarPorTipoPago($_POST['id_tipo_pago']);
-            echo json_encode($data); // Devuelve los datos en formato JSON
-            return 0;
-        break;
-        
-        
-
->>>>>>> f54d93cb0057396980cb4ecc33f7afee1f4018dd
     }
 }
 
-
 include($VIEW.'reportar_pago.php'); 
-?>

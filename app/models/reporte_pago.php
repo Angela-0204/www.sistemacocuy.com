@@ -16,39 +16,51 @@ class Reporte_pago extends connectDB
         }
         return $respuestaArreglo;
     }
-    public function Crear($fyh_pago, $monto, $nro_pago, $referencia, $id_banco, $id_pedido)
+
+    public function Crear($fyh_pago, $monto, $nro_pago,  $referencia, $id_banco, $id_pedido)
     {
+        // SQL para insertar en la tabla detalle_pago
         $sql_pago = "INSERT INTO pago (nro_pago, fyh_pago, monto, referencia, id_banco)
-                    VALUES (:nro_pago, :fyh_pago, :monto, :referencia, :id_banco)";
+                VALUES (:nro_pago, :fyh_pago, :monto, :referencia, :id_banco)";
+        // Preparamos la consulta
         $resultado_pago = $this->conex->prepare($sql_pago);
     
         try {
+            // Ejecutamos el primer INSERT en pago
             $resultado_pago->execute([
+
                 'nro_pago' => $nro_pago,
                 'fyh_pago' => $fyh_pago,
                 'monto' => $monto,
-                'referencia' => $referencia,
-                'id_banco' => $id_banco
-            ]);
+                'id_banco' => $id_banco,
+             
+                'referencia' => $referencia
+                
+            ]);           
     
+            // Obtener el ID generado del último registro insertado en inventario
             $nro_pago = $this->conex->lastInsertId();
-    
-            $sql_detalle_pago = "INSERT INTO detalle_pago (nro_pago, id_pedido)
-                                VALUES (:nro_pago, :id_pedido)";
+            $sql_detalle_pago = "INSERT INTO detalle_pago(nro_pago, id_pedido)
+ 
+                VALUES (:nro_pago, :id_pedido)";
+            // Preparamos la consulta para detalle_inventario
             $resultado_detalle_pago = $this->conex->prepare($sql_detalle_pago);
     
+            // Ejecutamos el segundo INSERT en detalle_inventario con el cod_inventario obtenido
             $resultado_detalle_pago->execute([
-                'nro_pago' => $nro_pago,
+                'id_detalle_pago' => $nro_pago,
                 'id_pedido' => $id_pedido
+              
+                
+                             
             ]);
     
-            return true;
+            return true;  // Todo se ejecutó correctamente
         } catch (Exception $e) {
             echo "Error al registrar el pago: " . $e->getMessage();
             return false;
         }
     }
-    
     
     public function Buscar($id)
     {
