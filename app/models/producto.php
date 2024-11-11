@@ -16,6 +16,19 @@ class Producto extends connectDB
         return $respuestaArreglo;
     }
 
+    public function ListarDesgloce()
+    {
+        $resultado = $this->conex->prepare("SELECT i.nombre AS producto_nombre, i.descripcion AS producto_descripcion, c.nombre_categoria AS categoria, p.marca AS marca, um.medida AS unidad_medida, e.cantidad AS cantidad_empaquetado, di.precio_venta AS precio, di.stock AS stock FROM detalle_inventario di JOIN inventario i ON di.cod_inventario = i.cod_inventario JOIN categoria c ON i.id_categoria = c.id_categoria JOIN presentacion p ON di.id_presentacion = p.id_presentacion JOIN unidad_medida um ON p.cod_unidad = um.cod_unidad JOIN empaquetado e ON di.id_empaquetado = e.id_empaquetado;");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
     public function ListarInventarios()
     {
         $resultado = $this->conex->prepare("SELECT cod_inventario, nombre FROM inventario ORDER BY nombre ASC");
