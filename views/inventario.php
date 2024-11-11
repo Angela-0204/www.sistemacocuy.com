@@ -74,7 +74,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalDetallesLabel">Detalles del Inventario</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
         <table class="table table-striped table-bordered">
