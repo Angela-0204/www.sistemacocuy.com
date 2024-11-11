@@ -1,3 +1,8 @@
+document.getElementById('metodo').addEventListener('change', function() {
+    var tipoPagoId = this.value;
+    consultarBancos(tipoPagoId);
+});
+
 //Para registrar nueva categoria
 $("#registrar").click(function (e) {
     e.preventDefault(); 
@@ -22,6 +27,13 @@ function editar(id){
     datos.append("accion", "consultar");
     datos.append("id_categoria", id);
     AjaxEditar(datos);
+}
+
+function consultarBancos(id){
+    var datos = new FormData();
+    datos.append("accion", "listar_bancos");
+    datos.append("id_tipo_pago", id);
+    AjaxBancos(datos);
 }
 
 
@@ -150,6 +162,38 @@ function AjaxEditar(datos) {
         }
     });
 }
+
+function AjaxBancos(datos) {
+    $.ajax({
+        url: "",  // Cambia a la ruta real de tu controlador
+        type: "POST",
+        contentType: false,
+        data: datos,
+        processData: false,
+        cache: false,
+        success: function (response) {
+            // Aquí procesamos la respuesta y actualizamos el select de bancos
+            var bancos = JSON.parse(response);
+            var bancoSelect = document.getElementById('banco');
+            bancoSelect.innerHTML = ""; // Limpiar las opciones actuales
+
+            bancos.forEach(function(banco) {
+                var option = document.createElement('option');
+                option.value = banco.id_banco;
+                option.textContent = banco.nombre_banco;
+                bancoSelect.appendChild(option);
+            });
+        },
+        error: function (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error en la solicitud."
+            });
+        }
+    });
+}
+
 
 //Para mostrar el error en el span
 function showError(field, message) {
