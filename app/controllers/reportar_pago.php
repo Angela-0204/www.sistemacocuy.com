@@ -12,7 +12,7 @@ include ($MODELS . 'tipo_pago.php');
 include($MODELS . 'banco.php');
 include($MODELS . 'pedido.php');
 $pedido = new Pedido();
-$data_pedidos = $pedido->Listar();
+$data_pedidos = $pedido->ListarActivos();
 $tipo = new Tipo();
 $reporte = new Reporte_pago();
 $banco = new Banco();
@@ -23,20 +23,15 @@ $data_reportes = $reporte->Listar();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch($_POST['accion']){
         //Para registrar
-        case 'registrar':
-           
-           
-            $nro_pago = $_POST ['nro_pago'];
-            
+        case 'registrar':                   
              $monto = $_POST ['monto'];
-            $referencia = $_POST ['referencia'];
-
+             $referencia = $_POST ['referencia'];
              $fyh_pago = $_POST['fyh_pago'];
              $id_banco = $_POST ['id_banco'];
              $id_pedido = $_POST ['id_pedido'];
             
         
-             $result = $reporte->Crear($fyh_pago, $monto, $nro_pago,  $referencia, $id_banco, $id_pedido);
+             $result = $reporte->Crear($fyh_pago, $monto,  $referencia, $id_banco, $id_pedido);
 
 
             

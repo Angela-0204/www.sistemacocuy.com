@@ -16,6 +16,19 @@ class Pedido extends connectDB
         return $respuestaArreglo;
     }
 
+    public function ListarActivos()
+    {
+        $resultado = $this->conex->prepare("SELECT p.id_pedido, p.fecha_pedido, c.nombre_cliente, c.apellido, p.estatus FROM pedido p INNER JOIN cliente c ON p.cod_cliente=c.cod_cliente WHERE p.estatus=1 ORDER BY p.fecha_pedido desc;");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
     //Este si es funcional
     public function Crear($cod_cliente, $id_users, $fecha_pedido, $productos)
     {

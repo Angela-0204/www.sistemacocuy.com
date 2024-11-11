@@ -17,19 +17,17 @@ class Reporte_pago extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($fyh_pago, $monto, $nro_pago,  $referencia, $id_banco, $id_pedido)
+    public function Crear($fyh_pago, $monto,  $referencia, $id_banco, $id_pedido)
     {
         // SQL para insertar en la tabla detalle_pago
-        $sql_pago = "INSERT INTO pago (nro_pago, fyh_pago, monto, referencia, id_banco)
-                VALUES (:nro_pago, :fyh_pago, :monto, :referencia, :id_banco)";
+        $sql_pago = "INSERT INTO pago (fyh_pago, monto, referencia, id_banco)
+                VALUES (:fyh_pago, :monto, :referencia, :id_banco)";
         // Preparamos la consulta
         $resultado_pago = $this->conex->prepare($sql_pago);
     
         try {
             // Ejecutamos el primer INSERT en pago
             $resultado_pago->execute([
-
-                'nro_pago' => $nro_pago,
                 'fyh_pago' => $fyh_pago,
                 'monto' => $monto,
                 'id_banco' => $id_banco,
@@ -48,7 +46,7 @@ class Reporte_pago extends connectDB
     
             // Ejecutamos el segundo INSERT en detalle_inventario con el cod_inventario obtenido
             $resultado_detalle_pago->execute([
-                'id_detalle_pago' => $nro_pago,
+                'nro_pago' => $nro_pago,
                 'id_pedido' => $id_pedido
               
                 

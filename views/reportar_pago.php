@@ -75,7 +75,7 @@
                       <td><?php echo $pago_dato['tipo_pago']; ?></td>
                       <td><?php echo $pago_dato['nombre_banco']; ?></td>
                       <td><?php echo $pago_dato['monto']; ?></td>
-                      <td><?php echo $pago_dato['id_pedido']; ?></td>
+                      <td><?php echo "A-000".$pago_dato['id_pedido']; ?></td>
                       <td><?php echo $pago_dato['nombre_cliente']; ?></td>
                       <td><?php echo $pago_dato['usuario']; ?></td>
 
@@ -132,6 +132,7 @@
           <div class="form-group">
             <label for="pedido">Seleccione el pedido al cual va a realizar el pago</label>
             <select name="pedido" id="pedido" class="form-control">
+              <option value="" selected disabled>Seleccione</option>
               <?php foreach ($data_pedidos as $pedido) { ?>
                 <option value="<?= $pedido['id_pedido']; ?>"><?php echo "A-000".$pedido['id_pedido']." / Cliente: ".$pedido['nombre_cliente']; ?></option>
               <?php } ?>

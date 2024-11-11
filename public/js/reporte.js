@@ -48,6 +48,9 @@ function AjaxBancos(datos) {
     });
 }
 
+// Define una variable global para almacenar el monto pendiente
+var montoPendiente = 0;
+
 function MostrarMonto(datos) {
     $.ajax({
         url: "", // Cambia esta ruta por la de tu controlador
@@ -59,18 +62,22 @@ function MostrarMonto(datos) {
         success: function (response) {
             var data = JSON.parse(response);
             var montoPagar = document.getElementById('monto-pagar');
+            var inputMonto = document.getElementById('monto');
             
             if (data && typeof data.monto_pendiente !== "undefined") {
-                // Si hay un monto pendiente, mostramos la cantidad
-                if (data.monto_pendiente > 0) {
-                    montoPagar.textContent = "Monto pendiente: $" + data.monto_pendiente;
-                    montoPagar.style.color = "black"; // Monto pendiente en color normal
+                montoPendiente = data.monto_pendiente; // Almacena el monto pendiente globalmente
+                
+                // Mostrar el monto pendiente en el <h2> y establecer el valor máximo en el input
+                if (montoPendiente > 0) {
+                    montoPagar.textContent = "Monto pendiente: $" + montoPendiente;
+                    montoPagar.style.color = "black";
+                    inputMonto.max = montoPendiente; // Establece el valor máximo en el campo de entrada
                 } else {
-                    montoPagar.textContent = "Monto $" + data.monto_total_pedido +" pagado en su totalidad";
-                    montoPagar.style.color = "grren"; // Texto en rojo si el monto está completamente pagado
+                    montoPagar.textContent = "Monto pagado en su totalidad";
+                    montoPagar.style.color = "red";
+                    inputMonto.max = 0; // Si el pedido está pagado, el valor máximo es 0
                 }
             } else {
-                // Si no hay datos, mostramos un mensaje de error
                 montoPagar.textContent = "No se pudo obtener el monto.";
                 montoPagar.style.color = "red";
             }
@@ -85,6 +92,21 @@ function MostrarMonto(datos) {
     });
 }
 
+document.getElementById('monto').addEventListener('input', function() {
+    var inputMonto = parseFloat(this.value);
+
+    // Verifica si el monto ingresado es mayor al monto pendiente
+    if (inputMonto > montoPendiente) {
+        this.value = montoPendiente; // Si es mayor, ajusta el valor al monto pendiente
+        Swal.fire({
+            icon: "warning",
+            title: "Advertencia",
+            text: "No puedes ingresar un monto superior al monto pendiente por pagar."
+        });
+    }
+});
+
+
 //Para registrar nueva reporte
 $("#registrar").click(function (e) {
     e.preventDefault(); 
@@ -92,7 +114,7 @@ $("#registrar").click(function (e) {
     datos.append("accion", "registrar");
     datos.append("id_tipo_pago", $("select[name='nombre_metodo']").val());
     datos.append("id_banco", $("select[name='banco']").val());
-    datos.append("id_pedidp", $("select[name='pedido']").val());
+    datos.append("id_pedido", $("select[name='pedido']").val());
     datos.append("referencia", $("input[name='referencia']").val());
     datos.append("monto", $("input[name='monto']").val());
     datos.append("fyh_pago", $("input[name='fecha']").val());
