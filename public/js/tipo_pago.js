@@ -258,7 +258,7 @@ function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
         validateNombreEditar()&&
-        document.getElementById("nombre_editar").value;
+        document.getElementById("nombre_editar").value.trim() !== "";
       
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("modificar").disabled = !isFormValid;

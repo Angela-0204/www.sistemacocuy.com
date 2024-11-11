@@ -426,9 +426,9 @@ togglePassword2.addEventListener('click', function () {
         validateNombreEditar() &&
         validateEmailEdit() &&
       
-        document.getElementById("password_user_edit").value &&
-        document.getElementById("names_edit").value &&
-        document.getElementById("email_edit").value;
+        document.getElementById("password_user_edit").value.trim() !== "" &&
+        document.getElementById("names_edit").value.trim() !== "" &&
+        document.getElementById("email_edit").value.trim() !== "";
 
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("modificar").disabled = !isFormValid;

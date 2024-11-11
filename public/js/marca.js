@@ -237,7 +237,7 @@ function enableSubmit() {
 
         validateNombreEditar () &&
      
-        document.getElementById("nombre_editar").value;
+        document.getElementById("nombre_editar").value.trim() !== "";
     
         document.getElementById("modificar").disabled = !isFormValid;
 }

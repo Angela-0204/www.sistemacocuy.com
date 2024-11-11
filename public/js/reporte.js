@@ -261,13 +261,7 @@ document.getElementById("monto").addEventListener("keypress", function(event) {
     restrictInput(event, /^[0-9]$/, "monto", "Solo se permiten números.");
 });
 
-document.getElementById("referencia_editar").addEventListener("keypress", function(event) {
-    restrictInput(event, /^[0-9]$/, "referencia_editar", "Solo se permiten números.");
-});
 
-document.getElementById("monto_editar").addEventListener("keypress", function(event) {
-    restrictInput(event, /^[0-9]$/, "monto_editar", "Solo se permiten números.");
-});
 
 function validateReferencia() {
     const referencia = document.getElementById("referencia").value;

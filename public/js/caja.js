@@ -238,8 +238,8 @@ function enableSubmit() {
     const isFormValid =
         validateCantidadEditar() &&
         validateDescripcionEditar()&&
-        document.getElementById("descripcion_editar").value &&
-        document.getElementById("cantidad_editar").value;
+        document.getElementById("descripcion_editar").value.trim() !== "" &&
+        document.getElementById("cantidad_editar").value.trim() !== "";
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("modificar").disabled = !isFormValid;
 }
