@@ -126,9 +126,6 @@
           <div class="form-group">
             <label for="banco">Seleccione el Banco al que realizo el Pago</label>
             <select name="banco" id="banco" class="form-control">
-              <?php foreach ($data_banco as $bancos) { ?>
-                <option value="<?= $bancos['id_banco']; ?>"><?php echo $bancos['nombre_banco']; ?></option>
-              <?php } ?>
             </select>  
           </div>
 
