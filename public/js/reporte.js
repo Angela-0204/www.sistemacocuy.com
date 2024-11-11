@@ -1,28 +1,18 @@
-//Para registrar nueva categoria
+//Para registrar nueva reporte
 $("#registrar").click(function (e) {
     e.preventDefault(); 
     var datos = new FormData();
     datos.append("accion", "registrar");
-    datos.append("nombre_categoria", $("input[name='nombre_categoria']").val());
+    datos.append("id_tipo_pago", $("select[name='nombre_metodo']").val());
+    datos.append("id_banco", $("select[name='banco']").val());
+    datos.append("id_pedido", $("select[name='pedido']").val());
+    datos.append("referencia", $("input[name='referencia']").val());
+    datos.append("monto", $("input[name='monto']").val());
+    datos.append("fyh_pago", $("input[name='fecha']").val());
     AjaxRegistrar(datos);
 });
 
-//Para modificar categoria
-$("#modificar").click(function (e) {
-    e.preventDefault(); 
-    var datos = new FormData();
-    datos.append("accion", "modificar");
-    datos.append("id_categoria", $("input[name='id']").val());
-    datos.append("nombre_categoria", $("input[name='nombre_editar']").val());
-    funcionAjax(datos);
-});
 
-function editar(id){
-    var datos = new FormData();
-    datos.append("accion", "consultar");
-    datos.append("id_categoria", id);
-    AjaxEditar(datos);
-}
 
 
 //Para eliminar un registro
@@ -63,7 +53,7 @@ function AjaxRegistrar(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Categoria",
+                    title: "Pago",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -73,7 +63,7 @@ function AjaxRegistrar(datos) {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Hubo un problema al registrar la categoria."
+                    text: "Hubo un problema al registrar el pago."
                 });
             }
         },
@@ -101,7 +91,7 @@ function funcionAjax(datos) {
             if (res.estatus == 1) {
                 Swal.fire({
                     icon: "success",
-                    title: "Categoria",
+                    title: "Pago",
                     text: res.mensaje
                 });
                 setTimeout(function () {
@@ -126,30 +116,6 @@ function funcionAjax(datos) {
     });
 }
 
-
-function AjaxEditar(datos) {
-    $.ajax({
-        url: "",
-        type: "POST",
-        contentType: false,
-        data: datos,
-        processData: false,
-        cache: false,
-        success: function (response) {  
-            var res = JSON.parse(response);   
-            $("#id").val(res.id_categoria);
-            $("#nombre_editar").val(res.nombre_categoria);
-            $("#modal-edit-categoria").modal("show");   
-        },
-        error: function (err) {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Error en la solicitud."
-            });
-        }
-    });
-}
 
 //Para mostrar el error en el span
 function showError(field, message) {
@@ -178,60 +144,45 @@ function restrictInput(event, regex, field, errorMsg) {
 }
 
 // Bloqueo de caracteres no permitidos en `keypress`, para validar en tiempo real
-document.getElementById("nombre_categoria").addEventListener("keypress", function(event) {
-    restrictInput(event, /^[a-zA-Z\s]*$/, "nombre_categoria", "Solo se permiten letras.");
+document.getElementById("referencia").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[0-9]$/, "referencia", "Solo se permiten números.");
 });
 
-document.getElementById("nombre_editar").addEventListener("keypress", function(event) {
-    restrictInput(event, /^[a-zA-Z\s]*$/, "nombre_editar", "Solo se permiten letras.");
+document.getElementById("monto").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[0-9]$/, "monto", "Solo se permiten números.");
 });
 
-// Validaciones completas en `input`, sin mensajes de error
-function validateNombre() {
-    const nombre_categoria = document.getElementById("nombre_categoria").value;
-    const nombreRegex = /^[a-zA-Z\s]{5,50}$/;
-    if (!nombreRegex.test(nombre_categoria)) {
-        showError("nombre_categoria", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
-        return false;
-    } else {
-        clearError("nombre_categoria");
-        return true;
-    }
+document.getElementById("referencia_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[0-9]$/, "referencia_editar", "Solo se permiten números.");
+});
+
+document.getElementById("monto_editar").addEventListener("keypress", function(event) {
+    restrictInput(event, /^[0-9]$/, "monto_editar", "Solo se permiten números.");
+});
+
+function validateReferencia() {
+    const referencia = document.getElementById("referencia").value;
+    const valor = parseFloat(referencia);
+    return !isNaN(valor) && valor > 0;
 }
-
-// Validaciones completas en `input`, sin mensajes de error
-function validateNombreEditar() {
-    const nombre_editar = document.getElementById("nombre_editar").value;
-    const nombreRegex = /^[a-zA-Z\s]{3,50}$/;
-    if (!nombreRegex.test(nombre_editar)) {
-        showError("nombre_editar", "El nombre debe tener entre 3 y 50 caracteres y solo letras.");
-        return false;
-    } else {
-        clearError("nombre_editar");
-        return true;
-    }
+function validateMonto() {
+    const monto = document.getElementById("monto").value;
+    const valor = parseFloat(monto);
+    return !isNaN(valor) && valor > 0;
 }
 
 //Se valida de manera general
 function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
-        validateNombre() &&
-        document.getElementById("nombre_categoria").value;
+        validateReferencia() &&
+        validateMonto() &&
+        document.getElementById("referencia").value &&
+        document.getElementById("monto").value;
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
 
-document.getElementById("nombre_categoria").addEventListener("input", enableSubmit);
+document.getElementById("referencia").addEventListener("input", enableSubmit);
+document.getElementById("monto").addEventListener("input", enableSubmit);
 
-//Se valida de manera general
-function enableSubmit() {
-    //Se validan en funciones que cumplan todas con las exp reg
-    const isFormValid =
-        validateNombreEditar() &&
-        document.getElementById("nombre_editar").value;
-        // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
-        document.getElementById("modificar").disabled = !isFormValid;
-}
-
-document.getElementById("nombre_editar").addEventListener("input", enableSubmit);

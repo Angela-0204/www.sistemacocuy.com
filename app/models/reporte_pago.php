@@ -16,51 +16,39 @@ class Reporte_pago extends connectDB
         }
         return $respuestaArreglo;
     }
-
-    public function Crear($fyh_pago, $monto, $id_tipo_pago,  $referencia)
+    public function Crear($fyh_pago, $monto, $nro_pago, $referencia, $id_banco, $id_pedido)
     {
-        // SQL para insertar en la tabla detalle_pago
-        $sql_detalle_pago = "INSERT INTO detalle_pago (id_tipo_pago, referencia)
-                VALUES (:id_tipo_pago, :referencia)";
-        // Preparamos la consulta
-        $resultado_detalle_pago = $this->conex->prepare($sql_detalle_pago);
+        $sql_pago = "INSERT INTO pago (nro_pago, fyh_pago, monto, referencia, id_banco)
+                    VALUES (:nro_pago, :fyh_pago, :monto, :referencia, :id_banco)";
+        $resultado_pago = $this->conex->prepare($sql_pago);
     
         try {
-            // Ejecutamos el primer INSERT en inventario
-            $resultado_detalle_pago->execute([
-
-                'id_tipo_pago' => $id_tipo_pago,
-             
-                'referencia' => $referencia
-                
-            ]);           
-    
-            // Obtener el ID generado del último registro insertado en inventario
-            $nro_pago = $this->conex->lastInsertId();
-            $sql_detalle_pago = "INSERT INTO pago (id_detalle_pago, fyh_pago, monto)
- 
-                VALUES (:id_detalle_pago, :fyh_pago, :monto)";
-            // Preparamos la consulta para detalle_inventario
-            $resultado_detalle_pago = $this->conex->prepare($sql_detalle_pago);
-    
-            // Ejecutamos el segundo INSERT en detalle_inventario con el cod_inventario obtenido
-            $resultado_detalle_pago->execute([
-                'id_detalle_pago' => $nro_pago,
+            $resultado_pago->execute([
+                'nro_pago' => $nro_pago,
                 'fyh_pago' => $fyh_pago,
                 'monto' => $monto,
-                'id_tipo_pago' => $id_tipo_pago,
-          
-                'referencia' => $referencia
-                
-                             
+                'referencia' => $referencia,
+                'id_banco' => $id_banco
             ]);
     
-            return true;  // Todo se ejecutó correctamente
+            $nro_pago = $this->conex->lastInsertId();
+    
+            $sql_detalle_pago = "INSERT INTO detalle_pago (nro_pago, id_pedido)
+                                VALUES (:nro_pago, :id_pedido)";
+            $resultado_detalle_pago = $this->conex->prepare($sql_detalle_pago);
+    
+            $resultado_detalle_pago->execute([
+                'nro_pago' => $nro_pago,
+                'id_pedido' => $id_pedido
+            ]);
+    
+            return true;
         } catch (Exception $e) {
-            echo "Error al crear el producto: " . $e->getMessage();
+            echo "Error al registrar el pago: " . $e->getMessage();
             return false;
         }
     }
+    
     
     public function Buscar($id)
     {
@@ -75,35 +63,16 @@ class Reporte_pago extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_categoria, $nombre_categoria)
-    {
-        $sql = "UPDATE categoria SET nombre_categoria = :nombre_categoria
-                WHERE id_categoria = :id_categoria";
-            
-        $resultado = $this->conex->prepare($sql);
-        try {
-            $resultado->execute([
-                'nombre_categoria' => $nombre_categoria,
-                
-                'id_categoria' => $id_categoria
-            ]);
-        } catch (Exception $e) {
-            echo "Error al modificar el producto: " . $e->getMessage();
-            return false;
-        }
-        
-        return true;
-    }
 
-    public function Eliminar($id_categoria)
+    public function Eliminar($nro_pago)
     {
-        $sql = "DELETE FROM categoria WHERE id_categoria = :id_categoria";
+        $sql = "DELETE FROM pago WHERE nro_pago = :nro_pago";
         $resultado = $this->conex->prepare($sql);
         
         try {
-            $resultado->execute(['id_categoria' => $id_categoria]);
+            $resultado->execute(['nro_pago' => $nro_pago]);
         } catch (Exception $e) {
-            echo "Error al eliminar la categoria: " . $e->getMessage();
+            echo "Error al eliminar el pago: " . $e->getMessage();
             return false;
         }
         

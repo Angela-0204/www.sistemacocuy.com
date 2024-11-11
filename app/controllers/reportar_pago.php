@@ -9,52 +9,51 @@ if (!isset($_SESSION['id_user'])) {
 include('app/config.php');
 include($MODELS . 'reporte_pago.php');
 include ($MODELS . 'tipo_pago.php');
+include($MODELS . 'banco.php');
+include($MODELS . 'pedido.php');
+$pedido = new Pedido();
+$data_pedido = $pedido->Listar();
 $tipo = new Tipo();
 $reporte = new Reporte_pago();
+$banco = new Banco();
+$data_banco = $banco->Listar();
 $data_tipos = $tipo->Listar();
 $data_reportes = $reporte->Listar();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     switch($_POST['accion']){
         //Para registrar
         case 'registrar':
            
            
-            $id_detalle_pago = $_POST ['id_detalle_pago'];
+            $nro_pago = $_POST ['nro_pago'];
             
              $monto = $_POST ['monto'];
             $referencia = $_POST ['referencia'];
-            $nombre = $_POST ['nombre'];
+
              $fyh_pago = $_POST['fyh_pago'];
-            
+             $id_banco = $_POST ['id_banco'];
+             $id_pedido = $_POST ['id_pedido'];
             
         
-             $result = $reporte->Crear($monto, $id_detalle_pago, $referencia, $nombre, $fyh_pago);
+             $result = $reporte->Crear($fyh_pago, $monto, $nro_pago,  $referencia, $id_banco, $id_pedido);
+
 
             
             $response = array();
             if ($result) {
                 $response['estatus'] = 1;
-                $response['mensaje'] = "Categoria registrada exitosamente.";
+                $response['mensaje'] = "Reporte registrado exitosamente.";
             } else {
                 $response['estatus'] = 0;
-                $response['mensaje'] = "Error al registrar la categoria.";
+                $response['mensaje'] = "Error al registrar el reporte.";
             }
             
             echo json_encode($response);
             return 0;
         break;
 
-        //Para consultar el registro a modificar
-        case 'consultar':
-            $data = $categoria->Buscar($_POST['id_categoria']);
-            foreach ($data as $valor) {
-                echo json_encode([
-                    'id_categoria' => $valor['id_categoria'],
-                    'nombre_categoria' => $valor['nombre_categoria']
-                ]);
-            }
-            return 0;
-        break;
+    
 
         //Para eliminar un registro
         case 'eliminar':
@@ -71,25 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return 0;
         break;
 
-        //Para modificar los datos
-        case 'modificar':
-            $id = $_POST['id_categoria'];
-            $nombre = $_POST['nombre_categoria'];
-            $fecha = date("Y-m-d H:i:s"); 
-        
-            $result = $categoria->Modificar($id, $nombre, $fecha);
-            $respuesta = array();
-            if ($result) {
-                $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Categoria Modificada exitosamente.";
-            } else {
-                $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al modificar la categoria.";
-            }
-            echo json_encode($respuesta);
-            return 0;
-        break;            
-
+   
     }
 }
 

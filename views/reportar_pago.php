@@ -22,7 +22,7 @@
           <div class="card card-outline card-primary">
             <div class="card-header ">
               <h3 class="card-title mb-0">Pagos registrados</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Añadir Categoría</button>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Crear Reporte De Pago</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -80,9 +80,7 @@
                       <td><?php echo $pago_dato['usuario']; ?></td>
 
                       <td>
-                        <button onclick="editar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-warning btn-sm">
-                          <i class="fas fa-edit"></i>
-                        </button>
+                        
                         <button onclick="eliminar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
@@ -118,7 +116,7 @@
         <form>
           <div class="form-group">
             <label for="nombre">Seleccione el método de pago utilizado</label>
-            <select name="nombre" id="nombre" class="form-control">
+            <select name="nombre_metodo" id="nombre_metodo" class="form-control">
               <?php foreach ($data_tipos as $tipos) { ?>
                 <option value="<?= $tipos['id_tipo_pago']; ?>"><?php echo $tipos['nombre']; ?></option>
               <?php } ?>
@@ -136,23 +134,25 @@
 
           <div class="form-group">
             <label for="pedido">Seleccione el pedido al cual va a realizar el pago</label>
-            <select name="nombre" id="nombre" class="form-control">
-              <?php foreach ($pedido as $data_pedidos) { ?>
-                <option value="<?= $tipos['id_pedido']; ?>"><?php echo $tipos['id_pedido']; ?></option>
+            <select name="pedido" id="pedido" class="form-control">
+              <?php foreach ($data_pedido as $pedido ) { ?>
+                <option value="<?= $pedido['id_pedido']; ?>"><?php echo $pedido['nombre_cliente']; ?></option>
               <?php } ?>
             </select>  
           </div>
           
           <div class="form-group">
-            <label for="referencia">Número de Referencia</label>
-            <input type="text" name="referencia" class="form-control" placeholder="Escriba aquí el número de referencia del depósito">
+            <label for="referencia">Número de Referencia <span class="required">*</span></label>
+            <input type="text" name="referencia" id="referencia" class="form-control" placeholder="Escriba aquí el número de referencia del depósito">
+            <span id="referenciaError" class="text-danger"></span>
           </div>
           
      
           
           <div class="form-group">
-            <label for="monto">Monto depositado en Bolívares</label>
-            <input type="number" name="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en bolívares">
+            <label for="monto">Monto depositado en Bolívares <span class="required">*</span></label>
+            <input type="number" name="monto" id="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en bolívares">
+            <span id="montoError" class="text-danger"></span>
           </div>
           
           <div class="form-group">
@@ -170,7 +170,9 @@
   </div>
 </div>
 
-  </div>
+
+
+  
 
   <!-- /.content-wrapper -->
   <?php include('views/layout/footer.php'); ?>
