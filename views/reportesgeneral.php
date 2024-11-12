@@ -81,12 +81,12 @@
             <h3>Pagos</h3>
             <p>Reporte de pagos</p>
           </div>
-          <a href="?pagina=reporteinventario">
+          <a onclick="generar('reporte_pagos');">
             <div class="icon">
               <i class="nav-icon fas fa-sharp-duotone  fa-file-excel"></i>
             </div>
           </a>
-          <a href="?pagina=reporteinventario" class="small-box-footer" style="color:black">
+          <a href="#" onclick="generar('reporte_pagos');" class="small-box-footer" style="color:black">
             Generar Reporte en Excel <i class="fas fa-arrow-circle-right"></i>
           </a>
         </div>

@@ -71,6 +71,24 @@ if (isset($_GET['reporte'])) {
         }
         exit;
     }
+    if ($reporte == 'reporte_pagos') {
+        // Generar el PDF y devolver la URL para abrir el archivo
+        $pdfFilePath = 'app/reportes/'.$reporte.'.php';
+
+        // Verifica si el archivo existe
+        if (file_exists($pdfFilePath)) {
+            echo json_encode([
+                "estatus" => 1,
+                "url" => $pdfFilePath
+            ]);
+        } else {
+            echo json_encode([
+                "estatus" => 0,
+                "mensaje" => "Error al generar el PDF."
+            ]);
+        }
+        exit;
+    }
     
     
     
