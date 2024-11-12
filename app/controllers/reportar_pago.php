@@ -48,41 +48,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return 0;
         break;
 
-    
-
         //Para eliminar un registro
         case 'eliminar':
-            $result = $categoria->Eliminar($_POST['id']);
+            $result = $reporte->Eliminar($_POST['id']);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Categoria Eliminada exitosamente.";
+                $respuesta['mensaje'] = "Pago Eliminado exitosamente.";
             } else {
                 $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al eliminar la categoria.";
+                $respuesta['mensaje'] = "Error al eliminar el Pago.";
             }
             echo json_encode($respuesta);
             return 0;
         break;
-
-        //Para modificar los datos
-        case 'modificar':
-            $id = $_POST['id_categoria'];
-            $nombre = $_POST['nombre_categoria'];
-            $fecha = date("Y-m-d H:i:s"); 
-        
-            $result = $categoria->Modificar($id, $nombre, $fecha);
-            $respuesta = array();
-            if ($result) {
-                $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Categoria Modificada exitosamente.";
-            } else {
-                $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al modificar la categoria.";
-            }
-            echo json_encode($respuesta);
-            return 0;
-        break;    
         case 'listar_bancos':
             $data = $banco->BuscarPorTipoPago($_POST['id_tipo_pago']);
             echo json_encode($data); // Devuelve los datos en formato JSON

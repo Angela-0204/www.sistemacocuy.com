@@ -8,7 +8,7 @@ document.getElementById('pedido').addEventListener('change', function() {
     var datos = new FormData();
     datos.append("accion", "mostrar_monto");
     datos.append("id_pedido", id_pedido);
-    //MostrarMonto(datos);
+    MostrarMonto(datos);
 });
 function consultarBancos(id){
     var datos = new FormData();
@@ -92,7 +92,7 @@ function MostrarMonto(datos) {
     });
 }
 
-/*document.getElementById('monto').addEventListener('input', function() {
+document.getElementById('monto').addEventListener('input', function() {
     var inputMonto = parseFloat(this.value);
 
     // Verifica si el monto ingresado es mayor al monto pendiente
@@ -104,7 +104,7 @@ function MostrarMonto(datos) {
             text: "No puedes ingresar un monto superior al monto pendiente por pagar."
         });
     }
-});*/
+});
 
 
 //Para registrar nueva reporte
@@ -127,7 +127,7 @@ $("#registrar").click(function (e) {
 //Para eliminar un registro
 function eliminar(id) {
     Swal.fire({
-        title: "¿Está seguro de eliminar el registro?",
+        title: "¿Está seguro de eliminar el registro del pago?",
         text: "¡No podrás revertir esto!",
         icon: "warning",
         showCloseButton: true,

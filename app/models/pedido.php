@@ -106,25 +106,30 @@ class Pedido extends connectDB
     public function ObtenerMonto($id_pedido)
     {
         $resultado = $this->conex->prepare("
-            SELECT 
-                p.id_pedido,
-                IFNULL(SUM(dp.cantidad * di.precio_venta), 0) AS monto_total_pedido,
-                IFNULL(SUM(pa.monto), 0) AS monto_pagado,
-                (IFNULL(SUM(dp.cantidad * di.precio_venta), 0) - IFNULL(SUM(pa.monto), 0)) AS monto_pendiente
-            FROM 
-                pedido p
-            LEFT JOIN 
-                detalle_pedido dp ON p.id_pedido = dp.id_pedido
-            LEFT JOIN 
-                detalle_inventario di ON dp.id_detalle_inventario = di.id_detalle_inventario
-            LEFT JOIN 
-                detalle_pago dpa ON p.id_pedido = dpa.id_pedido
-            LEFT JOIN 
-                pago pa ON dpa.nro_pago = pa.nro_pago
-            WHERE 
-                p.id_pedido = :id_pedido
-            GROUP BY 
-                p.id_pedido
+        SELECT 
+        p.id_pedido, 
+        IFNULL((SELECT SUM(dp.cantidad * di.precio_venta)
+                FROM detalle_pedido dp
+                LEFT JOIN detalle_inventario di ON dp.id_detalle_inventario = di.id_detalle_inventario
+                WHERE dp.id_pedido = p.id_pedido), 0) AS monto_total_pedido,
+        IFNULL((SELECT SUM(pa.monto)
+                FROM detalle_pago dpa
+                LEFT JOIN pago pa ON dpa.nro_pago = pa.nro_pago
+                WHERE dpa.id_pedido = p.id_pedido), 0) AS monto_pagado,
+        (IFNULL((SELECT SUM(dp.cantidad * di.precio_venta)
+                FROM detalle_pedido dp
+                LEFT JOIN detalle_inventario di ON dp.id_detalle_inventario = di.id_detalle_inventario
+                WHERE dp.id_pedido = p.id_pedido), 0)
+         - 
+         IFNULL((SELECT SUM(pa.monto)
+                FROM detalle_pago dpa
+                LEFT JOIN pago pa ON dpa.nro_pago = pa.nro_pago
+                WHERE dpa.id_pedido = p.id_pedido), 0)
+        ) AS monto_pendiente
+    FROM 
+        pedido p
+    WHERE 
+        p.id_pedido = :id_pedido;
         ");
     
         $respuestaArreglo = [];
