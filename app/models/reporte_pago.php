@@ -76,18 +76,32 @@ class Reporte_pago extends connectDB
 
     public function Eliminar($nro_pago)
     {
-        $sql = "DELETE FROM pago WHERE nro_pago = :nro_pago";
-        $resultado = $this->conex->prepare($sql);
-        
+        // Iniciar la transacción para asegurar que ambas eliminaciones ocurren juntas
+        $this->conex->beginTransaction();
+    
         try {
-            $resultado->execute(['nro_pago' => $nro_pago]);
+            // Primero, eliminar los detalles asociados en la tabla detalle_pago
+            $sqlDetallePago = "DELETE FROM detalle_pago WHERE nro_pago = :nro_pago";
+            $stmtDetallePago = $this->conex->prepare($sqlDetallePago);
+            $stmtDetallePago->execute(['nro_pago' => $nro_pago]);
+    
+            // Luego, eliminar el pago en la tabla pago
+            $sqlPago = "DELETE FROM pago WHERE nro_pago = :nro_pago";
+            $stmtPago = $this->conex->prepare($sqlPago);
+            $stmtPago->execute(['nro_pago' => $nro_pago]);
+    
+            // Confirmar la transacción
+            $this->conex->commit();
+            return true;
+    
         } catch (Exception $e) {
-            echo "Error al eliminar el pago: " . $e->getMessage();
+            // En caso de error, revertir la transacción
+            $this->conex->rollBack();
+            echo "Error al eliminar el pago y sus detalles: " . $e->getMessage();
             return false;
         }
-        
-        return true;
     }
+    
 
 }
 ?>
