@@ -113,7 +113,7 @@
                         </tbody>
                     </table>
                     <div>
-                      <button class="btn btn-success" id="registrar">Registrar</button>
+                      <button class="btn btn-success" disabled id="registrar">Registrar</button>
                     </div>
                   </div>
               </div>
