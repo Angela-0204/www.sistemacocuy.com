@@ -1,4 +1,4 @@
-<?php include('views/layout/menu_usuario.php'); ?>
+<?php include('views/layout/menu.php'); ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -22,7 +22,7 @@
           <div class="card card-outline card-primary">
             <div class="card-header ">
               <h3 class="card-title mb-0">Pagos registrados</h3>
-              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="pagoModalLabel">Registrar Pago de Pedido</button>
+              <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#modal-add-categoria">Crear Reporte De Pago</button>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -75,14 +75,12 @@
                       <td><?php echo $pago_dato['tipo_pago']; ?></td>
                       <td><?php echo $pago_dato['nombre_banco']; ?></td>
                       <td><?php echo $pago_dato['monto']; ?></td>
-                      <td><?php echo $pago_dato['id_pedido']; ?></td>
+                      <td><?php echo "A-000".$pago_dato['id_pedido']; ?></td>
                       <td><?php echo $pago_dato['nombre_cliente']; ?></td>
                       <td><?php echo $pago_dato['usuario']; ?></td>
 
                       <td>
-                        <button onclick="editar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-warning btn-sm">
-                          <i class="fas fa-edit"></i>
-                        </button>
+                        
                         <button onclick="eliminar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash"></i>
                         </button>
@@ -103,9 +101,8 @@
   </div>
   <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
-<!-- Modal Structure -->
-<div class="modal fade" id="pagoModal" tabindex="-1" aria-labelledby="pagoModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="modal-add-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -119,7 +116,7 @@
         <form>
           <div class="form-group">
             <label for="nombre">Seleccione el método de pago utilizado</label>
-            <select name="nombre" id="nombre" class="form-control">
+            <select name="nombre_metodo" id="nombre_metodo" class="form-control">
               <?php foreach ($data_tipos as $tipos) { ?>
                 <option value="<?= $tipos['id_tipo_pago']; ?>"><?php echo $tipos['nombre']; ?></option>
               <?php } ?>
@@ -127,24 +124,35 @@
           </div>
 
           <div class="form-group">
+            <label for="banco">Seleccione el Banco al que realizo el Pago</label>
+            <select name="banco" id="banco" class="form-control">
+            </select>  
+          </div>
+
+          <div class="form-group">
             <label for="pedido">Seleccione el pedido al cual va a realizar el pago</label>
-            <select name="nombre" id="nombre" class="form-control">
-              <?php foreach ($pedido as $data_pedidos) { ?>
-                <option value="<?= $tipos['id_pedido']; ?>"><?php echo $tipos['id_pedido']; ?></option>
+            <select name="pedido" id="pedido" class="form-control">
+              <option value="" selected disabled>Seleccione</option>
+              <?php foreach ($data_pedidos as $pedido) { ?>
+                <option value="<?= $pedido['id_pedido']; ?>"><?php echo "A-000".$pedido['id_pedido']." / Cliente: ".$pedido['nombre_cliente']; ?></option>
               <?php } ?>
             </select>  
           </div>
-          
+          <div class="m-4">
+            <h4 id="monto-pagar"></h4>
+          </div>
           <div class="form-group">
             <label for="referencia">Número de Referencia</label>
-            <input type="text" name="referencia" class="form-control" placeholder="Escriba aquí el número de referencia del depósito">
+            <input type="text" name="referencia" id="referencia" class="form-control" placeholder="Escriba aquí el número de referencia del depósito">
+            <span id="referenciaError" class="text-danger"></span>
           </div>
           
      
           
           <div class="form-group">
             <label for="monto">Monto depositado en Bolívares</label>
-            <input type="number" name="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en bolívares">
+            <input type="number" name="monto" id="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en bolívares">
+            <span id="montoError" class="text-danger"></span>
           </div>
           
           <div class="form-group">
@@ -156,13 +164,15 @@
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary" id="registrar" name="registrar">Guardar</button>
+        <button type="submit" class="btn btn-primary" disabled id="registrar" name="registrar">Guardar</button>
       </div>
     </div>
   </div>
 </div>
 
-  </div>
+
+
+  
 
   <!-- /.content-wrapper -->
   <?php include('views/layout/footer.php'); ?>

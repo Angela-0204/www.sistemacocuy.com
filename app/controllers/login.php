@@ -10,6 +10,8 @@ if(isset($_POST['accion'])){
         $cont = $cont + 1;
         $names = $user['names'];
         $id = $user['id_users'];
+        $rol = $user['cod_tipo_usuario'];
+         
     }
     if ($cont == 0) {
         echo json_encode([
@@ -23,6 +25,7 @@ if(isset($_POST['accion'])){
         session_start();
         $_SESSION['sesion_email'] = $names;
         $_SESSION['id_user'] = $id;
+        $_SESSION['rol'] = $rol;
         echo json_encode([
             'estatus' => '1',
             'icon' => 'success',

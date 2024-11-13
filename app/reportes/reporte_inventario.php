@@ -6,7 +6,7 @@ include('../../'.$MODELS . 'producto.php');
 
 // Obtiene los datos de productos
 $producto = new Producto();
-$data_products = $producto->Listar();
+$data_products = $producto->ListarDesgloce();
 
 // Crea una instancia de TCPDF
 $pdf = new TCPDF();
@@ -30,9 +30,12 @@ $pdf->Ln(10);
 
 // Encabezados de la tabla
 $pdf->SetFont('helvetica', 'B', 10);
-$pdf->Cell(30, 10, 'Código', 1, 0, 'C');
-$pdf->Cell(40, 10, 'Nombre', 1, 0, 'C');
-$pdf->Cell(60, 10, 'Descripción', 1, 0, 'C');
+$pdf->Cell(30, 10, 'Nombre', 1, 0, 'C');
+$pdf->Cell(30, 10, 'Descripción', 1, 0, 'C');
+$pdf->Cell(20, 10, 'Categoría', 1, 0, 'C');
+$pdf->Cell(20, 10, 'Marca', 1, 0, 'C');
+$pdf->Cell(25, 10, 'Ud. Medida', 1, 0, 'C');
+$pdf->Cell(25, 10, 'Empaquetado', 1, 0, 'C');
 $pdf->Cell(20, 10, 'Stock', 1, 0, 'C');
 $pdf->Cell(20, 10, 'Precio', 1, 0, 'C');
 $pdf->Ln();
@@ -40,13 +43,17 @@ $pdf->Ln();
 // Llenado de datos en la tabla
 $pdf->SetFont('helvetica', '', 9);
 foreach ($data_products as $product) {
-    $pdf->Cell(30, 10, $product['cod_inventario'], 1, 0, 'C');
-    $pdf->Cell(40, 10, $product['nombre'], 1, 0, 'L');
-    $pdf->Cell(60, 10, $product['descripcion'], 1, 0, 'L');
+    $pdf->Cell(30, 10, $product['producto_nombre'], 1, 0, 'L');
+    $pdf->Cell(30, 10, $product['producto_descripcion'], 1, 0, 'L');
+    $pdf->Cell(20, 10, $product['categoria'], 1, 0, 'L');
+    $pdf->Cell(20, 10, $product['marca'], 1, 0, 'L');
+    $pdf->Cell(25, 10, $product['unidad_medida'], 1, 0, 'L');
+    $pdf->Cell(25, 10, $product['cantidad_empaquetado'], 1, 0, 'C');
     $pdf->Cell(20, 10, $product['stock'], 1, 0, 'C');
-    $pdf->Cell(20, 10, '$' . $product['precio_venta'], 1, 0, 'R');
+    $pdf->Cell(20, 10, '$' . number_format($product['precio'], 2), 1, 0, 'R');
     $pdf->Ln();
 }
+
 
 // Cierra y envía el archivo al navegador para descargar o mostrar
 $pdf->Output('reporte_inventario.pdf', 'I');

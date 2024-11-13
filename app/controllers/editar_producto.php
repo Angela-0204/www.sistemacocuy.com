@@ -4,12 +4,13 @@ include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
 include($MODELS . 'caja.php');
 include($MODELS . 'marcas.php');
+
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
 $marcas = new Marcas();
 
-//Para listar categorias en los selects
+// Para listar categorías, cajas y marcas en los selects
 $data_categorias = $categoria->Listar();
 $data_cajas = $caja->Listar();
 $data_marcas = $marcas->Listar();
@@ -20,14 +21,29 @@ if (!isset($_SESSION['id_user'])) {
     header('Location: ?pagina=login');
     exit();  // Asegura que no se ejecute el código restante de la página
 }
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
+// Verificar si recibimos el id del producto a editar
+if (isset($_GET['id'])) {
+    $cod_inventario = $_GET['id'];
+
+    // Obtener datos principales del producto usando el id
+    $productoData = $producto->ObtenerProductoPorId($cod_inventario);
+
+    // Si no se encuentra el producto, redirigir a una página de error o mostrar un mensaje
+    if (!$productoData) {
+        echo "Producto no encontrado.";
+        exit;
+    }
+
+    // Obtener los detalles de inventario asociados al producto
+    $detallesInventario = $producto->ObtenerDetallesInventario($cod_inventario);
+}
 
 if (isset($_POST['accion'])) {
     switch ($_POST['accion']) {
-        case 'registrar':
+        case 'modificar':
+            // Recoger los datos del formulario
+            $cod_inventario = $_GET['id'];
             $nombre = $_POST['nombre'];
             $descripcion = $_POST['descripcion'];
             $id_categoria = $_POST['categoria'];
@@ -46,21 +62,24 @@ if (isset($_POST['accion'])) {
     
             $fyh_actualizacion = date('Y-m-d H:i:s');
     
-            // Recoger detalles de producto
-            $detalles = isset($_POST['detalles']) ? $_POST['detalles'] : [];
+            // Recoger detalles del inventario
+            // Aquí vamos a decodificar la cadena JSON que enviamos desde el cliente
+            $detalles = isset($_POST['detalles']) ? json_decode($_POST['detalles'], true) : [];    
             if (!is_array($detalles) || empty($detalles)) {
+                header("Content-Type: application/json");
                 echo json_encode(['estatus' => 0, 'mensaje' => "Detalles de producto no válidos."]);
                 exit;
             }
-            
-            // Enviar datos a la función Crear
-            $result = $producto->Crear(
-                $nombre,
-                $descripcion,
-                $id_categoria,
-                $id_marca,
-                $imagen,
-                $fecha_creacion,
+    
+            // Llamar al método Modificar en el modelo
+            $result = $producto->Modificar(
+                $cod_inventario, 
+                $nombre, 
+                $descripcion, 
+                $id_categoria, 
+                $id_marca, 
+                $imagen, 
+                $fecha_creacion, 
                 $fyh_actualizacion,
                 $detalles
             );
@@ -69,11 +88,11 @@ if (isset($_POST['accion'])) {
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;
-                $respuesta['mensaje'] = "Producto registrado exitosamente.";
+                $respuesta['mensaje'] = "Producto modificado exitosamente.";
                 $respuesta['icon'] = 'success';
             } else {
                 $respuesta['estatus'] = 0;
-                $respuesta['mensaje'] = "Error al registrar el producto.";
+                $respuesta['mensaje'] = "Error al modificar el producto.";
                 $respuesta['icon'] = 'error';
             }
     
@@ -84,8 +103,8 @@ if (isset($_POST['accion'])) {
     
 }
 
+
 // Solo incluye la vista si no es una solicitud de acción
 if (!isset($_POST['accion'])) {
-    include($VIEW . 'producto/agregar.php');
+    include($VIEW . 'producto/editar.php');
 }
-?>

@@ -1,21 +1,34 @@
 $("#registrar").click(function (e) {
     e.preventDefault();
+
     var datos = new FormData();
-    datos.append("accion", "registrar"); 
+    datos.append("accion", "registrar");
     datos.append("nombre", $("input[name='nombre']").val());
     datos.append("descripcion", $("input[name='descripcion']").val());
-    datos.append("marca", $("select[name='marca']").val());
     datos.append("categoria", $("select[name='categoria']").val());
-    datos.append("stock", $("input[name='stock']").val());
-    datos.append("precio", $("input[name='precio']").val());
+    datos.append("marca", $("select[name='marca']").val());
     datos.append("fecha", $("input[name='fecha']").val());
-    datos.append("caja", $("select[name='caja']").val());
-    datos.append("lote", $("select[name='lote']").val());
-    datos.append("estatus", $("select[name='estatus']").val());
     datos.append("imagen", $("input[name='imagen']")[0].files[0]);
+
+    $("#detalleInventarioTable tbody tr").each(function (index, row) {
+        let empaquetadoId = $(row).find("td[data-empaquetado-id]").data("empaquetado-id");
+        let stock = $(row).find("td:eq(1)").text().trim();
+        let lote = $(row).find("td:eq(2)").text().trim();
+        let precio = $(row).find("td:eq(3)").text().trim();
+        let estatus = $(row).find("td:eq(4) select").val();
+
+        datos.append(`detalles[${index}][empaquetado]`, empaquetadoId);
+        datos.append(`detalles[${index}][stock]`, stock);
+        datos.append(`detalles[${index}][lote]`, lote);
+        datos.append(`detalles[${index}][precio]`, precio);
+        datos.append(`detalles[${index}][estatus]`, estatus);
+    });
+
+    console.log("Datos enviados:", datos); // Imprime en consola para revisar
 
     AjaxRegistrar(datos);
 });
+
 
 function AjaxRegistrar(datos) {
     $.ajax({
@@ -53,13 +66,10 @@ function AjaxRegistrar(datos) {
                 });
             }
         },
-        error: function (err) {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Error en la solicitud."
-            });
-        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud:", error);
+            console.log(xhr.responseText); // Mostrar la respuesta del servidor
+        }
     });
 }
 
@@ -156,13 +166,9 @@ function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
         validateNombre() &&
-        validateStock() &&
-        validatePrecio() &&
-        validateLote() &&
         validateFecha() &&
         document.getElementById("descripcion").value && //Y aqui se validan que realmente tengan un valor estos campos
-        document.getElementById("categoria").value && //Ya que son los requeridos
-        document.getElementById("caja").value;
+        document.getElementById("categoria").value;
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
@@ -177,3 +183,88 @@ document.getElementById("descripcion").addEventListener("input", enableSubmit);
 document.getElementById("categoria").addEventListener("change", enableSubmit);
 document.getElementById("caja").addEventListener("change", enableSubmit);
 
+
+function agregarDetalle() {
+    // Abre el modal para agregar el detalle
+    $('#detalleModal').modal('show');
+  }
+
+function guardarDetalle() {
+    // Función para agregar una nueva fila a la tabla, similar al código anterior
+    const presentacionId = $('#presentacion').val();
+    const empaquetadoId = $('#empaquetado').val();
+    const presentacionText = $('#presentacion option:selected').text();
+    const empaquetadoText = $('#empaquetado option:selected').text();
+    const stock = $('#stock').val();
+    const lote = $('#lote').val();
+    const precio = $('#precio').val();
+    const estatus = $('#estatus').val();
+
+    $('#detalleInventarioTable tbody').append(`
+        <tr>
+            <td data-empaquetado-id="${empaquetadoId}">${empaquetadoText}</td>
+            <td contenteditable="true" onblur="actualizarValor(this, 'stock')">${stock}</td>
+            <td contenteditable="true" onblur="actualizarValor(this, 'lote')">${lote}</td>
+            <td contenteditable="true" onblur="actualizarValor(this, 'precio')">${precio}</td>
+            <td>
+                <select class="form-control" onchange="actualizarValor(this, 'estatus')">
+                    <option value="activo" ${estatus === 'activo' ? 'selected' : ''}>Activo</option>
+                    <option value="inactivo" ${estatus === 'inactivo' ? 'selected' : ''}>Inactivo</option>
+                </select>
+            </td>
+            <td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarDetalle(this)">Eliminar</button></td>
+        </tr>
+    `);
+
+    // Cierra el modal y limpia el formulario
+    $('#detalleModal').modal('hide');
+    $('#detalleForm')[0].reset();
+}
+
+// Función para actualizar el valor en la tabla y mantenerlo en el DOM
+function actualizarValor(elemento, campo) {
+    const nuevoValor = elemento.innerText || elemento.value;
+    const fila = $(elemento).closest('tr');
+    
+    // Almacena el nuevo valor en un atributo de la fila para posibles actualizaciones futuras
+    fila.data(campo, nuevoValor);
+}
+
+
+
+function eliminarDetalle(button) {
+    // Elimina la fila seleccionada
+    $(button).closest('tr').remove();
+}
+
+//Para modificar caja
+$("#modificar").click(function (e) {
+    e.preventDefault();
+
+    var detalles = [];
+    $("#detalleInventarioTable tbody tr").each(function () {
+        var row = $(this);
+        detalles.push({
+            stock: row.find("td:eq(1)").text(),
+            lote: row.find("td:eq(2)").text(),
+            precio_venta: row.find("td:eq(3)").text(),
+            estatus: row.find("select").val(),
+            id_empaquetado: row.find("td:eq(0)").data("id_empaquetado") // Suponiendo que tienes el id del empaquetado
+        });
+    });
+
+    var datos = new FormData();
+    datos.append("accion", "modificar");
+    datos.append("nombre", $("input[name='nombre']").val());
+    datos.append("descripcion", $("input[name='descripcion']").val());
+    datos.append("marca", $("select[name='marca']").val());
+    datos.append("categoria", $("select[name='categoria']").val());
+    datos.append("fecha", $("input[name='fecha']").val());
+    datos.append("imagen", $("input[name='imagen']")[0].files[0]);
+
+    // Agregar detalles de inventario
+    datos.append("detalles", JSON.stringify(detalles));
+
+    // Llamada AJAX para modificar el producto
+    AjaxRegistrar(datos);
+});

@@ -1,4 +1,16 @@
 <?php include('views/layout/menu.php'); ?>
+<style>
+    /* Define colores de estado */
+    .status-activo {
+        color: green;
+        font-weight: bold;
+    }
+
+    .status-anulado {
+        color: red;
+        font-weight: bold;
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper"> <!-- Ajusta el valor de margin-top según tus necesidades -->
     <!-- Content Header (Page header) -->
@@ -50,27 +62,30 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
-                  $contador = 0;
-                  foreach ($data_pedido as $pedido_dato) {
-                    $status = $pedido_dato['estatus'] == 1 ? 'Activo': 'Inactivo'; ?>
+                  <?php foreach ($data_pedido as $pedido_dato) {
+                      // Determina el estado y la clase de color para el estado
+                      $status = $pedido_dato['estatus'] == 1 ? 'Activo' : 'Anulado';
+                      $status_class = $pedido_dato['estatus'] == 1 ? 'status-activo' : 'status-anulado';
+                  ?>
 
-                    <tr style="text-align: center;">
-                      <td><?php echo 'A-000'.$pedido_dato['id_pedido']; ?></td>
+                  <tr style="text-align: center;">
+                      <td><?php echo 'A-000' . $pedido_dato['id_pedido']; ?></td>
                       <td><?php echo date("d/m/Y", strtotime($pedido_dato['fecha_pedido'])); ?></td>
-                      <td><?php echo $pedido_dato['nombre_cliente'].' '.$pedido_dato['apellido']; ?></td>
-                      <td><?php echo $status ?></td>
+                      <td><?php echo $pedido_dato['nombre_cliente'] . ' ' . $pedido_dato['apellido']; ?></td>
+                      <td class="<?= $status_class; ?>"><?php echo $status; ?></td>
                       <td>
-                        <button onclick="editar(<?=$pedido_dato['id_presentacion'];?>)" class="btn btn-warning btn-sm">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button onclick="eliminar(<?=$pedido_dato['id_presentacion'];?>)" class="btn btn-danger btn-sm">
-                          <i class="fas fa-trash"></i>
-                        </button>
+                          <button onclick="mostrar(<?=$pedido_dato['id_pedido'];?>)" class="btn btn-warning btn-sm" title="Consultar Pedido">
+                              <i class="fas fa-eye"></i>
+                          </button>
+                          <?php if ($pedido_dato['estatus'] == 1) { ?>
+                              <button onclick="anular(<?=$pedido_dato['id_pedido'];?>)" class="btn btn-danger btn-sm" title="Anular Pedido">
+                                  <i class="fas fa-minus-circle"></i>
+                              </button>
+                          <?php } ?>
                       </td>
-                    </tr>
-                  <?php
-                  } ?>
+                  </tr>
+                  <?php } ?>
+
                 </tbody>
               </table>
                 </div>
@@ -84,65 +99,67 @@
     </div>
 </div>
 
-<!-- Modal de Bootstrap para "Agregar Productos" -->
-<div class="modal fade" id="agregarProductoModal" tabindex="-1" aria-labelledby="agregarProductoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+
+<!-- Modal -->
+<div class="modal fade" id="modalPedido" tabindex="-1" role="dialog" aria-labelledby="modalPedidoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="agregarProductoModalLabel">Agregar Producto</h5>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalPedidoLabel">Detalles del Pedido</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                  
+                <!-- Información general del pedido -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <p><strong>Código del Pedido:</strong> <span id="codigoPedido"></span></p>
+                        <p><strong>Fecha del Pedido:</strong> <span id="fechaPedido"></span></p>                      
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Cliente:</strong> <span id="clientePedido"></span></p>
+                        <p><strong>Usuario responsable:</strong> <span id="usuarioPedido"></span></p>
+                    </div>
+                </div>
+
+                <!-- Detalles del pedido -->
+                <h4 class="mb-3">Detalles del Pedido</h4>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Empaquetado</th>
+                            <th>Unidad de Medida</th>
+                            <th>Precio Unitario</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detallePedido">
+                        <!-- Los detalles del pedido se cargarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+
+                <!-- Total del pedido -->
                 <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Nombre Producto</label>
-                        <select name="nombre" id="nombre" class="form-control">
-                          <?php foreach ($data_nombre as $nombre) { ?>
-                            <option value="<?= $nombre['cod_inventario']; ?>"><?php echo $categorias['nombre']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
+                    <div class="col-md-12 text-right">
+                        <h4><strong>Total: $<span id="totalPedido"></span></strong></h4>
                     </div>
-                  
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label for="">Categoria del producto</label>
-                        <select name="categoria" id="categoria" class="form-control">
-                          <?php foreach ($data_categorias as $categorias) { ?>
-                            <option value="<?= $categorias['id_categoria']; ?>"><?php echo $categorias['nombre_categoria']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    </div>
-                    
-                    <div class="col-md-6 form-group">
-                        <label for="">Marca</label>
-                        <select name="marca" id="marca" class="form-control">
-                          <?php foreach ($data_pedido as $pedido_dato) { ?>
-                            <option value="<?= $pedido_dato['id_presentacion']; ?>"><?php echo $pedido_dato['marca']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    <div class="form-group">
-                        <label for="precioProducto">Cantidad de Productos</label>
-                        <input type="number" class="form-control" id="cantidad" placeholder="Cantidad de Productos">
-                    </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
+              <!-- Botón para generar PDF -->
+                <button type="button" id="btnGenerarPDF" class="btn btn-success">Generar PDF</button>
+
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar Producto</button>
             </div>
         </div>
     </div>
 </div>
 
-<?php
-if (isset($script)) {
-    echo $script;
-} ?>
+
 <?php include('views/layout/footer.php'); ?>
+<script src="public/js/lista_pedido.js"></script>

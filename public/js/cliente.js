@@ -476,15 +476,15 @@ function enableSubmit() {
         validateTelefonoEdit () &&
     
       
-        document.getElementById("nombre_cliente_edit").value &&
+        document.getElementById("nombre_cliente_edit").value.trim() !== "" &&
        
-        document.getElementById("email_edit").value &&
+        document.getElementById("email_edit").value.trim() !== "" &&
     
-        document.getElementById("apellido_edit").value &&
+        document.getElementById("apellido_edit").value.trim() !== "" &&
     
-        document.getElementById("direccion_edit").value &&
+        document.getElementById("direccion_edit").value.trim() !== "" &&
   
-        document.getElementById("telefono_edit").value;
+        document.getElementById("telefono_edit").value.trim() !== "";
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("modificar").disabled = !isFormValid;
 }

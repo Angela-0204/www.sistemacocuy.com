@@ -144,7 +144,7 @@
    <hr>
                 <div class="form-group">
                   <a href="" class="btn btn-secondary">Cancelar</a>
-                  <button id="registrar" class="btn btn-primary">Guardar</button>
+                  <button disabled id="registrar" class="btn btn-primary">Guardar</button>
                 </div>
               </div>
 

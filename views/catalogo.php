@@ -49,7 +49,8 @@
                                     <th>Producto</th>
                                     <th>Cantidad</th>
                                     <th>Precio Unitario</th>
-                                    <th>Stock</th> <!-- Nueva columna para el stock -->
+                                    <th>Stock</th> 
+                                    <th>Empaquetado</th> 
                                     <th>Subtotal</th>
                                     <th>Acción</th>
                                 </tr>
@@ -91,20 +92,22 @@
                 <!-- Formulario para seleccionar producto y cantidad -->
                 <form id="productForm">
                     <div class="form-group">
-                        <label for="productSelect">Producto</label>
-                        <select class="form-control" id="productSelect">
-                                <option selected disabled value="">Seleccione un producto</option>
-                            <?php foreach ($data_productos as $productos_dato) { ?>
-                                <option value="<?= $productos_dato['cod_inventario']; ?>"
-                                        data-name="<?= $productos_dato['nombre']; ?>"
-                                        data-price="<?= $productos_dato['precio_venta']; ?>"
-                                        data-stock="<?= $productos_dato['stock']; ?>">
-                                    <?= $productos_dato['nombre']; ?>
-                                </option>
+                        <label for="inventarioSelect">Inventario</label>
+                        <select class="form-control" id="inventarioSelect">
+                            <option selected disabled value="">Seleccione un inventario</option>
+                            <?php foreach ($data_inventarios as $inventario) { ?>
+                                <option value="<?= $inventario['cod_inventario']; ?>"><?= htmlspecialchars($inventario['nombre']); ?></option>
                             <?php } ?>
                         </select>
-
                     </div>
+
+                    <div class="form-group">
+                        <label for="presentacionSelect">Presentación</label>
+                        <select class="form-control" id="presentacionSelect" disabled>
+                            <option selected disabled value="">Seleccione una presentación</option>
+                        </select>
+                    </div>
+
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
@@ -139,5 +142,3 @@ if (isset($script)) {
 <?php include('views/layout/footer.php'); ?>
 <!-- JavaScript para manejar la adición de productos a la tabla -->
 <script src="public/js/catalogo.js"></script>
-
-

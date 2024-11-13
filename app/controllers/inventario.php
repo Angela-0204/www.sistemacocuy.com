@@ -11,7 +11,12 @@ $marcas = new Marcas();
 //Para listar los productos
 $data_products = $producto->Listar();
 session_start();
-
+// Verificar si la sesión está activa
+if (!isset($_SESSION['id_user'])) {
+    // Si no está iniciada la sesión, redirigir al login
+    header('Location: ?pagina=login');
+    exit();  // Asegura que no se ejecute el código restante de la página
+}
 //Para listar categorias en los selects
 
 $data_categorias = $categoria->Listar();
@@ -21,6 +26,11 @@ $data_marcas = $marcas->Listar();
 //Para modificar un registro
 if(isset($_POST['accion'])){
     switch($_POST['accion']){  
+        case 'detalles':
+            $data = $producto->ObtenerDetallesInventario($_POST['id_producto']);
+            echo json_encode($data);
+            return 0;
+        break;
         //Para consultar el registro a modificar
         case 'consultar':
             $data = $producto->Buscar($_POST['id_producto']);
@@ -89,7 +99,6 @@ if(isset($_POST['accion'])){
             echo json_encode($respuesta);
             exit;
             break;
-        
     }
     
 }
