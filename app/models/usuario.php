@@ -31,6 +31,9 @@ class Usuario extends connectDB
         }
         return $respuestaArreglo;
     }
+
+
+    
     public function VerificarCorreo($email)
 {
     $sql = "SELECT COUNT(*) as count FROM usuario WHERE email = :email";
