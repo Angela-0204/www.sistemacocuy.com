@@ -351,10 +351,11 @@ INSERT INTO `unidad_medida` (`cod_unidad`, `medida`) VALUES
 --
 
 CREATE TABLE `usuario` (
+  campo  tipo de dato  longitud  valor
   `id_users` int(11) NOT NULL,
   `names` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `password_user` int(11) NOT NULL,
+  `password_user` varchar(11) NOT NULL,
   `cod_tipo_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
