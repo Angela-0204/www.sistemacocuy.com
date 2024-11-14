@@ -40,12 +40,10 @@
                 <h2>Editar Producto</h2>
 
                 <!-- Formulario para datos principales del producto -->
-                <form action="" method="post" enctype="multipart/form-data" id="productoForm">
 
                       <h6 style="color: red;">* Campos obligatorios</h6>
                           <h5>Datos Principales del Producto</h5>
                           <div class="row">
-                           
                               <div class="col-md-6 form-group">
                                   <label for="nombre">Nombre del producto <span class="required">*</span></label>
                                   <input type="text" name="nombre" id="nombre" class="form-control" value="<?= htmlspecialchars($productoData['nombre']); ?>" placeholder="Escriba aquí el nombre del producto" maxlength="50">
@@ -80,17 +78,7 @@
                               </div>
                               <div class="col-md-6 form-group">
                                   <label for="fecha">Fecha de expedición del producto <span class="required">*</span></label>
-                                  <?php
-                                        // Suponiendo que $productoData['fyh_creacion'] contiene la fecha en formato 'yyyy-mm-dd'
-                                        $fechaCreacion = $productoData['fyh_creacion'];
-
-                                        // Crear un objeto DateTime desde la fecha
-                                        $date = new DateTime($fechaCreacion);
-
-                                        // Formatear la fecha a 'dd/mm/yyyy'
-                                        $fechaFormateada = $date->format('d/m/Y'); 
-                                    ?>
-                                  <input type="date" id="fecha" name="fecha" class="form-control" value="<?= htmlspecialchars($productoData['fyh_creacion']); ?>">
+                                  <input type="date" name="fecha" class="form-control" value="<?= htmlspecialchars($productoData['fyh_creacion']); ?>" id="fecha">
                                   <span id="fechaError" class="text-danger"></span>
                               </div>
                           </div>
@@ -101,14 +89,9 @@
                                   <span id="imagenError" class="text-danger"></span>
                               </div>
                           </div>
-                        <button id="modificar" class="btn btn-success">Guardar Cambios</button>
-                    <hr>
-                    </form>
+
                     <h3>Detalles del Inventario</h3>
-                      <div class="mb-3">
-                          <button type="button" class="btn btn-primary" id="agregarDetalle" onclick="agregarDetalle()">Agregar Detalle de Inventario</button>
-                      </div>
-                      <table id="detalleInventarioTable" class="table">
+                    <table id="detalleInventarioTable" class="table">
                         <thead>
                             <tr>
                                 <th>Empaquetado</th>
@@ -116,36 +99,28 @@
                                 <th>Lote</th>
                                 <th>Precio Venta</th>
                                 <th>Estatus</th>
-                                <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($detallesInventario as $detalle) { ?>
                                 <tr data-id-detalle="<?= htmlspecialchars($detalle['id_detalle_inventario']); ?>">
-                                    <td data-empaquetado-id="<?= htmlspecialchars($detalle['id_empaquetado']); ?>"><?= htmlspecialchars($detalle['empaquetado']); ?></td>
-                                    <td contenteditable="true" onblur="actualizarValor(this, 'stock')"><?= htmlspecialchars($detalle['stock']); ?></td>
-                                    <td contenteditable="true" onblur="actualizarValor(this, 'lote')"><?= htmlspecialchars($detalle['lote']); ?></td>
-                                    <td contenteditable="true" onblur="actualizarValor(this, 'precio_venta')"><?= htmlspecialchars($detalle['precio_venta']); ?></td>
+                                    <td><?= htmlspecialchars($detalle['empaquetado']); ?></td>
+                                    <td contenteditable="true"><?= htmlspecialchars($detalle['stock']); ?></td>
+                                    <td contenteditable="true"><?= htmlspecialchars($detalle['lote']); ?></td>
+                                    <td contenteditable="true"><?= htmlspecialchars($detalle['precio_venta']); ?></td>
                                     <td>
                                         <select class="form-control">
                                             <option value="activo" <?= $detalle['estatus'] == 'activo' ? 'selected' : ''; ?>>Activo</option>
                                             <option value="inactivo" <?= $detalle['estatus'] == 'inactivo' ? 'selected' : ''; ?>>Inactivo</option>
                                         </select>
                                     </td>
-                                    <td>
-                                        <!-- Botón de guardar (disquete) oculto por defecto -->
-                                        <button type="button" class="btn btn-warning btn-sm disquete" style="display:none" onclick="guardarCambios(this)">
-                                            <i class="fa fa-floppy-o"></i> Guardar
-                                        </button>
-                                        <!-- Botón de eliminar -->
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminarDetalle(this)">Eliminar</button>
-                                    </td>
                                 </tr>
                             <?php } ?>
                         </tbody>
+
                     </table>
 
-
+                    <button id="modificar" class="btn btn-primary">Guardar Cambios</button>
               </div>
 
               </div>
@@ -218,4 +193,83 @@
 </div>
 <!-- /.content-wrapper -->
 <?php include('views/layout/footer.php'); ?>
-<script src="<?php echo $URL;?>/public/js/editar_producto.js"></script>
+<script>
+
+$("#modificar").click(function (e) {
+    e.preventDefault();
+
+    var datos = new FormData();
+    datos.append("accion", "modificar");
+    datos.append("nombre", $("input[name='nombre']").val());
+    datos.append("descripcion", $("input[name='descripcion']").val());
+    datos.append("categoria", $("select[name='categoria']").val());
+    datos.append("marca", $("select[name='marca']").val());
+    datos.append("fecha", $("input[name='fecha']").val());
+    datos.append("imagen", $("input[name='imagen']")[0].files[0]);
+
+    $("#detalleInventarioTable tbody tr").each(function (index, row) {
+        let idDetalle = $(row).data("id-detalle"); // Obtienes el id_detalle_inventario
+        let empaquetadoId = $(row).find("td[data-empaquetado-id]").data("empaquetado-id");
+        let stock = $(row).find("td:eq(1)").text().trim();
+        let lote = $(row).find("td:eq(2)").text().trim();
+        let precio = $(row).find("td:eq(3)").text().trim();
+        let estatus = $(row).find("td:eq(4) select").val();
+
+        datos.append(`detalles[${index}][id_detalle_inventario]`, idDetalle); // Incluye el id_detalle_inventario
+        datos.append(`detalles[${index}][empaquetado]`, empaquetadoId);
+        datos.append(`detalles[${index}][stock]`, stock);
+        datos.append(`detalles[${index}][lote]`, lote);
+        datos.append(`detalles[${index}][precio]`, precio);
+        datos.append(`detalles[${index}][estatus]`, estatus);
+    });
+
+    console.log("Datos enviados:", datos); // Imprime en consola para revisar
+
+    AjaxRegistrar(datos);
+});
+
+
+
+function AjaxRegistrar(datos) {
+    $.ajax({
+        url: "",  // Vacío, porque estamos en el mismo archivo
+        type: "POST",
+        contentType: false,
+        data: datos,
+        processData: false,
+        cache: false,
+        success: function (res) {
+            try {
+
+                if (res.estatus == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Producto",
+                        text: res.mensaje
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: res.mensaje
+                    });
+                }
+            } catch (error) {
+                console.error("Error al parsear JSON:", error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Error en la respuesta del servidor."
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud:", error);
+            console.log(xhr.responseText); // Mostrar la respuesta del servidor
+        }
+    });
+}
+</script>

@@ -138,7 +138,7 @@ class Producto extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($cod_inventario, $nombre, $descripcion, $id_categoria, $id_marca, $imagen, $fecha_creacion, $fyh_actualizacion, $detalles) {
+    public function Modificar($cod_inventario, $nombre, $descripcion, $id_categoria, $fyh_actualizacion) {
         try {
             // Iniciar la transacción para asegurar que todo se actualiza correctamente
             $this->conex->beginTransaction();
@@ -148,65 +148,24 @@ class Producto extends connectDB
                         nombre = :nombre, 
                         descripcion = :descripcion, 
                         id_categoria = :id_categoria, 
-                        id_marca = :id_marca, 
-                        fyh_creacion = :fyh_creacion, 
                         fyh_actualizacion = :fyh_actualizacion
                     WHERE cod_inventario = :cod_inventario";
     
             $stmt = $this->conex->prepare($sql);
-            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-            $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
-            $stmt->bindParam(':id_categoria', $id_categoria, PDO::PARAM_INT);
-            $stmt->bindParam(':id_marca', $id_marca, PDO::PARAM_INT);
-            $stmt->bindParam(':fyh_creacion', $fecha_creacion, PDO::PARAM_STR);
-            $stmt->bindParam(':fyh_actualizacion', $fyh_actualizacion, PDO::PARAM_STR);
-            $stmt->bindParam(':cod_inventario', $cod_inventario, PDO::PARAM_INT);
-            
-            // Si se subió una nueva imagen, actualizarla
-            if (!empty($imagen)) {
-                $sqlImagen = "UPDATE inventario SET imagen = :imagen WHERE cod_inventario = :cod_inventario";
-                $stmtImagen = $this->conex->prepare($sqlImagen);
-                $stmtImagen->bindParam(':imagen', $imagen, PDO::PARAM_STR);
-                $stmtImagen->bindParam(':cod_inventario', $cod_inventario, PDO::PARAM_INT);
-                $stmtImagen->execute();
-            }
-            
-            $stmt->execute();
-    
-            // Ahora, actualizar los detalles del inventario
-            if (!empty($detalles)) {
-                foreach ($detalles as $detalle) {
-                    // Asegúrate de que los detalles contengan los valores esperados
-                    if (!isset($detalle['id_detalle_inventario'], $detalle['stock'], $detalle['lote'], $detalle['precio'], $detalle['estatus'])) {
-                        throw new Exception("Faltan datos para actualizar un detalle.");
-                    }
-    
-                    $sqlDetalle = "UPDATE detalle_inventario SET
-                                        stock = :stock,
-                                        lote = :lote,
-                                        precio_venta = :precio_venta,
-                                        estatus = :estatus
-                                    WHERE cod_inventario = :cod_inventario 
-                                    AND id_detalle_inventario = :id_detalle_inventario";
-    
-                    $stmtDetalle = $this->conex->prepare($sqlDetalle);
-                    $stmtDetalle->bindParam(':stock', $detalle['stock'], PDO::PARAM_INT);
-                    $stmtDetalle->bindParam(':lote', $detalle['lote'], PDO::PARAM_STR);
-                    $stmtDetalle->bindParam(':precio_venta', $detalle['precio'], PDO::PARAM_STR);
-                    $stmtDetalle->bindParam(':estatus', $detalle['estatus'], PDO::PARAM_STR);
-                    $stmtDetalle->bindParam(':cod_inventario', $cod_inventario, PDO::PARAM_INT);
-                    $stmtDetalle->bindParam(':id_detalle_inventario', $detalle['id_detalle_inventario'], PDO::PARAM_INT); // Asegúrate de incluir el ID correcto
-                    $stmtDetalle->execute();
-                }
-            }
-    
-            // Si todo salió bien, hacemos commit de la transacción
+            $stmt->execute([
+                'nombre' => $nombre,
+                'descripcion' => $descripcion,
+                'id_categoria' => $id_categoria,
+                'fyh_actualizacion' => $fyh_actualizacion,                
+                'cod_inventario' => $cod_inventario                
+            ]);
             $this->conex->commit();
             return true;
     
         } catch (Exception $e) {
-            // Si algo sale mal, hacemos rollback
             $this->conex->rollBack();
+            // Log error para depuración
+            error_log("Error al modificar: " . $e->getMessage());
             return false;
         }
     }
@@ -276,7 +235,7 @@ class Producto extends connectDB
         }
     }
     public function ObtenerProductoPorId($id) {
-        $sql = "SELECT nombre, descripcion, id_categoria, imagen, fyh_creacion
+        $sql = "SELECT nombre, descripcion, id_categoria, imagen, fyh_actualizacion as fyh_creacion
                 FROM inventario
                 WHERE cod_inventario = :id";
         $stmt = $this->conex->prepare($sql);
@@ -287,16 +246,113 @@ class Producto extends connectDB
 
     // Método para obtener los detalles del inventario del producto
     public function ObtenerDetallesInventario($id) {
-        $sql = "SELECT di.id_detalle_inventario, di.stock, di.lote, di.precio_venta, di.estatus, 
-                       e.cantidad AS empaquetado, p.marca AS presentacion
-                FROM detalle_inventario di
-                JOIN empaquetado e ON di.id_empaquetado = e.id_empaquetado
-                JOIN presentacion p ON di.id_presentacion = p.id_presentacion
-                WHERE di.cod_inventario = :id AND di.estatus='activo'";
+        $sql = "SELECT e.id_empaquetado, di.id_detalle_inventario, di.stock, di.lote, di.precio_venta, di.estatus, 
+        e.cantidad AS empaquetado, p.marca AS presentacion
+        FROM detalle_inventario di
+        JOIN empaquetado e ON di.id_empaquetado = e.id_empaquetado
+        JOIN presentacion p ON di.id_presentacion = p.id_presentacion
+        WHERE di.cod_inventario =:id AND di.estatus='activo';";
         $stmt = $this->conex->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }  
+
+    public function EliminarDetalle($id_detalle_inventario) {
+        try {
+            $sql = "DELETE FROM detalle_inventario WHERE id_detalle_inventario = :id_detalle_inventario";
+            $stmt = $this->conex->prepare($sql);
+            $stmt->bindParam(':id_detalle_inventario', $id_detalle_inventario, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (Exception $e) {
+            error_log("Error al eliminar detalle: " . $e->getMessage());
+            return false;
+        }
+    }
+    public function GuardarDetalle($id_detalle_inventario, $stock, $lote, $precio, $marca, $estatus) {
+        try {
+            $sql = "UPDATE detalle_inventario SET 
+                        stock = :stock, 
+                        lote = :lote, 
+                        precio_venta = :precio_venta, 
+                        id_presentacion = :id_presentacion, 
+                        estatus = :estatus 
+                    WHERE id_detalle_inventario = :id_detalle_inventario";
+            
+            $stmt = $this->conex->prepare($sql);
+            $stmt->bindParam(':stock', $stock, PDO::PARAM_INT);
+            $stmt->bindParam(':lote', $lote, PDO::PARAM_STR);
+            $stmt->bindParam(':precio_venta', $precio, PDO::PARAM_STR);
+            $stmt->bindParam(':id_presentacion', $marca, PDO::PARAM_INT);
+            $stmt->bindParam(':estatus', $estatus, PDO::PARAM_STR);
+            $stmt->bindParam(':id_detalle_inventario', $id_detalle_inventario, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (Exception $e) {
+            error_log("Error al guardar detalle: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function NuevoDetalle($id_cod, $id_empaquetado, $stock, $lote, $precio_venta, $id_presentacion, $estatus) {
+        try {
+            // Verificar si ya existe un detalle con el mismo cod_inventario y id_empaquetado
+            $sqlCheck = "SELECT COUNT(*) FROM detalle_inventario WHERE cod_inventario = :cod_inventario AND id_empaquetado = :id_empaquetado";
+            $stmtCheck = $this->conex->prepare($sqlCheck);
+            $stmtCheck->bindParam(':cod_inventario', $id_cod, PDO::PARAM_INT);
+            $stmtCheck->bindParam(':id_empaquetado', $id_empaquetado, PDO::PARAM_INT);
+            $stmtCheck->execute();
+    
+            // Obtener el resultado de la consulta
+            $count = $stmtCheck->fetchColumn();
+    
+            // Si el resultado es mayor que 0, significa que ya existe el detalle
+            if ($count > 0) {
+                // Si ya existe, devolver false o un mensaje de error
+                return [
+                    'estatus' => 0,
+                    'mensaje' => 'Ya existe un detalle con el mismo empaquetado para este inventario.'
+                ];
+            }
+    
+            // Si no existe el detalle, procedemos con la inserción
+            $sqlInsert = "INSERT INTO detalle_inventario (cod_inventario, stock, lote, precio_venta, id_empaquetado, id_presentacion, estatus) 
+                          VALUES (:cod_inventario, :stock, :lote, :precio_venta, :id_empaquetado, :id_presentacion, :estatus)";
+    
+            // Preparar la sentencia de inserción
+            $stmt = $this->conex->prepare($sqlInsert);
+    
+            // Enlazar los parámetros con los valores recibidos
+            $stmt->bindParam(':cod_inventario', $id_cod, PDO::PARAM_INT);  
+            $stmt->bindParam(':stock', $stock, PDO::PARAM_INT);
+            $stmt->bindParam(':lote', $lote, PDO::PARAM_STR);            
+            $stmt->bindParam(':precio_venta', $precio_venta, PDO::PARAM_STR);
+            $stmt->bindParam(':id_empaquetado', $id_empaquetado, PDO::PARAM_INT);
+            $stmt->bindParam(':id_presentacion', $id_presentacion, PDO::PARAM_INT);
+            $stmt->bindParam(':estatus', $estatus, PDO::PARAM_STR);
+    
+            // Ejecutar la sentencia
+            $stmt->execute();
+    
+            // Si todo es exitoso, devolver true
+            return [
+                'estatus' => 1,
+                'mensaje' => 'Detalle de inventario creado exitosamente.'
+            ];
+    
+        } catch (Exception $e) {
+            // Si hay un error, lo registramos en el log y devolvemos false
+            error_log("Error al guardar detalle de inventario: " . $e->getMessage());
+            return [
+                'estatus' => 0,
+                'mensaje' => 'Hubo un error al guardar el detalle de inventario.'
+            ];
+        }
+    }
+    
+    
+    
+    
 }
 ?>

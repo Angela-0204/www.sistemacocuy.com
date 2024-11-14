@@ -47,8 +47,7 @@ if (isset($_POST['accion'])) {
             $nombre = $_POST['nombre'];
             $descripcion = $_POST['descripcion'];
             $id_categoria = $_POST['categoria'];
-            $id_marca = $_POST['marca'];
-            $fecha_creacion = $_POST['fecha'];
+            $fyh_actualizacion = $_POST['fecha'];
     
             // Procesar la imagen
             $imagen = '';
@@ -60,16 +59,6 @@ if (isset($_POST['accion'])) {
                 }
             }
     
-            $fyh_actualizacion = date('Y-m-d H:i:s');
-    
-            // Recoger detalles del inventario
-            // Aquí vamos a decodificar la cadena JSON que enviamos desde el cliente
-            $detalles = isset($_POST['detalles']) ? json_decode($_POST['detalles'], true) : [];    
-            if (!is_array($detalles) || empty($detalles)) {
-                header("Content-Type: application/json");
-                echo json_encode(['estatus' => 0, 'mensaje' => "Detalles de producto no válidos."]);
-                exit;
-            }
     
             // Llamar al método Modificar en el modelo
             $result = $producto->Modificar(
@@ -77,11 +66,7 @@ if (isset($_POST['accion'])) {
                 $nombre, 
                 $descripcion, 
                 $id_categoria, 
-                $id_marca, 
-                $imagen, 
-                $fecha_creacion, 
-                $fyh_actualizacion,
-                $detalles
+                $fyh_actualizacion
             );
     
             // Respuesta
@@ -99,6 +84,76 @@ if (isset($_POST['accion'])) {
             header("Content-Type: application/json");
             echo json_encode($respuesta);
             exit;
+        break;
+        case 'eliminar_detalle':
+            $id_detalle_inventario = $_POST['id_detalle_inventario'];
+
+            // Llamar al método de eliminación en el modelo
+            $result = $producto->EliminarDetalle($id_detalle_inventario);
+        
+            $respuesta = array();
+            if ($result) {
+                $respuesta['estatus'] = 1;
+                $respuesta['mensaje'] = "Detalle eliminado correctamente.";
+            } else {
+                $respuesta['estatus'] = 0;
+                $respuesta['mensaje'] = "Error al eliminar el detalle.";
+            }
+        
+            echo json_encode($respuesta);
+            exit;
+        break;
+        case 'guardar_detalle':
+            $id_detalle_inventario = $_POST['id_detalle_inventario'];
+            $stock = $_POST['stock'];
+            $lote = $_POST['lote'];
+            $precio = $_POST['precio'];
+            $estatus = $_POST['estatus'];
+            $marca = $_POST['marca'];
+
+            // Llamar al método para actualizar el detalle en el modelo
+            $result = $producto->GuardarDetalle($id_detalle_inventario, $stock, $lote, $precio, $marca, $estatus);
+
+            if ($result) {
+                echo json_encode([
+                    'estatus' => 1,
+                    'mensaje' => "Cambios guardados correctamente."
+                ]);
+            } else {
+                echo json_encode([
+                    'estatus' => 0,
+                    'mensaje' => "Error al guardar el detalle."
+                ]);
+            }
+            exit;
+        break;
+        case 'nuevo_detalle':
+            $cod_inventario = $_GET['id'];
+            $empaquetadoId = $_POST['empaquetadoId'];
+            $stock = $_POST['stock'];
+            $lote = $_POST['lote'];
+            $precio = $_POST['precio'];
+            $estatus = $_POST['estatus'];
+            $marca = $_POST['marca'];
+        
+            // Llamar al método para insertar el nuevo detalle
+            $result = $producto->NuevoDetalle($cod_inventario, $empaquetadoId, $stock, $lote, $precio, $marca, $estatus);
+        
+            // Verificar el resultado devuelto por la función
+            if ($result['estatus'] == 1) {
+                echo json_encode([
+                    'estatus' => 1,
+                    'mensaje' => "Nuevo detalle del producto creado exitosamente."
+                ]);
+            } else {
+                echo json_encode([
+                    'estatus' => 0,
+                    'mensaje' => $result['mensaje']  // Aquí usamos el mensaje que devuelve el método
+                ]);
+            }
+            exit;
+        break;
+        
     }
     
 }

@@ -297,8 +297,6 @@
     <?php } ?>
 
     <!-- Menú Clientes -->
-    <?php if ($_SESSION['rol'] == 1) { ?>
-
     <li class="nav-item">
         <a href="#" class="nav-link active">
             <i class="nav-icon fas fa-user-tie"></i>
@@ -316,7 +314,7 @@
             </li>
         </ul>
     </li>
-
+    <?php if ($_SESSION['rol'] == 1) { ?>
     <!-- Menú Reportes -->
     <li class="nav-item">
         <a href="#" class="nav-link active">
