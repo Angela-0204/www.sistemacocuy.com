@@ -186,9 +186,9 @@ document.getElementById("nombre_editar").addEventListener("keypress", function(e
 
 function validateNombre() {
     const nombre_medida = document.getElementById("nombre_medida").value;
-    const nombreRegex = /^[A-Za-z0-9\s.]{5,50}$/;
+    const nombreRegex = /^[A-Za-z0-9\s.]{2,50}$/;
     if (!nombreRegex.test(nombre_medida)) {
-        showError("nombre_medida", "El nombre de la medida debe tener entre 5 y 50 caracteres, solo letras, números y un punto.");
+        showError("nombre_medida", "El nombre de la medida debe tener entre 2 y 50 caracteres, solo letras, números y un punto.");
         return false;
     } else {
         clearError("nombre_medida");
@@ -199,9 +199,9 @@ function validateNombre() {
 
 function validateNombreEditar() {
     const nombre_editar = document.getElementById("nombre_editar").value;
-    const nombreRegex = /^[A-Za-z0-9\s.]{5,50}$/;
+    const nombreRegex = /^[A-Za-z0-9\s.]{2,50}$/;
     if (!nombreRegex.test(nombre_editar)) {
-        showError("nombre_editar", "El nombre de la medida debe tener entre 5 y 50 caracteres, solo letras, números y un punto.");
+        showError("nombre_editar", "El nombre de la medida debe tener entre 2 y 50 caracteres, solo letras, números y un punto.");
         return false;
     } else {
         clearError("nombre_editar");

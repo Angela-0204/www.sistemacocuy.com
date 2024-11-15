@@ -281,9 +281,9 @@ function validatePassword_edit() {
 // Validaciones completas en `input`, sin mensajes de error
 function validateNombre() {
     const names = document.getElementById("names").value;
-    const nombreRegex = /^[a-zA-Z\s]{5,50}$/;
+    const nombreRegex = /^[a-zA-Z\s]{2,50}$/;
     if (!nombreRegex.test(names)) {
-        showError("names", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
+        showError("names", "El nombre debe tener entre 2 y 50 caracteres y solo letras.");
         return false;
     } else {
         clearError("names");
@@ -293,9 +293,9 @@ function validateNombre() {
 
 function validateNombreEditar() {
     const names_edit = document.getElementById("names_edit").value;
-    const nombreRegex = /^[a-zA-Z\s]{5,50}$/;
+    const nombreRegex = /^[a-zA-Z\s]{2,50}$/;
     if (!nombreRegex.test(names_edit)) {
-        showError("names_edit", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
+        showError("names_edit", "El nombre debe tener entre 2 y 50 caracteres y solo letras.");
         return false;
     } else {
         clearError("names_edit");

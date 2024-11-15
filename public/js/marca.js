@@ -196,9 +196,9 @@ document.getElementById("nombre_editar").addEventListener("keypress", function(e
 // Validaciones completas en `input`, sin mensajes de error
 function validateNombre() {
     const nombre_marca = document.getElementById("nombre_marca").value;
-    const nombreRegex = /^[A-Za-z0-9\s]{5,50}$/;
+    const nombreRegex = /^[A-Za-z0-9\s]{2,50}$/;
     if (!nombreRegex.test(nombre_marca)) {
-        showError("nombre_marca", "El nombre de la marca debe tener entre 5 y 50 caracteres, solo letras y números.");
+        showError("nombre_marca", "El nombre de la marca debe tener entre 2 y 50 caracteres, solo letras y números.");
         return false;
     } else {
         clearError("nombre_marca");
@@ -207,9 +207,9 @@ function validateNombre() {
 }
 function validateNombreEditar() {
     const nombre_editar = document.getElementById("nombre_editar").value;
-    const nombreRegex = /^[A-Za-z0-9\s]{5,50}$/;
+    const nombreRegex = /^[A-Za-z0-9\s]{2,50}$/;
     if (!nombreRegex.test(nombre_editar)) {
-        showError("nombre_editar", "El nombre de la marca debe tener entre 5 y 50 caracteres, solo letras y números.");
+        showError("nombre_editar", "El nombre de la marca debe tener entre 2 y 50 caracteres, solo letras y números.");
         return false;
     } else {
         clearError("nombre_editar");

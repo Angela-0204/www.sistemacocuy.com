@@ -189,9 +189,9 @@ document.getElementById("nombre_editar").addEventListener("keypress", function(e
 // Validaciones completas en `input`, sin mensajes de error
 function validateNombre() {
     const nombre_categoria = document.getElementById("nombre_categoria").value;
-    const nombreRegex = /^[a-zA-Z\s]{5,50}$/;
+    const nombreRegex = /^[a-zA-Z\s]{2,50}$/;
     if (!nombreRegex.test(nombre_categoria)) {
-        showError("nombre_categoria", "El nombre debe tener entre 5 y 50 caracteres y solo letras.");
+        showError("nombre_categoria", "El nombre debe tener entre 2 y 50 caracteres y solo letras.");
         return false;
     } else {
         clearError("nombre_categoria");
@@ -202,9 +202,9 @@ function validateNombre() {
 // Validaciones completas en `input`, sin mensajes de error
 function validateNombreEditar() {
     const nombre_editar = document.getElementById("nombre_editar").value;
-    const nombreRegex = /^[a-zA-Z\s]{3,50}$/;
+    const nombreRegex = /^[a-zA-Z\s]{2,50}$/;
     if (!nombreRegex.test(nombre_editar)) {
-        showError("nombre_editar", "El nombre debe tener entre 3 y 50 caracteres y solo letras.");
+        showError("nombre_editar", "El nombre debe tener entre 2 y 50 caracteres y solo letras.");
         return false;
     } else {
         clearError("nombre_editar");

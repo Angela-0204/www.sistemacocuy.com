@@ -223,9 +223,9 @@ document.getElementById("nombre_editar").addEventListener("keypress", function(e
 // Validaciones completas en `input`, sin mensajes de error
 function validateNombre() {
     const nombre_tipo = document.getElementById("nombre_tipo").value;
-    const nombreRegex = /^[A-Za-z\s]{5,50}$/;
+    const nombreRegex = /^[A-Za-z\s]{2,50}$/;
     if (!nombreRegex.test(nombre_tipo)) {
-        showError("nombre_tipo", "El nombre del tipo de pago debe tener entre 5 y 50 caracteres y solo letras.");
+        showError("nombre_tipo", "El nombre del tipo de pago debe tener entre 2 y 50 caracteres y solo letras.");
         return false;
     } else {
         clearError("nombre_tipo");
@@ -234,9 +234,9 @@ function validateNombre() {
 }
 function validateNombreEditar() {
     const nombre_editar = document.getElementById("nombre_editar").value;
-    const nombreRegex = /^[A-Za-z\s]{5,50}$/;
+    const nombreRegex = /^[A-Za-z\s]{2,50}$/;
     if (!nombreRegex.test(nombre_editar)) {
-        showError("nombre_editar", "El nombre del pago de pago debe tener entre 5 y 50 caracteres y solo letras.");
+        showError("nombre_editar", "El nombre del pago de pago debe tener entre 2 y 50 caracteres y solo letras.");
         return false;
     } else {
         clearError("nombre_editar");
