@@ -150,8 +150,8 @@
      
           
           <div class="form-group">
-            <label for="monto">Monto depositado en Bolívares</label>
-            <input type="number" name="monto" id="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en bolívares">
+            <label for="monto">Monto depositado en Dolares</label>
+            <input type="number" name="monto" id="monto" class="form-control" placeholder="Escriba aquí la cantidad depositada en Dolares">
             <span id="montoError" class="text-danger"></span>
           </div>
           
