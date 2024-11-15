@@ -219,7 +219,7 @@ function validateNombreEditar() {
 function enableSubmit_crear() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
-        validateNombre()&&
+        validateNombre()
      
         document.getElementById("nombre_marca").value.trim() !== "";
       

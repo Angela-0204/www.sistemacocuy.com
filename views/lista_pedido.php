@@ -154,7 +154,7 @@
               <!-- Botón para generar PDF -->
                 <button type="button" id="btnGenerarPDF" class="btn btn-success">Generar PDF</button>
 
-                <a href="" class="btn btn-secondary">Cerrar</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

@@ -190,11 +190,11 @@ document.getElementById("nombre_editar").addEventListener("keypress", function(e
     restrictInput(event, /^[A-Za-z\s]$/, "nombre_editar", "Solo se permiten letras.");
 });
 document.getElementById("datos_banco").addEventListener("keypress", function(event) {
-    restrictInput(event, /^[0-9]$/, "datos_banco", "Solo se permiten números.");
+    restrictInput(event, /^[0-9\s]$/, "datos_banco", "Solo se permiten números.");
 });
 
 document.getElementById("datos_editar").addEventListener("keypress", function(event) {
-    restrictInput(event, /^[0-9]$/, "datos_editar", "Solo se permiten números.");
+    restrictInput(event, /^[0-9\s]$/, "datos_editar", "Solo se permiten números.");
 });
 
 
@@ -238,10 +238,9 @@ function validateDatosEditar() {
 function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
-        validateNombre() &&
+        validateNombre() 
       
-        validateDatos() &&
-        
+        validateDatos() 
         document.getElementById("nombre_banco").value.trim() !== "" &&
   
         document.getElementById("datos_banco").value.trim() !== "";
@@ -260,8 +259,8 @@ document.getElementById("datos_banco").addEventListener("input", enableSubmit);
 function enableSubmit_editar() {
     // Valida que ambas funciones de validación pasen y que los campos no estén vacíos
     const isFormValid =
-        validateNombreEditar() &&
-        validateDatosEditar() &&
+        validateNombreEditar() 
+        validateDatosEditar() 
         document.getElementById("nombre_editar").value.trim() !== "" &&
         document.getElementById("datos_editar").value.trim() !== "";
 

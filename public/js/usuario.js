@@ -255,7 +255,7 @@ function validatePassword() {
     const password_user = document.getElementById("password_user").value;
     const nombreRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*.,])[A-Za-z\d!@#$%^&*.,]{8,}$/;
     if (!nombreRegex.test(password_user)) {
-        showError("password_user", "");
+        showError("password_user", "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial");
      
         return false;
     } else {
@@ -359,13 +359,14 @@ function checkEmailExists(email) {
 
 
 //Se valida de manera general
-function enableSubmit() {
+function enableSubmit_crear() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
-    validatePassword() &&
-        validateNombre() &&
-        validateEmail() &&
-        checkEmailExists() &&
+        validatePassword() 
+        validateNombre() 
+        validateEmail() 
+        checkEmailExists() 
+
         document.getElementById("password_user").value.trim() !== "" &&
         document.getElementById("names").value.trim() !== "" &&
         document.getElementById("email").value.trim() !== "";
@@ -374,8 +375,8 @@ function enableSubmit() {
         document.getElementById("registrar").disabled = !isFormValid;
 }
 
-document.getElementById("names").addEventListener("input", enableSubmit);
-document.getElementById("password_user").addEventListener("input", enableSubmit);
+document.getElementById("names").addEventListener("input", enableSubmit_crear);
+document.getElementById("password_user").addEventListener("input", enableSubmit_crear);
 
 
 
@@ -422,9 +423,9 @@ togglePassword2.addEventListener('click', function () {
   function enableSubmit_editar() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
-    validatePassword_edit() &&
-        validateNombreEditar() &&
-        validateEmailEdit() &&
+    validatePassword_edit() 
+        validateNombreEditar() 
+        validateEmailEdit() 
       
         document.getElementById("password_user_edit").value.trim() !== "" &&
         document.getElementById("names_edit").value.trim() !== "" &&
