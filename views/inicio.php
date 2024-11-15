@@ -25,7 +25,7 @@
           <div class="small-box bg-warning-col-md-8">
             <div class="inner">
               <h3>2</h3>
-              <p>Usuarios Registrados</p>
+              <p>Roles Registrados</p>
             </div>
             <a href="?pagina=usuario">
               <div class="icon">

@@ -269,7 +269,7 @@ class Producto extends connectDB
             error_log("Error al eliminar detalle: " . $e->getMessage());
             return false;
         }
-    }
+    }//modificar
     public function GuardarDetalle($id_detalle_inventario, $stock, $lote, $precio, $marca, $estatus) {
         try {
             $sql = "UPDATE detalle_inventario SET 

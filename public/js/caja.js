@@ -225,8 +225,8 @@ function enableSubmit_registrar() {
     const isFormValid =
         validateCantidad() &&
         validateDescripcion()&&
-        document.getElementById("descripcion").value &&
-        document.getElementById("cantidad").value;
+        document.getElementById("descripcion").value.trim() !== "" &&
+        document.getElementById("cantidad").value.trim() !== "";
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }

@@ -103,7 +103,7 @@
        
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a href="" class="btn btn-secondary">Cancelar</a>
           <button type="submit" class="btn btn-primary" disabled id="registrar">Guardar</button>
         </div>
       </form>
@@ -131,7 +131,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a href="" class="btn btn-secondary">Cancelar</a>
           <button type="submit" class="btn btn-primary" id="modificar">Guardar</button>
         </div>
       </form>

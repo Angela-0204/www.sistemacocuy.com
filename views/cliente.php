@@ -63,7 +63,7 @@
                       <td><?php echo $data_clientes['estatus'] ?></td>
                   
                       <td>
-                        <button onclick="editar(<?php echo $data_clientes['cedula_rif']; ?>)" class="btn btn-warning btn-sm">
+                        <button onclick="editar_prueba(<?php echo $data_clientes['cedula_rif'];?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
                         </button>
                         <button onclick="eliminar(<?php echo $data_clientes['cod_cliente']; ?>)" class="btn btn-danger btn-sm">
@@ -151,7 +151,7 @@
                 <hr>
                 <div class="form-group">
                   <a href="" class="btn btn-secondary">Cancelar</a>
-                  <button disabled id="registrar" class="btn btn-primary">Guardar</button>
+                  <button  id="registrar" class="btn btn-primary">Guardar</button>
                 </div>
               </div>
 

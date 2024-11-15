@@ -242,9 +242,9 @@ function enableSubmit() {
       
         validateDatos() &&
         
-        document.getElementById("nombre_banco").value &&
+        document.getElementById("nombre_banco").value.trim() !== "" &&
   
-        document.getElementById("datos_banco").value;
+        document.getElementById("datos_banco").value.trim() !== "";
        
 
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`

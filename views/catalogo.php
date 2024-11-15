@@ -127,7 +127,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <a href="" class="btn btn-secondary">Cancelar</a>
                 <button type="button" class="btn btn-primary" id="addProductBtn">Agregar al Pedido</button>
             </div>
         </div>

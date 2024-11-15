@@ -213,16 +213,16 @@ function validateNombreEditar() {
 }
 
 //Se valida de manera general
-function enableSubmit() {
+function enableSubmit_crear() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
         validateNombre() &&
-        document.getElementById("nombre_categoria").value;
+        document.getElementById("nombre_categoria").value.trim() !== "";
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
 
-document.getElementById("nombre_categoria").addEventListener("input", enableSubmit);
+document.getElementById("nombre_categoria").addEventListener("input", enableSubmit_crear);
 
 //Se valida de manera general
 function enableSubmit() {

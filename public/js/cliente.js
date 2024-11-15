@@ -28,7 +28,13 @@ $("#registrar").click(function (e) {
     
     AjaxRegistrar(datos);
 });
-
+function editar_prueba(cedula_rif){
+    var datos = new FormData();
+    
+    datos.append("accion", "consultar");
+    datos.append("cedula_rif", cedula_rif);
+    AjaxEditar(datos);
+}
 
 
 //Para modificar usuario
@@ -47,13 +53,7 @@ $("#modificar").click(function (e) {
     funcionAjax(datos);
 });
 
-function editar(cedula_rif){
-    var datos = new FormData();
-    
-    datos.append("accion", "consultar");
-    datos.append("cedula_rif", cedula_rif);
-    AjaxEditar(datos);
-}
+
 
 
 //Para eliminar un registro
@@ -231,7 +231,7 @@ function restrictInput(event, regex, field, errorMsg) {
     }
 }
 document.getElementById("cedula_rif").addEventListener("keypress", function(event) {
-    restrictInput(event, /^[0-9.]$/, "cedula_rif", "Solo se permiten números y punto decimal.");
+    restrictInput(event, /^[0-9]$/, "cedula_rif", "Solo se permiten números.");
 });
 document.getElementById("nombre_cliente").addEventListener("keypress", function(event) {
     restrictInput(event, /^[A-Za-z0-9\s]$/, "nombre_cliente", "Solo se permiten letras.");
@@ -422,7 +422,7 @@ function validateTelefonoEdit() {
 
 
 
-function enableSubmit() {
+function enableSubmit_crear() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
        
@@ -433,36 +433,29 @@ function enableSubmit() {
        
         validateCorreo()  &&
        
-        validateDireccion () &&
+        validateDireccion() &&
   
-        validateTelefono ().value;
-  
-    
-        document.getElementById("cedula_rif").value &&//Y aqui se validan que realmente tengan un valor estos campos
-        document.getElementById("nombre_cliente").value &&
-        
-        document.getElementById("correo").value &&
-   
-        document.getElementById("apellido").value &&
-      
-        document.getElementById("direccion").value &&
-   
-        document.getElementById("telefono").value;
-       
+        validateTelefono() &&    
+        document.getElementById("cedula_rif").value.trim() !== "" &&//Y aqui se validan que realmente tengan un valor estos campos
+        document.getElementById("nombre_cliente").value.trim() !== "" &&    
+        document.getElementById("correo").value.trim() !== "" &&   
+        document.getElementById("apellido").value.trim() !== "" &&      
+        document.getElementById("direccion").value.trim() !== "" &&   
+        document.getElementById("telefono").value.trim() !== "";       
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
 
-document.getElementById("cedula_rif").addEventListener("input", enableSubmit);
-document.getElementById("apellido").addEventListener("input", enableSubmit);
+document.getElementById("cedula_rif").addEventListener("input", enableSubmit_crear);
+document.getElementById("apellido").addEventListener("input", enableSubmit_crear);
 
-document.getElementById("nombre_cliente").addEventListener("input", enableSubmit);
+document.getElementById("nombre_cliente").addEventListener("input", enableSubmit_crear);
 
-document.getElementById("correo").addEventListener("input", enableSubmit);
+document.getElementById("correo").addEventListener("input", enableSubmit_crear);
 
-document.getElementById("direccion").addEventListener("input", enableSubmit);
+document.getElementById("direccion").addEventListener("input", enableSubmit_crear);
 
-document.getElementById("telefono").addEventListener("input", enableSubmit);
+document.getElementById("telefono").addEventListener("input", enableSubmit_crear);
 
 
 function enableSubmit() {
