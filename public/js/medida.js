@@ -213,23 +213,23 @@ function validateNombreEditar() {
 
 
 
-function enableSubmit() {
+function enableSubmit_crear() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =    
         validateNombre() &&
-        document.getElementById("nombre_medida").value;
+        document.getElementById("nombre_medida").value.trim() !== "";
       
        
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
 
-document.getElementById("nombre_medida").addEventListener("input", enableSubmit);
+document.getElementById("nombre_medida").addEventListener("input", enableSubmit_crear);
 
 
 
 
-function enableSubmit() {
+function enableSubmit_editar() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =    
         validateNombreEditar() &&
@@ -240,4 +240,4 @@ function enableSubmit() {
         document.getElementById("modificar").disabled = !isFormValid;
 }
 
-document.getElementById("nombre_editar").addEventListener("input", enableSubmit);
+document.getElementById("nombre_editar").addEventListener("input", enableSubmit_editar);

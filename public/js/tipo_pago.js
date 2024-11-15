@@ -243,16 +243,16 @@ function validateNombreEditar() {
         return true;
     }
 }
-function enableSubmit() {
+function enableSubmit_crear() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
         validateNombre()&&
-        document.getElementById("nombre_tipo").value;
+        document.getElementById("nombre_tipo").value.trim() !== "";
       
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
 }
-document.getElementById("nombre_tipo").addEventListener("input", enableSubmit);
+document.getElementById("nombre_tipo").addEventListener("input", enableSubmit_crear);
 
 function enableSubmit() {
     //Se validan en funciones que cumplan todas con las exp reg

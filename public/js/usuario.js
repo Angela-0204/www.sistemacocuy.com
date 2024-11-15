@@ -366,9 +366,9 @@ function enableSubmit() {
         validateNombre() &&
         validateEmail() &&
         checkEmailExists() &&
-        document.getElementById("password_user").value &&
-        document.getElementById("names").value &&
-        document.getElementById("email").value;
+        document.getElementById("password_user").value.trim() !== "" &&
+        document.getElementById("names").value.trim() !== "" &&
+        document.getElementById("email").value.trim() !== "";
 
         // Habilita o deshabilita el botón de "registrar" según el resultado de `isFormValid`
         document.getElementById("registrar").disabled = !isFormValid;
@@ -419,7 +419,7 @@ togglePassword2.addEventListener('click', function () {
 
 
 
-  function enableSubmit() {
+  function enableSubmit_editar() {
     //Se validan en funciones que cumplan todas con las exp reg
     const isFormValid =
     validatePassword_edit() &&
@@ -434,8 +434,8 @@ togglePassword2.addEventListener('click', function () {
         document.getElementById("modificar").disabled = !isFormValid;
 }
 
-document.getElementById("names_edit").addEventListener("input", enableSubmit);
-document.getElementById("password_user_edit").addEventListener("input", enableSubmit);
+document.getElementById("names_edit").addEventListener("input", enableSubmit_editar);
+document.getElementById("password_user_edit").addEventListener("input", enableSubmit_editar);
 
 
 document.getElementById("email_edit").addEventListener("input", function() {

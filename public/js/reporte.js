@@ -280,8 +280,8 @@ function enableSubmit() {
     const isFormValid =
         validateReferencia() &&
         validateMonto() &&
-        document.getElementById("referencia").value &&
-        document.getElementById("monto").value;
+        document.getElementById("referencia").value.trim() !== "" &&
+        document.getElementById("monto").value.trim() !== "";
         // Habilita o deshabilita el botón de "registrar" según el resultado de isFormValid
         document.getElementById("registrar").disabled = !isFormValid;
 }
