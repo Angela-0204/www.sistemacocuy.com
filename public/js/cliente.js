@@ -380,7 +380,7 @@ function validateDireccion() {
     const direccion = document.getElementById("direccion").value;
     const nombreRegex = /^[A-Za-z0-9#\-\.\,\s]+$/ ;
     if (!nombreRegex.test(direccion)) {
-        showError("direccion", "La direccion debe incluir Ciudad,Avenida,calle, carrera, urbanizacion(comunidad) y numero de casa .");
+        showError("direccion", "Ingrese su direccion.");
      
         return false;
     } else {
@@ -393,7 +393,7 @@ function validateDireccionEdit() {
     const direccion_edit = document.getElementById("direccion_edit").value;
     const nombreRegex = /^[A-Za-z0-9#\-\.\,\s]+$/ ;
     if (!nombreRegex.test(direccion_edit)) {
-        showError("direccion_edit", "La direccion_edit debe incluir Ciudad,Avenida,calle, carrera, urbanizacion(comunidad) y numero de casa .");
+        showError("direccion_edit", "Ingrese su direccion.");
      
         return false;
     } else {
