@@ -6,7 +6,7 @@ session_start();
 $rol = new Rol();
 $rol_datos = $rol->Listar();
 
-if(isset($_POST['accion'])){
+if (!isset($_SESSION['id_user']) || $_SESSION['rol']!= 1) {
     //Establecer zona horaria para obtener la fecha actual
     date_default_timezone_set('UTC');
 

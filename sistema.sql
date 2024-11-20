@@ -351,7 +351,6 @@ INSERT INTO `unidad_medida` (`cod_unidad`, `medida`) VALUES
 --
 
 CREATE TABLE `usuario` (
-  campo  tipo de dato  longitud  valor
   `id_users` int(11) NOT NULL,
   `names` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
