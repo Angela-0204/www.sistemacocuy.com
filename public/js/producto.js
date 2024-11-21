@@ -24,7 +24,7 @@ $("#registrar").click(function (e) {
         datos.append(`detalles[${index}][estatus]`, estatus);
     });
 
-    console.log("Datos enviados:", datos); // Imprime en consola para revisar
+    console.log("Datos enviados:", datos); 
 
     AjaxRegistrar(datos);
 });
