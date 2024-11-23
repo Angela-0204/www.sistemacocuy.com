@@ -13,6 +13,7 @@ class Pedido extends connectDB
         } catch (Exception $e) {
             return $e->getMessage();
         }
+        
         return $respuestaArreglo;
     }
 
