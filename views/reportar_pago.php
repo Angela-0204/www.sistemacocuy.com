@@ -78,7 +78,6 @@
                       <td><?php echo "A-000".$pago_dato['id_pedido']; ?></td>
                       <td><?php echo $pago_dato['nombre_cliente']; ?></td>
                       <td><?php echo $pago_dato['usuario']; ?></td>
-
                       <td>
                         
                         <button onclick="eliminar(<?=$pago_dato['nro_pago'];?>)" class="btn btn-danger btn-sm">
