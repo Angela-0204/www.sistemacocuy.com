@@ -12,7 +12,7 @@ include ($MODELS . 'tipo_pago.php');
 include($MODELS . 'banco.php');
 include($MODELS . 'pedido.php');
 $pedido = new Pedido();
-$data_pedidos = $pedido->ListarActivos();
+$data_pedidos = $pedido->PendientesPorPagar();
 $tipo = new Tipo();
 $reporte = new Reporte_pago();
 $banco = new Banco();

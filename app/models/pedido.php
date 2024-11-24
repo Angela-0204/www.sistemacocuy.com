@@ -30,6 +30,51 @@ class Pedido extends connectDB
         return $respuestaArreglo;
     }
 
+    public function PendientesPorPagar()
+    {
+        $resultado = $this->conex->prepare("SELECT 
+        p.id_pedido, 
+        p.fecha_pedido, 
+        c.nombre_cliente, 
+        c.apellido, 
+        p.estatus
+    FROM 
+        pedido p
+    INNER JOIN 
+        cliente c ON p.cod_cliente = c.cod_cliente
+    INNER JOIN (
+        SELECT 
+            ped.id_pedido,
+            SUM(dpi.cantidad * di.precio_venta) AS total_pedido
+        FROM 
+            detalle_pedido dpi
+        INNER JOIN 
+            detalle_inventario di ON dpi.id_detalle_inventario = di.id_detalle_inventario
+        INNER JOIN 
+            pedido ped ON dpi.id_pedido = ped.id_pedido
+        GROUP BY 
+            ped.id_pedido
+    ) AS totales ON totales.id_pedido = p.id_pedido
+    LEFT JOIN 
+        pago p2 ON p2.nro_pago <= p2.nro_pago 
+        AND p2.nro_pago IN (SELECT nro_pago FROM detalle_pago WHERE id_pedido = p.id_pedido)
+    GROUP BY 
+        p.id_pedido, totales.total_pedido
+    HAVING 
+        (totales.total_pedido - IFNULL(SUM(p2.monto), 0)) > 0 -- Monto pendiente > 0
+    ORDER BY 
+        p.fecha_pedido DESC;
+    ");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute();
+            $respuestaArreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
     //Este si es funcional
     public function Crear($cod_cliente, $id_users, $fecha_pedido, $productos)
     {

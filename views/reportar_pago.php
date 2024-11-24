@@ -73,12 +73,15 @@
                   <?php
                   $contador = 0;
                   foreach ($data_reportes as $pago_dato) {
-                    $nro_pago = $pago_dato['nro_pago']; ?>
+                    $fecha_pedido = $pago_dato['fyh_pago'];
+
+                    // Convertir la fecha a formato legible
+                    $fecha_formateada = date('d/m/Y H:i', strtotime($fecha_pedido)); ?>
 
                     <tr>
-                      <td><?php echo $pago_dato['nro_pago']; ?></td>
+                      <td><?php echo $contador = $contador + 1; ?></td>
                       
-                      <td><?php echo $pago_dato['fecha_pedido']; ?></td>
+                      <td><?php echo $fecha_formateada; ?></td>
                       <td><?php echo $pago_dato['tipo_pago']; ?></td>
                       <td><?php echo $pago_dato['nombre_banco']; ?></td>
                       <td><?php echo $pago_dato['monto']; ?></td>
@@ -164,7 +167,7 @@
           
           <div class="form-group">
             <label for="fecha">Fecha de Realización del Pago</label>
-            <input type="date" name="fecha" class="form-control" placeholder="Seleccione la fecha de realización del pago">
+            <input type="datetime-local" name="fecha" class="form-control" placeholder="Seleccione la fecha de realización del pago">
           </div>
         </form>
       </div>

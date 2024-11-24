@@ -19,7 +19,7 @@ class Reporte_pago extends connectDB
         cl.apellido,
         u.names AS usuario,
         ped.fecha_pedido,
-        (totales.total_pedido - IFNULL(SUM(p2.monto) OVER (PARTITION BY dp.id_pedido ORDER BY p.fyh_pago ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW), 0)) AS monto_pendiente
+        totales.total_pedido - IFNULL(SUM(p2.monto), 0) AS monto_pendiente
     FROM 
         pago AS p
     INNER JOIN 
@@ -48,10 +48,13 @@ class Reporte_pago extends connectDB
             ped.id_pedido
     ) AS totales ON totales.id_pedido = ped.id_pedido
     LEFT JOIN 
-        pago p2 ON p2.nro_pago <= p.nro_pago AND p2.nro_pago IN (
-            SELECT nro_pago FROM detalle_pago WHERE id_pedido = dp.id_pedido
-        )
-    GROUP BY p.nro_pago");
+        pago p2 ON p2.nro_pago <= p.nro_pago 
+        AND p2.nro_pago IN (SELECT nro_pago FROM detalle_pago WHERE id_pedido = dp.id_pedido)
+    GROUP BY 
+        p.nro_pago, dp.id_pedido, totales.total_pedido
+    ORDER BY 
+        p.fyh_pago;
+    ");
         $respuestaArreglo = [];
         try {
             $resultado->execute();
