@@ -37,7 +37,7 @@
                       <center>Nro</center>
                     </th>
                     <th>
-                      <center>Nro</center>
+                      <center>Fecha</center>
                     </th>
                 
                     <th>
@@ -78,13 +78,13 @@
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
                       
-                      <td><?php echo $pago_dato['tipo_pago']; ?></td>
+                      <td><?php echo $pago_dato['fecha_pedido']; ?></td>
                       <td><?php echo $pago_dato['tipo_pago']; ?></td>
                       <td><?php echo $pago_dato['nombre_banco']; ?></td>
                       <td><?php echo $pago_dato['monto']; ?></td>
                       <td><?php echo "A-000".$pago_dato['id_pedido']; ?></td>
                       <td><?php echo $pago_dato['nombre_cliente']; ?></td>
-                      <td><?php echo $pago_dato['nombre_cliente']; ?></td>
+                      <td><?php echo $pago_dato['monto_pendiente']; ?></td>
                       <td><?php echo $pago_dato['usuario']; ?></td>
 
                       <td>
