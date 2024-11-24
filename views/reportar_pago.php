@@ -34,7 +34,10 @@
                 <thead>
                   <tr>
                     <th>
-                      <center>Nro De Pago</center>
+                      <center>Nro</center>
+                    </th>
+                    <th>
+                      <center>Nro</center>
                     </th>
                 
                     <th>
@@ -45,14 +48,17 @@
                     </th>
                    
                        <th>
-                      <center>Monto Depositado</center>
+                      <center>Depositado $</center>
                     </th>
                     
                     <th>
-                      <center>Numero de pedido</center>
+                      <center>Nro. de pedido</center>
                     </th>
                     <th>
                       <center>Cliente</center>
+                    </th>
+                    <th>
+                      <center>Deuda</center>
                     </th>
                     <th>
                       <center>Vendedor</center>
@@ -73,9 +79,11 @@
                       <td><?php echo $contador = $contador + 1; ?></td>
                       
                       <td><?php echo $pago_dato['tipo_pago']; ?></td>
+                      <td><?php echo $pago_dato['tipo_pago']; ?></td>
                       <td><?php echo $pago_dato['nombre_banco']; ?></td>
                       <td><?php echo $pago_dato['monto']; ?></td>
                       <td><?php echo "A-000".$pago_dato['id_pedido']; ?></td>
+                      <td><?php echo $pago_dato['nombre_cliente']; ?></td>
                       <td><?php echo $pago_dato['nombre_cliente']; ?></td>
                       <td><?php echo $pago_dato['usuario']; ?></td>
                       <td>
