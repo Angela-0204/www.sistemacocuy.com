@@ -245,7 +245,7 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Banco</p>
                 </a>
-            </li>
+            </li>  
         </ul>
     </li>
     <?php } ?>

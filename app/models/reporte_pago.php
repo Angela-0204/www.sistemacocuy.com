@@ -83,7 +83,6 @@ class Reporte_pago extends connectDB
                 VALUES (:fyh_pago, :monto, :referencia, :id_banco)";
         // Preparamos la consulta
         $resultado_pago = $this->conex->prepare($sql_pago);
-    
         try {
             // Ejecutamos el primer INSERT en pago
             $resultado_pago->execute([
