@@ -51,8 +51,7 @@ class Reporte_pago extends connectDB
         pago p2 ON p2.nro_pago <= p.nro_pago AND p2.nro_pago IN (
             SELECT nro_pago FROM detalle_pago WHERE id_pedido = dp.id_pedido
         )
-    ORDER BY 
-        dp.id_pedido, p.fyh_pago;");
+    GROUP BY p.nro_pago");
         $respuestaArreglo = [];
         try {
             $resultado->execute();

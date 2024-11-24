@@ -76,7 +76,7 @@
                     $nro_pago = $pago_dato['nro_pago']; ?>
 
                     <tr>
-                      <td><?php echo $contador = $contador + 1; ?></td>
+                      <td><?php echo $pago_dato['nro_pago']; ?></td>
                       
                       <td><?php echo $pago_dato['fecha_pedido']; ?></td>
                       <td><?php echo $pago_dato['tipo_pago']; ?></td>
