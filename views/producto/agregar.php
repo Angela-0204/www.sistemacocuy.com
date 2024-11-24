@@ -56,6 +56,7 @@
                                       <?php } ?>
                                   </select>
                               </div>
+                            
                           </div>
                           <div class="row">
                               <div class="col-md-12 form-group">
@@ -103,6 +104,7 @@
                                 <th>Empaquetado</th>
                                 <th>Stock</th>
                                 <th>Lote</th>
+                                <th>Unidad de Medida</th>
                                 <th>Precio Venta</th>
                                 <th>Estatus</th>
                                 <th>Acción</th>
@@ -138,6 +140,14 @@
                                           <?php } ?>
                                       </select>
                                   </div>
+                                  <div class="form-group">
+                                  <label for="medida">Unidad de Medida <span class="required">*</span></label>
+                                  <select name="medida" id="medida" class="form-control">
+                                      <?php foreach ($data_medida as $medida_dato) { ?>
+                                          <option value="<?= $medida_dato['cod_unidad']; ?>"><?= $medida_dato['medida']; ?></option>
+                                      <?php } ?>
+                                  </select>
+                              </div>
                                   <div class="form-group">
                                       <label for="stock">Cantidad de productos</label>
                                       <input type="number" name="stock" id="stock" class="form-control" placeholder="Escriba aquí la cantidad en cajas del producto">

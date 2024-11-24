@@ -82,6 +82,7 @@
               <th>Cantidad de Empaquetado</th>
               <th>Stock</th>
               <th>Lote</th>
+              <th>Unidad de Medida</th>
               <th>Precio de Venta</th>
             </tr>
           </thead>
