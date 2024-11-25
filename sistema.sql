@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2024 a las 22:52:39
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 7.4.33
+-- Tiempo de generación: 25-11-2024 a las 05:04:19
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,8 +39,8 @@ CREATE TABLE `banco` (
 --
 
 INSERT INTO `banco` (`id_banco`, `id_tipo_pago`, `nombre_banco`, `datos_banco`) VALUES
-(3, 2, 'Tesoro mas', '01630856787654'),
-(13, 11, 'tesoro', '01029293883');
+(13, 8, 'Tesoro', '0108 04245826866 30894974'),
+(15, 2, 'Banco de Venezuela', '01020928373838383');
 
 -- --------------------------------------------------------
 
@@ -61,9 +61,8 @@ INSERT INTO `categoria` (`id_categoria`, `nombre_categoria`) VALUES
 (1, 'Ron'),
 (2, 'Cocuy'),
 (3, 'Anis'),
-(4, 'ronl'),
 (6, 'Sangria'),
-(7, '');
+(8, 'Coctel');
 
 -- --------------------------------------------------------
 
@@ -87,8 +86,9 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`cod_cliente`, `cedula_rif`, `nombre_cliente`, `apellido`, `correo`, `direccion`, `telefono`, `estatus`) VALUES
-(44, '30.657.597', 'Daniel ', 'Lucena', 'danielDc@gmail.com', 'Centro carrera 18 con calle 34', '0424-5842929', 'activo'),
-(45, '31.262.822', 'Maria Victoria', 'Vargas', 'mariav3162@gmail.com', 'Barquisimeto, Urbanizacion Villa Productiva, casa #32', '0416-9560416', 'activo');
+(47, '9616800', 'Mary ', 'Polanco', 'marypolanco0205@gmail.com', 'Barrio Rafael Linares', '0412-5121694', 'activo'),
+(48, '9546029', 'Alexis ', 'Rojas', 'angelarojas0204@gmail.com', 'tocuyo', '0424-5415378', 'activo'),
+(49, '18861512', 'Yonathan', 'Rojas', 'yonathanrojsa@gmail.com', 'Cabudare', '0412-7474747', 'activo');
 
 -- --------------------------------------------------------
 
@@ -98,24 +98,27 @@ INSERT INTO `cliente` (`cod_cliente`, `cedula_rif`, `nombre_cliente`, `apellido`
 
 CREATE TABLE `detalle_inventario` (
   `id_detalle_inventario` int(11) NOT NULL,
-  `id_presentacion` int(11) NOT NULL,
   `id_empaquetado` int(11) NOT NULL,
   `stock` int(11) NOT NULL,
   `lote` varchar(20) NOT NULL,
   `precio_venta` float NOT NULL,
   `estatus` varchar(11) NOT NULL,
-  `cod_inventario` int(11) NOT NULL
+  `cod_inventario` int(11) NOT NULL,
+  `cod_unidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `detalle_inventario`
 --
 
-INSERT INTO `detalle_inventario` (`id_detalle_inventario`, `id_presentacion`, `id_empaquetado`, `stock`, `lote`, `precio_venta`, `estatus`, `cod_inventario`) VALUES
-(20, 42, 2, 15, '12231', 20, 'activo', 17),
-(21, 42, 3, 40, 'adasd', 40, 'inactivo', 17),
-(22, 42, 2, 3, '32498234', 28, 'activo', 18),
-(23, 42, 3, 22, '123123', 50, 'activo', 18);
+INSERT INTO `detalle_inventario` (`id_detalle_inventario`, `id_empaquetado`, `stock`, `lote`, `precio_venta`, `estatus`, `cod_inventario`, `cod_unidad`) VALUES
+(24, 2, 5, 'ADO-1', 20, 'activo', 19, 1),
+(25, 3, 10, 'ADO-1', 40, 'activo', 19, 1),
+(34, 3, 10, 'ADO-2', 30, 'activo', 28, 1),
+(65, 2, 0, 'AO-2', 20, 'activo', 59, 1),
+(66, 3, 20, 'AO-2', 40, 'activo', 59, 1),
+(67, 2, 10, '234234', 25, 'activo', 68, 1),
+(68, 2, 10, '11111', 30, 'activo', 20, 2);
 
 -- --------------------------------------------------------
 
@@ -134,12 +137,11 @@ CREATE TABLE `detalle_pago` (
 --
 
 INSERT INTO `detalle_pago` (`id_detalle_pago`, `nro_pago`, `id_pedido`) VALUES
-(5, 6, 3),
-(6, 7, 3),
-(7, 8, 3),
-(8, 9, 3),
-(9, 10, 4),
-(10, 11, 5);
+(12, 13, 7),
+(13, 14, 7),
+(14, 15, 6),
+(15, 16, 8),
+(16, 17, 10);
 
 -- --------------------------------------------------------
 
@@ -159,14 +161,11 @@ CREATE TABLE `detalle_pedido` (
 --
 
 INSERT INTO `detalle_pedido` (`id_detalle_pedido`, `cantidad`, `id_detalle_inventario`, `id_pedido`) VALUES
-(2, 4, 20, 2),
-(3, 5, 21, 2),
-(4, 3, 20, 3),
-(5, 5, 21, 3),
-(6, 5, 22, 4),
-(7, 3, 23, 4),
-(8, 2, 22, 5),
-(9, 5, 20, 5);
+(10, 5, 24, 6),
+(12, 5, 34, 8),
+(13, 5, 65, 9),
+(14, 5, 65, 10),
+(15, 5, 34, 10);
 
 -- --------------------------------------------------------
 
@@ -202,16 +201,20 @@ CREATE TABLE `inventario` (
   `id_categoria` int(11) NOT NULL,
   `fyh_creacion` datetime NOT NULL,
   `fyh_actualizacion` datetime NOT NULL,
-  `imagen` varchar(200) NOT NULL
+  `imagen` varchar(200) NOT NULL,
+  `id_presentacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `inventario`
 --
 
-INSERT INTO `inventario` (`cod_inventario`, `nombre`, `descripcion`, `id_categoria`, `fyh_creacion`, `fyh_actualizacion`, `imagen`) VALUES
-(17, 'nuevo', 'asdasd', 1, '2024-11-29 00:00:00', '2024-11-08 10:19:23', ''),
-(18, 'Carorena', 'Producto de prueba', 6, '2025-03-15 00:00:00', '2024-11-12 01:30:00', '');
+INSERT INTO `inventario` (`cod_inventario`, `nombre`, `descripcion`, `id_categoria`, `fyh_creacion`, `fyh_actualizacion`, `imagen`, `id_presentacion`) VALUES
+(19, 'Platino', 'Licor a base de cocuy', 2, '2024-11-21 00:00:00', '2024-11-21 10:52:14', '', 43),
+(20, 'El Doctor', 'licor a base de cocuy', 3, '2024-11-21 00:00:00', '2024-11-21 00:00:00', '', 43),
+(28, 'Coctel', 'Coctel a base de cocuy', 2, '2024-11-21 00:00:00', '2024-11-21 10:55:55', '', 43),
+(59, 'Carorena', 'licor a base de cocuy', 1, '2024-11-21 00:00:00', '2024-11-21 14:58:05', '', 43),
+(68, 'wlwajljwlq', 'erere', 1, '2024-11-24 00:00:00', '2024-11-25 03:57:43', '', 43);
 
 -- --------------------------------------------------------
 
@@ -233,11 +236,14 @@ CREATE TABLE `pago` (
 
 INSERT INTO `pago` (`nro_pago`, `fyh_pago`, `monto`, `referencia`, `id_banco`) VALUES
 (6, '2024-11-10 00:00:00', 100, 12312312, 13),
-(7, '2024-11-10 00:00:00', 50, 502234, 3),
 (8, '2024-11-24 00:00:00', 110, 1103234, 13),
-(9, '2024-11-14 00:00:00', 1000, 2423, 3),
 (10, '2024-11-12 00:00:00', 100, 765756, 13),
-(11, '2024-11-12 00:00:00', 100, 123123, 13);
+(11, '2024-11-12 00:00:00', 100, 123123, 13),
+(13, '2024-11-21 00:00:00', 100, 95050, 15),
+(14, '2024-11-21 00:00:00', 50, 84944, 13),
+(15, '2024-11-21 00:00:00', 20, 7878, 13),
+(16, '2024-11-21 00:00:00', 50, 5089, 15),
+(17, '2024-11-21 00:00:00', 150, 43424, 13);
 
 -- --------------------------------------------------------
 
@@ -258,11 +264,11 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`id_pedido`, `fecha_pedido`, `estatus`, `cod_cliente`, `id_users`) VALUES
-(1, '2024-11-07 00:00:00', 0, 44, 9),
-(2, '2024-11-08 00:00:00', 0, 45, 9),
-(3, '2024-11-08 00:00:00', 0, 44, 8),
-(4, '2024-11-12 00:00:00', 1, 45, 8),
-(5, '2024-11-12 00:00:00', 1, 44, 8);
+(6, '2024-11-21 00:00:00', 1, 47, 8),
+(7, '2024-11-21 00:00:00', 1, 48, 8),
+(8, '2024-11-21 00:00:00', 1, 49, 9),
+(9, '2024-11-21 00:00:00', 1, 47, 8),
+(10, '2024-11-21 00:00:00', 1, 47, 8);
 
 -- --------------------------------------------------------
 
@@ -272,16 +278,18 @@ INSERT INTO `pedido` (`id_pedido`, `fecha_pedido`, `estatus`, `cod_cliente`, `id
 
 CREATE TABLE `presentacion` (
   `id_presentacion` int(11) NOT NULL,
-  `marca` varchar(200) NOT NULL,
-  `cod_unidad` int(11) NOT NULL
+  `marca` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `presentacion`
 --
 
-INSERT INTO `presentacion` (`id_presentacion`, `marca`, `cod_unidad`) VALUES
-(42, 'Jinro ', 1);
+INSERT INTO `presentacion` (`id_presentacion`, `marca`) VALUES
+(43, 'Leal'),
+(44, 'sunrise'),
+(45, 'Macondo'),
+(46, 'Leall');
 
 -- --------------------------------------------------------
 
@@ -300,9 +308,7 @@ CREATE TABLE `tipo_pago` (
 
 INSERT INTO `tipo_pago` (`id_tipo_pago`, `nombre`) VALUES
 (2, 'Transferencia'),
-(8, 'Pago Movil'),
-(9, 'Zelle'),
-(11, 'Binance');
+(8, 'Pago Movil');
 
 -- --------------------------------------------------------
 
@@ -342,7 +348,7 @@ CREATE TABLE `unidad_medida` (
 INSERT INTO `unidad_medida` (`cod_unidad`, `medida`) VALUES
 (1, '0.700ml'),
 (2, '1000ml'),
-(3, '2500ml');
+(3, '2000ml');
 
 -- --------------------------------------------------------
 
@@ -363,8 +369,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_users`, `names`, `email`, `password_user`, `cod_tipo_usuario`) VALUES
-(8, 'Angela', 'angelarojas0204@gmail.com', 111, 1),
-(9, 'maria', 'maria@gmail.com', 12345, 2);
+(8, 'Angela', 'angelarojas0204@gmail.com', '111', 1),
+(9, 'Maria', 'maria@gmail.com', 'Diplara.68', 2),
+(34, 'Maribel', 'Maribel@hotmail.com', 'Mari123@', 2);
 
 --
 -- Índices para tablas volcadas
@@ -394,9 +401,9 @@ ALTER TABLE `cliente`
 --
 ALTER TABLE `detalle_inventario`
   ADD PRIMARY KEY (`id_detalle_inventario`),
-  ADD KEY `id_presentacion` (`id_presentacion`),
   ADD KEY `id_empaquetado` (`id_empaquetado`),
-  ADD KEY `fk_detalle_inventario_inventario` (`cod_inventario`);
+  ADD KEY `fk_detalle_inventario_inventario` (`cod_inventario`),
+  ADD KEY `cod_unidad` (`cod_unidad`);
 
 --
 -- Indices de la tabla `detalle_pago`
@@ -425,7 +432,8 @@ ALTER TABLE `empaquetado`
 --
 ALTER TABLE `inventario`
   ADD PRIMARY KEY (`cod_inventario`),
-  ADD KEY `inventario_ibfk_1` (`id_categoria`);
+  ADD KEY `inventario_ibfk_1` (`id_categoria`),
+  ADD KEY `id_presentacion` (`id_presentacion`);
 
 --
 -- Indices de la tabla `pago`
@@ -446,8 +454,7 @@ ALTER TABLE `pedido`
 -- Indices de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  ADD PRIMARY KEY (`id_presentacion`),
-  ADD KEY `presentacion_ibfk_1` (`cod_unidad`);
+  ADD PRIMARY KEY (`id_presentacion`);
 
 --
 -- Indices de la tabla `tipo_pago`
@@ -482,37 +489,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `banco`
 --
 ALTER TABLE `banco`
-  MODIFY `id_banco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_banco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_inventario`
 --
 ALTER TABLE `detalle_inventario`
-  MODIFY `id_detalle_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_detalle_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_pago`
 --
 ALTER TABLE `detalle_pago`
-  MODIFY `id_detalle_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_detalle_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  MODIFY `id_detalle_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_detalle_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `empaquetado`
@@ -524,25 +531,25 @@ ALTER TABLE `empaquetado`
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `cod_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `cod_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `nro_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `nro_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  MODIFY `id_presentacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_presentacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_pago`
@@ -566,7 +573,7 @@ ALTER TABLE `unidad_medida`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Restricciones para tablas volcadas
@@ -582,8 +589,8 @@ ALTER TABLE `banco`
 -- Filtros para la tabla `detalle_inventario`
 --
 ALTER TABLE `detalle_inventario`
-  ADD CONSTRAINT `detalle_inventario_ibfk_2` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id_presentacion`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_inventario_ibfk_3` FOREIGN KEY (`id_empaquetado`) REFERENCES `empaquetado` (`id_empaquetado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_inventario_ibfk_4` FOREIGN KEY (`cod_unidad`) REFERENCES `unidad_medida` (`cod_unidad`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_detalle_inventario_inventario` FOREIGN KEY (`cod_inventario`) REFERENCES `inventario` (`cod_inventario`);
 
 --
@@ -604,7 +611,8 @@ ALTER TABLE `detalle_pedido`
 -- Filtros para la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  ADD CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `inventario_ibfk_2` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id_presentacion`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pago`
@@ -618,12 +626,6 @@ ALTER TABLE `pago`
 ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_3` FOREIGN KEY (`cod_cliente`) REFERENCES `cliente` (`cod_cliente`),
   ADD CONSTRAINT `pedido_ibfk_4` FOREIGN KEY (`id_users`) REFERENCES `usuario` (`id_users`);
-
---
--- Filtros para la tabla `presentacion`
---
-ALTER TABLE `presentacion`
-  ADD CONSTRAINT `presentacion_ibfk_1` FOREIGN KEY (`cod_unidad`) REFERENCES `unidad_medida` (`cod_unidad`);
 
 --
 -- Filtros para la tabla `usuario`
