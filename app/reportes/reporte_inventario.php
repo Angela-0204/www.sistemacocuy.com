@@ -3,10 +3,11 @@
 require_once('../../vendor/autoload.php'); 
 include('../../app/config.php');
 include('../../'.$MODELS . 'producto.php');
+$fecha = $_GET['fecha'];
 
 // obtener datos de la BD
 $producto = new Producto();
-$data_products = $producto->ListarDesgloce();
+$data_products = $producto->ListarDesgloce($fecha);
 
 //libreria para el pdf
 $pdf = new TCPDF('L'); 

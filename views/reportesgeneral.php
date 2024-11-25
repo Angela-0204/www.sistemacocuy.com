@@ -22,8 +22,9 @@
           <div class="inner">
             <h3>Inventario</h3>
             <p>Reporte de Inventario</p>
+            <input type="date" class="form-control" name="fecha_inventario">
           </div>
-          <a href="#" onclick="generar('reporte_inventario');">
+          <a href="#" onclick="generarInventario('reporte_inventario');">
             <div class="icon">
               <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
             </div>

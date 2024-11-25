@@ -23,7 +23,7 @@ if (isset($_GET['reporte'])) {
         if (file_exists($pdfFilePath)) {
             echo json_encode([
                 "estatus" => 1,
-                "url" => $pdfFilePath
+                "url" => $pdfFilePath."?fecha=".$fecha
             ]);
         } else {
             echo json_encode([
