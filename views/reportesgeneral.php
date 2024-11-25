@@ -1,4 +1,16 @@
 <?php include('views/layout/menu.php'); ?>
+<style>
+  .small-box-footer {
+    background-color: rgba(0, 0, 0, .1);
+    color: rgba(255, 255, 255, .8);
+    display: block;
+    padding: 3px 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    z-index: 10;
+}
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -22,16 +34,45 @@
           <div class="inner">
             <h3>Inventario</h3>
             <p>Reporte de Inventario</p>
-            <input type="date" class="form-control" name="fecha_inventario">
-          </div>
-          <a href="#" onclick="generarInventario('reporte_inventario');">
-            <div class="icon">
-              <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+            <div class="row">
+              <div class="col-12">
+                <select name="" class="form-control" id="tipo-reporte">
+                  <option value="1" selected>Reporte general</option>
+                  <option value="2">Por rango de fecha</option>
+                </select>
+              </div>
+              <div class="col-6 fechas" style="display: none;">
+                <label for="">Fecha desde</label>
+                <input type="date" class="form-control" name="fecha_desde_inventario">
+              </div>
+              <div class="col-6 fechas" style="display: none;">
+                <label for="">Fecha hasta</label>
+                <input type="date" class="form-control" name="fecha_hasta_inventario">
+              </div>
             </div>
-          </a>
-          <a href="#" onclick="generarInventario('reporte_inventario');" class="small-box-footer" style="color:black" >
-            Generar Reporte en PDF <i class="fas fa-arrow-circle-right"></i>
-          </a>
+            
+          </div>
+          <div class="general">
+            <a href="#" onclick="generarInventarioGeneral('inventario_general');">
+              <div class="icon">
+                <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+              </div>
+            </a>
+            <a href="#" onclick="generarInventarioGeneral('inventario_general');" class="small-box-footer" style="color:black" >
+              Generar Reporte General en PDF <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+          <div class="rango" style="display: none;">
+            <a href="#" onclick="generarInventarioFecha('inventario_rangos');">
+              <div class="icon">
+                <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+              </div>
+            </a>
+            <a href="#" onclick="generarInventarioFecha('inventario_rangos');" class="small-box-footer" style="color:black" >
+              Generar Reporte por fechas en PDF <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+          
         </div>
       </div>
 

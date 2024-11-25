@@ -14,16 +14,15 @@ if (!isset($_SESSION['id_user'])) {
 // Verificar si se ha enviado un reporte mediante AJAX
 if (isset($_GET['reporte'])) {
     $reporte = $_GET['reporte'];
-    if ($reporte == 'reporte_inventario') {
+    if ($reporte == 'inventario_general') {
         // Generar el PDF y devolver la URL para abrir el archivo
-        $pdfFilePath = 'app/reportes/'.$reporte.'.php';
-        $fecha = $_GET['fecha'];
+        $pdfFilePath = 'app/reportes/reporte_inventario.php';
 
         // Verifica si el archivo existe
         if (file_exists($pdfFilePath)) {
             echo json_encode([
                 "estatus" => 1,
-                "url" => $pdfFilePath."?fecha=".$fecha
+                "url" => $pdfFilePath."?fechas=false"
             ]);
         } else {
             echo json_encode([
@@ -32,6 +31,28 @@ if (isset($_GET['reporte'])) {
             ]);
         }
         exit;
+
+    }
+    if ($reporte == 'inventario_rangos') {
+        // Generar el PDF y devolver la URL para abrir el archivo
+        $pdfFilePath = 'app/reportes/reporte_inventario.php';
+        $fecha_desde = $_GET['fecha_desde'];
+        $fecha_hasta = $_GET['fecha_hasta'];
+
+        // Verifica si el archivo existe
+        if (file_exists($pdfFilePath)) {
+            echo json_encode([
+                "estatus" => 1,
+                "url" => $pdfFilePath."?fechas=true&fecha_desde=".$fecha_desde."&fecha_hasta=".$fecha_hasta
+            ]);
+        } else {
+            echo json_encode([
+                "estatus" => 0,
+                "mensaje" => "Error al generar el PDF."
+            ]);
+        }
+        exit;
+
     }
     if ($reporte == 'reporte_clientes') {
         // Generar el PDF y devolver la URL para abrir el archivo
