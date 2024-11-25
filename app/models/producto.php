@@ -57,15 +57,15 @@ class Producto extends connectDB
     }
 
     
-    public function Crear($nombre, $descripcion, $id_categoria, $id_marca, $imagen, $fyh_creacion, $fyh_actualizacion, $detalles)
+    public function Crear($nombre, $descripcion, $id_categoria, $id_presentacion, $imagen, $fyh_creacion, $fyh_actualizacion, $detalles)
     {
         // Iniciar la transacción
         $this->conex->beginTransaction();
     
         try {
             // Insertar en la tabla `inventario`
-            $sql_inventario = "INSERT INTO inventario (nombre, descripcion, id_categoria, imagen, fyh_creacion, fyh_actualizacion) 
-                    VALUES (:nombre, :descripcion, :id_categoria, :imagen, :fyh_creacion, :fyh_actualizacion)";
+            $sql_inventario = "INSERT INTO inventario (nombre, descripcion, id_categoria, imagen, fyh_creacion, id_presentacion, fyh_actualizacion) 
+                    VALUES (:nombre, :descripcion, :id_categoria, :imagen, :fyh_creacion, :id_presentacion, :fyh_actualizacion)";
             
             // Preparar y ejecutar el primer INSERT para `inventario`
             $resultado_inventario = $this->conex->prepare($sql_inventario);
@@ -75,6 +75,7 @@ class Producto extends connectDB
                 'id_categoria' => $id_categoria,
                 'imagen' => $imagen,
                 'fyh_creacion' => $fyh_creacion,
+                'id_presentacion' => $id_presentacion,
                 'fyh_actualizacion' => $fyh_actualizacion                
             ]);
     
@@ -82,8 +83,8 @@ class Producto extends connectDB
             $cod_inventario = $this->conex->lastInsertId();
     
             // Insertar en `detalle_inventario` para cada detalle
-            $sql_detalle = "INSERT INTO detalle_inventario (cod_inventario, stock, id_empaquetado, id_presentacion, lote, precio_venta, estatus) 
-                            VALUES (:id_inventario, :stock, :id_empaquetado, :id_presentacion, :lote, :precio_venta, :estatus)";
+            $sql_detalle = "INSERT INTO detalle_inventario (cod_inventario, stock, id_empaquetado,lote, precio_venta, estatus, cod_unidad) 
+                            VALUES (:id_inventario, :stock, :id_empaquetado, :lote, :precio_venta, :estatus, :cod_unidad)";
             
             $resultado_detalle = $this->conex->prepare($sql_detalle);
     
@@ -93,8 +94,8 @@ class Producto extends connectDB
                     'id_inventario' => $cod_inventario,
                     'stock' => $detalle['stock'],
                     'id_empaquetado' => $detalle['empaquetado'],
-                    'id_presentacion' => $id_marca,
                     'lote' => $detalle['lote'],
+                    'cod_unidad' => $detalle['cod_unidad'],
                     'precio_venta' => $detalle['precio'],
                     'estatus' => $detalle['estatus']
                 ]);
@@ -246,13 +247,7 @@ class Producto extends connectDB
 
     // Método para obtener los detalles del inventario del producto
     public function ObtenerDetallesInventario($id) {
-        $sql = "SELECT e.id_empaquetado, di.id_detalle_inventario, di.stock, di.lote, di.precio_venta, di.estatus, di.cod_unidad
-        e.cantidad AS empaquetado, p.marca AS presentacion
-        FROM detalle_inventario di
-        JOIN empaquetado e ON di.id_empaquetado = e.id_empaquetado
-        JOIN presentacion p ON di.id_presentacion = p.id_presentacion
-         JOIN unidad_medida u ON di.cod_unidad = p.cod_unidad
-        WHERE di.cod_inventario =:id AND di.estatus='activo';";
+        $sql = "SELECT u.cod_unidad, e.id_empaquetado, di.id_detalle_inventario, di.stock, di.lote, di.precio_venta, di.estatus, di.cod_unidad, e.cantidad AS empaquetado, u.medida FROM detalle_inventario di JOIN empaquetado e ON di.id_empaquetado = e.id_empaquetado JOIN unidad_medida u ON di.cod_unidad = u.cod_unidad WHERE di.cod_inventario =:id AND di.estatus='activo';";
         $stmt = $this->conex->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -271,24 +266,20 @@ class Producto extends connectDB
             return false;
         }
     }//modificar
-    public function GuardarDetalle($id_detalle_inventario, $stock, $lote, $precio, $marca, $estatus, $medida) {
+    public function GuardarDetalle($id_detalle_inventario, $stock, $lote, $precio, $estatus) {
         try {
             $sql = "UPDATE detalle_inventario SET 
                         stock = :stock, 
                         lote = :lote, 
                         precio_venta = :precio_venta, 
-                        id_presentacion = :id_presentacion, 
-                        estatus = :estatus,
-                        cod_unidad = :cod_unidad
+                        estatus = :estatus
                     WHERE id_detalle_inventario = :id_detalle_inventario";
             
             $stmt = $this->conex->prepare($sql);
             $stmt->bindParam(':stock', $stock, PDO::PARAM_INT);
             $stmt->bindParam(':lote', $lote, PDO::PARAM_STR);
             $stmt->bindParam(':precio_venta', $precio, PDO::PARAM_STR);
-            $stmt->bindParam(':id_presentacion', $marca, PDO::PARAM_INT);
             $stmt->bindParam(':estatus', $estatus, PDO::PARAM_STR);
-            $stmt->bindParam(':cod_unidad', $medida, PDO::PARAM_STR);
             $stmt->bindParam(':id_detalle_inventario', $id_detalle_inventario, PDO::PARAM_INT);
             $stmt->execute();
             return true;
@@ -298,7 +289,7 @@ class Producto extends connectDB
         }
     }
 
-    public function NuevoDetalle($id_cod, $id_empaquetado, $stock, $lote, $precio_venta, $id_presentacion, $estatus, $cod_unidad) {
+    public function NuevoDetalle($id_cod, $id_empaquetado, $stock, $lote, $precio_venta, $cod_unidad, $estatus) {
         try {
             // Verificar si ya existe un detalle con el mismo cod_inventario y id_empaquetado
             $sqlCheck = "SELECT COUNT(*) FROM detalle_inventario WHERE cod_inventario = :cod_inventario AND id_empaquetado = :id_empaquetado  AND cod_unidad = :cod_unidad";
@@ -321,8 +312,8 @@ class Producto extends connectDB
             }
     
             // Si no existe el detalle, procedemos con la inserción
-            $sqlInsert = "INSERT INTO detalle_inventario (cod_inventario, stock, lote, precio_venta, id_empaquetado, id_presentacion, estatus, medida) 
-                          VALUES (:cod_inventario, :stock, :lote, :precio_venta, :id_empaquetado, :id_presentacion, :estatus, :medida)";
+            $sqlInsert = "INSERT INTO detalle_inventario (cod_inventario, stock, lote, precio_venta, id_empaquetado, cod_unidad, estatus ) 
+                          VALUES (:cod_inventario, :stock, :lote, :precio_venta, :id_empaquetado, :cod_unidad, :estatus)";
     
             // Preparar la sentencia de inserción
             $stmt = $this->conex->prepare($sqlInsert);
@@ -333,9 +324,9 @@ class Producto extends connectDB
             $stmt->bindParam(':lote', $lote, PDO::PARAM_STR);            
             $stmt->bindParam(':precio_venta', $precio_venta, PDO::PARAM_STR);
             $stmt->bindParam(':id_empaquetado', $id_empaquetado, PDO::PARAM_INT);
-            $stmt->bindParam(':id_presentacion', $id_presentacion, PDO::PARAM_INT);
+            $stmt->bindParam(':cod_unidad', $cod_unidad, PDO::PARAM_INT);
             $stmt->bindParam(':estatus', $estatus, PDO::PARAM_STR);
-            $stmt->bindParam(':cod_unidad', $cod_unidad, PDO::PARAM_STR);
+          
     
             // Ejecutar la sentencia
             $stmt->execute();

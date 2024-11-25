@@ -49,13 +49,14 @@ function agregarDetalle() {
   function guardarDetalle() {
     const presentacionId = $('#presentacion').val();
     const empaquetadoId = $('#empaquetado').val();
+    const medida = $('#medida').val();
     const presentacionText = $('#presentacion option:selected').text();
     const empaquetadoText = $('#empaquetado option:selected').text();
+    const medidaText = $('#medida option:selected').text();
     const stock = $('#stock').val();
     const lote = $('#lote').val();
     const precio = $('#precio').val();
     const estatus = $('#estatus').val();
-    const marca =  $("select[name='marca']").val();
 
     $.ajax({
         url: '', // Reemplaza con la URL del controlador para guardar los cambios
@@ -67,7 +68,7 @@ function agregarDetalle() {
             lote: lote,
             precio: precio,
             estatus: estatus,
-            marca:marca
+            medida:medida
         },
         success: function(response) {
             var res = JSON.parse(response);   
@@ -77,6 +78,7 @@ function agregarDetalle() {
                 $('#detalleInventarioTable tbody').append(`
                     <tr data-id-detalle="">
                         <td data-empaquetado-id="${empaquetadoId}">${empaquetadoText}</td>
+                        <td data-unidad-id="${medida}">${medidaText}</td>
                         <td contenteditable="true" onblur="actualizarValor(this, 'stock')">${stock}</td>
                         <td contenteditable="true" onblur="actualizarValor(this, 'lote')">${lote}</td>
                         <td contenteditable="true" onblur="actualizarValor(this, 'precio')">${precio}</td>
@@ -204,11 +206,10 @@ function actualizarValor(elemento, campo) {
 function guardarCambios(button) {
     var row = $(button).closest('tr');
     var idDetalle = row.data('id-detalle'); // ID del detalle
-    var stock = row.find('td:eq(1)').text().trim(); // Valor actualizado de stock
-    var lote = row.find('td:eq(2)').text().trim(); // Valor actualizado de lote
-    var precio = row.find('td:eq(3)').text().trim(); // Valor actualizado de precio
-    var estatus = row.find('td:eq(4) select').val(); // Estatus seleccionado
-    var marca = $("select[name='marca']").val();
+    var stock = row.find('td:eq(2)').text().trim(); // Valor actualizado de stock
+    var lote = row.find('td:eq(3)').text().trim(); // Valor actualizado de lote
+    var precio = row.find('td:eq(4)').text().trim(); // Valor actualizado de precio
+    var estatus = row.find('td:eq(5) select').val(); // Estatus seleccionado
 
     // Enviar los datos al backend para guardar los cambios
     $.ajax({
@@ -220,8 +221,7 @@ function guardarCambios(button) {
             stock: stock,
             lote: lote,
             precio: precio,
-            estatus: estatus,
-            marca: marca
+            estatus: estatus
         },
         success: function(response) {
             var res = JSON.parse(response);   

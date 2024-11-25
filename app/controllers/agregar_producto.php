@@ -3,16 +3,19 @@ include('app/config.php');
 include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
 include($MODELS . 'caja.php');
+include($MODELS . 'medida.php');
 include($MODELS . 'marcas.php');
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
 $marcas = new Marcas();
+$ml = new Medida();
 
 //Para listar categorias en los selects
 $data_categorias = $categoria->Listar();
 $data_cajas = $caja->Listar();
 $data_marcas = $marcas->Listar();
+$data_medida = $ml->Listar();
 session_start();
 // Verificar si la sesión está activa
 if (!isset($_SESSION['id_user']) || $_SESSION['rol']!= 1) {

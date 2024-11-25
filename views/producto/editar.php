@@ -112,6 +112,7 @@
                         <thead>
                             <tr>
                                 <th>Empaquetado</th>
+                                <th>Unidad de medida</th>
                                 <th>Stock</th>
                                 <th>Lote</th>
                                 <th>Precio Venta</th>
@@ -123,6 +124,7 @@
                             <?php foreach ($detallesInventario as $detalle) { ?>
                                 <tr data-id-detalle="<?= htmlspecialchars($detalle['id_detalle_inventario']); ?>">
                                     <td data-empaquetado-id="<?= htmlspecialchars($detalle['id_empaquetado']); ?>"><?= htmlspecialchars($detalle['empaquetado']); ?></td>
+                                    <td data-unidad-id="<?= htmlspecialchars($detalle['cod_unidad']); ?>"><?= htmlspecialchars($detalle['medida']); ?></td>
                                     <td contenteditable="true" onblur="actualizarValor(this, 'stock')"><?= htmlspecialchars($detalle['stock']); ?></td>
                                     <td contenteditable="true" onblur="actualizarValor(this, 'lote')"><?= htmlspecialchars($detalle['lote']); ?></td>
                                     <td contenteditable="true" onblur="actualizarValor(this, 'precio_venta')"><?= htmlspecialchars($detalle['precio_venta']); ?></td>
@@ -170,6 +172,14 @@
                                           <?php } ?>
                                       </select>
                                   </div>
+                                  <div class="form-group">
+                                  <label for="medida">Unidad de Medida <span class="required">*</span></label>
+                                  <select name="medida" id="medida" class="form-control">
+                                      <?php foreach ($data_medida as $medida_dato) { ?>
+                                          <option value="<?= $medida_dato['cod_unidad']; ?>"><?= $medida_dato['medida']; ?></option>
+                                      <?php } ?>
+                                  </select>
+                              </div>
                                   <div class="form-group">
                                       <label for="stock">Cantidad de productos</label>
                                       <input type="number" name="stock" id="stock" class="form-control" placeholder="Escriba aquí la cantidad en cajas del producto">

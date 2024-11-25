@@ -102,9 +102,9 @@
                         <thead>
                             <tr>
                                 <th>Empaquetado</th>
+                                <th>Unidad de Medida</th>
                                 <th>Stock</th>
                                 <th>Lote</th>
-                                <th>Unidad de Medida</th>
                                 <th>Precio Venta</th>
                                 <th>Estatus</th>
                                 <th>Acción</th>

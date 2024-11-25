@@ -17,6 +17,7 @@ if (isset($_GET['reporte'])) {
     if ($reporte == 'reporte_inventario') {
         // Generar el PDF y devolver la URL para abrir el archivo
         $pdfFilePath = 'app/reportes/'.$reporte.'.php';
+        $fecha = $_GET['fecha'];
 
         // Verifica si el archivo existe
         if (file_exists($pdfFilePath)) {

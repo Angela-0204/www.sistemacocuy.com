@@ -8,13 +8,12 @@ if (!isset($_SESSION['id_user']) || $_SESSION['rol']!= 1) {
     exit();  // Asegura que no se ejecute el código restante de la página
 }
 include($MODELS . 'marcas.php');
-include($MODELS . 'medida.php');
 
-$ml = new Medida();
+
 $marcas = new Marcas();
 
 //Para listar categorias 
-$data_medida = $ml->Listar();
+
 $data_marcas = $marcas->Listar();
 if(isset($_POST['accion'])){
     //Establecer zona horaria para obtener la fecha actual
@@ -24,10 +23,10 @@ if(isset($_POST['accion'])){
         //Para registrar
         case 'registrar':
             $marca = $_POST['marca'];
-            $medida =$_POST['medida'];
+          
 
     
-            $result = $marcas->Crear($marca,$medida);
+            $result = $marcas->Crear($marca);
             
             $response = array();
             if ($result) {
@@ -49,7 +48,7 @@ if(isset($_POST['accion'])){
                 echo json_encode([
                     'id_presentacion' => $valor['id_presentacion'],
                     'marca' => $valor['marca'],
-                    'medida' => $valor['cod_unidad']
+                   
                 ]);
             }
             return 0;
@@ -74,9 +73,9 @@ if(isset($_POST['accion'])){
         case 'modificar':
             $id = $_POST['id_presentacion'];
             $marca = $_POST['marca'];
-            $cod_unidad = $_POST['medida'];           
+                   
         
-            $result = $marcas->Modificar($id, $marca, $cod_unidad);
+            $result = $marcas->Modificar($id, $marca);
             $respuesta = array();
             if ($result) {
                 $respuesta['estatus'] = 1;

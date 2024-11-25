@@ -4,7 +4,7 @@ $("#registrar").click(function (e) {
     var datos = new FormData();
     datos.append("accion", "registrar");
     datos.append("marca", $("input[name='marca']").val());
-    datos.append("medida", $("select[name='mililitro']").val());
+   
 
     AjaxRegistrar(datos);
 });
@@ -16,7 +16,7 @@ $("#modificar").click(function (e) {
     datos.append("accion", "modificar");
     datos.append("id_presentacion", $("input[name='id']").val());
     datos.append("marca", $("input[name='nombre_editar']").val());
-    datos.append("medida", $("select[name='unidad_medida']").val());
+   
 
     funcionAjax(datos);
 });
@@ -143,7 +143,7 @@ function AjaxEditar(datos) {
             var res = JSON.parse(response);   
             $("#id").val(res.id_presentacion);
             $("#nombre_editar").val(res.marca);
-            $("#unidad_medida").val(res.medida);
+          
 
             $("#modal-edit-categoria").modal("show");   
         },

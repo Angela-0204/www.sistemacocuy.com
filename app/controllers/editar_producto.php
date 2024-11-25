@@ -4,16 +4,20 @@ include($MODELS . 'producto.php');
 include($MODELS . 'categoria.php');
 include($MODELS . 'caja.php');
 include($MODELS . 'marcas.php');
+include($MODELS . 'medida.php');
 
+$ml = new Medida();
 $producto = new Producto();
 $categoria = new Categoria();
 $caja = new Caja();
 $marcas = new Marcas();
 
+
 // Para listar categorías, cajas y marcas en los selects
 $data_categorias = $categoria->Listar();
 $data_cajas = $caja->Listar();
 $data_marcas = $marcas->Listar();
+$data_medida = $ml->Listar();
 session_start();
 // Verificar si la sesión está activa
 if (!isset($_SESSION['id_user']) || $_SESSION['rol']!= 1) {
@@ -109,10 +113,9 @@ if (isset($_POST['accion'])) {
             $lote = $_POST['lote'];
             $precio = $_POST['precio'];
             $estatus = $_POST['estatus'];
-            $marca = $_POST['marca'];
 
             // Llamar al método para actualizar el detalle en el modelo
-            $result = $producto->GuardarDetalle($id_detalle_inventario, $stock, $lote, $precio, $marca, $estatus);
+            $result = $producto->GuardarDetalle($id_detalle_inventario, $stock, $lote, $precio, $estatus);
 
             if ($result) {
                 echo json_encode([
@@ -134,10 +137,10 @@ if (isset($_POST['accion'])) {
             $lote = $_POST['lote'];
             $precio = $_POST['precio'];
             $estatus = $_POST['estatus'];
-            $marca = $_POST['marca'];
+            $cod_unidad = $_POST['medida'];
         
             // Llamar al método para insertar el nuevo detalle
-            $result = $producto->NuevoDetalle($cod_inventario, $empaquetadoId, $stock, $lote, $precio, $marca, $estatus);
+            $result = $producto->NuevoDetalle($cod_inventario, $empaquetadoId, $stock, $lote, $precio, $cod_unidad, $estatus);
         
             // Verificar el resultado devuelto por la función
             if ($result['estatus'] == 1) {

@@ -28,7 +28,7 @@
               <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
             </div>
           </a>
-          <a href="#" onclick="generar('reporte_inventario');" class="small-box-footer" style="color:black" >
+          <a href="#" onclick="generarInventario('reporte_inventario');" class="small-box-footer" style="color:black" >
             Generar Reporte en PDF <i class="fas fa-arrow-circle-right"></i>
           </a>
         </div>

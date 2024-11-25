@@ -41,9 +41,7 @@
                     <th>
                       <center>Nombre de las Marcas</center>
                     </th>
-                    <th>
-                      <center>Mililitros</center>
-                    </th>
+                    
                     <th>
                       <center>Accion</center>
                     </th>
@@ -52,14 +50,13 @@
                 <tbody>
                   <?php
                   $contador = 0;
-                  foreach ($data_marcas as $marcas_dato) {
-                    $id_presentacion = $marcas_dato['id_presentacion']; 
-                    $cod_unidad = $marcas_dato['cod_unidad'];?>
+                  foreach($data_marcas as $marcas_dato) {
+                    $id_presentacion = $marcas_dato['id_presentacion'];?>
 
                     <tr>
                       <td><?php echo $contador = $contador + 1; ?></td>
                       <td><?php echo $marcas_dato['marca']; ?></td>
-                      <td><?php echo $marcas_dato['medida'] ?></td>
+                     
                       <td>
                         <button onclick="editar(<?=$marcas_dato['id_presentacion'];?>)" class="btn btn-warning btn-sm">
                           <i class="fas fa-edit"></i>
@@ -104,17 +101,7 @@
             <span id="nombre_marcaError" class="text-danger"></span>
           </div>
         </div>
-        <div class="row-md-4">
-                      <div class="col align-self-center-md-4 form-group">
-                        <label for="">Medida Mililitros</label>
-                        <select name="mililitro" id="mililitro" class="form-control">
-                          <?php foreach ($data_medida as $medida_dato) { ?>
-                            <option value="<?= $medida_dato['cod_unidad']; ?>"><?php echo $medida_dato['medida']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    </div>
-
+    
 
         <div class="modal-footer">
         <a href="" class="btn btn-secondary">Cancelar</a>
@@ -143,17 +130,7 @@
             <input type="text" name="nombre_editar" id="nombre_editar" class="form-control" placeholder="Escriba aquí el nombre de la marca" >
             <span id="nombre_editarError" class="text-danger"></span>
           </div>
-          <div class="row-md-4">
-                      <div class="col align-self-center-md-4 form-group">
-                        <label for="">Medida Mililitros</label>
-                       
-                        <select name="unidad_medida" id="unidad_medida" class="form-control">
-                          <?php foreach ($data_medida as $medida_dato) { ?>
-                            <option value="<?= $medida_dato['cod_unidad']; ?>"><?php echo $medida_dato['medida']; ?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
-                    </div>
+       
         </div>
         <div class="modal-footer"> 
           <a href="" class="btn btn-secondary">Cancelar</a>

@@ -12,14 +12,17 @@ $("#registrar").click(function (e) {
 
     $("#detalleInventarioTable tbody tr").each(function (index, row) {
         let empaquetadoId = $(row).find("td[data-empaquetado-id]").data("empaquetado-id");
-        let stock = $(row).find("td:eq(1)").text().trim();
-        let lote = $(row).find("td:eq(2)").text().trim();
-        let precio = $(row).find("td:eq(3)").text().trim();
-        let estatus = $(row).find("td:eq(4) select").val();
+        let unidad_medidaId = $(row).find("td[data-unidad_medida-id]").data("unidad_medida-id");
+        let stock = $(row).find("td:eq(2)").text().trim();
+        let lote = $(row).find("td:eq(3)").text().trim();
+        let precio = $(row).find("td:eq(4)").text().trim();
+        let estatus = $(row).find("td:eq(5) select").val();
 
         datos.append(`detalles[${index}][empaquetado]`, empaquetadoId);
+        datos.append(`detalles[${index}][cod_unidad]`, unidad_medidaId);
         datos.append(`detalles[${index}][stock]`, stock);
         datos.append(`detalles[${index}][lote]`, lote);
+       
         datos.append(`detalles[${index}][precio]`, precio);
         datos.append(`detalles[${index}][estatus]`, estatus);
     });
@@ -193,8 +196,10 @@ function guardarDetalle() {
     // Función para agregar una nueva fila a la tabla, similar al código anterior
     const presentacionId = $('#presentacion').val();
     const empaquetadoId = $('#empaquetado').val();
+    const unidad_medidaId = $('#medida').val();
     const presentacionText = $('#presentacion option:selected').text();
     const empaquetadoText = $('#empaquetado option:selected').text();
+    const medidaText = $('#medida option:selected').text();
     const stock = $('#stock').val();
     const lote = $('#lote').val();
     const precio = $('#precio').val();
@@ -203,6 +208,7 @@ function guardarDetalle() {
     $('#detalleInventarioTable tbody').append(`
         <tr>
             <td data-empaquetado-id="${empaquetadoId}">${empaquetadoText}</td>
+             <td data-unidad_medida-id="${unidad_medidaId}">${medidaText}</td>
             <td contenteditable="true" onblur="actualizarValor(this, 'stock')">${stock}</td>
             <td contenteditable="true" onblur="actualizarValor(this, 'lote')">${lote}</td>
             <td contenteditable="true" onblur="actualizarValor(this, 'precio')">${precio}</td>
@@ -247,8 +253,10 @@ $("#modificar").click(function (e) {
         detalles.push({
             stock: row.find("td:eq(1)").text(),
             lote: row.find("td:eq(2)").text(),
-            precio_venta: row.find("td:eq(3)").text(),
+            medida: row.find("td:eq(3)").text(),
+            precio_venta: row.find("td:eq(4)").text(),
             estatus: row.find("select").val(),
+           
             id_empaquetado: row.find("td:eq(0)").data("id_empaquetado") // Suponiendo que tienes el id del empaquetado
         });
     });

@@ -5,14 +5,13 @@ class Marcas extends connectDB
 {
     private $id_presentacion;
     private $marca;
-    private $cod_unidad;
-    private $medida;
+  
     
   
 
     public function Listar()
     {
-        $resultado = $this->conex->prepare("SELECT c.cod_unidad, a.id_presentacion, c.medida, a.marca FROM presentacion a INNER JOIN unidad_medida c ON a.cod_unidad=c.cod_unidad;");
+        $resultado = $this->conex->prepare("SELECT  id_presentacion,  marca FROM presentacion  ");
 
         $respuestaArreglo = [];
         try {
@@ -24,16 +23,16 @@ class Marcas extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Crear($marca, $cod_unidad)
+    public function Crear($marca)
     {
-        $sql = "INSERT INTO presentacion (marca, cod_unidad) 
-                VALUES (:marca, :cod_unidad)";
+        $sql = "INSERT INTO presentacion (marca) 
+                VALUES (:marca)";
         $resultado = $this->conex->prepare($sql);
         
         try {
             $resultado->execute([
                 'marca' => $marca,
-                'cod_unidad' => $cod_unidad
+              
                 
             ]);
         } catch (Exception $e) {
@@ -57,16 +56,16 @@ class Marcas extends connectDB
         return $respuestaArreglo;
     }
 
-    public function Modificar($id_presentacion, $marca, $cod_unidad)
+    public function Modificar($id_presentacion, $marca)
     {
-        $sql = "UPDATE presentacion SET marca = :marca, cod_unidad = :cod_unidad
+        $sql = "UPDATE presentacion SET marca = :marca
                 WHERE id_presentacion = :id_presentacion";
             
         $resultado = $this->conex->prepare($sql);
         try {
             $resultado->execute([
                 'marca' => $marca,
-                'cod_unidad' => $cod_unidad,
+               
                 'id_presentacion' => $id_presentacion
             ]);
         } catch (Exception $e) {

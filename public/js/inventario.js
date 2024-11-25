@@ -89,6 +89,7 @@ function AjaxDetalles(datos) {
                       <td>${item.empaquetado}</td>
                       <td>${item.stock}</td>
                       <td>${item.lote}</td>
+                         <td>${item.medida}</td>
                       <td>${item.precio_venta}$</td>
                     </tr>
                 `);
