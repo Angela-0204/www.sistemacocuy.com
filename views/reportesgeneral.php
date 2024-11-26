@@ -82,15 +82,43 @@
           <div class="inner">
             <h3>Pedido</h3>
             <p>Reporte de Pedidos</p>
-          </div>
-          <a href="#" onclick="generar('reporte_pedido');">
-            <div class="icon">
-              <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+          <div class="row">
+              <div class="col-12">
+                <select name="" class="form-control" id="tipo-reporte-pedido">
+                  <option value="1" selected>Reporte general</option>
+                  <option value="2">Por rango de fecha</option>
+                </select>
+              </div>
+              <div class="col-6 fechas-pedido" style="display: none;">
+                <label for="">Fecha desde</label>
+                <input type="date" class="form-control" name="fecha_desde_pedido">
+              </div>
+              <div class="col-6 fechas-pedido" style="display: none;">
+                <label for="">Fecha hasta</label>
+                <input type="date" class="form-control" name="fecha_hasta_pedido">
+              </div>
             </div>
-          </a>
-          <a href="#" onclick="generar('reporte_pedido');" class="small-box-footer" style="color:black">
-            Generar Reporte en PDF <i class="fas fa-arrow-circle-right"></i>
-          </a>
+          </div>
+          <div class="general-pedido">
+            <a href="#" onclick="generarPedidoGeneral('pedido_general');">
+              <div class="icon">
+                <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+              </div>
+            </a>
+            <a href="#" onclick="generarPedidoGeneral('pedido_general');" class="small-box-footer" style="color:black" >
+              Generar Reporte General en PDF <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+          <div class="rango-pedido" style="display: none;">
+            <a href="#" onclick="generarPedidoFecha('pedido_rangos');">
+              <div class="icon">
+                <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+              </div>
+            </a>
+            <a href="#" onclick="generarPedidoFecha('pedido_rangos');" class="small-box-footer" style="color:black" >
+              Generar Reporte por fechas en PDF <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>

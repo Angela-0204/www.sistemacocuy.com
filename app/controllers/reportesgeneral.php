@@ -74,10 +74,49 @@ if (isset($_GET['reporte'])) {
 
         
     } 
+    if ($reporte == 'pedido_general') {
+        // Generar el PDF y devolver la URL para abrir el archivo
+        $pdfFilePath = 'app/reportes/reporte_pedido.php';
 
+        // Verifica si el archivo existe
+        if (file_exists($pdfFilePath)) {
+            echo json_encode([
+                "estatus" => 1,
+                "url" => $pdfFilePath."?fechas=false"
+            ]);
+        } else {
+            echo json_encode([
+                "estatus" => 0,
+                "mensaje" => "Error al generar el PDF."
+            ]);
+        }
+        exit;
+
+    }
+    if ($reporte == 'pedido_rangos') {
+        // Generar el PDF y devolver la URL para abrir el archivo
+        $pdfFilePath = 'app/reportes/reporte_pedido.php';
+        $fecha_desde = $_GET['fecha_desde'];
+        $fecha_hasta = $_GET['fecha_hasta'];
+
+        // Verifica si el archivo existe
+        if (file_exists($pdfFilePath)) {
+            echo json_encode([
+                "estatus" => 1,
+                "url" => $pdfFilePath."?fechas=true&fecha_desde=".$fecha_desde."&fecha_hasta=".$fecha_hasta
+            ]);
+        } else {
+            echo json_encode([
+                "estatus" => 0,
+                "mensaje" => "Error al generar el PDF."
+            ]);
+        }
+        exit;
+
+    }
     if ($reporte == 'reporte_pedido') {
         // Generar el PDF y devolver la URL para abrir el archivo
-        $pdfFilePath = 'app/reportes/'.$reporte.'.php';
+        $pdfFilePath = 'app/reportes/reporte_pedido.php';
 
         // Verifica si el archivo existe
         if (file_exists($pdfFilePath)) {

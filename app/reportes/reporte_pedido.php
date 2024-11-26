@@ -5,11 +5,16 @@ include('../../app/config.php');
 
 include('../../'.$MODELS . 'pedido.php');
 
-
-
 $pedido = new Pedido();
-$listar = $pedido->Listar();
-
+$fechas = $_GET['fechas'];
+if($fechas=="false"){
+    $listar = $pedido->Listar();
+}
+else{
+    $fecha_desde = $_GET['fecha_desde'];
+    $fecha_hasta = $_GET['fecha_hasta'];
+    $listar = $pedido->ListarPorRango($fecha_desde, $fecha_hasta);
+}
 
 // Crea una instancia de TCPDF
 $pdf = new TCPDF();
@@ -47,16 +52,14 @@ $pdf->Ln();
 // Llenado de datos en la tabla
 $pdf->SetFont('helvetica', '', 9);
 foreach ($listar as $product) {
+    $fechaOriginal = $product['fecha_pedido']; // Supongamos que está en formato 'Y-m-d H:i:s'
+    $fechaFormateada = date('d-m-Y H:i:s', strtotime($fechaOriginal));
+
     $activo = $product['estatus'] == 1 ? 'Activo': 'Anulado';
     $pdf->Cell(25, 10, "A-000".$product['id_pedido'], 1, 0, 'C');
-    $pdf->Cell(50, 10, $product['fecha_pedido'], 1, 0, 'C');
+    $pdf->Cell(50, 10, $fechaFormateada, 1, 0, 'C');
     $pdf->Cell(70, 10, $product['nombre_cliente'].' '.$product['apellido'], 1, 0, 'C');
     $pdf->Cell(20, 10, $activo, 1, 0, 'C');
-    /*$pdf->Cell(40, 10, $product['nombre'], 1, 0, 'C');
-    $pdf->Cell(30, 10, $product['nombre_categoria'], 1, 0, 'C');
-    $pdf->Cell(20, 10, $product['marca'], 1, 0, 'C');*/
-    
-   
     $pdf->Ln();
 }
 

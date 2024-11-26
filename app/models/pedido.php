@@ -17,6 +17,23 @@ class Pedido extends connectDB
         return $respuestaArreglo;
     }
 
+    public function ListarPorRango($fecha_desde, $fecha_hasta)
+    {
+        $resultado = $this->conex->prepare("SELECT p.id_pedido, p.fecha_pedido, c.nombre_cliente, c.apellido, p.estatus FROM pedido p INNER JOIN cliente c ON p.cod_cliente=c.cod_cliente WHERE p.fecha_pedido BETWEEN :fecha_desde AND :fecha_hasta ORDER BY p.fecha_pedido desc;");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute([
+                'fecha_desde' => $fecha_desde,
+                'fecha_hasta' => $fecha_hasta
+            ]);
+            $respuestaArreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        
+        return $respuestaArreglo;
+    }
+
     public function ListarActivos()
     {
         $resultado = $this->conex->prepare("SELECT p.id_pedido, p.fecha_pedido, c.nombre_cliente, c.apellido, p.estatus FROM pedido p INNER JOIN cliente c ON p.cod_cliente=c.cod_cliente WHERE p.estatus=1 ORDER BY p.fecha_pedido desc;");
