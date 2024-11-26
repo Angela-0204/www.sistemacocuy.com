@@ -42,13 +42,8 @@ $pdf->Cell(25, 10, 'Cód. Pedido', 1, 0, 'C');
 $pdf->Cell(50, 10, 'Fecha del Pedido', 1, 0, 'C');
 $pdf->Cell(70, 10, 'Cliente', 1, 0, 'C');
 $pdf->Cell(20, 10, 'Estatus', 1, 0, 'C');
-/*$pdf->Cell(20, 10, 'Cantidad', 1, 0, 'C');
-$pdf->Cell(40, 10, 'Producto', 1, 0, 'C');
-$pdf->Cell(30, 10, 'Categoria', 1, 0, 'C');
-$pdf->Cell(20, 10, 'Marca', 1, 0, 'C');*/
 $pdf->Ln();
 
-//p.id_pedido, p.fecha_pedido, c.nombre_cliente, c.apellido, p.estatus
 // Llenado de datos en la tabla
 $pdf->SetFont('helvetica', '', 9);
 foreach ($listar as $product) {

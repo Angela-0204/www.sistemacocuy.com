@@ -82,43 +82,43 @@
           <div class="inner">
             <h3>Pedido</h3>
             <p>Reporte de Pedidos</p>
-          <div class="row">
-              <div class="col-12">
-                <select name="" class="form-control" id="tipo-reporte-pedido">
-                  <option value="1" selected>Reporte general</option>
-                  <option value="2">Por rango de fecha</option>
-                </select>
-              </div>
-              <div class="col-6 fechas-pedido" style="display: none;">
-                <label for="">Fecha desde</label>
-                <input type="date" class="form-control" name="fecha_desde_pedido">
-              </div>
-              <div class="col-6 fechas-pedido" style="display: none;">
-                <label for="">Fecha hasta</label>
-                <input type="date" class="form-control" name="fecha_hasta_pedido">
+            <div class="row">
+                <div class="col-12">
+                  <select name="" class="form-control" id="tipo-reporte-pedido">
+                    <option value="1" selected>Reporte general</option>
+                    <option value="2">Por rango de fecha</option>
+                  </select>
+                </div>
+                <div class="col-6 fechas-pedido" style="display: none;">
+                  <label for="">Fecha desde</label>
+                  <input type="date" class="form-control" name="fecha_desde_pedido">
+                </div>
+                <div class="col-6 fechas-pedido" style="display: none;">
+                  <label for="">Fecha hasta</label>
+                  <input type="date" class="form-control" name="fecha_hasta_pedido">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="general-pedido">
-            <a href="#" onclick="generarPedidoGeneral('pedido_general');">
-              <div class="icon">
-                <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
-              </div>
-            </a>
-            <a href="#" onclick="generarPedidoGeneral('pedido_general');" class="small-box-footer" style="color:black" >
-              Generar Reporte General en PDF <i class="fas fa-arrow-circle-right"></i>
-            </a>
-          </div>
-          <div class="rango-pedido" style="display: none;">
-            <a href="#" onclick="generarPedidoFecha('pedido_rangos');">
-              <div class="icon">
-                <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
-              </div>
-            </a>
-            <a href="#" onclick="generarPedidoFecha('pedido_rangos');" class="small-box-footer" style="color:black" >
-              Generar Reporte por fechas en PDF <i class="fas fa-arrow-circle-right"></i>
-            </a>
-          </div>
+            <div class="general-pedido">
+              <a href="#" onclick="generarPedidoGeneral('pedido_general');">
+                <div class="icon">
+                  <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+                </div>
+              </a>
+              <a href="#" onclick="generarPedidoGeneral('pedido_general');" class="small-box-footer" style="color:black" >
+                Generar Reporte General en PDF <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+            <div class="rango-pedido" style="display: none;">
+              <a href="#" onclick="generarPedidoFecha('pedido_rangos');">
+                <div class="icon">
+                  <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+                </div>
+              </a>
+              <a href="#" onclick="generarPedidoFecha('pedido_rangos');" class="small-box-footer" style="color:black" >
+                Generar Reporte por fechas en PDF <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
         </div>
       </div>
     </div>
@@ -150,15 +150,43 @@
           <div class="inner">
             <h3>Pagos</h3>
             <p>Reporte de pagos</p>
-          </div>
-          <a onclick="generar('reporte_pagos');">
-            <div class="icon">
-              <i class="nav-icon fas fa-sharp-duotone  fa-file-excel"></i>
+            <div class="row">
+                <div class="col-12">
+                  <select name="" class="form-control" id="tipo-reporte-pago">
+                    <option value="1" selected>Reporte general</option>
+                    <option value="2">Por método de pago</option>
+                  </select>
+                </div>
+                <div class="col-12 fechas-pago" style="display: none;">
+                  <label for="">Método de pago</label>
+                  <select name="tipo_pago" id="tipo_pago" class="form-control">
+                      <?php foreach ($data_tipos as $pago_dato) { ?>
+                        <option value="<?= $pago_dato['id_tipo_pago']; ?>"><?php echo $pago_dato['nombre']; ?></option>
+                      <?php } ?>
+                  </select>
+                </div>
+              </div>
             </div>
-          </a>
-          <a href="#" onclick="generar('reporte_pagos');" class="small-box-footer" style="color:black">
-            Generar Reporte en Excel <i class="fas fa-arrow-circle-right"></i>
-          </a>
+            <div class="general-pago">
+              <a href="#" onclick="generarPagoGeneral('pago_general');">
+                <div class="icon">
+                  <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+                </div>
+              </a>
+              <a href="#" onclick="generarPagoGeneral('pago_general');" class="small-box-footer" style="color:black" >
+                Generar Reporte General en PDF <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+            <div class="rango-pago" style="display: none;">
+              <a href="#" onclick="generarPagoTipo('pago_rangos');">
+                <div class="icon">
+                  <i class="nav-icon fas fa-sharp-duotone  fa-file-pdf"></i>
+                </div>
+              </a>
+              <a href="#" onclick="generarPagoTipo('pago_rangos');" class="small-box-footer" style="color:black" >
+                Generar Reporte por Método de pago en PDF <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
         </div>
       </div>
     </div>

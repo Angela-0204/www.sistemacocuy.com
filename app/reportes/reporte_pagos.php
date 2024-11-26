@@ -44,19 +44,25 @@ class ReporteExcel
         foreach ($datos as $dato) {
             $columna = 'A';
             foreach ($dato as $key => $valor) {
+                // Si la clave es 'Fecha', formatear el valor
+                if ($key === 'Fecha') {
+                    $valor = date('d-m-Y H:i:s', strtotime($valor)); // Formato deseado
+                }
+        
                 // Asignar el valor a la celda
                 $sheet->setCellValue($columna . $fila, $valor);
-
+        
                 // Ajustar el ancho de la columna dependiendo de la longitud del texto
                 $currentWidth = strlen($valor);
                 if (!isset($columnWidths[$columna]) || $columnWidths[$columna] < $currentWidth) {
                     $columnWidths[$columna] = $currentWidth; // Actualizamos el ancho de la columna si es mayor
                 }
-
+        
                 $columna++;
             }
             $fila++;
         }
+        
 
         // Ajustar el ancho de las columnas a los valores almacenados en $columnWidths (en unidades aproximadas de 1 carácter)
         foreach ($columnWidths as $col => $width) {
@@ -85,7 +91,14 @@ class ReporteExcel
 
 // Primero instanciar la clase Reporte_pago que contiene el método Listar
 $reporte_pago = new Reporte_pago();
-$datosReporte = $reporte_pago->GenerarReporte(); // Obtener los datos de la base de datos
+$parametro = $_GET['parametro'];
+if($parametro=="false"){
+    $datosReporte = $reporte_pago->GenerarReporte();
+}
+else{
+    $tipo_pago = $_GET['tipo_pago'];
+    $datosReporte = $reporte_pago->GenerarReportePorMetodo($tipo_pago);
+}
 
 // Verificar que se haya obtenido algún dato
 if ($datosReporte) {

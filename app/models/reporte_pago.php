@@ -78,6 +78,21 @@ class Reporte_pago extends connectDB
         return $respuestaArreglo;
     }
 
+    public function GenerarReportePorMetodo($tipo_pago)
+    {
+        $resultado = $this->conex->prepare("SELECT p.nro_pago as Pago, p.fyh_pago as Fecha, p.monto as Monto,  p.referencia as Rerefencia, b.nombre_banco as Banco, tp.nombre AS Metodo, cl.nombre_cliente as Cliente, u.names as Usuario FROM pago AS p INNER JOIN detalle_pago AS dp ON dp.nro_pago = p.nro_pago INNER JOIN banco AS b ON b.id_banco = p.id_banco INNER JOIN tipo_pago AS tp ON tp.id_tipo_pago = b.id_tipo_pago INNER JOIN pedido AS ped ON ped.id_pedido = dp.id_pedido INNER JOIN cliente AS cl ON cl.cod_cliente = ped.cod_cliente INNER JOIN usuario AS u on ped.id_users= u.id_users WHERE tp.id_tipo_pago= :tipo_pago;");
+        $respuestaArreglo = [];
+        try {
+            $resultado->execute([
+                'tipo_pago' => $tipo_pago
+            ]);
+            $respuestaArreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $respuestaArreglo;
+    }
+
     public function Crear($fyh_pago, $monto,  $referencia, $id_banco, $id_pedido)
     {
         // SQL para insertar en la tabla detalle_pago

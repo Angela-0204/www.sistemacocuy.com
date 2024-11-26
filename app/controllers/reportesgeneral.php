@@ -1,7 +1,9 @@
 <?php
 include('app/config.php');
 include($MODELS . 'producto.php');
-
+include($MODELS . 'tipo_pago.php');
+$tipo = new Tipo();
+$data_tipos = $tipo->Listar();
 // Inicia sesión 
 session_start();
 // Verificar si la sesión está activa
@@ -114,15 +116,15 @@ if (isset($_GET['reporte'])) {
         exit;
 
     }
-    if ($reporte == 'reporte_pedido') {
+    if ($reporte == 'pago_general') {
         // Generar el PDF y devolver la URL para abrir el archivo
-        $pdfFilePath = 'app/reportes/reporte_pedido.php';
+        $pdfFilePath = 'app/reportes/reporte_pagos.php';
 
         // Verifica si el archivo existe
         if (file_exists($pdfFilePath)) {
             echo json_encode([
                 "estatus" => 1,
-                "url" => $pdfFilePath
+                "url" => $pdfFilePath."?parametro=false"
             ]);
         } else {
             echo json_encode([
@@ -131,6 +133,27 @@ if (isset($_GET['reporte'])) {
             ]);
         }
         exit;
+
+    }
+    if ($reporte == 'pago_rangos') {
+        // Generar el PDF y devolver la URL para abrir el archivo
+        $pdfFilePath = 'app/reportes/reporte_pagos.php';
+        $tipo_pago = $_GET['tipo_pago'];
+
+        // Verifica si el archivo existe
+        if (file_exists($pdfFilePath)) {
+            echo json_encode([
+                "estatus" => 1,
+                "url" => $pdfFilePath."?parametro=true&tipo_pago=".$tipo_pago
+            ]);
+        } else {
+            echo json_encode([
+                "estatus" => 0,
+                "mensaje" => "Error al generar el PDF."
+            ]);
+        }
+        exit;
+
     }
     if ($reporte == 'reporte_pagos') {
         // Generar el PDF y devolver la URL para abrir el archivo
